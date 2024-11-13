@@ -318,7 +318,7 @@
             class="hljs-title class_">Р</span><span class="hljs-title class_">акета</span>
   назва <span class="hljs-literal">текст</span>
   швидкість <span class="hljs-literal">число</span>
-  вага <span class="hljs-literal">число</span>
+  маса <span class="hljs-literal">число</span>
 <span class="hljs-keyword">кінець</span>
 
 <span class="hljs-keyword">дія</span> <span class="hljs-title class_">Р</span><span
@@ -328,12 +328,12 @@
               class="hljs-subst">%(я.назва)</span> запущено!"</span>)
 <span class="hljs-keyword">кінець</span>
 
-ніщо = <span class="hljs-title class_">Р</span><span class="hljs-title class_">акета</span>(назва=<span
-              class="hljs-string">"Ніщо"</span>,
-              швидкість=<span class="hljs-number">1000</span>,
-              вага=<span class="hljs-number">150</span>)
+земля = <span class="hljs-title class_">Р</span><span class="hljs-title class_">акета</span>(назва=<span
+              class="hljs-string">"Земля"</span>,
+               швидкість=<span class="hljs-number">299792458</span>,
+               маса=<span class="hljs-number">1</span>)
 
-ніщо.<span class="hljs-title function_">з</span><span class="hljs-title function_">апустити</span>()</code></pre>
+земля.<span class="hljs-title function_">з</span><span class="hljs-title function_">апустити</span>()</code></pre>
 
           <pre data-server-code="true" data-code-active="false"><code class="hljs мавка"><span
             class="hljs-keyword">взяти</span> <span
@@ -370,9 +370,7 @@
 <span class="hljs-keyword">чекати</span> відповідь = запит.<span class="hljs-title function_">н</span><span
               class="hljs-title function_">адіслати</span>(<span
               class="hljs-string">"0.0.0.0:8080/машини"</span>)
-машини = дід.<span class="hljs-title function_">р</span><span class="hljs-title function_">озібрати</span>&lt;<span
-              class="hljs-literal">список</span>&lt;<span
-              class="hljs-literal">текст</span>&gt;&gt;(<span
+машини = дід.<span class="hljs-title function_">р</span><span class="hljs-title function_">озібрати</span>(<span
               class="hljs-title function_">т</span><span class="hljs-title function_">екст</span>(відповідь.дані))
 
 <span class="hljs-keyword">перебрати</span> машини <span class="hljs-keyword">як</span> машина
