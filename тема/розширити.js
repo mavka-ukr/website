@@ -143,7 +143,7 @@ const mavkaSyntax = () => {
       hljs.COMMENT(";;", "$"),
       {
         scope: "number",
-        begin: /(-?)0ш([АБВГҐДабвгґд0-9])+/
+        begin: /(-?)0ш([АБВГЕДабвгед0-9])+/
       },
       {
         scope: "number",
