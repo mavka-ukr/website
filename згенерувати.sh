@@ -11,3 +11,4 @@ rm -rf ".будування/$VERSION"
 cp -a ресурси index.html 404.html .будування
 докс карта --вхід=.будування --вихід=.будування --домен=мавка.укр
 find .будування -type f -name "*.html" -exec sed -i "s/{{ВЕРСІЯ_МАВКИ}}/$VERSION/g" {} \;
+find .будування -type f -name "*.html" -exec sed -i "s/{{МІТКА_ЧАСУ}}/$(date +%s)/g" {} \;

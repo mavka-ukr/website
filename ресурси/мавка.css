@@ -1001,3 +1001,20 @@ keyword, .MavkaTextKeyword {
   color: #c678dd;
   font-weight: 500;
 }
+
+.MavkaHomeAnnouncement {
+  background: rgb(var(--yellow-rgb));
+  color: rgb(var(--yellow-text-rgb));
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .MavkaHomeAnnouncement {
+    padding-left: 6rem;
+  }
+}
