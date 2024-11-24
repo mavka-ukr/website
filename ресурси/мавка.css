@@ -682,12 +682,12 @@ html.mobile .MavkaHomeHeroSubtitle {
   transform: scale(1.1);
 }
 
-.MavkaHomeHeroButton:active {
+.MavkaHomeHeroButton:active, .MavkaHomeHeroButton.pressed {
   border-radius: 1.6rem;
   font-weight: 400;
 }
 
-.MavkaHomeHeroButton:active svg {
+.MavkaHomeHeroButton:active svg, .MavkaHomeHeroButton.pressed svg {
   transform: scale(0.8) rotate(30deg);
 }
 
