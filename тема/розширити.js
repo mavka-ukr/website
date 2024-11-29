@@ -185,17 +185,48 @@ const theoriaSyntax = () => {
 hljs.registerLanguage("мавка", mavkaSyntax);
 hljs.registerLanguage("теорія", theoriaSyntax);
 
-// const subjectWords = [
-//   "мавка",
-//   "мавки",
-//   "мавці",
-//   "мавку",
-//   "код мавки",
-//   "леся українка",
-//   "лесі українці",
-//   "теорія мавки",
-//   "теорії мавки"
-// ];
-// md.renderer.rules.text = function(tokens, idx, options, env, self) {
-//   return tokens[idx].content.replace(new RegExp(`(?<=[\\s,.:;"']|^)(${subjectWords.join("|")})(?=[\\s,.:;"']|$)`, "gi"), `<span class="XDocsTextSubject">$1</span>`);
-// };
+const tsilSyntax = () => {
+  return {
+    name: "Tsil",
+    aliases: ["tsil"],
+    keywords: {
+      $pattern: /[a-zA-Zа-яА-ЯіІїЇєЄ_ʼ]+/,
+      keyword:
+        "ціль дія зовнішня вернути взяти визначення якщо поки",
+      literal: "пусто так ні",
+      type:
+        "адреса позитивне п32 п64 дійсне д32 д64 ціле ц32 ц64 логічне double float int long short byte char"
+    },
+    unicodeRegex: true,
+    contains: [
+      {
+        begin: [/дія /, /[a-zA-Zа-яА-ЯіІїЇєЄ_ʼ]/, /[a-zA-Zа-яА-ЯіІїЇєЄ_ʼ0-9]*/, /\(/],
+        className: { 2: "title.function", 3: "title.function" }
+      },
+      {
+        begin: [/[a-zA-Zа-яА-ЯіІїЇєЄ_ʼ]/, /[a-zA-Zа-яА-ЯіІїЇєЄ_ʼ0-9]*/, /\(/],
+        className: { 1: "built_in", 2: "built_in" }
+      },
+      {
+        className: "string",
+        begin: /"/,
+        end: /"/
+      },
+      hljs.COMMENT("/\\*", "\\*/"),
+      hljs.COMMENT("//", "$"),
+      {
+        scope: "number",
+        begin: /^([0-9])+/
+      },
+      {
+        scope: "number",
+        begin: /(-?)0ш([АБВГЕДабвгед0-9])+/
+      },
+      {
+        scope: "number",
+        begin: /(-?)0д([01])+/
+      }
+    ]
+  };
+};
+hljs.registerLanguage("ціль", tsilSyntax);
