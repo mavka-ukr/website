@@ -179,6 +179,7 @@ document.querySelectorAll("[data-navigation-light-toggle=true]").forEach((el) =>
 });
 
 let ctrlPressed = false;
+let insideOfAtomContainer = false;
 
 window.addEventListener("keydown", (event) => {
   if (event.key === "Control") {
@@ -196,10 +197,12 @@ const isTouchscreen = "ontouchstart" in window || navigator.maxTouchPoints > 0 |
 
 window.addEventListener("wheel", (event) => {
   if (ctrlPressed) {
-    document.documentElement.style.setProperty("--atom-base-size", `${Math.max(1, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--atom-base-size")) - event.deltaY * 0.05)}%`);
-    document.documentElement.style.setProperty("--atom-base-degree", `${Math.max(1, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--atom-base-size")) - event.deltaY)}deg`);
-    event.preventDefault();
-    event.stopPropagation();
+    if (insideOfAtomContainer) {
+      document.documentElement.style.setProperty("--atom-base-size", `${Math.max(1, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--atom-base-size")) - event.deltaY * 0.05)}%`);
+      document.documentElement.style.setProperty("--atom-base-degree", `${Math.max(1, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--atom-base-size")) - event.deltaY)}deg`);
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 }, { passive: false });
 
@@ -215,6 +218,14 @@ window.addEventListener("mousemove", (event) => {
     document.documentElement.style.setProperty("--mouse-x-degree", `${event.clientX / window.innerWidth * 360}deg`);
     document.documentElement.style.setProperty("--mouse-y-degree", `${event.clientY / window.innerHeight * 360}deg`);
   }
+});
+
+document.querySelector(".MavkaHomeAtomContainer").addEventListener("mouseenter", () => {
+  insideOfAtomContainer = true;
+});
+
+document.querySelector(".MavkaHomeAtomContainer").addEventListener("mouseleave", () => {
+  insideOfAtomContainer = false;
 });
 
 document.querySelector(".MavkaHomeAtomContainer").addEventListener("dblclick", () => {

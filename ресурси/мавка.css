@@ -929,6 +929,161 @@ html.mobile .MavkaHomeFeature + .MavkaHomeFeature {
   margin-top: 3rem;
 }
 
+.MavkaHomeUsecases {
+  margin-top: 100px;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--content-max-width);
+  display: flex;
+  flex-direction: column;
+}
+
+.XDocsCodeWrapper {
+  position: relative;
+  z-index: 1;
+  background: black;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: var(--code-shadow);
+}
+
+.XDocsCodeWrapper pre {
+  margin: 0;
+}
+
+html.mobile .XDocsCodeWrapper {
+  border-radius: 0;
+  padding: 0.5rem 0.5rem;
+}
+
+.MavkaHomeUsecase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.MavkaHomeUsecase {
+  margin-top: 5rem;
+}
+
+.MavkaHomeUsecaseCode {
+  position: relative;
+  max-width: calc(1024px / 2);
+  transform: perspective(1500px) rotateY(16deg) rotateX(16deg) translateY(20%) translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.MavkaHomeUsecaseCode pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.MavkaHomeUsecaseInfo {
+  margin-left: -2rem;
+  padding-right: 3rem;
+  padding-left: 2rem;
+  border-radius: 1rem;
+  /*background-color: rgba(var(--text-rgb), 0.025);*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  box-shadow: var(--code-shadow);
+  transform: perspective(1500px) rotateY(-16deg) rotateX(16deg) translateY(20%) translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+  z-index: -1;
+}
+
+.MavkaHomeUsecaseName {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.MavkaHomeUsecaseDescription {
+  margin-top: 1rem;
+  color: rgb(var(--muted-rgb));
+  text-align: left;
+}
+
+.MavkaHomeUsecase.code-right .MavkaHomeUsecaseName {
+  text-align: right;
+}
+
+.MavkaHomeUsecase.code-right .MavkaHomeUsecaseDescription {
+  text-align: right;
+}
+
+.MavkaHomeUsecase.code-right .MavkaHomeUsecaseInfo {
+  margin-left: 0;
+  margin-right: -2rem;
+  padding-right: 2rem;
+  padding-left: 3rem;
+  border-radius: 1rem;
+  transform: perspective(1500px) rotateY(16deg) rotateX(16deg) translateY(20%) translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.MavkaHomeUsecase.code-right .MavkaHomeUsecaseCode {
+  transform: perspective(1500px) rotateY(-16deg) rotateX(16deg) translateY(20%) translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+@media only screen and (max-width: 1023px) {
+  .MavkaHomeUsecase {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .MavkaHomeUsecaseCode {
+    margin-top: 2rem;
+    max-width: unset;
+    transform: none;
+    width: 100%;
+  }
+  
+  .XDocsCodeWrapper {
+    padding: 0;
+  }
+  
+  .MavkaHomeUsecaseCode pre .hljs {
+  }
+
+  .MavkaHomeUsecaseCode::after {
+    display: none;
+  }
+
+  .MavkaHomeUsecaseInfo {
+    margin-left: 0;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    border-radius: 0;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .MavkaHomeUsecase.code-right {
+    flex-direction: column;
+  }
+
+  .MavkaHomeUsecase.code-right .MavkaHomeUsecaseInfo {
+    margin-right: 0;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    border-radius: 0;
+    transform: none;
+  }
+
+  .MavkaHomeUsecase.code-right .MavkaHomeUsecaseCode {
+    transform: none;
+  }
+}
+
 .MavkaHomeAtomContainer {
   margin-top: 20rem;
   position: relative;
