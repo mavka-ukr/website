@@ -17,30 +17,45 @@ const $commentsBlock = document.querySelector(".XDocsPageContentComments");
 function recreateComments() {
   if ($commentsBlock) {
     const repo = $commentsBlock.dataset.commentsRepo;
-    if (repo) {
+    const repoId = $commentsBlock.dataset.commentsRepoId;
+    const category = $commentsBlock.dataset.commentsCategory;
+    const categoryId = $commentsBlock.dataset.commentsCategoryId;
+    if (repo && repoId && category && categoryId) {
       if ($commentsBlock.innerHTML === "") {
         const $script = document.createElement("script");
-        $script.setAttribute("src", "https://utteranc.es/client.js");
-        $script.setAttribute("repo", repo);
-        $script.setAttribute("issue-term", "title");
+        $script.setAttribute("src", "https://giscus.app/client.js");
+        $script.setAttribute("data-repo", repo);
+        $script.setAttribute("data-repo-id", repoId);
+        $script.setAttribute("data-category", category);
+        $script.setAttribute("data-category-id", categoryId);
+        $script.setAttribute("data-mapping", "title");
+        $script.setAttribute("data-strict", "1");
+        $script.setAttribute("data-reactions-enabled", "0");
+        $script.setAttribute("data-emit-metadata", "0");
+        $script.setAttribute("data-input-position", "bottom");
         if (document.documentElement.classList.contains("dark")) {
-          $script.setAttribute("theme", "github-dark");
+          $script.setAttribute("data-theme", "dark");
         } else {
-          $script.setAttribute("theme", "github-light");
+          $script.setAttribute("data-theme", "light");
         }
+        $script.setAttribute("data-lang", "uk");
         $script.setAttribute("crossorigin", "anonymous");
         $script.setAttribute("async", "");
         $commentsBlock.appendChild($script);
       } else {
-        if (document.querySelector(".utterances-frame")) {
-          const theme = document.documentElement.classList.contains("dark") ? "github-dark" : "github-light";
-          const message = {
-            type: "set-theme",
-            theme: theme
-          };
-          const iframe = document.querySelector(".utterances-frame");
-          iframe.contentWindow.postMessage(message, "https://utteranc.es");
+        const theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+
+        function sendMessage(message) {
+          const iframe = document.querySelector("iframe.giscus-frame");
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, "https://giscus.app");
         }
+
+        sendMessage({
+          setConfig: {
+            theme: theme
+          }
+        });
       }
     }
   }
