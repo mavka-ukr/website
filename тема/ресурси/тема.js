@@ -12,6 +12,40 @@ window.__randomize_color__ = function() {
 };
 window.__randomize_color__();
 
+const $commentsBlock = document.querySelector(".XDocsPageContentComments");
+
+function recreateComments() {
+  if ($commentsBlock) {
+    const repo = $commentsBlock.dataset.commentsRepo;
+    if (repo) {
+      if ($commentsBlock.innerHTML === "") {
+        const $script = document.createElement("script");
+        $script.setAttribute("src", "https://utteranc.es/client.js");
+        $script.setAttribute("repo", repo);
+        $script.setAttribute("issue-term", "title");
+        if (document.documentElement.classList.contains("dark")) {
+          $script.setAttribute("theme", "github-dark");
+        } else {
+          $script.setAttribute("theme", "github-light");
+        }
+        $script.setAttribute("crossorigin", "anonymous");
+        $script.setAttribute("async", "");
+        $commentsBlock.appendChild($script);
+      } else {
+        if (document.querySelector(".utterances-frame")) {
+          const theme = document.documentElement.classList.contains("dark") ? "github-dark" : "github-light";
+          const message = {
+            type: "set-theme",
+            theme: theme
+          };
+          const iframe = document.querySelector(".utterances-frame");
+          iframe.contentWindow.postMessage(message, "https://utteranc.es");
+        }
+      }
+    }
+  }
+}
+
 function enableMobileMode() {
   document.documentElement.classList.add("mobile");
 }
@@ -37,10 +71,12 @@ window.addEventListener("resize", () => {
 
 function enableDarkMode() {
   document.documentElement.classList.add("dark");
+  recreateComments();
 }
 
 function disableDarkMode() {
   document.documentElement.classList.remove("dark");
+  recreateComments();
 }
 
 function checkDarkMode() {

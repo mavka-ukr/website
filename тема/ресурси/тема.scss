@@ -609,7 +609,8 @@ blockquote {
 }
 
 hr {
-  border: 1px dashed rgb(var(--border-rgb));
+  border: none;
+  border-top: 2px dashed rgb(var(--border-rgb));
   margin: 2rem 0;
 
   &.table {
@@ -737,4 +738,9 @@ hr {
       border-bottom-right-radius: 1rem;
     }
   }
+}
+
+.XDocsPageContentComments {
+  border-top: 2px dashed rgb(var(--border-rgb));
+  margin: 2rem 0;
 }
