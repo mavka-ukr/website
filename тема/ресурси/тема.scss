@@ -485,6 +485,25 @@ code:not(.hljs) {
   }
 }
 
+.XDocsCodeChinaWrapper {
+  position: relative;
+}
+
+.XDocsCodeChina {
+  position: absolute;
+  width: 80%;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0%);
+  z-index: -1;
+  opacity: 0.025;
+  user-select: none;
+
+  @at-root html.mobile & {
+    top: 25%;
+  }
+}
+
 .XDocsCodeImages {
   bottom: -0.125rem;
 
