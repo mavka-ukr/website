@@ -970,9 +970,7 @@ html.mobile .XDocsCodeWrapper {
 .MavkaHomeUsecaseCode {
   position: relative;
   max-width: calc(1024px / 2);
-  transform: perspective(1500px) rotateY(16deg) rotateX(16deg) translateY(20%) translateZ(0);
-  backface-visibility: hidden;
-  -webkit-font-smoothing: subpixel-antialiased;
+  transform: translateX(-2rem);
 }
 
 .MavkaHomeUsecaseCode pre {
@@ -990,10 +988,6 @@ html.mobile .XDocsCodeWrapper {
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  box-shadow: var(--code-shadow);
-  transform: perspective(1500px) rotateY(-16deg) rotateX(16deg) translateY(20%) translateZ(0);
-  backface-visibility: hidden;
-  -webkit-font-smoothing: subpixel-antialiased;
   z-index: -1;
 }
 
@@ -1023,19 +1017,15 @@ html.mobile .XDocsCodeWrapper {
   padding-right: 2rem;
   padding-left: 3rem;
   border-radius: 1rem;
-  transform: perspective(1500px) rotateY(16deg) rotateX(16deg) translateY(20%) translateZ(0);
-  backface-visibility: hidden;
-  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .MavkaHomeUsecase.code-right .MavkaHomeUsecaseCode {
-  transform: perspective(1500px) rotateY(-16deg) rotateX(16deg) translateY(20%) translateZ(0);
-  backface-visibility: hidden;
-  -webkit-font-smoothing: subpixel-antialiased;
+  transform: translateX(2rem);
 }
 
 @media only screen and (max-width: 1023px) {
   .MavkaHomeUsecase {
+    margin-top: 2rem;
     display: flex;
     flex-direction: column-reverse;
   }
