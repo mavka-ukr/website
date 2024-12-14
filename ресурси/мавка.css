@@ -827,10 +827,15 @@ html.mobile .MavkaHomeHeroCodeBlockTabs {
   animation: turn 180s infinite linear reverse;
 }
 
+html.dark .MavkaHomeHeroPattern {
+  opacity: 0.1;
+  filter: grayscale(1) drop-shadow(0 0 2px white);
+}
+
 .MavkaHomeHeroPattern.p1 {
   position: absolute;
-  top: 100px;
-  left: 100px;
+  top: 250px;
+  left: 150px;
   height: 500px;
   width: 500px;
 }
@@ -853,7 +858,7 @@ html.mobile .MavkaHomeHeroCodeBlockTabs {
 
 .MavkaHomeHeroPattern.p4 {
   position: absolute;
-  top: 600px;
+  top: 700px;
   left: -220px;
   height: 100px;
   width: 100px;
@@ -861,6 +866,10 @@ html.mobile .MavkaHomeHeroCodeBlockTabs {
 
 html.mobile .MavkaHomeHeroPattern:not(.p1) {
   display: none;
+}
+
+html.mobile .MavkaHomeHeroPattern.p1 {
+  left: 0;
 }
 
 html.mobile .MavkaHomeHero {
