@@ -56,8 +56,8 @@
 
   --code-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
-  --atom-base-size: 350%;
-  --atom-base-degree: 0deg;
+  --way-base-size: 350%;
+  --way-base-degree: 0deg;
   --mouse-x-percentage: 50%;
   --mouse-y-percentage: 50%;
   --scroll-y-percentage: 50%;
@@ -81,7 +81,7 @@
 }
 
 html.mobile {
-  --atom-base-size: 700%;
+  --way-base-size: 700%;
 }
 
 html.dark {
@@ -1083,7 +1083,7 @@ html.mobile .XDocsCodeWrapper {
   }
 }
 
-.MavkaHomeAtomContainer {
+.MavkaHomeWayContainer {
   margin-top: 20rem;
   position: relative;
   overflow: hidden;
@@ -1091,17 +1091,17 @@ html.mobile .XDocsCodeWrapper {
   background-color: black;
 }
 
-html.mobile .MavkaHomeAtomContainer {
+html.mobile .MavkaHomeWayContainer {
   margin-top: 10rem;
 }
 
-.MavkaHomeAtom {
+.MavkaHomeWay {
   position: relative;
   min-height: 120vh;
   background-color: black;
 }
 
-.MavkaHomeAtomImage {
+.MavkaHomeWayImage {
   content: '';
   position: absolute;
   top: 0;
@@ -1113,21 +1113,21 @@ html.mobile .MavkaHomeAtomContainer {
   background-attachment: scroll;
   background-position: calc(45% + var(--mouse-x-percentage) * 0.1) calc(45% + var(--mouse-y-percentage) * 0.1);
   background-repeat: repeat;
-  background-size: calc(var(--atom-base-size) - var(--scroll-y-percentage));
+  background-size: calc(var(--way-base-size) - var(--scroll-y-percentage));
   cursor: none;
 }
 
-html.loaded .MavkaHomeAtomImage {
-  background-image: url("./atom.png");
+html.loaded .MavkaHomeWayImage {
+  background-image: url("шлях.png");
 }
 
 @supports (background-attachment: fixed) {
-  .MavkaHomeAtomImage {
+  .MavkaHomeWayImage {
     background-attachment: fixed;
   }
 }
 
-.MavkaHomeAtomCredits {
+.MavkaHomeWayCredits {
   font-size: 0.8rem;
   text-align: right;
   margin-top: 1rem;
@@ -1136,7 +1136,7 @@ html.loaded .MavkaHomeAtomImage {
   transition: all var(--transition-duration) ease-in-out;
 }
 
-.MavkaHomeAtomCredits:hover {
+.MavkaHomeWayCredits:hover {
   color: rgb(var(--text-rgb));
 }
 
