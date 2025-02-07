@@ -824,7 +824,6 @@ html.mobile .MavkaHomeHeroCodeBlockTabs {
   background-image: url(./мавка.лого.svg);
   opacity: 0.04;
   z-index: 0;
-  animation: turn 180s infinite linear reverse;
 }
 
 html.dark .MavkaHomeHeroPattern {
@@ -838,6 +837,7 @@ html.dark .MavkaHomeHeroPattern {
   left: 150px;
   height: 500px;
   width: 500px;
+  animation: turn 180s infinite linear;
 }
 
 .MavkaHomeHeroPattern.p2 {
@@ -846,6 +846,7 @@ html.dark .MavkaHomeHeroPattern {
   right: -100px;
   height: 50px;
   width: 50px;
+  animation: turn 180s infinite linear reverse;
 }
 
 .MavkaHomeHeroPattern.p3 {
@@ -854,6 +855,7 @@ html.dark .MavkaHomeHeroPattern {
   right: 0px;
   height: 60px;
   width: 60px;
+  animation: turn 180s infinite linear;
 }
 
 .MavkaHomeHeroPattern.p4 {
@@ -862,6 +864,7 @@ html.dark .MavkaHomeHeroPattern {
   left: -220px;
   height: 100px;
   width: 100px;
+  animation: turn 180s infinite linear reverse;
 }
 
 html.mobile .MavkaHomeHeroPattern:not(.p1) {
@@ -907,6 +910,7 @@ html.mobile .MavkaHomeHeroRight {
   align-items: center;
   justify-content: center;
   text-align: center;
+  z-index: 1;
 }
 
 .MavkaHomeFeatureName {
