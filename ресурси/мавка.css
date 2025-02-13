@@ -205,8 +205,8 @@ html.mobile .MavkaNavigation {
 .MavkaNavigationLogoVersion {
   position: absolute;
   left: 120px;
-  top: 1rem;
-  font-size: 0.5rem;
+  top: 0.25rem;
+  font-size: 0.666rem;
 }
 
 html.mobile .MavkaNavigationLogo {
