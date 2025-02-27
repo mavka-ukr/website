@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
-          repository: "mavka-ukr/website-static"
+          repository: "mavka-ukr-static/website-static"
           path: ".будування"
           ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
           persist-credentials: true
@@ -32,6 +32,6 @@ jobs:
         with:
           branch: main
           directory: ".будування"
-          repository: "mavka-ukr/website-static"
+          repository: "mavka-ukr-static/website-static"
           ssh: true
           github_token: ${{ secrets.SSH_DEPLOY_KEY }}
