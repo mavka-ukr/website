@@ -1001,7 +1001,6 @@ html.mobile .XDocsCodeWrapper {
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  z-index: -1;
 }
 
 .MavkaHomeUsecaseName {
@@ -1049,11 +1048,11 @@ html.mobile .XDocsCodeWrapper {
     transform: none;
     width: 100%;
   }
-  
+
   .XDocsCodeWrapper {
     padding: 0;
   }
-  
+
   .MavkaHomeUsecaseCode pre .hljs {
   }
 

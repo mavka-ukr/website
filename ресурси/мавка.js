@@ -94,6 +94,8 @@ window.addEventListener("resize", () => {
 
 window.addEventListener("scroll", () => {
   hideMenu();
+}, {
+  passive: true
 });
 
 window.addEventListener("click", (event) => {
@@ -209,6 +211,8 @@ window.addEventListener("wheel", (event) => {
 window.addEventListener("scroll", (event) => {
   document.documentElement.style.setProperty("--scroll-y-percentage", `${window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100}%`);
   document.documentElement.style.setProperty("--scroll-y-degree", `${window.scrollY / (document.body.scrollHeight - window.innerHeight) * 360}deg`);
+}, {
+  passive: true
 });
 
 window.addEventListener("mousemove", (event) => {
