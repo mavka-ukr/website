@@ -183,21 +183,7 @@ document.querySelectorAll("[data-navigation-light-toggle=true]").forEach((el) =>
 let ctrlPressed = false;
 let insideOfWayContainer = false;
 
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Control") {
-    ctrlPressed = true;
-  }
-});
-
-window.addEventListener("keyup", (event) => {
-  if (event.key === "Control") {
-    ctrlPressed = false;
-  }
-});
-
-const isTouchscreen = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-
-window.addEventListener("wheel", (event) => {
+function handleWheel(event) {
   if (ctrlPressed) {
     if (insideOfWayContainer) {
       document.documentElement.style.setProperty("--way-base-size", `${Math.max(1, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--way-base-size")) - event.deltaY * 0.05)}%`);
@@ -206,7 +192,23 @@ window.addEventListener("wheel", (event) => {
       event.stopPropagation();
     }
   }
-}, { passive: false });
+}
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Control") {
+    ctrlPressed = true;
+    window.addEventListener("wheel", handleWheel, { passive: false });
+  }
+});
+
+window.addEventListener("keyup", (event) => {
+  if (event.key === "Control") {
+    ctrlPressed = false;
+    window.removeEventListener("wheel", handleWheel);
+  }
+});
+
+const isTouchscreen = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
 
 window.addEventListener("scroll", (event) => {
   document.documentElement.style.setProperty("--scroll-y-percentage", `${window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100}%`);
