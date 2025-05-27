@@ -775,3 +775,21 @@ hr {
   margin: 2rem 0;
   padding-top: 1.5rem;
 }
+
+details + details {
+  margin-top: 1rem;
+}
+
+details {
+  border: 1px solid rgb(var(--border-rgb));
+
+  padding: 1rem;
+}
+
+summary {
+  cursor: pointer;
+}
+
+li + li {
+  margin-top: 0.5rem;
+}

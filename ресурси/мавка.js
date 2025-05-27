@@ -297,3 +297,98 @@ document.querySelector(".MavkaNavigationMobileToggle").addEventListener("click",
 window.addEventListener("resize", () => {
   hideMenu();
 });
+
+function getRandomElement(arr) {
+  if (arr.length === 0) {
+    return undefined; // Return undefined for empty arrays
+  }
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
+}
+
+let chasopysArticles = (() => {
+  try {
+    return JSON.parse(localStorage.getItem("chasopysArticles") || "[]");
+  } catch (e) {
+    return [];
+  }
+})();
+let isLoadingChasopysArticles = false;
+let currentChasopysArticle;
+
+function setRandomChasopysArticle() {
+  currentChasopysArticle = getRandomElement(chasopysArticles);
+}
+
+function rerenderChasopysArticle() {
+  if (currentChasopysArticle) {
+    try {
+      document.querySelectorAll("[data-notification-link=true]").forEach((el) => {
+        el.href = `https://часопис.мавка.укр/${currentChasopysArticle["шлях"]}`;
+      });
+      document.querySelectorAll("[data-notification-text=true]").forEach((el) => {
+        el.innerText = currentChasopysArticle["заголовок"];
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
+function areArraysEqualByProperty(arr1, arr2, property) {
+  if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
+    throw new Error("Both arguments must be arrays.");
+  }
+
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i][property] !== arr2[i][property]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function refreshChasopysArticles() {
+  if (isLoadingChasopysArticles) {
+    return;
+  }
+
+  setRandomChasopysArticle();
+  rerenderChasopysArticle();
+
+  isLoadingChasopysArticles = true;
+
+  document.querySelectorAll("[data-notification-link=true]").forEach((el) => {
+    el.classList.add("loading");
+  });
+
+  fetch("https://часопис.мавка.укр/останнє-цікаве.json").then((r) => r.json()).then((articles) => {
+    let oldChasopysArticles = chasopysArticles;
+    chasopysArticles = articles;
+
+    localStorage.setItem("chasopysArticles", JSON.stringify(chasopysArticles));
+
+    if (!areArraysEqualByProperty(oldChasopysArticles, chasopysArticles, "заголовок")) {
+      setRandomChasopysArticle();
+      rerenderChasopysArticle();
+    }
+
+    isLoadingChasopysArticles = false;
+
+    document.querySelectorAll("[data-notification-link=true]").forEach((el) => {
+      el.classList.remove("loading");
+    });
+  }).catch((e) => {
+    console.error(e);
+    document.querySelectorAll("[data-notification-link=true]").forEach((el) => {
+      el.remove();
+    });
+  });
+}
+
+refreshChasopysArticles();

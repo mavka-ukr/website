@@ -159,6 +159,175 @@ pre, code {
   min-height: 100%;
 }
 
+@keyframes skeleton {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.MavkaNotificationDesktop {
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgb(var(--border-rgb));
+  cursor: pointer;
+  transition: all var(--transition-duration) ease-in-out;
+  text-decoration: none;
+  background: rgb(var(--bg-rgb));
+  color: rgb(var(--text-rgb));
+  font-size: 0.8rem;
+  min-height: 44px;
+  height: 44px;
+  max-height: 44px;
+}
+
+.MavkaNotificationDesktopArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.25rem;
+}
+
+.MavkaNotificationDesktopArrow svg {
+  height: 1.25rem;
+}
+
+.MavkaNotificationDesktop.loading {
+  pointer-events: none;
+  cursor: default;
+}
+
+.MavkaNotificationDesktop.loading * {
+  opacity: 0;
+}
+
+.MavkaNotificationDesktop.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+      90deg,
+      rgba(var(--border-rgb), 0) 0,
+      rgba(var(--border-rgb), 0.2) 20%,
+      rgba(var(--border-rgb), 0.5) 60%,
+      rgba(var(--border-rgb), 0)
+  );
+  animation: skeleton 2s infinite;
+}
+
+.MavkaNotificationDesktop:not(.loading):hover {
+  background: rgb(var(--hover-rgb));
+}
+
+.MavkaNotificationDesktop:not(.loading):active {
+  background: rgb(var(--pressed-rgb));
+}
+
+.MavkaNotificationDesktopPrefix {
+  margin-right: 0.5ch;
+}
+
+.MavkaNotificationDesktopText {
+  font-weight: 500;
+}
+
+.MavkaNotificationMobile {
+  position: relative;
+  padding: 1rem 4rem 1rem 2rem;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid rgb(var(--border-rgb));
+  border-bottom: 1px solid rgb(var(--border-rgb));
+  cursor: pointer;
+  transition: all var(--transition-duration) ease-in-out;
+  text-decoration: none;
+  background: rgb(var(--bg-rgb));
+  color: rgb(var(--text-rgb));
+}
+
+.MavkaNotificationMobile:hover {
+  background: rgb(var(--hover-rgb));
+}
+
+.MavkaNotificationMobile:active {
+  background: rgb(var(--pressed-rgb));
+}
+
+.MavkaNotificationMobileHint {
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.MavkaNotificationMobileText {
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+
+.MavkaNotificationMobileButton {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
+}
+
+.MavkaNotificationMobile.loading {
+  pointer-events: none;
+  cursor: default;
+  min-height: 102.6px;
+}
+
+.MavkaNotificationMobile.loading * {
+  opacity: 0;
+}
+
+.MavkaNotificationMobile.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+      90deg,
+      rgba(var(--border-rgb), 0) 0,
+      rgba(var(--border-rgb), 0.2) 20%,
+      rgba(var(--border-rgb), 0.5) 60%,
+      rgba(var(--border-rgb), 0)
+  );
+  animation: skeleton 2s infinite;
+}
+
+.MavkaNotificationMobile:not(.loading):hover {
+  background: rgb(var(--hover-rgb));
+}
+
+.MavkaNotificationMobile:not(.loading):active {
+  background: rgb(var(--pressed-rgb));
+}
+
+html.mobile {
+  .MavkaNotificationDesktop {
+    display: none;
+  }
+
+  .MavkaNotificationMobile {
+    display: flex;
+  }
+}
+
 .MavkaNavigationWrapper {
 }
 
@@ -1087,7 +1256,7 @@ html.mobile .XDocsCodeWrapper {
 }
 
 .MavkaHomeWayContainer {
-  margin-top: 20rem;
+  margin-top: 200px;
   position: relative;
   overflow: hidden;
   min-height: 120vh;
