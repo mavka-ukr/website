@@ -264,6 +264,34 @@ html.mobile [data-hidden-on-mobile=true] {
           background-color: rgb(var(--pressed-rgb));
         }
       }
+      
+      .XDocsPageNavigationFooterTeoButton {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2.5rem;
+        background-color: rgb(var(--bg-rgb));
+        color: rgb(var(--muted-rgb));
+        border: none;
+        //border-left: 1px solid rgb(var(--border-rgb));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        svg {
+          height: 0.8rem;
+        }
+
+        &:hover {
+          background-color: rgb(var(--hover-rgb));
+        }
+
+        &:active {
+          background-color: rgb(var(--pressed-rgb));
+        }
+      }
     }
 
     .XDocsPageNavigationItem {
