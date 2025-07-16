@@ -479,7 +479,7 @@
 
 <span class="hljs-keyword">зовнішня</span> <span class="hljs-keyword">дія</span> <span
     class="hljs-title function_">з</span><span class="hljs-title function_">авантажити_РМв1</span>(Р: <span
-    class="hljs-type">адреса</span>&lt;РМв1::Розширення&gt;): РМв1::ПредметАбоСтанПадіння {
+    class="hljs-type">адреса</span>&lt;РМв1::Розширення&gt;) -> РМв1::ПредметАбоСтанПадіння {
   РМв1::<span class="hljs-built_in">н</span><span class="hljs-built_in">адрукувати</span>(Р, <span
     class="hljs-string">"Вітання з розширення!"</span>);
   <span class="hljs-keyword">вернути</span> <span class="hljs-literal">пусто</span>;
@@ -490,9 +490,8 @@
         <div class="MavkaHomeUsecaseName">Розширюйте!</div>
         <div class="MavkaHomeUsecaseDescription">
           Система розширень Мавки дозволяє писати швидкий нативний код на
-          Цілі або C/C++ і легко підключати його
-          до
-          вашого коду в Мавці.
+          Цілі і легко підключати його до Мавки.
+          <i>(В розробці.)</i>
         </div>
       </div>
     </div>
@@ -503,16 +502,17 @@
           Мавку можна досить просто вбудувати у проєкт. Завдяки своїй простоті та
           динамічності Мавка буде потужним
           інструментом скриптування у ваших проєктах.
+          <i>(В розробці.)</i>
         </div>
       </div>
       <div class="MavkaHomeUsecaseCode">
         <pre><div class="XDocsCodeWrapper"><code class="hljs"><span class="hljs-keyword">взяти</span> <span
           class="hljs-keyword">визначення</span> мавка;
 
-<span class="hljs-keyword">дія</span> <span class="hljs-title function_">с</span><span
-            class="hljs-title function_">тарт</span>(): <span class="hljs-type">ц32</span> {
-  <span class="hljs-keyword">ціль</span> обчислювач = мавка::<span class="hljs-built_in">с</span><span
-            class="hljs-built_in">творити_обчислювач</span>();
+<span class="hljs-keyword">дія</span> <span class="hljs-title function_">з</span><span
+            class="hljs-title function_">апустити_мавку</span>() -> <span class="hljs-type">ц32</span> {
+  <span class="hljs-keyword">змінна</span> М = мавка::<span class="hljs-built_in">с</span><span
+            class="hljs-built_in">творити_машину</span>(/* ... */);
   <span class="hljs-comment">// ...</span>
   <span class="hljs-keyword">вернути</span> <span class="hljs-number">0</span>;
 }
