@@ -50,12 +50,12 @@
         </div>
         Архів
       </a>
-      <a href="https://машина.мавка.укр" class="MavkaNavigationLink">
+      <!-- <a href="https://машина.мавка.укр" class="MavkaNavigationLink">
         <div class="MavkaNavigationLinkIcon">
           <img src="ресурси/машина.лого.svg" alt="">
         </div>
         Машина
-      </a>
+      </a> -->
       <a href="https://часопис.мавка.укр" class="MavkaNavigationLink">
         <div class="MavkaNavigationLinkIcon">
           <img src="./ресурси/часопис.лого.svg" alt="">
@@ -192,10 +192,10 @@
       <img src="./ресурси/ціль.лого.svg" class="MavkaNavigationMobileMenuItemIcon" alt="">
       <span class="MavkaNavigationMobileMenuItemName">Ціль</span>
     </a>
-    <a href="https://машина.мавка.укр" class="MavkaNavigationMobileMenuItem">
+    <!-- <a href="https://машина.мавка.укр" class="MavkaNavigationMobileMenuItem">
       <img src="./ресурси/машина.лого.svg" class="MavkaNavigationMobileMenuItemIcon" alt="">
       <span class="MavkaNavigationMobileMenuItemName">Машина</span>
-    </a>
+    </a> -->
     <a href="https://часопис.мавка.укр" class="MavkaNavigationMobileMenuItem">
       <img src="./ресурси/часопис.лого.svg" class="MavkaNavigationMobileMenuItemIcon" alt="">
       <span class="MavkaNavigationMobileMenuItemName">Часопис</span>
@@ -292,12 +292,11 @@
     <div class="MavkaHomeHeroPattern p4"></div>
 
     <div class="MavkaHomeHeroLeft">
-      <h1 class="MavkaHomeHeroTitle">Сучасна українська мова програмування</h1>
+      <h1 class="MavkaHomeHeroTitle">Сучасна<br>українська мова програмування</h1>
       <h5 class="MavkaHomeHeroSubtitle">
         Мавка - це експериментальна мова
         програмування, що дозволяє кожному
         втілювати ідеї українською мовою.
-        Мавка є першою мовою у своєму роді.
       </h5>
       <div class="MavkaHomeHeroButtons">
         <a href="https://архів.мавка.укр/випуск-мавки-{{ВЕРСІЯ_МАВКИ}}.html"
@@ -332,9 +331,9 @@
           <pre data-rocket-code="true" data-code-active="true"><code class="hljs мавка"><span
             class="hljs-keyword">структура</span> <span
             class="hljs-title class_">Р</span><span class="hljs-title class_">акета</span>
-  назва <span class="hljs-literal">текст</span>
-  швидкість <span class="hljs-literal">число</span>
-  маса <span class="hljs-literal">число</span>
+  назва
+  швидкість
+  маса
 <span class="hljs-keyword">кінець</span>
 
 <span class="hljs-keyword">дія</span> <span class="hljs-title class_">Р</span><span
@@ -347,7 +346,7 @@
 реакція = <span class="hljs-title class_">Р</span><span class="hljs-title class_">акета</span>(назва=<span
               class="hljs-string">"Реакція"</span>,
                  швидкість=<span class="hljs-number">299792458</span>,
-                 маса=<span class="hljs-number">1</span>)
+                 маса=<span class="hljs-literal">ні</span>)
 
 реакція.<span class="hljs-title function_">з</span><span class="hljs-title function_">апустити</span>()</code></pre>
 
@@ -479,10 +478,9 @@
 
 <span class="hljs-keyword">зовнішня</span> <span class="hljs-keyword">дія</span> <span
     class="hljs-title function_">з</span><span class="hljs-title function_">авантажити_РМв1</span>(Р: <span
-    class="hljs-type">адреса</span>&lt;РМв1::Розширення&gt;) -> РМв1::ПредметАбоСтанПадіння {
+    class="hljs-type">адреса</span>&lt;РМв1::Розширення&gt;) {
   РМв1::<span class="hljs-built_in">н</span><span class="hljs-built_in">адрукувати</span>(Р, <span
     class="hljs-string">"Вітання з розширення!"</span>);
-  <span class="hljs-keyword">вернути</span> <span class="hljs-literal">пусто</span>;
 }
 </code></div></pre>
       </div>
@@ -491,7 +489,7 @@
         <div class="MavkaHomeUsecaseDescription">
           Система розширень Мавки дозволяє писати швидкий нативний код на
           Цілі і легко підключати його до Мавки.
-          <i>(В розробці.)</i>
+          <br><i>(В розробці)</i>
         </div>
       </div>
     </div>
@@ -502,7 +500,7 @@
           Мавку можна досить просто вбудувати у проєкт. Завдяки своїй простоті та
           динамічності Мавка буде потужним
           інструментом скриптування у ваших проєктах.
-          <i>(В розробці.)</i>
+          <br><i>(В розробці)</i>
         </div>
       </div>
       <div class="MavkaHomeUsecaseCode">
@@ -512,7 +510,7 @@
 <span class="hljs-keyword">дія</span> <span class="hljs-title function_">з</span><span
             class="hljs-title function_">апустити_мавку</span>() -> <span class="hljs-type">ц32</span> {
   <span class="hljs-keyword">змінна</span> М = мавка::<span class="hljs-built_in">с</span><span
-            class="hljs-built_in">творити_машину</span>(/* ... */);
+            class="hljs-built_in">творити_машину</span>(<span class="hljs-comment">/* ... */</span>);
   <span class="hljs-comment">// ...</span>
   <span class="hljs-keyword">вернути</span> <span class="hljs-number">0</span>;
 }

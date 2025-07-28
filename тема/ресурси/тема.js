@@ -167,7 +167,7 @@ if (document.title.includes("Документація Мавки")) {
 </button>${document.querySelector(".XDocsPageNavigationFooter").innerHTML}`;
 
   document.querySelector(".XDocsPageNavigationFooterTeoButton").addEventListener("click", () => {
-    window.location.href = "./теорія.html";
+    window.location.href = "./ідея.html";
   });
 }
 

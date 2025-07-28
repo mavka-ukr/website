@@ -760,7 +760,7 @@ html.mobile .MavkaHomeHero {
 }
 
 .MavkaHomeHeroLeft {
-  margin-top: -1rem;
+  margin-top: 0rem;
   z-index: 1;
   display: flex;
   flex-direction: column;
