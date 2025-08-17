@@ -8,6 +8,11 @@
   src: url("./FiraCode.ttf") format("truetype");
 }
 
+/* @font-face {
+  font-family: "Дельташрифт";
+  src: url("./Дельташрифт.ttf") format("truetype");
+} */
+
 *, *::before, *::after {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
