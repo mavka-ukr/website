@@ -335,6 +335,13 @@ function rerenderChasopysArticle() {
     } catch (e) {
       console.error(e);
     }
+  } else {
+    document.querySelectorAll("[data-notification-link=true]").forEach((el) => {
+      el.remove();
+    });
+    document.querySelectorAll("[data-notification-text=true]").forEach((el) => {
+      el.remove();
+    });
   }
 }
 
