@@ -198,6 +198,9 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "Control") {
     ctrlPressed = true;
     window.addEventListener("wheel", handleWheel, { passive: false });
+  } else {
+    ctrlPressed = false;
+    window.removeEventListener("wheel", handleWheel);
   }
 });
 
