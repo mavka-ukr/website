@@ -269,7 +269,7 @@ html.mobile [data-hidden-on-mobile=true] {
           background-color: rgb(var(--pressed-rgb));
         }
       }
-      
+
       .XDocsPageNavigationFooterTeoButton {
         position: absolute;
         left: 0;
@@ -499,6 +499,7 @@ code:not(.hljs) {
 
 .hljs {
   background-color: black !important;
+  font-size: 0.9rem;
 
   &::-webkit-scrollbar {
     width: 0.5rem;
