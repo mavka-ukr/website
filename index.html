@@ -346,7 +346,7 @@
 реакція = <span class="hljs-title class_">Р</span><span class="hljs-title class_">акета</span>(назва=<span
               class="hljs-string">"Реакція"</span>,
                  швидкість=<span class="hljs-number">299792458</span>,
-                 маса=<span class="hljs-literal">ні</span>)
+                 маса=<span class="hljs-number">0</span>)
 
 реакція.<span class="hljs-title function_">з</span><span class="hljs-title function_">апустити</span>()</code></pre>
 
@@ -462,7 +462,7 @@
         <pre><div class="XDocsCodeWrapper"><code class="hljs">гаманець = матерія.<span class="hljs-title function_">в</span><span
           class="hljs-title function_">ідкрити_гаманець</span>(<span class="hljs-string">"***"</span>)
 
-<span class="hljs-keyword">спробувати</span> 
+<span class="hljs-keyword">спробувати</span>
   гаманець.<span class="hljs-title function_">н</span><span class="hljs-title function_">адіслати</span>(<span class="hljs-number">6</span>, <span
             class="hljs-string">"Заходь на чай"</span>, отримувач=<span class="hljs-string">"Андромеда"</span>)
 <span class="hljs-keyword">зловити</span> п
@@ -479,7 +479,7 @@
 <span class="hljs-keyword">зовнішня</span> <span class="hljs-keyword">дія</span> <span
     class="hljs-title function_">з</span><span class="hljs-title function_">авантажити_РМв1</span>(Р: <span
     class="hljs-type">адреса</span>&lt;РМв1::Розширення&gt;) {
-  РМв1::<span class="hljs-built_in">н</span><span class="hljs-built_in">адрукувати</span>(Р, <span
+  РМв1::<span class="hljs-title function_">н</span><span class="hljs-title function_">адрукувати</span>(Р, <span
     class="hljs-string">"Вітання з розширення!"</span>);
 }
 </code></div></pre>
@@ -509,8 +509,8 @@
 
 <span class="hljs-keyword">дія</span> <span class="hljs-title function_">з</span><span
             class="hljs-title function_">апустити_мавку</span>() -> <span class="hljs-type">ц32</span> {
-  <span class="hljs-keyword">змінна</span> М = мавка::<span class="hljs-built_in">с</span><span
-            class="hljs-built_in">творити_машину</span>(<span class="hljs-comment">/* ... */</span>);
+  <span class="hljs-keyword">змінна</span> М = мавка::<span class="hljs-title function_">с</span><span
+            class="hljs-title function_">творити_машину</span>(<span class="hljs-comment">/* ... */</span>);
   <span class="hljs-comment">// ...</span>
   <span class="hljs-keyword">вернути</span> <span class="hljs-number">0</span>;
 }
