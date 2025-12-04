@@ -165,7 +165,7 @@ const tsilSyntax = () => {
       },
       {
         begin: [/[a-zA-Zа-яА-ЯіІїЇєЄ_ʼ]/, /[a-zA-Zа-яА-ЯіІїЇєЄ_ʼ0-9]*/, /\(/],
-        className: { 1: "built_in", 2: "built_in" }
+        className: { 1: "title.function", 2: "title.function" }
       },
       {
         className: "string",
