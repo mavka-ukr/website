@@ -56,6 +56,8 @@ const mavkaKeywords = [
   "пак",
   "біб",
   "як",
+
+  "я",
 ];
 
 const mavkaSyntax = () => {
