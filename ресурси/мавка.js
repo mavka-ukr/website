@@ -1,67 +1,125 @@
 function showHelloCode() {
-  document.querySelector(`[data-hello-code="true"]`).dataset.codeActive = "true";
-  document.querySelector(`[data-rocket-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-server-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-request-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-button-show-hello-code="true"]`).classList.add("active");
-  document.querySelector(`[data-button-show-rocket-code="true"]`).classList.remove("active");
-  document.querySelector(`[data-button-show-server-code="true"]`).classList.remove("active");
-  document.querySelector(`[data-button-show-request-code="true"]`).classList.remove("active");
+  document.querySelector(`[data-hello-code="true"]`).dataset.codeActive =
+    "true";
+  document.querySelector(`[data-rocket-code="true"]`).dataset.codeActive =
+    "false";
+  document.querySelector(`[data-server-code="true"]`).dataset.codeActive =
+    "false";
+  document.querySelector(`[data-request-code="true"]`).dataset.codeActive =
+    "false";
+  document
+    .querySelector(`[data-button-show-hello-code="true"]`)
+    .classList.add("active");
+  document
+    .querySelector(`[data-button-show-rocket-code="true"]`)
+    .classList.remove("active");
+  document
+    .querySelector(`[data-button-show-server-code="true"]`)
+    .classList.remove("active");
+  document
+    .querySelector(`[data-button-show-request-code="true"]`)
+    .classList.remove("active");
 }
 
 function showRocketCode() {
-  document.querySelector(`[data-hello-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-rocket-code="true"]`).dataset.codeActive = "true";
-  document.querySelector(`[data-server-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-request-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-button-show-hello-code="true"]`).classList.remove("active");
-  document.querySelector(`[data-button-show-rocket-code="true"]`).classList.add("active");
-  document.querySelector(`[data-button-show-server-code="true"]`).classList.remove("active");
-  document.querySelector(`[data-button-show-request-code="true"]`).classList.remove("active");
+  document.querySelector(`[data-hello-code="true"]`).dataset.codeActive =
+    "false";
+  document.querySelector(`[data-rocket-code="true"]`).dataset.codeActive =
+    "true";
+  document.querySelector(`[data-server-code="true"]`).dataset.codeActive =
+    "false";
+  document.querySelector(`[data-request-code="true"]`).dataset.codeActive =
+    "false";
+  document
+    .querySelector(`[data-button-show-hello-code="true"]`)
+    .classList.remove("active");
+  document
+    .querySelector(`[data-button-show-rocket-code="true"]`)
+    .classList.add("active");
+  document
+    .querySelector(`[data-button-show-server-code="true"]`)
+    .classList.remove("active");
+  document
+    .querySelector(`[data-button-show-request-code="true"]`)
+    .classList.remove("active");
 }
 
 function showServerCode() {
-  document.querySelector(`[data-hello-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-rocket-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-server-code="true"]`).dataset.codeActive = "true";
-  document.querySelector(`[data-request-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-button-show-hello-code="true"]`).classList.remove("active");
-  document.querySelector(`[data-button-show-rocket-code="true"]`).classList.remove("active");
-  document.querySelector(`[data-button-show-server-code="true"]`).classList.add("active");
-  document.querySelector(`[data-button-show-request-code="true"]`).classList.remove("active");
+  document.querySelector(`[data-hello-code="true"]`).dataset.codeActive =
+    "false";
+  document.querySelector(`[data-rocket-code="true"]`).dataset.codeActive =
+    "false";
+  document.querySelector(`[data-server-code="true"]`).dataset.codeActive =
+    "true";
+  document.querySelector(`[data-request-code="true"]`).dataset.codeActive =
+    "false";
+  document
+    .querySelector(`[data-button-show-hello-code="true"]`)
+    .classList.remove("active");
+  document
+    .querySelector(`[data-button-show-rocket-code="true"]`)
+    .classList.remove("active");
+  document
+    .querySelector(`[data-button-show-server-code="true"]`)
+    .classList.add("active");
+  document
+    .querySelector(`[data-button-show-request-code="true"]`)
+    .classList.remove("active");
 }
 
 function showRequestCode() {
-  document.querySelector(`[data-hello-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-rocket-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-server-code="true"]`).dataset.codeActive = "false";
-  document.querySelector(`[data-request-code="true"]`).dataset.codeActive = "true";
-  document.querySelector(`[data-button-show-hello-code="true"]`).classList.remove("active");
-  document.querySelector(`[data-button-show-rocket-code="true"]`).classList.remove("active");
-  document.querySelector(`[data-button-show-server-code="true"]`).classList.remove("active");
-  document.querySelector(`[data-button-show-request-code="true"]`).classList.add("active");
+  document.querySelector(`[data-hello-code="true"]`).dataset.codeActive =
+    "false";
+  document.querySelector(`[data-rocket-code="true"]`).dataset.codeActive =
+    "false";
+  document.querySelector(`[data-server-code="true"]`).dataset.codeActive =
+    "false";
+  document.querySelector(`[data-request-code="true"]`).dataset.codeActive =
+    "true";
+  document
+    .querySelector(`[data-button-show-hello-code="true"]`)
+    .classList.remove("active");
+  document
+    .querySelector(`[data-button-show-rocket-code="true"]`)
+    .classList.remove("active");
+  document
+    .querySelector(`[data-button-show-server-code="true"]`)
+    .classList.remove("active");
+  document
+    .querySelector(`[data-button-show-request-code="true"]`)
+    .classList.add("active");
 }
 
-document.querySelector(`[data-button-show-hello-code="true"]`).addEventListener("click", () => {
-  showHelloCode();
-});
+document
+  .querySelector(`[data-button-show-hello-code="true"]`)
+  .addEventListener("click", () => {
+    showHelloCode();
+  });
 
-document.querySelector(`[data-button-show-rocket-code="true"]`).addEventListener("click", () => {
-  showRocketCode();
-});
+document
+  .querySelector(`[data-button-show-rocket-code="true"]`)
+  .addEventListener("click", () => {
+    showRocketCode();
+  });
 
-document.querySelector(`[data-button-show-server-code="true"]`).addEventListener("click", () => {
-  showServerCode();
-});
+document
+  .querySelector(`[data-button-show-server-code="true"]`)
+  .addEventListener("click", () => {
+    showServerCode();
+  });
 
-document.querySelector(`[data-button-show-request-code="true"]`).addEventListener("click", () => {
-  showRequestCode();
-});
+document
+  .querySelector(`[data-button-show-request-code="true"]`)
+  .addEventListener("click", () => {
+    showRequestCode();
+  });
 
 showRocketCode();
 
 function showMenu() {
-  const menuButton = document.querySelector("[data-navigation-menu-toggle=true]");
+  const menuButton = document.querySelector(
+    "[data-navigation-menu-toggle=true]",
+  );
   menuButton.classList.add("active");
   const buttonLeft = menuButton.getBoundingClientRect().left;
   const buttonTop = menuButton.getBoundingClientRect().top;
@@ -72,34 +130,45 @@ function showMenu() {
 }
 
 function hideMenu() {
-  const menuButton = document.querySelector("[data-navigation-menu-toggle=true]");
+  const menuButton = document.querySelector(
+    "[data-navigation-menu-toggle=true]",
+  );
   menuButton.classList.remove("active");
   const menu = document.querySelector(".MavkaNavigationMenu");
   menu.dataset.hidden = "true";
 }
 
-document.querySelector("[data-navigation-menu-toggle=true]").addEventListener("click", () => {
-  const menu = document.querySelector(".MavkaNavigationMenu");
-  const isHidden = menu.dataset.hidden === "true";
-  if (isHidden) {
-    showMenu();
-  } else {
-    hideMenu();
-  }
-});
+document
+  .querySelector("[data-navigation-menu-toggle=true]")
+  .addEventListener("click", () => {
+    const menu = document.querySelector(".MavkaNavigationMenu");
+    const isHidden = menu.dataset.hidden === "true";
+    if (isHidden) {
+      showMenu();
+    } else {
+      hideMenu();
+    }
+  });
 
 window.addEventListener("resize", () => {
   hideMenu();
 });
 
-window.addEventListener("scroll", () => {
-  hideMenu();
-}, {
-  passive: true
-});
+window.addEventListener(
+  "scroll",
+  () => {
+    hideMenu();
+  },
+  {
+    passive: true,
+  },
+);
 
 window.addEventListener("click", (event) => {
-  if (!event.target.closest(".MavkaNavigationMenu") && !event.target.closest("[data-navigation-menu-toggle=true]")) {
+  if (
+    !event.target.closest(".MavkaNavigationMenu") &&
+    !event.target.closest("[data-navigation-menu-toggle=true]")
+  ) {
     hideMenu();
   }
 });
@@ -126,37 +195,55 @@ function checkDarkMode() {
     } else {
       disableDarkMode();
     }
-    document.querySelectorAll(`[data-navigation-light-toggle-badge-auto=true]`).forEach((el) => {
-      el.style.display = "flex";
-    });
-    document.querySelectorAll(`[data-navigation-light-toggle-badge-yes=true]`).forEach((el) => {
-      el.style.display = "none";
-    });
-    document.querySelectorAll(`[data-navigation-light-toggle-badge-no=true]`).forEach((el) => {
-      el.style.display = "none";
-    });
+    document
+      .querySelectorAll(`[data-navigation-light-toggle-badge-auto=true]`)
+      .forEach((el) => {
+        el.style.display = "flex";
+      });
+    document
+      .querySelectorAll(`[data-navigation-light-toggle-badge-yes=true]`)
+      .forEach((el) => {
+        el.style.display = "none";
+      });
+    document
+      .querySelectorAll(`[data-navigation-light-toggle-badge-no=true]`)
+      .forEach((el) => {
+        el.style.display = "none";
+      });
   } else if (currentMode === "light") {
     disableDarkMode();
-    document.querySelectorAll(`[data-navigation-light-toggle-badge-auto=true]`).forEach((el) => {
-      el.style.display = "none";
-    });
-    document.querySelectorAll(`[data-navigation-light-toggle-badge-yes=true]`).forEach((el) => {
-      el.style.display = "flex";
-    });
-    document.querySelectorAll(`[data-navigation-light-toggle-badge-no=true]`).forEach((el) => {
-      el.style.display = "none";
-    });
+    document
+      .querySelectorAll(`[data-navigation-light-toggle-badge-auto=true]`)
+      .forEach((el) => {
+        el.style.display = "none";
+      });
+    document
+      .querySelectorAll(`[data-navigation-light-toggle-badge-yes=true]`)
+      .forEach((el) => {
+        el.style.display = "flex";
+      });
+    document
+      .querySelectorAll(`[data-navigation-light-toggle-badge-no=true]`)
+      .forEach((el) => {
+        el.style.display = "none";
+      });
   } else if (currentMode === "dark") {
     enableDarkMode();
-    document.querySelectorAll(`[data-navigation-light-toggle-badge-auto=true]`).forEach((el) => {
-      el.style.display = "none";
-    });
-    document.querySelectorAll(`[data-navigation-light-toggle-badge-yes=true]`).forEach((el) => {
-      el.style.display = "none";
-    });
-    document.querySelectorAll(`[data-navigation-light-toggle-badge-no=true]`).forEach((el) => {
-      el.style.display = "flex";
-    });
+    document
+      .querySelectorAll(`[data-navigation-light-toggle-badge-auto=true]`)
+      .forEach((el) => {
+        el.style.display = "none";
+      });
+    document
+      .querySelectorAll(`[data-navigation-light-toggle-badge-yes=true]`)
+      .forEach((el) => {
+        el.style.display = "none";
+      });
+    document
+      .querySelectorAll(`[data-navigation-light-toggle-badge-no=true]`)
+      .forEach((el) => {
+        el.style.display = "flex";
+      });
   }
 }
 
@@ -166,19 +253,28 @@ if (!localStorage.getItem("mavka_ukr_light_mode")) {
 
 checkDarkMode();
 
-document.querySelectorAll("[data-navigation-light-toggle=true]").forEach((el) => {
-  el.addEventListener("click", () => {
-    const currentMode = localStorage.getItem("mavka_ukr_light_mode");
-    if (currentMode === "auto") {
-      localStorage.setItem("mavka_ukr_light_mode", "light");
-    } else if (currentMode === "light") {
-      localStorage.setItem("mavka_ukr_light_mode", "dark");
-    } else {
-      localStorage.setItem("mavka_ukr_light_mode", "auto");
-    }
+const $darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+$darkModeQuery.addEventListener("change", () => {
+  if (localStorage.getItem("mavka_ukr_light_mode") === "auto") {
     checkDarkMode();
-  });
+  }
 });
+
+document
+  .querySelectorAll("[data-navigation-light-toggle=true]")
+  .forEach((el) => {
+    el.addEventListener("click", () => {
+      const currentMode = localStorage.getItem("mavka_ukr_light_mode");
+      if (currentMode === "auto") {
+        localStorage.setItem("mavka_ukr_light_mode", "light");
+      } else if (currentMode === "light") {
+        localStorage.setItem("mavka_ukr_light_mode", "dark");
+      } else {
+        localStorage.setItem("mavka_ukr_light_mode", "auto");
+      }
+      checkDarkMode();
+    });
+  });
 
 let ctrlPressed = false;
 let insideOfWayContainer = false;
@@ -186,8 +282,14 @@ let insideOfWayContainer = false;
 function handleWheel(event) {
   if (ctrlPressed) {
     if (insideOfWayContainer) {
-      document.documentElement.style.setProperty("--way-base-size", `${Math.max(1, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--way-base-size")) - event.deltaY * 0.05)}%`);
-      document.documentElement.style.setProperty("--way-base-degree", `${Math.max(1, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--way-base-size")) - event.deltaY)}deg`);
+      document.documentElement.style.setProperty(
+        "--way-base-size",
+        `${Math.max(1, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--way-base-size")) - event.deltaY * 0.05)}%`,
+      );
+      document.documentElement.style.setProperty(
+        "--way-base-degree",
+        `${Math.max(1, parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--way-base-size")) - event.deltaY)}deg`,
+      );
       event.preventDefault();
       event.stopPropagation();
     }
@@ -211,38 +313,69 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
-const isTouchscreen = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+const isTouchscreen =
+  "ontouchstart" in window ||
+  navigator.maxTouchPoints > 0 ||
+  navigator.msMaxTouchPoints > 0;
 
-window.addEventListener("scroll", (event) => {
-  document.documentElement.style.setProperty("--scroll-y-percentage", `${window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100}%`);
-  document.documentElement.style.setProperty("--scroll-y-degree", `${window.scrollY / (document.body.scrollHeight - window.innerHeight) * 360}deg`);
-}, {
-  passive: true
-});
+window.addEventListener(
+  "scroll",
+  (event) => {
+    document.documentElement.style.setProperty(
+      "--scroll-y-percentage",
+      `${(window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100}%`,
+    );
+    document.documentElement.style.setProperty(
+      "--scroll-y-degree",
+      `${(window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 360}deg`,
+    );
+  },
+  {
+    passive: true,
+  },
+);
 
 window.addEventListener("mousemove", (event) => {
   if (!isTouchscreen) {
-    document.documentElement.style.setProperty("--mouse-x-percentage", `${event.clientX / window.innerWidth * 100}%`);
-    document.documentElement.style.setProperty("--mouse-y-percentage", `${event.clientY / window.innerHeight * 100}%`);
-    document.documentElement.style.setProperty("--mouse-x-degree", `${event.clientX / window.innerWidth * 360}deg`);
-    document.documentElement.style.setProperty("--mouse-y-degree", `${event.clientY / window.innerHeight * 360}deg`);
+    document.documentElement.style.setProperty(
+      "--mouse-x-percentage",
+      `${(event.clientX / window.innerWidth) * 100}%`,
+    );
+    document.documentElement.style.setProperty(
+      "--mouse-y-percentage",
+      `${(event.clientY / window.innerHeight) * 100}%`,
+    );
+    document.documentElement.style.setProperty(
+      "--mouse-x-degree",
+      `${(event.clientX / window.innerWidth) * 360}deg`,
+    );
+    document.documentElement.style.setProperty(
+      "--mouse-y-degree",
+      `${(event.clientY / window.innerHeight) * 360}deg`,
+    );
   }
 });
 
-document.querySelector(".MavkaHomeWayContainer").addEventListener("mouseenter", () => {
-  insideOfWayContainer = true;
-});
+document
+  .querySelector(".MavkaHomeWayContainer")
+  .addEventListener("mouseenter", () => {
+    insideOfWayContainer = true;
+  });
 
-document.querySelector(".MavkaHomeWayContainer").addEventListener("mouseleave", () => {
-  insideOfWayContainer = false;
-});
+document
+  .querySelector(".MavkaHomeWayContainer")
+  .addEventListener("mouseleave", () => {
+    insideOfWayContainer = false;
+  });
 
-document.querySelector(".MavkaHomeWayContainer").addEventListener("dblclick", () => {
-  if (!isTouchscreen) {
-    document.documentElement.style.setProperty("--way-base-size", "350%");
-    document.documentElement.style.setProperty("--way-base-degree", "0deg");
-  }
-});
+document
+  .querySelector(".MavkaHomeWayContainer")
+  .addEventListener("dblclick", () => {
+    if (!isTouchscreen) {
+      document.documentElement.style.setProperty("--way-base-size", "350%");
+      document.documentElement.style.setProperty("--way-base-degree", "0deg");
+    }
+  });
 
 document.documentElement.classList.add("transitions");
 
@@ -287,15 +420,17 @@ function hideMobileMenu() {
   menu.dataset.hidden = "true";
 }
 
-document.querySelector(".MavkaNavigationMobileToggle").addEventListener("click", () => {
-  const menu = document.querySelector(".MavkaNavigationMobileMenu");
-  const isHidden = menu.dataset.hidden === "true";
-  if (isHidden) {
-    showMobileMenu();
-  } else {
-    hideMobileMenu();
-  }
-});
+document
+  .querySelector(".MavkaNavigationMobileToggle")
+  .addEventListener("click", () => {
+    const menu = document.querySelector(".MavkaNavigationMobileMenu");
+    const isHidden = menu.dataset.hidden === "true";
+    if (isHidden) {
+      showMobileMenu();
+    } else {
+      hideMobileMenu();
+    }
+  });
 
 window.addEventListener("resize", () => {
   hideMenu();
@@ -326,12 +461,16 @@ function setRandomChasopysArticle() {
 function rerenderChasopysArticle() {
   if (currentChasopysArticle) {
     try {
-      document.querySelectorAll("[data-notification-link=true]").forEach((el) => {
-        el.href = `https://часопис.мавка.укр/${currentChasopysArticle["шлях"]}`;
-      });
-      document.querySelectorAll("[data-notification-text=true]").forEach((el) => {
-        el.innerText = currentChasopysArticle["заголовок"];
-      });
+      document
+        .querySelectorAll("[data-notification-link=true]")
+        .forEach((el) => {
+          el.href = `https://часопис.мавка.укр/${currentChasopysArticle["шлях"]}`;
+        });
+      document
+        .querySelectorAll("[data-notification-text=true]")
+        .forEach((el) => {
+          el.innerText = currentChasopysArticle["заголовок"];
+        });
     } catch (e) {
       console.error(e);
     }
@@ -377,28 +516,44 @@ function refreshChasopysArticles() {
     el.classList.add("loading");
   });
 
-  fetch("https://часопис.мавка.укр/останнє-цікаве.json").then((r) => r.json()).then((articles) => {
-    let oldChasopysArticles = chasopysArticles;
-    chasopysArticles = articles;
+  fetch("https://часопис.мавка.укр/останнє-цікаве.json")
+    .then((r) => r.json())
+    .then((articles) => {
+      let oldChasopysArticles = chasopysArticles;
+      chasopysArticles = articles;
 
-    localStorage.setItem("chasopysArticles", JSON.stringify(chasopysArticles));
+      localStorage.setItem(
+        "chasopysArticles",
+        JSON.stringify(chasopysArticles),
+      );
 
-    if (!areArraysEqualByProperty(oldChasopysArticles, chasopysArticles, "заголовок")) {
-      setRandomChasopysArticle();
-      rerenderChasopysArticle();
-    }
+      if (
+        !areArraysEqualByProperty(
+          oldChasopysArticles,
+          chasopysArticles,
+          "заголовок",
+        )
+      ) {
+        setRandomChasopysArticle();
+        rerenderChasopysArticle();
+      }
 
-    isLoadingChasopysArticles = false;
+      isLoadingChasopysArticles = false;
 
-    document.querySelectorAll("[data-notification-link=true]").forEach((el) => {
-      el.classList.remove("loading");
+      document
+        .querySelectorAll("[data-notification-link=true]")
+        .forEach((el) => {
+          el.classList.remove("loading");
+        });
+    })
+    .catch((e) => {
+      console.error(e);
+      document
+        .querySelectorAll("[data-notification-link=true]")
+        .forEach((el) => {
+          el.remove();
+        });
     });
-  }).catch((e) => {
-    console.error(e);
-    document.querySelectorAll("[data-notification-link=true]").forEach((el) => {
-      el.remove();
-    });
-  });
 }
 
 refreshChasopysArticles();
