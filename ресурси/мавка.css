@@ -61,7 +61,7 @@
 
   --code-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
-  --way-base-size: 350%;
+  --way-base-size: 200%;
   --way-base-degree: 0deg;
   --mouse-x-percentage: 50%;
   --mouse-y-percentage: 50%;
@@ -86,7 +86,7 @@
 }
 
 html.mobile {
-  --way-base-size: 700%;
+  --way-base-size: 275%;
 }
 
 html.dark {
@@ -1029,7 +1029,7 @@ html.mobile .MavkaHomeHeroCodeBlockTabs {
 
 html.dark .MavkaHomeHeroPattern {
   opacity: 0.1;
-  filter: grayscale(1) drop-shadow(0 0 2px white);
+  filter: grayscale(1) drop-shadow(0 0 1px white);
 }
 
 .MavkaHomeHeroPattern.p1 {
@@ -1292,7 +1292,27 @@ html.mobile .XDocsCodeWrapper {
   position: relative;
   overflow: hidden;
   min-height: 120vh;
-  background-color: black;
+}
+
+.MavkaHomeWayContainer::before,
+.MavkaHomeWayContainer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 25%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.MavkaHomeWayContainer::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgb(var(--bg-rgb)) 0%, rgba(var(--bg-rgb), 0) 100%);
+}
+
+.MavkaHomeWayContainer::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgb(var(--bg-rgb)) 0%, rgba(var(--bg-rgb), 0) 100%);
 }
 
 html.mobile .MavkaHomeWayContainer {
@@ -1302,7 +1322,6 @@ html.mobile .MavkaHomeWayContainer {
 .MavkaHomeWay {
   position: relative;
   min-height: 120vh;
-  background-color: black;
 }
 
 .MavkaHomeWayImage {
@@ -1312,17 +1331,19 @@ html.mobile .MavkaHomeWayContainer {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: black;
   min-height: 120vh;
   background-attachment: scroll;
   background-position: calc(45% + var(--mouse-x-percentage) * 0.1) calc(45% + var(--mouse-y-percentage) * 0.1);
   background-repeat: repeat;
   background-size: calc(var(--way-base-size) - var(--scroll-y-percentage));
+  filter: drop-shadow(0 0 1px white);
   cursor: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 html.loaded .MavkaHomeWayImage {
-  background-image: url("шлях.png");
+  background-image: url("шлях1.svg");
 }
 
 @supports (background-attachment: fixed) {
