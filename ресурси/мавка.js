@@ -464,7 +464,7 @@ function rerenderChasopysArticle() {
       document
         .querySelectorAll("[data-notification-link=true]")
         .forEach((el) => {
-          el.href = `https://часопис.мавка.укр/${currentChasopysArticle["шлях"]}`;
+          el.href = `https://мавка.укр/часопис/${currentChasopysArticle["шлях"]}`;
         });
       document
         .querySelectorAll("[data-notification-text=true]")
@@ -516,7 +516,7 @@ function refreshChasopysArticles() {
     el.classList.add("loading");
   });
 
-  fetch("https://часопис.мавка.укр/останнє-цікаве.json")
+  fetch("https://мавка.укр/часопис/останнє-цікаве.json")
     .then((r) => r.json())
     .then((articles) => {
       let oldChasopysArticles = chasopysArticles;
