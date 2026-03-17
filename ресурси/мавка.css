@@ -715,6 +715,7 @@ html:not(.mobile) .MavkaNavigationMobileMenu[data-hidden=false] {
   display: flex;
   align-content: center;
   justify-content: center;
+  font-family: var(--font-family);
 }
 
 .MavkaNavigationMenuItemRusted {
