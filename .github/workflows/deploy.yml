@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
-          repository: "mavka-ukr-static/website-static"
+          repository: "diysnist-static/mavka-website"
           path: ".будування"
           ssh-key: ${{ secrets.SSH_DEPLOY_KEY }}
           persist-credentials: true
@@ -24,14 +24,14 @@ jobs:
           npm i -g sass
           bash згенерувати.sh
           cd .будування
-          git config --local user.name "kohutd"
-          git config --local user.email "davyd.kohut@gmail.com"
+          git config --local user.name "Дій"
+          git config --local user.email "victoriy.ateniy.sofiy.afrodytiy@proton.me"
           git add .
           git commit -m "🧬"
       - uses: ad-m/github-push-action@master
         with:
           branch: main
           directory: ".будування"
-          repository: "mavka-ukr-static/website-static"
+          repository: "diysnist-static/mavka-website"
           ssh: true
           github_token: ${{ secrets.SSH_DEPLOY_KEY }}
