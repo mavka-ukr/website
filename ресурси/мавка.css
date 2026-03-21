@@ -71,6 +71,8 @@
   --transition-duration: 0;
 
   --content-max-width: 1024px;
+
+  --text-color: rgb(var(--text-rgb));
 }
 
 @media only screen and (max-width: 1100px) {
@@ -1371,6 +1373,16 @@ html.loaded .MavkaHomeWayImage {
   padding: 10rem 1rem 2rem 1rem;
   text-align: center;
   color: rgb(var(--muted-rgb))
+}
+
+.MavkaFooterOrg {
+  margin-top: 2rem;
+}
+
+.MavkaFooter svg {
+  height: auto;
+  width: 100%;
+  max-width: 600px;
 }
 
 subject, .MavkaTextSubject {
