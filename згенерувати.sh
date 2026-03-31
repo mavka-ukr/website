@@ -1,5 +1,14 @@
 #!/usr/bin/env sh
 
+for pkg in xdocs sass; do
+  if ! npm list -g --depth=0 "$pkg" >/dev/null 2>&1; then
+    echo "Installing $pkg globally..."
+    npm install -g "$pkg"
+  else
+    echo "$pkg is already installed globally."
+  fi
+done
+
 VERSION="$(cat "ВЕРСІЯ")"
 
 rm -rf ".будування/$VERSION"
