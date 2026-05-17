@@ -32,10 +32,6 @@ const mavkaKeywords = [
   "інакше",
   "кінець",
 
-  "рівно",
-  "більше",
-  "менше",
-  "містить",
   "є",
   "не",
 
@@ -114,8 +110,8 @@ const mavkaSyntax = () => {
         begin: /'/,
         end: /'/
       },
-      hljs.COMMENT(";\\*", "\\*;"),
-      hljs.COMMENT(";;", "$"),
+      hljs.COMMENT("/\\*", "\\*/"),
+      hljs.COMMENT("//", "$"),
       {
         scope: "number",
         begin: /(-?)0ш([АБВГДЕабвгде0-9])+/
