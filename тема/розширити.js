@@ -110,8 +110,8 @@ const mavkaSyntax = () => {
         begin: /'/,
         end: /'/
       },
-      hljs.COMMENT("/\\*", "\\*/"),
-      hljs.COMMENT("//", "$"),
+      hljs.COMMENT(";\\*", "\\*;"),
+      hljs.COMMENT(";;", "$"),
       {
         scope: "number",
         begin: /(-?)0ш([АБВГДЕабвгде0-9])+/
