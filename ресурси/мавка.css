@@ -13,7 +13,9 @@
   src: url("./Дельташрифт.ttf") format("truetype");
 } */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -106,7 +108,9 @@ html.transitions {
   --transition-duration: 125ms;
 }
 
-html.dark img:not(.no-dark-shadow), html.dark svg:not(.no-dark-shadow), .image-dark-shadow {
+html.dark img:not(.no-dark-shadow),
+html.dark svg:not(.no-dark-shadow),
+.image-dark-shadow {
   filter: drop-shadow(0 0 1px white);
 }
 
@@ -115,7 +119,8 @@ html.dark img:not(.no-dark-shadow), html.dark svg:not(.no-dark-shadow), .image-d
   background-color: rgb(var(--primary-rgb));
 }
 
-html, body {
+html,
+body {
   font-variant-ligatures: none;
   font-feature-settings: "liga" 0;
   width: 100%;
@@ -132,7 +137,8 @@ body {
   overflow-x: hidden;
 }
 
-pre, code {
+pre,
+code {
   font-family: "Fira Code", monospace !important;
   font-weight: 500;
 }
@@ -219,13 +225,11 @@ pre, code {
   left: 0;
   z-index: 1;
   transform: translateX(-100%);
-  background-image: linear-gradient(
-      90deg,
+  background-image: linear-gradient(90deg,
       rgba(var(--border-rgb), 0) 0,
       rgba(var(--border-rgb), 0.2) 20%,
       rgba(var(--border-rgb), 0.5) 60%,
-      rgba(var(--border-rgb), 0)
-  );
+      rgba(var(--border-rgb), 0));
   animation: skeleton 2s infinite;
 }
 
@@ -307,13 +311,11 @@ pre, code {
   left: 0;
   z-index: 1;
   transform: translateX(-100%);
-  background-image: linear-gradient(
-      90deg,
+  background-image: linear-gradient(90deg,
       rgba(var(--border-rgb), 0) 0,
       rgba(var(--border-rgb), 0.2) 20%,
       rgba(var(--border-rgb), 0.5) 60%,
-      rgba(var(--border-rgb), 0)
-  );
+      rgba(var(--border-rgb), 0));
   animation: skeleton 2s infinite;
 }
 
@@ -335,8 +337,7 @@ html.mobile {
   }
 }
 
-.MavkaNavigationWrapper {
-}
+.MavkaNavigationWrapper {}
 
 .MavkaNavigation {
   max-width: var(--content-max-width);
@@ -367,7 +368,7 @@ html.mobile .MavkaNavigation {
   text-decoration: none;
 }
 
-.MavkaNavigationLogo > img {
+.MavkaNavigationLogo>img {
   margin-right: 1rem;
   width: 2rem;
   height: 2rem;
@@ -389,7 +390,7 @@ html.mobile .MavkaNavigationLogo {
   flex-direction: row-reverse;
 }
 
-html.mobile .MavkaNavigationLogo > img {
+html.mobile .MavkaNavigationLogo>img {
   margin-right: 0;
   margin-left: 0.5rem;
 }
@@ -409,7 +410,7 @@ html.mobile .MavkaNavigationLinks {
   display: none;
 }
 
-.MavkaNavigationLink + .MavkaNavigationLink {
+.MavkaNavigationLink+.MavkaNavigationLink {
   margin-left: 1rem;
 }
 
@@ -436,7 +437,8 @@ html.mobile .MavkaNavigationLinks {
   justify-content: center;
 }
 
-.MavkaNavigationLinkIcon > img, .MavkaNavigationLinkIcon > svg {
+.MavkaNavigationLinkIcon>img,
+.MavkaNavigationLinkIcon>svg {
   height: 1em;
 }
 
@@ -452,7 +454,8 @@ html.mobile .MavkaNavigationLinks {
   margin-right: 0;
 }
 
-.MavkaNavigationLink.icon-only:not(.normal-size) .MavkaNavigationLinkIcon > img, .MavkaNavigationLink.icon-only:not(.normal-size) .MavkaNavigationLinkIcon > svg {
+.MavkaNavigationLink.icon-only:not(.normal-size) .MavkaNavigationLinkIcon>img,
+.MavkaNavigationLink.icon-only:not(.normal-size) .MavkaNavigationLinkIcon>svg {
   height: 1.5rem;
 }
 
@@ -645,16 +648,17 @@ html:not(.mobile) .MavkaNavigationMobileMenu[data-hidden=false] {
 }
 
 .MavkaNavigationMenu {
+  --width: 300px;
   position: fixed;
   z-index: 1001;
   top: calc(var(--menu-top) + 60px);
-  left: calc(var(--menu-left) - 400px + 56px);
+  left: calc(var(--menu-left) - var(--width) + 56px);
   background-color: rgb(var(--bg-rgb));
   box-shadow: var(--code-shadow);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   grid-gap: 0.25rem;
-  width: 400px;
+  width: var(--width);
   padding: 0.5rem;
   border-radius: 1rem;
   animation: menu-open var(--transition-duration) ease-in-out;
@@ -666,6 +670,7 @@ html:not(.mobile) .MavkaNavigationMobileMenu[data-hidden=false] {
     opacity: 0;
     transform: scale(0.9);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -850,7 +855,7 @@ html.mobile .MavkaHomeHeroButtons {
   font-size: 0.9rem;
 }
 
-.MavkaHomeHeroButton + .MavkaHomeHeroButton {
+.MavkaHomeHeroButton+.MavkaHomeHeroButton {
   margin-left: 1rem;
 }
 
@@ -887,12 +892,14 @@ html.mobile .MavkaHomeHeroButtons {
   transform: scale(1.1);
 }
 
-.MavkaHomeHeroButton:active, .MavkaHomeHeroButton.pressed {
+.MavkaHomeHeroButton:active,
+.MavkaHomeHeroButton.pressed {
   border-radius: 1.6rem;
   font-weight: 400;
 }
 
-.MavkaHomeHeroButton:active svg, .MavkaHomeHeroButton.pressed svg {
+.MavkaHomeHeroButton:active svg,
+.MavkaHomeHeroButton.pressed svg {
   transform: scale(0.8) rotate(30deg);
 }
 
@@ -949,7 +956,8 @@ html.mobile .MavkaHomeHeroCodeBlock {
   transition: all var(--transition-duration) ease-in-out;
 }
 
-.MavkaHomeHeroCodeBlockButton img, .MavkaHomeHeroCodeBlockButton svg {
+.MavkaHomeHeroCodeBlockButton img,
+.MavkaHomeHeroCodeBlockButton svg {
   margin-right: 0.33rem;
   height: 1em;
 }
@@ -1143,7 +1151,7 @@ html.mobile .MavkaHomeFeatures {
   padding-right: 2rem;
 }
 
-html.mobile .MavkaHomeFeature + .MavkaHomeFeature {
+html.mobile .MavkaHomeFeature+.MavkaHomeFeature {
   margin-top: 3rem;
 }
 
@@ -1258,8 +1266,7 @@ html.mobile .XDocsCodeWrapper {
     padding: 0;
   }
 
-  .MavkaHomeUsecaseCode pre .hljs {
-  }
+  .MavkaHomeUsecaseCode pre .hljs {}
 
   .MavkaHomeUsecaseCode::after {
     display: none;
@@ -1385,12 +1392,14 @@ html.loaded .MavkaHomeWayImage {
   max-width: 600px;
 }
 
-subject, .MavkaTextSubject {
+subject,
+.MavkaTextSubject {
   color: #485cb0;
   font-weight: 500;
 }
 
-keyword, .MavkaTextKeyword {
+keyword,
+.MavkaTextKeyword {
   color: #c678dd;
   font-weight: 500;
 }
