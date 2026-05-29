@@ -648,7 +648,7 @@ html:not(.mobile) .MavkaNavigationMobileMenu[data-hidden=false] {
 }
 
 .MavkaNavigationMenu {
-  --width: 300px;
+  --width: 375px;
   position: fixed;
   z-index: 1001;
   top: calc(var(--menu-top) + 60px);
