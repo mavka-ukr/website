@@ -14,6 +14,14 @@
 // }
 
 :root {
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
   --black-rgb: 0, 0, 0;
   --black-hover-rgb: 10, 10, 10;
   --black-pressed-rgb: 0, 0, 0;
@@ -447,7 +455,7 @@ html.mobile [data-hidden-on-mobile=true] {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 3rem;
+      margin-bottom: var(--space-2xl);
 
       img, svg {
       }
@@ -455,6 +463,16 @@ html.mobile [data-hidden-on-mobile=true] {
 
     h1 {
       text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    h2, h3, h4, h5, h6 {
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+    }
+
+    p {
+      margin-bottom: var(--space-md);
     }
 
     .XDocsPageContentBcFw {
@@ -611,10 +629,10 @@ html.dark .XDocsCodeChina {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-lg);
 
   th, td {
-    padding: 0.5rem;
+    padding: var(--space-md);
     border: 1px solid rgb(var(--border-rgb));
   }
 
@@ -668,19 +686,19 @@ table {
 blockquote {
   background: rgba(var(--blue-rgb), 0.125);
   border-left: 0.25rem solid rgb(var(--blue-rgb));
-  padding: 0.25rem 1rem;
-  margin: 1rem 0;
+  padding: var(--space-xs) var(--space-md);
+  margin: var(--space-md) 0;
 }
 
 hr {
   border: none;
   border-top: 2px dashed rgb(var(--border-rgb));
-  margin: 2rem 0;
+  margin: var(--space-xl) 0;
 
   &.table {
     border: none;
     border-top: 1px solid rgb(var(--border-rgb));
-    margin: 0.5rem 0;
+    margin: var(--space-sm) 0;
   }
 }
 
@@ -806,18 +824,17 @@ hr {
 
 .XDocsPageContentComments {
   border-top: 2px dashed rgb(var(--border-rgb));
-  margin: 2rem 0;
-  padding-top: 1.5rem;
+  margin: var(--space-xl) 0;
+  padding-top: var(--space-lg);
 }
 
 details + details {
-  margin-top: 1rem;
+  margin-top: var(--space-md);
 }
 
 details {
   border: 1px solid rgb(var(--border-rgb));
-
-  padding: 1rem;
+  padding: var(--space-md);
 }
 
 summary {
@@ -825,5 +842,5 @@ summary {
 }
 
 li + li {
-  margin-top: 0.5rem;
+  margin-top: var(--space-sm);
 }
