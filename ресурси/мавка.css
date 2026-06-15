@@ -785,12 +785,99 @@ html.mobile .MavkaHomeHero {
   margin: 0;
 
   font-size: 2.6em;
-  font-weight: 600;
+  font-weight: bold;
   line-height: 1.125;
   z-index: 1;
   text-align: center;
+  font-family: "Jost", sans-serif;
 
   max-width: 15ch;
+}
+
+html.mobile .MavkaHomeHeroTitle {
+  font-size: 2.5em;
+}
+
+.MavkaHomeHeroTitleLetter {
+  display: inline;
+  font-weight: 900;
+  letter-spacing: normal;
+}
+
+html:not(.dark) .MavkaHomeHeroTitleOutline .MavkaHomeHeroTitleLetter {
+  -webkit-text-fill-color: black;
+  color: inherit;
+  -webkit-text-stroke-width: 1px;
+  text-stroke-width: 1px;
+}
+
+.MavkaHomeHeroTitleLetter.red {
+  --color: #B3271A;
+  color: black;
+  -webkit-text-stroke-color: var(--color);
+  text-stroke-color: var(--color);
+}
+
+.MavkaHomeHeroTitleLetter.blue {
+  --color: #375BB6;
+  color: black;
+  -webkit-text-stroke-color: var(--color);
+  text-stroke-color: var(--color);
+}
+
+.MavkaHomeHeroTitleLetter.yellow {
+  --color: #F3D74B;
+  color: black;
+  -webkit-text-stroke-color: var(--color);
+  text-stroke-color: var(--color);
+}
+
+.MavkaHomeHeroTitleLetter.black {
+  --color: rgb(var(--text-rgb));
+  color: black;
+  -webkit-text-stroke-color: var(--color);
+  text-stroke-color: var(--color);
+}
+
+html:not(.dark) .MavkaHomeHeroTitleOutline .MavkaHomeHeroTitleLetter {
+  -webkit-text-fill-color: black;
+  -webkit-text-stroke-width: 0;
+}
+
+.MavkaHomeHeroTitleLetter.anim {
+  animation: colorGlow 500ms ease forwards;
+}
+
+.MavkaHomeHeroTitleOutline .MavkaHomeHeroTitleLetter.anim {
+  animation: outlineGrow 500ms cubic-bezier(.19, 1, .22, 1) forwards;
+}
+
+html.dark .MavkaHomeHeroTitleLetter.anim {
+  animation: outlineGrow 500ms cubic-bezier(.19, 1, .22, 1) forwards;
+}
+
+html.dark .MavkaHomeHeroTitleOutline .MavkaHomeHeroTitleLetter.anim {
+  animation: colorGlow 500ms ease forwards;
+}
+
+@keyframes outlineGrow {
+  0% {
+    -webkit-text-stroke-width: 0;
+  }
+
+  100% {
+    -webkit-text-stroke-width: 1px;
+  }
+}
+
+@keyframes colorGlow {
+  0% {
+    color: black;
+  }
+
+  100% {
+    color: var(--color);
+  }
 }
 
 .MavkaHomeHeroSubtitle {
@@ -877,6 +964,64 @@ html.mobile .MavkaHomeHeroButtons {
   transition: all var(--transition-duration) ease-in-out;
 }
 
+/* .MavkaHomeHeroButton {
+  position: relative;
+  text-decoration: none;
+  z-index: 0;
+}
+
+.MavkaHomeHeroButton::before {
+  --size: 1px;
+
+  content: "";
+  position: absolute;
+  inset: calc(0px - var(--size));
+  border-radius: 1rem;
+  pointer-events: none;
+
+  background: conic-gradient(from 0deg,
+      #375BB6,
+      #F3D74B,
+      #B3271A,
+      #375BB6);
+
+  padding: var(--size);
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0;
+  transition: all var(--transition-duration) ease-in-out;
+}
+
+.MavkaHomeHeroButton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgb(var(--text-rgb));
+  z-index: -1;
+}
+
+.MavkaHomeHeroButton.ai-highlight::before {
+  opacity: 1;
+  animation: ringFlow 2.2s linear infinite;
+}
+
+@keyframes ringFlow {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  100% {
+    filter: hue-rotate(360deg);
+  }
+} */
+
 .MavkaHomeHeroButton svg {
   margin-left: 0.5rem;
   height: 1em;
@@ -888,6 +1033,11 @@ html.mobile .MavkaHomeHeroButtons {
   font-weight: 600;
 }
 
+.MavkaHomeHeroButton:hover::before {
+  --size: 2px;
+  border-radius: 0.4rem;
+}
+
 .MavkaHomeHeroButton:hover svg {
   transform: scale(1.1);
 }
@@ -896,6 +1046,12 @@ html.mobile .MavkaHomeHeroButtons {
 .MavkaHomeHeroButton.pressed {
   border-radius: 1.6rem;
   font-weight: 400;
+}
+
+.MavkaHomeHeroButton:active::before,
+.MavkaHomeHeroButton.pressed::before {
+  --size: 0px;
+  border-radius: 1.7rem;
 }
 
 .MavkaHomeHeroButton:active svg,
@@ -1020,7 +1176,7 @@ html.mobile .MavkaHomeHeroCodeBlockTabs {
 }
 
 .MavkaHomeHeroCodeBlockTab.active {
-  background: #9d3425;
+  background: #B3271A;
   color: rgb(var(--bg-rgb));
 }
 
