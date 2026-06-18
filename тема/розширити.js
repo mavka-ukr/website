@@ -21,7 +21,7 @@ md.options.highlight = (str, lang) => {
 
 const mavkaKeywords = [
   "дія",
-  "структура",
+  "клас",
   "модуль",
   "спробувати",
   "зловити",
