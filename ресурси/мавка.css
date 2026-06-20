@@ -1191,12 +1191,12 @@ html.mobile .MavkaHomeHeroCodeBlockTabs {
   background-size: 100%;
   filter: grayscale(1);
   background-image: url(./мавка.лого.svg);
-  opacity: 0.04;
+  opacity: 0.1;
   z-index: 0;
 }
 
 html.dark .MavkaHomeHeroPattern {
-  opacity: 0.1;
+  opacity: 0.2;
   filter: grayscale(1) drop-shadow(0 0 1px white);
 }
 
