@@ -1293,6 +1293,33 @@ html.mobile .MavkaHomeHeroRight {
   color: rgb(var(--muted-rgb));
 }
 
+.MavkaHomeFeatureDescriptionInfo {
+  font-size: 0.8rem;
+  cursor: default;
+}
+
+.MavkaHomeTooltip {
+  position: absolute;
+  background-color: rgb(var(--bg-rgb));
+  color: rgb(var(--text-rgb));
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+
+  white-space: normal;
+  word-wrap: break-word;
+
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  z-index: 1000;
+  box-shadow: var(--code-shadow);
+}
+
+.MavkaHomeTooltip.visible {
+  opacity: 1;
+}
+
 .MavkaHomeFeatureIcon {
   font-size: 4rem;
 }

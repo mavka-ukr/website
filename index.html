@@ -564,7 +564,8 @@
           <div class="MavkaHomeFeatureIcon">🤤</div>
           <div class="MavkaHomeFeatureName">Швидка</div>
           <div class="MavkaHomeFeatureDescription">
-            Залежно від машини, виконання Мавки може бути досить швидким.
+            Залежно від виконувача, виконання Мавки може бути досить швидким.
+            <span data-tooltip="Мавка націлена на те, щоб бути на стільки швидкою, на скільки це можливо. Але найперше Мавка має бути зручною." class="MavkaHomeFeatureDescriptionInfo">&#128712;</span>
           </div>
         </div>
         <div class="MavkaHomeFeature">
@@ -667,6 +668,61 @@
             el.classList.add('anim');
           });
         }, 250)
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        let tooltipBox = null;
+
+        document.addEventListener('mouseover', (e) => {
+          const target = e.target.closest('[data-tooltip]');
+          if (!target) return;
+
+          if (!tooltipBox) {
+            tooltipBox = document.createElement('div');
+            tooltipBox.className = 'MavkaHomeTooltip';
+            document.body.appendChild(tooltipBox);
+          }
+
+          tooltipBox.textContent = target.getAttribute('data-tooltip');
+
+          const padding = 16;
+          const maxTooltipWidth = 300;
+          const availableScreenWidth = window.innerWidth - (padding * 2);
+
+          tooltipBox.style.maxWidth = `${Math.min(maxTooltipWidth, availableScreenWidth)}px`;
+
+          tooltipBox.classList.add('visible');
+
+          const targetRect = target.getBoundingClientRect();
+          const tooltipWidth = tooltipBox.offsetWidth;
+          const tooltipHeight = tooltipBox.offsetHeight;
+          const spacing = 8;
+
+          let top = targetRect.top - tooltipHeight - spacing;
+          let left = targetRect.left + (targetRect.width / 2) - (tooltipWidth / 2);
+
+          if (top < padding) {
+            top = targetRect.bottom + spacing;
+          }
+
+          if (left < padding) {
+            left = padding;
+          }
+          const rightEdge = window.innerWidth - tooltipWidth - padding;
+          if (left > rightEdge) {
+            left = rightEdge;
+          }
+
+          tooltipBox.style.top = `${top + window.scrollY}px`;
+          tooltipBox.style.left = `${left + window.scrollX}px`;
+        });
+
+        document.addEventListener('mouseout', (e) => {
+          const target = e.target.closest('[data-tooltip]');
+          if (!target || !tooltipBox) return;
+
+          tooltipBox.classList.remove('visible');
+        });
       });
     </script>
   </body>
