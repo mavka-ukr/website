@@ -78,7 +78,8 @@ const mavkaSyntax = () => {
         className: { 1: "title.function", 2: "title.function" }
       },
       {
-        begin: [/(^| |\[|\(|,)/, /[0-9]+(\.[0-9]+)?/, /(\.\.=?)/, /[0-9]+(\.[0-9]+)?/, /( |\]|\)|,|$)/],
+        // Range matcher supporting scientific numbers
+        begin: [/(^| |\[|\(|,)/, /[0-9]+(\.[0-9]+)?([еЕ][+-]?[0-9]+)?/, /(\.\.=?)/, /[0-9]+(\.[0-9]+)?([еЕ][+-]?[0-9]+)?/, /( |\]|\)|,|$)/],
         className: { 2: "number", 4: "number" }
       },
       {
@@ -114,19 +115,13 @@ const mavkaSyntax = () => {
       hljs.COMMENT(";;", "$"),
       {
         scope: "number",
-        begin: /(-?)0ш([АБВГДЕабвгде0-9])+/
-      },
-      {
-        scope: "number",
-        begin: /(-?)0д([01])+/
-      },
-      {
-        scope: "number",
-        begin: /(?<![a-zA-Zа-яА-ЯіІїЇєЄ_ʼ0-9])[0-9]+(\.[0-9]+)?(?![a-zA-Zа-яА-ЯіІїЇєЄ_ʼ0-9])/
+        // Kept as a single regex object to avoid beginScope/array mismatches
+        begin: /(?<![a-zA-Zа-яА-ЯіІїЇєЄ_ʼ0-9])[0-9]+(\.[0-9]+)?([еЕ][+-]?[0-9]+)?(?![a-zA-Zа-яА-ЯіІїЇєЄ_ʼ0-9])/
       }
     ]
   };
 };
+
 const theoriaSyntax = () => {
   return {
     name: "Theoria",
