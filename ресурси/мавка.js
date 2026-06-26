@@ -19,6 +19,8 @@ function showHelloCode() {
   document
     .querySelector(`[data-button-show-request-code="true"]`)
     .classList.remove("active");
+
+  document.querySelector('.MavkaHomeHeroCodeBlockButtons').classList.remove('hidden');
 }
 
 function showRocketCode() {
@@ -42,6 +44,8 @@ function showRocketCode() {
   document
     .querySelector(`[data-button-show-request-code="true"]`)
     .classList.remove("active");
+
+  document.querySelector('.MavkaHomeHeroCodeBlockButtons').classList.remove('hidden');
 }
 
 function showServerCode() {
@@ -65,6 +69,8 @@ function showServerCode() {
   document
     .querySelector(`[data-button-show-request-code="true"]`)
     .classList.remove("active");
+
+  document.querySelector('.MavkaHomeHeroCodeBlockButtons').classList.remove('hidden');
 }
 
 function showRequestCode() {
@@ -88,6 +94,12 @@ function showRequestCode() {
   document
     .querySelector(`[data-button-show-request-code="true"]`)
     .classList.add("active");
+
+  document.querySelector('.MavkaHomeHeroCodeBlockButtons').classList.add('hidden');
+
+  setTimeout(() => {
+    document.querySelector(`[data-request-code="true"]`).querySelector('iframe').contentWindow.postMessage("FOCUS", "*");
+  }, 100)
 }
 
 document

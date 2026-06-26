@@ -1101,6 +1101,10 @@ html.mobile .MavkaHomeHeroCodeBlock {
   display: flex;
 }
 
+.MavkaHomeHeroCodeBlockButtons.hidden {
+  display: none;
+}
+
 .MavkaHomeHeroCodeBlockButton {
   font-size: 0.8rem;
   display: flex;
@@ -1178,6 +1182,13 @@ html.mobile .MavkaHomeHeroCodeBlockTabs {
 .MavkaHomeHeroCodeBlockTab.active {
   background: #B3271A;
   color: rgb(var(--bg-rgb));
+}
+
+.MavkaHomeHeroCodeBlock iframe {
+  padding: 6px;
+  width: 100%;
+  height: calc(327px + 32px + 8px);
+  border: none;
 }
 
 @keyframes turn {
