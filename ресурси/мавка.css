@@ -1423,6 +1423,10 @@ html.mobile .XDocsCodeWrapper {
   text-align: left;
 }
 
+.MavkaHomeUsecaseDescription a {
+  color: inherit;
+}
+
 .MavkaHomeUsecase.code-right .MavkaHomeUsecaseName {
   text-align: right;
 }
