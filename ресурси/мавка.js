@@ -568,4 +568,4 @@ function refreshChasopysArticles() {
     });
 }
 
-refreshChasopysArticles();
+// refreshChasopysArticles();
