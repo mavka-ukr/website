@@ -1066,7 +1066,7 @@ html.mobile .MavkaHomeHeroButtons {
 
 .MavkaHomeHeroRight {
   margin-top: -0.5rem;
-  max-width: 446px;
+  max-width: 430px;
   grid-column-start: 1;
   grid-row-start: 1;
 }

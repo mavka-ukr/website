@@ -449,27 +449,22 @@
               <pre
                 data-rocket-code="true"
                 data-code-active="true"
-              ><code class="hljs мавка"><span
-            class="hljs-keyword">клас</span> <span
-            class="hljs-title class_">Р</span><span class="hljs-title class_">акета</span>
+              ><code class="hljs"><span class="hljs-keyword">клас</span><span class="hljs-title class_"> Планета</span>
   назва
-  швидкість
-  заряд
+  маса
+  радіус
 <span class="hljs-keyword">кінець</span>
 
-<span class="hljs-keyword">дія</span> <span class="hljs-title class_">Р</span><span
-              class="hljs-title class_">акета</span>.<span class="hljs-title function_">з</span><span
-              class="hljs-title function_">апустити</span>()
-  <span class="hljs-title function_">д</span><span class="hljs-title function_">рук</span>(<span class="hljs-string">"Ракету <span
-              class="hljs-subst">%(я.назва)</span> запущено!"</span>)
+<span class="hljs-keyword">дія</span><span class="hljs-title class_"> Планета</span>.<span class="hljs-title function_">с</span><span class="hljs-title function_">ила_тяжіння</span>(м)
+  м * (<span class="hljs-number">6.6743е-11</span> * (<span class="hljs-keyword">я</span>.маса / (<span class="hljs-keyword">я</span>.радіус ** <span class="hljs-number">2</span>)))
 <span class="hljs-keyword">кінець</span>
 
-вікторія = <span class="hljs-title class_">Р</span><span class="hljs-title class_">акета</span>(назва=<span
-              class="hljs-string">"Вікторія"</span>,
-                  швидкість=<span class="hljs-number">299792458</span>,
-                  заряд=<span class="hljs-literal">дійсне</span>)
+земля = <span class="hljs-title class_">П</span><span class="hljs-title class_">ланета</span>(назва=<span class="hljs-string">"Земля"</span>,
+                маса=<span class="hljs-number">5.972е24</span>,
+                радіус=<span class="hljs-number">6371000</span>)
 
-вікторія.<span class="hljs-title function_">з</span><span class="hljs-title function_">апустити</span>()</code></pre>
+<span class="hljs-title function_">д</span><span class="hljs-title function_">рук</span>(земля.<span class="hljs-title function_">с</span><span class="hljs-title function_">ила_тяжіння</span>(<span class="hljs-number">65</span>))
+</code></pre>
 
               <pre
                 data-server-code="true"
@@ -515,7 +510,7 @@
                 data-button-show-rocket-code="true"
                 class="MavkaHomeHeroCodeBlockTab active"
               >
-                ракета.м
+                планета.м
               </button>
               <button
                 data-button-show-server-code="true"
