@@ -24,8 +24,8 @@ jobs:
           npm i -g sass
           bash згенерувати.sh
           cd .будування
-          git config --local user.name "Дій"
-          git config --local user.email "victoriy.ateniy.sofiy.afrodytiy@proton.me"
+          git config --local user.name "КДБ"
+          git config --local user.email "prykhozhdenko@gmail.com"
           git add .
           git commit -m "🧬"
       - uses: ad-m/github-push-action@master
