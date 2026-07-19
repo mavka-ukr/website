@@ -1,4 +1,5 @@
 User-agent: *
 Disallow: /організація/
+Disallow: /*/ресурси/search.html
 
 Sitemap: https://xn--80aaf6ah.xn--j1amh/sitemap.xml
