@@ -22,5 +22,8 @@ rm -rf ".будування/версії/$VERSION"
 докс перетворити --вхід=часопис --вихід=".будування/часопис" --вигляд=тема
 cp -a ресурси index.html 404.html .xdocssitemapignore robots.txt .будування
 докс карта --вхід=.будування --вихід=.будування --домен=мавка.укр
-find .будування -type f -name "*.html" -exec sed -i "s/{{ВЕРСІЯ_МАВКИ}}/$VERSION/g" {} \;
 find .будування -type f -name "*.html" -exec sed -i "s/{{МІТКА_ЧАСУ}}/$(date +%s)/g" {} \;
+find .будування -type f -name "*.html" -exec sed -i "s/{{ВЕРСІЯ_МАВКИ}}/$VERSION/g" {} \;
+
+find .будування/версії -type f -name "*.html" -exec sed -i "s/{{ВЕРСІЯ_МАВКИ_УМОВНО}}/ $VERSION/g" {} \;
+find .будування/документація -type f -name "*.html" -exec sed -i "s/{{ВЕРСІЯ_МАВКИ_УМОВНО}}//g" {} \;
