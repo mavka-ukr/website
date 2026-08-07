@@ -350,6 +350,16 @@ html.mobile {
   height: 80px;
 }
 
+.MavkaNavigationX {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+html.mobile .MavkaNavigationX {
+  justify-content: flex-end;
+}
+
 html.mobile .MavkaNavigation {
   display: flex;
   align-items: center;
