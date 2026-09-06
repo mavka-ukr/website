@@ -1093,11 +1093,7 @@
 <span class="hljs-keyword">кінець</span>
 </code></pre>
 
-              <div data-request-code="true" data-code-active="false">
-                <iframe
-                  src="https://веб.мавка.укр/?в={{ВЕРСІЯ_МАВКИ}}&тема=темна&рядки=%5B%222%20%2B%208%22%2C%222%20-%208%22%2C%222%20*%208%22%2C%222%20%2F%208%22%2C%222%20%25%208%22%2C%222%20**%208%22%5D"
-                ></iframe>
-              </div>
+              <div data-request-code="true" data-code-active="false"></div>
 
               <div class="MavkaHomeHeroCodeBlockButtons">
                 <a
@@ -1345,6 +1341,12 @@
         document.querySelector(
           `[data-request-code="true"]`,
         ).dataset.codeActive = "true";
+        if (!document.querySelector(`[data-request-code="true"] iframe`)) {
+          document.querySelector(`[data-request-code="true"]`).innerHTML +=
+            `<iframe
+                  src="https://веб.мавка.укр/?в={{ВЕРСІЯ_МАВКИ}}&тема=темна&рядки=%5B%222%20%2B%208%22%2C%222%20-%208%22%2C%222%20*%208%22%2C%222%20%2F%208%22%2C%222%20%25%208%22%2C%222%20**%208%22%5D"
+                ></iframe>`;
+        }
         document
           .querySelector(`[data-button-show-hello-code="true"]`)
           .classList.remove("active");
