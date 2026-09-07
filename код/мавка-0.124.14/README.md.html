@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.GqHLwcRUeA/мавка-0.124.14/README.md</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#79C0FF;font-weight:bold"># Мавка</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Сучасна українська мова програмування.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF;font-weight:bold">## Будування</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Треба:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#E6EDF3"> GNU/Linux</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#E6EDF3"> Ціль </span><span style="color:#E6EDF3;font-style:italic">_0.64.0_</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#E6EDF3"> Zig </span><span style="color:#E6EDF3;font-style:italic">_0.15.2_</span><span style="color:#E6EDF3"> (необовʼязково на і для </span><span style="color:#79C0FF">`linux-x86_64`</span><span style="color:#E6EDF3">, необхідно для "кроскомпіляції")</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">```shell</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> debug</span><span style="color:#A5D6FF"> linux-x86_64</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">./будування/</span><span style="color:#A5D6FF">{ВЕРСІЯ}</span><span style="color:#FFA657">/лінукс-ікс86_64/готове/мавка</span></span>
+<span class="line"><span style="color:#E6EDF3">```</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Будування відбувається лише через GNU/Linux, так як Ціль наразі доступна лише там.</span></span>
+<span class="line"><span style="color:#E6EDF3">Мавку можна збудувати на різні платформи, але працездатність перевіряється насамперед на </span><span style="color:#79C0FF">`linux-x86_64`</span><span style="color:#E6EDF3">.</span></span>
+<span class="line"><span style="color:#E6EDF3">Можливості на платформах відмінних від </span><span style="color:#79C0FF">`linux-x86_64`</span><span style="color:#E6EDF3"> можуть бути обмеженими.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Доступні режими будування:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `debug`</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `release`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Доступні платформи будування:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `linux-x86_64`</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `linux-aarch64`</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `macos-x86_64`</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `macos-aarch64`</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `windows-x86_64`</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `windows-aarch64`</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `android-aarch64`</span></span>
+<span class="line"><span style="color:#FFA657">-</span><span style="color:#79C0FF"> `wasm64`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Для будування для Android треба вказати </span><span style="color:#E6EDF3;font-weight:bold">**повний**</span><span style="color:#E6EDF3"> шлях до [</span><span style="color:#A5D6FF">NDK</span><span style="color:#E6EDF3">](</span><span style="color:#E6EDF3;text-decoration:underline">https://developer.android.com/ndk/downloads</span><span style="color:#E6EDF3">):</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">```</span></span>
+<span class="line"><span style="color:#E6EDF3">ANDROID_NDK_HOME="/home/kohutd/Android/android-ndk-r27d" bash scripts/build.sh debug android-aarch64</span></span>
+<span class="line"><span style="color:#E6EDF3">```</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Перед будуванням можна завантажити додаткові бібліотеки за допомогою:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">```</span></span>
+<span class="line"><span style="color:#E6EDF3">bash scripts/download_libs.sh</span></span>
+<span class="line"><span style="color:#E6EDF3">```</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Для платформ </span><span style="color:#79C0FF">`linux`</span><span style="color:#E6EDF3"> та </span><span style="color:#79C0FF">`android`</span><span style="color:#E6EDF3"> буде збудовано з нуля </span><span style="color:#79C0FF">`ncurses`</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">`readline`</span><span style="color:#E6EDF3"> та </span><span style="color:#79C0FF">`idn2`</span><span style="color:#E6EDF3">, але якщо архіви не завантажені, вони не будуть збиратись і не будуть включені в Мавку.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF;font-weight:bold">## Розробка</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Мавку написано мовою Ціль. Але.</span></span>
+<span class="line"><span style="color:#E6EDF3">Деякі частини, такі як взаємодія з операційною системою (Linux/MacOS/Windows), написані мовою </span><span style="color:#E6EDF3;font-style:italic">_C (eng)_</span><span style="color:#E6EDF3"> (зараз зробити інакше не вийде).</span></span>
+<span class="line"><span style="color:#E6EDF3">Тому під час розробки це треба мати наувазі - використання </span><span style="color:#E6EDF3;font-style:italic">_C (eng)_</span><span style="color:#E6EDF3"> лише для крайньої необхідності.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Усі файли, що написані мовою </span><span style="color:#E6EDF3;font-style:italic">_C (eng)_</span><span style="color:#E6EDF3">, розташовуються в папці </span><span style="color:#79C0FF">`external`</span><span style="color:#E6EDF3"> та підпапках відповідно до ОС.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Мавка, як і Ціль, майже не використовує Unicode - лише у випадках, де без нього не обійтись.</span></span>
+<span class="line"><span style="color:#E6EDF3">Натомість використовується [</span><span style="color:#A5D6FF">Дієкод</span><span style="color:#E6EDF3">](</span><span style="color:#E6EDF3;text-decoration:underline">https://xn--80aaf6ah.xn--j1amh/%D1%87%D0%B0%D1%81%D0%BE%D0%BF%D0%B8%D1%81/2025-01-03-%D0%B4%D1%96%D1%94%D0%BA%D0%BE%D0%B4.html</span><span style="color:#E6EDF3">).</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">По причині того, що всі сучасні редактори і ОС за замовчуванням зберігають текстові файли використовуючи Unicode,</span></span>
+<span class="line"><span style="color:#E6EDF3">у Мавці на вхід передаються саме Unicode-файли (UTF-8),</span></span>
+<span class="line"><span style="color:#E6EDF3">але вони надалі перекодовуються в Дієкод. І вже під час розбору (і далі) Unicode не використовується.</span></span>
+<span class="line"><span style="color:#E6EDF3">По-суті, Unicode використовується лише для входу і виходу в ОС. Цього позбутись, щонайменше на Linux/MacOS/Windows, не вийде.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">ДУЖЕ ВАЖЛИВО: так як Ціль ще не має досконалої підтримки зовнішніх дій для взаємодії з </span><span style="color:#E6EDF3;font-style:italic">_C (eng)_</span><span style="color:#E6EDF3">, усі значення які передаються через аргументи</span></span>
+<span class="line"><span style="color:#E6EDF3">мають бути рівно 64 біт!</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF;font-weight:bold">## Тестування</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">Запустити тести:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">```shell</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/test.sh</span><span style="color:#FF7B72"> &#x3C;</span><span style="color:#A5D6FF">шлях_до_мавк</span><span style="color:#E6EDF3">и</span><span style="color:#FF7B72">></span></span>
+<span class="line"><span style="color:#E6EDF3">```</span></span>
+<span class="line"></span></code></pre>
+</body>
+</html>

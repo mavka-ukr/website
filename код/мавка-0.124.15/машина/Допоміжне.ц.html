@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Yq3Ae32EiS/мавка-0.124.15/машина/Допоміжне.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти означення</span><span style="color:#E6EDF3"> мавка/машина;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти означення</span><span style="color:#E6EDF3"> мавка/розбирач;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> розібрати_число_з_кд(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, вихід: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">>) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> відʼємне = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> результат = </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0.0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> знак = </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.дані[п] == мавка::розбирач::КД_РИСКА { </span><span style="color:#8B949E">// -</span></span>
+<span class="line"><span style="color:#E6EDF3">      відʼємне = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    знак = значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; значення.розмір {</span></span>
+<span class="line"><span style="color:#E6EDF3">      знак = значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> знак >= мавка::розбирач::КД_0 </span><span style="color:#FF7B72">і</span><span style="color:#E6EDF3"> знак &#x3C;= мавка::розбирач::КД_9 {</span></span>
+<span class="line"><span style="color:#E6EDF3">        результат = результат * </span><span style="color:#79C0FF">10.0</span><span style="color:#E6EDF3"> + (</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(знак) - </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(мавка::розбирач::КД_0));</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_ПІДРИСКА { </span><span style="color:#8B949E">// _</span></span>
+<span class="line"><span style="color:#8B949E">        // ігноруємо</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_КРАПКА { </span><span style="color:#8B949E">// .</span></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        знак = значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> дробна_частина = </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0.0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> дільник = </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">1.0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; значення.розмір {</span></span>
+<span class="line"><span style="color:#E6EDF3">          знак = значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> ігнор = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> знак >= мавка::розбирач::КД_0 </span><span style="color:#FF7B72">і</span><span style="color:#E6EDF3"> знак &#x3C;= мавка::розбирач::КД_9 {</span></span>
+<span class="line"><span style="color:#E6EDF3">            дробна_частина = дробна_частина * </span><span style="color:#79C0FF">10.0</span><span style="color:#E6EDF3"> + (</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(знак) - </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(мавка::розбирач::КД_0));</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_ПІДРИСКА { </span><span style="color:#8B949E">// _</span></span>
+<span class="line"><span style="color:#E6EDF3">            ігнор = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_мала_буква_е { </span><span style="color:#8B949E">// е (наукова нотація)</span></span>
+<span class="line"><span style="color:#E6EDF3">            результат = результат + дробна_частина / дільник;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> відʼємне {</span></span>
+<span class="line"><span style="color:#E6EDF3">              результат = -результат;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">            // Розбираємо експоненту</span></span>
+<span class="line"><span style="color:#E6EDF3">            п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> п >= значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">              вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> експонента_відʼємна = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">            знак = значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_РИСКА { </span><span style="color:#8B949E">// -</span></span>
+<span class="line"><span style="color:#E6EDF3">              експонента_відʼємна = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">              п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_ХРЕСТИК { </span><span style="color:#8B949E">// +</span></span>
+<span class="line"><span style="color:#E6EDF3">              п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> п >= значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">              вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> експонента = </span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            поки</span><span style="color:#E6EDF3"> п &#x3C; значення.розмір {</span></span>
+<span class="line"><span style="color:#E6EDF3">              знак = значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">              якщо</span><span style="color:#E6EDF3"> знак >= мавка::розбирач::КД_0 </span><span style="color:#FF7B72">і</span><span style="color:#E6EDF3"> знак &#x3C;= мавка::розбирач::КД_9 {</span></span>
+<span class="line"><span style="color:#E6EDF3">                експонента = експонента * </span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3"> + (</span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(знак) - </span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(мавка::розбирач::КД_0));</span></span>
+<span class="line"><span style="color:#E6EDF3">              } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_ПІДРИСКА { </span><span style="color:#8B949E">// _</span></span>
+<span class="line"><span style="color:#8B949E">                // ігноруємо</span></span>
+<span class="line"><span style="color:#E6EDF3">              } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">                вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">              }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">              п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> експонента_відʼємна {</span></span>
+<span class="line"><span style="color:#E6EDF3">              експонента = -експонента;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">            // Застосовуємо експоненту: результат * 10**експонента</span></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> степінь = мавка::піднести_до_степеня_р64(М, </span><span style="color:#79C0FF">10.0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(експонента));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            результат = результат * степінь;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            вихід::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = результат;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> ігнор {</span></span>
+<span class="line"><span style="color:#E6EDF3">            дільник = дільник * </span><span style="color:#79C0FF">10.0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        результат = результат + дробна_частина / дільник;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> відʼємне {</span></span>
+<span class="line"><span style="color:#E6EDF3">          результат = -результат;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вихід::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = результат;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_мала_буква_е { </span><span style="color:#8B949E">// е (наукова нотація)</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> відʼємне {</span></span>
+<span class="line"><span style="color:#E6EDF3">          результат = -результат;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">        // Розбираємо експоненту</span></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> п >= значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> експонента_відʼємна = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        знак = значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_РИСКА { </span><span style="color:#8B949E">// -</span></span>
+<span class="line"><span style="color:#E6EDF3">          експонента_відʼємна = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_ХРЕСТИК { </span><span style="color:#8B949E">// +</span></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> п >= значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> експонента = </span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; значення.розмір {</span></span>
+<span class="line"><span style="color:#E6EDF3">          знак = значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> знак >= мавка::розбирач::КД_0 </span><span style="color:#FF7B72">і</span><span style="color:#E6EDF3"> знак &#x3C;= мавка::розбирач::КД_9 {</span></span>
+<span class="line"><span style="color:#E6EDF3">            експонента = експонента * </span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3"> + (</span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(знак) - </span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(мавка::розбирач::КД_0));</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> знак == мавка::розбирач::КД_ПІДРИСКА { </span><span style="color:#8B949E">// _</span></span>
+<span class="line"><span style="color:#8B949E">            // ігноруємо</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> експонента_відʼємна {</span></span>
+<span class="line"><span style="color:#E6EDF3">          експонента = -експонента;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">        // Застосовуємо експоненту: результат * 10**експонента</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> степінь = мавка::піднести_до_степеня_р64(М, </span><span style="color:#79C0FF">10.0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(експонента));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        результат = результат * степінь;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вихід::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = результат;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> відʼємне {</span></span>
+<span class="line"><span style="color:#E6EDF3">      результат = -результат;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    вихід::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = результат;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

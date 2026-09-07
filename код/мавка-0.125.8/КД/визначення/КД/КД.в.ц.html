@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.2oufJNuzcL/мавка-0.125.8/КД/визначення/КД/КД.в.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">/* Дієкод */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> КД {</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Система;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Система {</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    виділити_сиру_памʼять: (система: *Система, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    перевиділити_сиру_памʼять: (система: *Система, значення: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, новий_розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_сиру_памʼять: (система: *Система, значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> виділити&#x3C;Т>(система: *Система, кількість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *Т {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> система.виділити_сиру_памʼять(система, кількість * Т.розмір) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Т;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> перевиділити&#x3C;Т>(система: *Система, значення: *Т, кількість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *Т {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> система.перевиділити_сиру_памʼять(система, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, кількість * Т.розмір) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Т;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити(система: *Система, значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    система.звільнити_сиру_памʼять(система, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> КД {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> символи {</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Недійсний = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Дія = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#8B949E">    // 2 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 3 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 4 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 5 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 6 невизначено</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Відсоток = </span><span style="color:#79C0FF">7</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Долар = </span><span style="color:#79C0FF">8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мітка = </span><span style="color:#79C0FF">9</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Адреса = </span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Обернена_похила = </span><span style="color:#79C0FF">11</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Підриска = </span><span style="color:#79C0FF">12</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Циркумфлекс = </span><span style="color:#79C0FF">13</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Хвиляста = </span><span style="color:#79C0FF">14</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Двориска = </span><span style="color:#79C0FF">15</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Нуль = </span><span style="color:#79C0FF">16</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Один = </span><span style="color:#79C0FF">17</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Два = </span><span style="color:#79C0FF">18</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Три = </span><span style="color:#79C0FF">19</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Чотири = </span><span style="color:#79C0FF">20</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Пʼять = </span><span style="color:#79C0FF">21</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Шість = </span><span style="color:#79C0FF">22</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Сім = </span><span style="color:#79C0FF">23</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Вісім = </span><span style="color:#79C0FF">24</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Девʼять = </span><span style="color:#79C0FF">25</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Хрестик = </span><span style="color:#79C0FF">26</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Риска = </span><span style="color:#79C0FF">27</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Зірочка = </span><span style="color:#79C0FF">28</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Похила = </span><span style="color:#79C0FF">29</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> І = </span><span style="color:#79C0FF">30</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Стояча = </span><span style="color:#79C0FF">31</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_А = </span><span style="color:#79C0FF">32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Б = </span><span style="color:#79C0FF">33</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Г = </span><span style="color:#79C0FF">34</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Д = </span><span style="color:#79C0FF">35</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Е = </span><span style="color:#79C0FF">36</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_З = </span><span style="color:#79C0FF">37</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_И = </span><span style="color:#79C0FF">38</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_І = </span><span style="color:#79C0FF">39</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Й = </span><span style="color:#79C0FF">40</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_К = </span><span style="color:#79C0FF">41</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Л = </span><span style="color:#79C0FF">42</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_М = </span><span style="color:#79C0FF">43</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Н = </span><span style="color:#79C0FF">44</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_О = </span><span style="color:#79C0FF">45</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_П = </span><span style="color:#79C0FF">46</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Р = </span><span style="color:#79C0FF">47</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_С = </span><span style="color:#79C0FF">48</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Т = </span><span style="color:#79C0FF">49</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_У = </span><span style="color:#79C0FF">50</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_В = </span><span style="color:#79C0FF">51</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ф = </span><span style="color:#79C0FF">52</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Х = </span><span style="color:#79C0FF">53</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ш = </span><span style="color:#79C0FF">54</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ж = </span><span style="color:#79C0FF">55</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ц = </span><span style="color:#79C0FF">56</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ч = </span><span style="color:#79C0FF">57</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Щ = </span><span style="color:#79C0FF">58</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Я = </span><span style="color:#79C0FF">59</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Є = </span><span style="color:#79C0FF">60</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ї = </span><span style="color:#79C0FF">61</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ю = </span><span style="color:#79C0FF">62</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ь = </span><span style="color:#79C0FF">63</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_а = </span><span style="color:#79C0FF">64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_б = </span><span style="color:#79C0FF">65</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_г = </span><span style="color:#79C0FF">66</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_д = </span><span style="color:#79C0FF">67</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_е = </span><span style="color:#79C0FF">68</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_з = </span><span style="color:#79C0FF">69</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_и = </span><span style="color:#79C0FF">70</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_і = </span><span style="color:#79C0FF">71</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_й = </span><span style="color:#79C0FF">72</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_к = </span><span style="color:#79C0FF">73</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_л = </span><span style="color:#79C0FF">74</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_м = </span><span style="color:#79C0FF">75</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_н = </span><span style="color:#79C0FF">76</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_о = </span><span style="color:#79C0FF">77</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_п = </span><span style="color:#79C0FF">78</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_р = </span><span style="color:#79C0FF">79</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_с = </span><span style="color:#79C0FF">80</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_т = </span><span style="color:#79C0FF">81</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_у = </span><span style="color:#79C0FF">82</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_в = </span><span style="color:#79C0FF">83</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ф = </span><span style="color:#79C0FF">84</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_х = </span><span style="color:#79C0FF">85</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ш = </span><span style="color:#79C0FF">86</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ж = </span><span style="color:#79C0FF">87</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ц = </span><span style="color:#79C0FF">88</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ч = </span><span style="color:#79C0FF">89</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_щ = </span><span style="color:#79C0FF">90</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_я = </span><span style="color:#79C0FF">91</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_є = </span><span style="color:#79C0FF">92</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ї = </span><span style="color:#79C0FF">93</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ю = </span><span style="color:#79C0FF">94</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ь = </span><span style="color:#79C0FF">95</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ґ = </span><span style="color:#79C0FF">96</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#8B949E">    // 97 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 98 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 99 невизначено</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ъ = </span><span style="color:#79C0FF">100</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ґ = </span><span style="color:#79C0FF">101</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#8B949E">    // 102 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 103 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 104 невизначено</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ъ = </span><span style="color:#79C0FF">105</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Апостроф = </span><span style="color:#79C0FF">106</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Кома = </span><span style="color:#79C0FF">107</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Двокрапка = </span><span style="color:#79C0FF">108</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Крапкакома = </span><span style="color:#79C0FF">109</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Крапка = </span><span style="color:#79C0FF">110</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Питання = </span><span style="color:#79C0FF">111</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Оклик = </span><span style="color:#79C0FF">112</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Дволапка = </span><span style="color:#79C0FF">113</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Однолапка = </span><span style="color:#79C0FF">114</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Косолапка = </span><span style="color:#79C0FF">115</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Відкрита_квадратна_дужка = </span><span style="color:#79C0FF">116</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Закрита_квадратна_дужка = </span><span style="color:#79C0FF">117</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Відкрита_дужка = </span><span style="color:#79C0FF">118</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Закрита_дужка = </span><span style="color:#79C0FF">119</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Відкрита_фігурна_дужка = </span><span style="color:#79C0FF">120</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Закрита_фігурна_дужка = </span><span style="color:#79C0FF">121</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Менше = </span><span style="color:#79C0FF">122</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Більше = </span><span style="color:#79C0FF">123</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#8B949E">    // 124 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 125 невизначено</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Пропуск = </span><span style="color:#79C0FF">126</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Міжряд = </span><span style="color:#79C0FF">127</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> відповідні_символи_юнікоду {</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Недійсний = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Дія = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#8B949E">    // 2 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 3 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 4 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 5 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 6 невизначено</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Відсоток = </span><span style="color:#79C0FF">37</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Долар = </span><span style="color:#79C0FF">36</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мітка = </span><span style="color:#79C0FF">35</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Адреса = </span><span style="color:#79C0FF">64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Обернена_похила = </span><span style="color:#79C0FF">92</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Підриска = </span><span style="color:#79C0FF">95</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Циркумфлекс = </span><span style="color:#79C0FF">94</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Хвиляста = </span><span style="color:#79C0FF">126</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Двориска = </span><span style="color:#79C0FF">61</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Нуль = </span><span style="color:#79C0FF">48</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Один = </span><span style="color:#79C0FF">49</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Два = </span><span style="color:#79C0FF">50</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Три = </span><span style="color:#79C0FF">51</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Чотири = </span><span style="color:#79C0FF">52</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Пʼять = </span><span style="color:#79C0FF">53</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Шість = </span><span style="color:#79C0FF">54</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Сім = </span><span style="color:#79C0FF">55</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Вісім = </span><span style="color:#79C0FF">56</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Девʼять = </span><span style="color:#79C0FF">57</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Хрестик = </span><span style="color:#79C0FF">43</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Риска = </span><span style="color:#79C0FF">45</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Зірочка = </span><span style="color:#79C0FF">42</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Похила = </span><span style="color:#79C0FF">47</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> І = </span><span style="color:#79C0FF">38</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Стояча = </span><span style="color:#79C0FF">124</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_А = </span><span style="color:#79C0FF">1040</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Б = </span><span style="color:#79C0FF">1041</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Г = </span><span style="color:#79C0FF">1043</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Д = </span><span style="color:#79C0FF">1044</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Е = </span><span style="color:#79C0FF">1045</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_З = </span><span style="color:#79C0FF">1047</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_И = </span><span style="color:#79C0FF">1048</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_І = </span><span style="color:#79C0FF">1030</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Й = </span><span style="color:#79C0FF">1049</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_К = </span><span style="color:#79C0FF">1050</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Л = </span><span style="color:#79C0FF">1051</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_М = </span><span style="color:#79C0FF">1052</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Н = </span><span style="color:#79C0FF">1053</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_О = </span><span style="color:#79C0FF">1054</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_П = </span><span style="color:#79C0FF">1055</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Р = </span><span style="color:#79C0FF">1056</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_С = </span><span style="color:#79C0FF">1057</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Т = </span><span style="color:#79C0FF">1058</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_У = </span><span style="color:#79C0FF">1059</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_В = </span><span style="color:#79C0FF">1042</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ф = </span><span style="color:#79C0FF">1060</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Х = </span><span style="color:#79C0FF">1061</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ш = </span><span style="color:#79C0FF">1064</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ж = </span><span style="color:#79C0FF">1046</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ц = </span><span style="color:#79C0FF">1062</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ч = </span><span style="color:#79C0FF">1063</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Щ = </span><span style="color:#79C0FF">1065</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Я = </span><span style="color:#79C0FF">1071</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Є = </span><span style="color:#79C0FF">1028</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ї = </span><span style="color:#79C0FF">1031</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ю = </span><span style="color:#79C0FF">1070</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ь = </span><span style="color:#79C0FF">1068</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_а = </span><span style="color:#79C0FF">1072</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_б = </span><span style="color:#79C0FF">1073</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_г = </span><span style="color:#79C0FF">1075</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_д = </span><span style="color:#79C0FF">1076</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_е = </span><span style="color:#79C0FF">1077</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_з = </span><span style="color:#79C0FF">1079</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_и = </span><span style="color:#79C0FF">1080</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_і = </span><span style="color:#79C0FF">1110</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_й = </span><span style="color:#79C0FF">1081</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_к = </span><span style="color:#79C0FF">1082</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_л = </span><span style="color:#79C0FF">1083</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_м = </span><span style="color:#79C0FF">1084</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_н = </span><span style="color:#79C0FF">1085</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_о = </span><span style="color:#79C0FF">1086</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_п = </span><span style="color:#79C0FF">1087</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_р = </span><span style="color:#79C0FF">1088</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_с = </span><span style="color:#79C0FF">1089</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_т = </span><span style="color:#79C0FF">1090</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_у = </span><span style="color:#79C0FF">1091</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_в = </span><span style="color:#79C0FF">1074</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ф = </span><span style="color:#79C0FF">1092</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_х = </span><span style="color:#79C0FF">1093</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ш = </span><span style="color:#79C0FF">1096</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ж = </span><span style="color:#79C0FF">1078</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ц = </span><span style="color:#79C0FF">1094</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ч = </span><span style="color:#79C0FF">1095</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_щ = </span><span style="color:#79C0FF">1097</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_я = </span><span style="color:#79C0FF">1103</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_є = </span><span style="color:#79C0FF">1108</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ї = </span><span style="color:#79C0FF">1111</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ю = </span><span style="color:#79C0FF">1102</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ь = </span><span style="color:#79C0FF">1100</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ґ = </span><span style="color:#79C0FF">1168</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#8B949E">    // 97 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 98 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 99 невизначено</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Велика_буква_Ъ = </span><span style="color:#79C0FF">1066</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ґ = </span><span style="color:#79C0FF">1169</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#8B949E">    // 102 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 103 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 104 невизначено</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Мала_буква_ъ = </span><span style="color:#79C0FF">1098</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Апостроф = </span><span style="color:#79C0FF">700</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Кома = </span><span style="color:#79C0FF">44</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Двокрапка = </span><span style="color:#79C0FF">58</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Крапкакома = </span><span style="color:#79C0FF">59</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Крапка = </span><span style="color:#79C0FF">46</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Питання = </span><span style="color:#79C0FF">63</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Оклик = </span><span style="color:#79C0FF">33</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Дволапка = </span><span style="color:#79C0FF">34</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Однолапка = </span><span style="color:#79C0FF">39</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Косолапка = </span><span style="color:#79C0FF">96</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Відкрита_квадратна_дужка = </span><span style="color:#79C0FF">91</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Закрита_квадратна_дужка = </span><span style="color:#79C0FF">93</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Відкрита_дужка = </span><span style="color:#79C0FF">40</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Закрита_дужка = </span><span style="color:#79C0FF">41</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Відкрита_фігурна_дужка = </span><span style="color:#79C0FF">123</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Закрита_фігурна_дужка = </span><span style="color:#79C0FF">125</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Менше = </span><span style="color:#79C0FF">60</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Більше = </span><span style="color:#79C0FF">62</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#8B949E">    // 124 невизначено</span></span>
+<span class="line"><span style="color:#8B949E">    // 125 невизначено</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Пропуск = </span><span style="color:#79C0FF">32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Міжряд = </span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Місцезнаходження {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *</span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_в_місцезнаходження(система: *Система, місцезнаходження: *Місцезнаходження, позиція_місцезнаходження: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> місцезнаходження.розмір == місцезнаходження.вмісткість {</span></span>
+<span class="line"><span style="color:#E6EDF3">      місцезнаходження.вмісткість += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      місцезнаходження.дані = перевиділити&#x3C;</span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">>(система, місцезнаходження.дані, місцезнаходження.вмісткість);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження.дані[місцезнаходження.розмір] = позиція_місцезнаходження;</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ю32 {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *</span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> дізнатись_розмір_символа_кд(перший_байт: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> дізнатись_розмір_символа_ю8(перший_байт: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_символ_кд_з_ю32(символ_Ю32: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, вихід_першого_байта: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, вихід_другого_байта: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, вихід_третього_байта: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, вихід_четвертого_байта: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, вихід_розміру: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_символ_ю8_з_т32(символ_КД: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, вихід_першого_байта: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, вихід_другого_байта: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, вихід_третього_байта: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, вихід_четвертого_байта: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, вихід_розміру: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> порахувати_розмір_ю8сі(значення: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> порахувати_розмір_ю32сі(значення: *</span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перевірити_чи_ю8_рівні(а: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, б: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перевірити_чи_ю32_рівні(а: ю32, б: ю32) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перевірити_чи_кд_рівні(а: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, б: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекодувати_з_ю8(система: *Система, вхід: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, екранувати_невідомі: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, з_нульовим_байтом_в_кінці: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, вихід_позиції_помилки: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекодувати_ю8_в_ю32(система: *Система, вхід: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, з_нульовим_байтом_в_кінці: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, вихід: *ю32, вихід_позиції_помилки: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекодувати_ю32_в_ю8(система: *Система, вхід: ю32, з_нульовим_байтом_в_кінці: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, вихід_позиції_помилки: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекодувати_в_ю8(система: *Система, вхід: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, з_нульовим_байтом_в_кінці: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, вихід_позиції_помилки: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекодувати_з_ю8_з_місцезнаходженнями(система: *Система, вхід: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, екранувати_невідомі: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, з_нульовим_байтом_в_кінці: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, вихід_місцезнаходжень: *Місцезнаходження, вихід_позиції_помилки: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекодувати_в_ю8_з_місцезнаходженнями(система: *Система, вхід: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, з_нульовим_байтом_в_кінці: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, вихід_місцезнаходжень: *Місцезнаходження, вихід_позиції_помилки: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> обробити_екранізації_в_кд(система: *Система, вхід: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, з_нульовим_байтом_в_кінці: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> обробити_екранізації_в_ю8(система: *Система, вхід: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, з_нульовим_байтом_в_кінці: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.EklGZRNZNh/мавка-1.0.0/машина/Задіяні.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_задіяне(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_значення: *Значення</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> розмір_позиційних = задіяні.розмір - (задіяні.кількість_імен * </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> знайдено = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> розмір_позиційних > позиція {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_значення::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = задіяні.дані[позиція];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> задіяні.кількість_імен > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; задіяні.кількість_імен {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> елемент = задіяні.дані[розмір_позиційних + задіяні.кількість_імен + п].дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметТексту;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> порівняти_тексти(М, елемент, назва) {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вихід_значення::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = задіяні.дані[розмір_позиційних + п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> знайдено;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перебрати_позиційні_задіяні(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">    дія_перебору: ДіяПереборуПозиційнихЗадіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    аргумент: </span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> розмір_позиційних = задіяні.розмір - (задіяні.кількість_імен * </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; розмір_позиційних {</span></span>
+<span class="line"><span style="color:#E6EDF3">      дія_перебору(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_позиційних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        п,</span></span>
+<span class="line"><span style="color:#E6EDF3">        задіяні.дані[п],</span></span>
+<span class="line"><span style="color:#E6EDF3">        аргумент</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перебрати_іменовані_задіяні(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">    дія_перебору: ДіяПереборуІменованихЗадіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    аргумент: </span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> розмір_позиційних = задіяні.розмір - (задіяні.кількість_імен * </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; розмір_позиційних {</span></span>
+<span class="line"><span style="color:#E6EDF3">      дія_перебору(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_позиційних + задіяні.кількість_імен + п,</span></span>
+<span class="line"><span style="color:#E6EDF3">        задіяні.дані[розмір_позиційних + задіяні.кількість_імен + п].дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">        задіяні.дані[розмір_позиційних + п],</span></span>
+<span class="line"><span style="color:#E6EDF3">        аргумент</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> звільнити_задіяні(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> задіяні.вид == ВидЗадіяних1 {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// задіяні з накопичувача діяльності не можна звільняти</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> задіяні.дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, задіяні.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

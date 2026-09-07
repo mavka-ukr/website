@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.XhhJkTkZwn/мавка-0.125.6/scripts/build.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">SCRIPT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">dirname</span><span style="color:#A5D6FF"> "${</span><span style="color:#E6EDF3">BASH_SOURCE</span><span style="color:#A5D6FF">[0]}")" &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#E6EDF3">ROOT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/.." &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">source</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/build_deps.sh"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">PROGRAM_NAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"мавка"</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> ВЕРСІЯ</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_MODE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$2</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">TSIL</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">TSIL</span><span style="color:#FF7B72">:-</span><span style="color:#A5D6FF">ціль}"</span></span>
+<span class="line"><span style="color:#E6EDF3">ZIG</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">ZIG</span><span style="color:#FF7B72">:-</span><span style="color:#E6EDF3">zig</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">ZIG_AVAILABLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">false</span></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#79C0FF"> command</span><span style="color:#79C0FF"> -v</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ZIG</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> &#x26;</span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> /dev/null; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">  ZIG_AVAILABLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">true</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">CLANG_OPTIONS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-DMAVKA_VERSION=</span><span style="color:#FF7B72">\"</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">LLIRFILES</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">print_usage</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Usage: </span><span style="color:#79C0FF">$0</span><span style="color:#A5D6FF"> &#x3C;debug|release> &#x3C;platform>"</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Platforms: linux-x86_64, linux-aarch64, macos-x86_64, macos-aarch64, windows-x86_64, windows-aarch64, android-aarch64, wasm64"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">set_build_mode</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  case</span><span style="color:#A5D6FF"> "</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> in</span></span>
+<span class="line"><span style="color:#A5D6FF">    debug</span><span style="color:#FF7B72">)</span><span style="color:#E6EDF3">   CLANG_OPTIONS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" -g -O0"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    release</span><span style="color:#FF7B72">)</span><span style="color:#E6EDF3"> CLANG_OPTIONS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" -O3"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">    *)</span></span>
+<span class="line"><span style="color:#79C0FF">      echo</span><span style="color:#A5D6FF"> "Unsupported build mode: </span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">      print_usage</span></span>
+<span class="line"><span style="color:#79C0FF">      exit</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">  esac</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">set_platform_vars</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> platform</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span><span style="color:#E6EDF3"> static_libs</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_LIBS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  case</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$platform</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> in</span></span>
+<span class="line"><span style="color:#A5D6FF">    linux-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-linux-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-lm"</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG_AVAILABLE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG</span><span style="color:#A5D6FF"> cc"</span></span>
+<span class="line"><span style="color:#FFA657">        setup_linux_libraries</span><span style="color:#A5D6FF"> "zig ar"</span><span style="color:#A5D6FF"> "zig ranlib"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$CLANG_BIN</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$TARGET_TRIPLE</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#FF7B72">      else</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"clang"</span></span>
+<span class="line"><span style="color:#FFA657">        setup_linux_libraries</span><span style="color:#A5D6FF"> "ar"</span><span style="color:#A5D6FF"> "ranlib"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$CLANG_BIN</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$TARGET_TRIPLE</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    linux-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-linux-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-lm"</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG_AVAILABLE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG</span><span style="color:#A5D6FF"> cc"</span></span>
+<span class="line"><span style="color:#FFA657">        setup_linux_libraries</span><span style="color:#A5D6FF"> "zig ar"</span><span style="color:#A5D6FF"> "zig ranlib"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$CLANG_BIN</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$TARGET_TRIPLE</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#FF7B72">      else</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"clang"</span></span>
+<span class="line"><span style="color:#FFA657">        setup_linux_libraries</span><span style="color:#A5D6FF"> "ar"</span><span style="color:#A5D6FF"> "ranlib"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$CLANG_BIN</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$TARGET_TRIPLE</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    macos-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"macos"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-macos"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG_AVAILABLE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG</span><span style="color:#A5D6FF"> cc"</span></span>
+<span class="line"><span style="color:#FF7B72">      else</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"clang"</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-Wl,--export-dynamic -lm"</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    macos-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"macos"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-macos"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG_AVAILABLE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG</span><span style="color:#A5D6FF"> cc"</span></span>
+<span class="line"><span style="color:#FF7B72">      else</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"clang"</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-Wl,--export-dynamic -lm"</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    windows-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-windows-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">.exe"</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG_AVAILABLE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG</span><span style="color:#A5D6FF"> cc"</span></span>
+<span class="line"><span style="color:#FF7B72">      else</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"clang"</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#E6EDF3">      static_libs</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"scripts/icon.res"</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    windows-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-windows-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">.exe"</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG_AVAILABLE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ZIG</span><span style="color:#A5D6FF"> cc"</span></span>
+<span class="line"><span style="color:#FF7B72">      else</span></span>
+<span class="line"><span style="color:#E6EDF3">        CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"clang"</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#E6EDF3">      static_libs</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"scripts/icon.res"</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    android-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ANDROID_NDK_HOME</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">        echo</span><span style="color:#A5D6FF"> "ANDROID_NDK_HOME is not set."</span></span>
+<span class="line"><span style="color:#79C0FF">        exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#FF7B72">      local</span><span style="color:#E6EDF3"> ndk_toolchain</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ANDROID_NDK_HOME</span><span style="color:#A5D6FF">/toolchains/llvm/prebuilt/linux-x86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-linux-android24"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"андроїд-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ndk_toolchain</span><span style="color:#A5D6FF">/bin/aarch64-linux-android24-clang"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-ldl -lc -lm"</span></span>
+<span class="line"><span style="color:#FFA657">      setup_linux_libraries</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">        "</span><span style="color:#E6EDF3">$ndk_toolchain</span><span style="color:#A5D6FF">/bin/llvm-ar"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">        "</span><span style="color:#E6EDF3">$ndk_toolchain</span><span style="color:#A5D6FF">/bin/llvm-ranlib"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">        "</span><span style="color:#E6EDF3">$CLANG_BIN</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$TARGET_TRIPLE</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    wasm64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wasm64"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wasm64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wasm64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wasm64-unknown-unknown"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"васм64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"васм64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">.wasm"</span></span>
+<span class="line"><span style="color:#E6EDF3">      CLANG_BIN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"clang"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined -Wl,--export-memory -Wl,--initial-memory=16777216 -Wl,--max-memory=1073741824"</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#FF7B72">    *)</span></span>
+<span class="line"><span style="color:#79C0FF">      echo</span><span style="color:#A5D6FF"> "Unsupported platform: </span><span style="color:#E6EDF3">$platform</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">      print_usage</span></span>
+<span class="line"><span style="color:#79C0FF">      exit</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">  esac</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  CLANG</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$CLANG_BIN</span><span style="color:#A5D6FF"> --target=</span><span style="color:#E6EDF3">$TARGET_TRIPLE</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  CLANG_OPTIONS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$extra_opts</span><span style="color:#E6EDF3"> $DEPS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  STATIC_LIBS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">static_libs</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$static_libs</span><span style="color:#A5D6FF"> }</span><span style="color:#E6EDF3">$DEPS_LIBS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">compile_tsil</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> input_file</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "перетворення </span><span style="color:#E6EDF3">$input_file</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  $TSIL </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#A5D6FF">    "$(</span><span style="color:#FFA657">realpath</span><span style="color:#79C0FF"> --relative-to=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)" "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$input_file</span><span style="color:#A5D6FF">.ллвмір")"</span><span style="color:#79C0FF"> -П=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TSIL_PLATFORM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">    перетворити</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">    "$(</span><span style="color:#FFA657">realpath</span><span style="color:#79C0FF"> --relative-to=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)" "</span><span style="color:#E6EDF3">$input_file</span><span style="color:#A5D6FF">")"</span><span style="color:#79C0FF"> -В=./бібліотека/визначення</span><span style="color:#79C0FF"> -В=./КД/визначення</span><span style="color:#79C0FF"> -В=./визначення</span></span>
+<span class="line"><span style="color:#FFA657">  mv</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$input_file</span><span style="color:#A5D6FF">.ллвмір"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$input_file</span><span style="color:#A5D6FF">.ллвмір.ll"</span></span>
+<span class="line"><span style="color:#E6EDF3">  LLIRFILES</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$input_file</span><span style="color:#A5D6FF">.ллвмір.ll"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_MODE</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ] </span><span style="color:#FF7B72">||</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_PLATFORM</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FFA657">  print_usage</span></span>
+<span class="line"><span style="color:#79C0FF">  exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">set_build_mode</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_MODE</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">set_platform_vars</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_PLATFORM</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">SEMIREADY_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">/будування/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$TSIL_PLATFORM_FOLDER</span><span style="color:#A5D6FF">/напівготове"</span></span>
+<span class="line"><span style="color:#E6EDF3">READY_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">/будування/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$TSIL_PLATFORM_FOLDER</span><span style="color:#A5D6FF">/готове"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/бібліотека/математика</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/бібліотека/система</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/бібліотека/читати</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/КД</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Дані/дії</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Дані/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/ПроміжокЧисел/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Дія/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Код/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Модуль/дії</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Модуль/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Параметр/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Ознака/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/ПеребірДаних/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/ПеребірПроміжкаЧисел/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/ПеребірПослідовності/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/ПеребірСловника/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/ПеребірСписку/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/ПеребірТексту/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Послідовність/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Словник/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Список/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Клас/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Текст/дії</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Текст/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Число/дії</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/предмети/Число/методи</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/перекладач</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/машина/розбирач</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">"/пристрій</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "КД/КД.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Взяти.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/ВзятіЗначення.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Вивід.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Дійсність.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Призначення.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Допоміжне.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Задіяні.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Значення.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/ІнформаціяПадіння.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/КористувацькіДані.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Машина.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/МісцезнаходженняВказівок.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/НакопичувачТексту.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Очищувач.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Притримувач.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/Спроби.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Дані/дії/виділити.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Дані/дії/обнулено.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Дані/методи/чародія_перебір.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Дані/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Дані/ПредметДаних.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПроміжокЧисел/методи/чародія_перебір.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПроміжокЧисел/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПроміжокЧисел/ПредметПроміжкаЧисел.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Дія/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Дія/ПредметДії.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Код/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Код/ПредметКоду.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Модуль/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Модуль/дії/отримати_назву.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Модуль/ПредметМодуля.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Параметр/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Параметр/ПредметПараметра.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Ознака/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Ознака/ПредметОзнаки.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірДаних/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірДаних/методи/далі.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірДаних/ПредметПереборуДаних.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірПроміжкаЧисел/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірПроміжкаЧисел/методи/далі.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірПроміжкаЧисел/ПредметПереборуПроміжкаЧисел.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірПослідовності/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірПослідовності/методи/далі.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірПослідовності/ПредметПереборуПослідовності.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірСловника/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірСловника/методи/далі.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірСловника/ПредметПереборуСловника.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірСписку/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірСписку/методи/далі.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірСписку/ПредметПереборуСписку.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірТексту/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірТексту/методи/далі.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/ПеребірТексту/ПредметПереборуТексту.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Послідовність/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Послідовність/методи/чародія_перебір.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Послідовність/ПредметПослідовності.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Словник/методи/значення.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Словник/методи/ключі.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Словник/методи/містить.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Словник/методи/чародія_перебір.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Словник/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Словник/ПредметСловника.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/чародія_перебір.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/додати.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/забрати.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/позиція.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/знайти.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/знайти_позицію.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/відібрати.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/перетворити.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/обернути.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/методи/містить.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Список/ПредметСписку.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Клас/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Клас/ПредметКласу.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Текст/методи/чародія_перебір.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Текст/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Текст/методи/чародія_число.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Текст/ПредметТексту.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Число/методи/чародія_текст.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Число/методи/чародія_число.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/Число/ПредметЧисла.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/предмети/СкладенийПредмет.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/перекладач/перекладач.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "машина/розбирач/розбирач.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "пристрій/глобальні.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "пристрій/машина.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "пристрій/пристрій.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/математика/_.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/система/_.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/система/видалити.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/система/дописати.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/система/записати.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/система/прочитати.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/система/створити_папку.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/система/виконати.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/система/РезультатВиконання.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/читати/_.ц"</span></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "бібліотека/бібліотека.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">compile_tsil</span><span style="color:#A5D6FF"> "початок.ц"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "створення виконуваного файлу"</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -x</span></span>
+<span class="line"><span style="color:#E6EDF3">$CLANG $CLANG_OPTIONS </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FFA657">  -c</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/main.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">  -Iexternal/include</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "external/</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">/main_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.c"</span></span>
+<span class="line"><span style="color:#E6EDF3">$CLANG $CLANG_OPTIONS </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FFA657">  -c</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/prystriy_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">  -Iexternal/include</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "external/</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">/prystriy_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.c"</span></span>
+<span class="line"><span style="color:#E6EDF3">$CLANG $CLANG_OPTIONS </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FFA657">  -c</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">  -Iexternal/include</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "external/</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.c"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> !=</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">  $CLANG $CLANG_OPTIONS </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#79C0FF">    -c</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">    -Iexternal/include</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">    "external/</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">.c"</span></span>
+<span class="line"><span style="color:#E6EDF3">  BIBLIOTEKA_SYSTEM_OBJ</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">.o"</span></span>
+<span class="line"><span style="color:#FF7B72">else</span></span>
+<span class="line"><span style="color:#E6EDF3">  BIBLIOTEKA_SYSTEM_OBJ</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">$CLANG $CLANG_OPTIONS </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FFA657">  -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$OUTFILENAME</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/main.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/prystriy_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#E6EDF3">  $BIBLIOTEKA_SYSTEM_OBJ </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#E6EDF3">  $LLIRFILES </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#E6EDF3">  $STATIC_LIBS</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "готово: </span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$OUTFILENAME</span><span style="color:#A5D6FF">"</span></span></code></pre>
+</body>
+</html>

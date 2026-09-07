@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Wk2CVidBIZ/мавка-0.125.2/машина/пристрій/діалог.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> пристрій {</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> почати_діалог(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях_до_теки_модулів: *ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях_до_стандартного_вводу: *ПредметДаних</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> сирий_текст: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> успіх = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> зупинено = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> перед = </span><span style="color:#A5D6FF">"- "</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знаки: розбирач::Знаки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> помилка_розбору_на_знаки: розбирач::ПомилкаРозборуНаЗнаки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> сполуки: розбирач::Сполуки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> помилка_розбору_на_сполуки: розбирач::ПомилкаРозборуНаСполуки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> перекладений_код: *ПредметКоду = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> помилка_перекладу: перекладач::ПомилкаПерекладу;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> інформація_падіння: ІнформаціяПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кінець_файлу = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_модуля = створити_модуль(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        створити_текст(М, </span><span style="color:#A5D6FF">"діалог"</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дійсність = створити_дійсність(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.глобальна_дійсність</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> зупинено {</span></span>
+<span class="line"><span style="color:#E6EDF3">    крок_початок:</span></span>
+<span class="line"><span style="color:#E6EDF3">        успіх = пристрій_мавки_читати_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">          перед.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          перед.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">          сирий_текст.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          сирий_текст.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#79C0FF">          природне</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">),</span></span>
+<span class="line"><span style="color:#E6EDF3">          кінець_файлу::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> помилка = </span><span style="color:#A5D6FF">"Помилка читання входу діалогу."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          пристрій_мавки_надрукувати_кд(помилка.розмір, помилка.дані);</span></span>
+<span class="line"><span style="color:#FF7B72">          стрибнути</span><span style="color:#E6EDF3"> крок_початок;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> кінець_файлу {</span></span>
+<span class="line"><span style="color:#E6EDF3">          зупинено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          стрибнути</span><span style="color:#E6EDF3"> крок_кінець;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> сирий_текст.розмір == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">          стрибнути</span><span style="color:#E6EDF3"> крок_початок;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        успіх = розбирач::розібрати_на_знаки(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          сирий_текст,</span></span>
+<span class="line"><span style="color:#E6EDF3">          знаки::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          помилка_розбору_на_знаки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> рядок = розбирач::отримати_рядок_помилки_розбору_на_знаки(</span></span>
+<span class="line"><span style="color:#E6EDF3">            М,</span></span>
+<span class="line"><span style="color:#E6EDF3">            помилка_розбору_на_знаки</span></span>
+<span class="line"><span style="color:#E6EDF3">          );</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> помилка = </span><span style="color:#A5D6FF">"Не вдалось розібрати текст входу діалогу."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          пристрій_мавки_надрукувати_кд(помилка.розмір, помилка.дані);</span></span>
+<span class="line"><span style="color:#FF7B72">          стрибнути</span><span style="color:#E6EDF3"> крок_початок;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        успіх = розбирач::розібрати_знаки_на_сполуки(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          сирий_текст,</span></span>
+<span class="line"><span style="color:#E6EDF3">          знаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">          сполуки::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          помилка_розбору_на_сполуки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> рядок = розбирач::отримати_рядок_помилки_розбору_на_сполуки(</span></span>
+<span class="line"><span style="color:#E6EDF3">            М,</span></span>
+<span class="line"><span style="color:#E6EDF3">            помилка_розбору_на_сполуки</span></span>
+<span class="line"><span style="color:#E6EDF3">          );</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> помилка = </span><span style="color:#A5D6FF">"Не вдалось розібрати знаки входу діалогу."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          пристрій_мавки_надрукувати_кд(помилка.розмір, помилка.дані);</span></span>
+<span class="line"><span style="color:#FF7B72">          стрибнути</span><span style="color:#E6EDF3"> крок_початок;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        успіх = перекласти_в_код(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_до_стандартного_вводу,</span></span>
+<span class="line"><span style="color:#E6EDF3">          сирий_текст,</span></span>
+<span class="line"><span style="color:#E6EDF3">          знаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">          сполуки,</span></span>
+<span class="line"><span style="color:#E6EDF3">          перекладений_код::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          помилка_перекладу::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> помилка = </span><span style="color:#A5D6FF">"Не вдалось перекласти сполуки на код."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          пристрій_мавки_надрукувати_кд(помилка.розмір, помилка.дані);</span></span>
+<span class="line"><span style="color:#FF7B72">          стрибнути</span><span style="color:#E6EDF3"> крок_початок;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> предмет_дії = створити_дію(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          дійсність,</span></span>
+<span class="line"><span style="color:#E6EDF3">          створити_текст(М, </span><span style="color:#A5D6FF">"діалог"</span><span style="color:#E6EDF3">),</span></span>
+<span class="line"><span style="color:#E6EDF3">          М.предмет_пустої_послідовності,</span></span>
+<span class="line"><span style="color:#FF7B72">          пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          перекладений_код,</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_до_теки_модулів</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> розмір_історії = М.історія_здійснення.розмір;</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> розмір_накопичувача_значень = М.накопичувач_значень.розмір;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> елемент_історії = покласти_в_історію_здійснення(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          дійсність,</span></span>
+<span class="line"><span style="color:#E6EDF3">          ПРЕДМЕТ(предмет_модуля),</span></span>
+<span class="line"><span style="color:#E6EDF3">          предмет_дії,</span></span>
+<span class="line"><span style="color:#E6EDF3">          Задіяні { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> },</span></span>
+<span class="line"><span style="color:#E6EDF3">          Місцезнаходження { шлях_до_стандартного_вводу, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> }</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> результат = виконати_код(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          М.накопичувач_значень::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          елемент_історії.спроби::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          дійсність,</span></span>
+<span class="line"><span style="color:#E6EDF3">          ПРЕДМЕТ(предмет_модуля),</span></span>
+<span class="line"><span style="color:#E6EDF3">          перекладений_код,</span></span>
+<span class="line"><span style="color:#79C0FF">          0</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          предмет_дії.шлях_до_теки_модулів</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> отримати_інформацію_падіння(М, інформація_падіння::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">          пристрій::надрукувати_інформацію_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">            М,</span></span>
+<span class="line"><span style="color:#E6EDF3">            інформація_падіння</span></span>
+<span class="line"><span style="color:#E6EDF3">          );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          знищити_інформацію_падіння(М, інформація_падіння);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          вимкнути_стан_падіння(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          надрукувати_значення(М, результат, </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        видалити_з_історії_здійснення(М, М.історія_здійснення.розмір - розмір_історії);</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.накопичувач_значень.розмір = розмір_накопичувача_значень;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    крок_кінець:</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

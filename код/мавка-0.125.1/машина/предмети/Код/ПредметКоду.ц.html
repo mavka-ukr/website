@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.uTNjqtKefS/мавка-0.125.1/машина/предмети/Код/ПредметКоду.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> записати_параметри_структури_Код(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> кількість_параметрів = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">4</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дані_параметрів = виділити&#x3C;Значення>(М, кількість_параметрів);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    дані_параметрів[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._константи,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані_параметрів[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._вказівки,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані_параметрів[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._шлях,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані_параметрів[</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._місцезнаходження_вказівок,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Код.параметри = створити_послідовність_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      кількість_параметрів,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Код(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Код.вбудований = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Код.заборонити_наслідування = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_параметри_структури_Код(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_код(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    константи: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметПослідовності>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вказівки: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДаних>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДаних>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_вказівок: МісцезнаходженняВказівок</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметКоду> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = виділити_предмет&#x3C;ПредметКоду>(М, М.клас_Код);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.константи = константи;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.вказівки = вказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.шлях = шлях;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.місцезнаходження_вказівок = місцезнаходження_вказівок;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_коду(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо створити код вручну."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_коду_отримати_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_коду: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметКоду>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._константи) {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_коду.константи != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_коду.константи);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._вказівки) {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_коду.вказівки != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_коду.вказівки);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._шлях) {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_коду.шлях != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_коду.шлях);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._місцезнаходження_вказівок) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_методу = знайти_метод_в_класі(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.клас_Код,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_методу == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_методу);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_рядок_вказівки(</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_вказівок: МісцезнаходженняВказівок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція_вказівки: </span><span style="color:#79C0FF">п32</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; місцезнаходження_вказівок.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> м = місцезнаходження_вказівок.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> м.початок &#x3C;= позиція_вказівки {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> м.кінець >= позиція_вказівки {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> м.рядок;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

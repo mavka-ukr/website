@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.ccAIuuupoU/мавка-0.126.4/бібліотека/афс/створити_папку.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/бібліотека;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> бібліотека {</span></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> АргументОбробника {</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина;</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_шляху_ю8: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях_ю8_треба_звільнити: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      відклик: *Притриманий;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_створити_папку(помилка: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> аю8 = аргумент </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументОбробника;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = аю8.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_відклика = аю8.відклик.предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      відпустити_притриманий_глобально(М, аю8.відклик);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> аю8.шлях_ю8_треба_звільнити {</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, аю8.дані_шляху_ю8);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, аргумент);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> інформація_падіння: ІнформаціяПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = НЕДІЙСНЕ;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> помилка != </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_текст(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#A5D6FF">          "не вдалось створити папку"</span></span>
+<span class="line"><span style="color:#E6EDF3">        ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ПРЕДМЕТ(предмет_відклика),</span></span>
+<span class="line"><span style="color:#E6EDF3">        Задіяні { ВидЗадіяних2, кількість_задіяних, дані_задіяних, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> },</span></span>
+<span class="line"><span style="color:#E6EDF3">        МІСЦЕю8(М, </span><span style="color:#79C0FF">ю8</span><span style="color:#A5D6FF">"вм://бібліотека/афс/створити_папку.ц"</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">),</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> отримати_інформацію_падіння(М, інформація_падіння::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> М.налаштування.обробник_падінь == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"необроблене падіння!"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вимкнути_стан_падіння(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          М.налаштування.обробник_падінь(</span></span>
+<span class="line"><span style="color:#E6EDF3">            М,</span></span>
+<span class="line"><span style="color:#E6EDF3">            інформація_падіння</span></span>
+<span class="line"><span style="color:#E6EDF3">          );</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія__створити_папку(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      діяльність: *Діяльність</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_шлях = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_шлях = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_відклик = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_відклик = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_шлях = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, М.константи_назв._шлях, задіяне_шлях::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_відклик = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, М.константи_назв._відклик, задіяне_відклик::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_шлях {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">шлях</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути текстом або даними."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> шлях_ю8 = </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3"> { </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> шлях_ю8_треба_звільнити = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> задіяне_шлях.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> предмет = задіяне_шлях.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Текст {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> предмет_тексту = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметТексту;</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> позиція_помилки: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> пристрій_мавки_перекодувати_кд_в_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">            предмет_тексту.значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">            предмет_тексту.значення.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">            шлях_ю8.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">            шлях_ю8.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">            позиція_помилки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">          ) {</span></span>
+<span class="line"><span style="color:#FF7B72">            вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося перекодувати </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">шлях</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> в юнікод."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_ю8_треба_звільнити = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Дані {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> предмет_даних = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_ю8.розмір = предмет_даних.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_ю8.дані = предмет_даних.дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">шлях</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути текстом або даними."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">шлях</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути текстом або даними."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> задіяне_відклик.вид != ЗПредмет {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">відклик</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_відклика = задіяне_відклик.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_відклика.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">відклик</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ав = виділити&#x3C;АргументОбробника>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      ав.М = М;</span></span>
+<span class="line"><span style="color:#E6EDF3">      ав.дані_шляху_ю8 = шлях_ю8.дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">      ав.шлях_ю8_треба_звільнити = шлях_ю8_треба_звільнити;</span></span>
+<span class="line"><span style="color:#E6EDF3">      ав.відклик = притримати_глобально(М, предмет_відклика);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      бібліотека_мавки_афс_створити_папку(</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_ю8.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_ю8.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_створити_папку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ав,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__афс__створити_папку(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_модуля: *ПредметМодуля</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_параметрів = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_параметрів = виділити&#x3C;Значення>(М, кількість_параметрів);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._шлях,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._відклик,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> д = створити_рідну_дію(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._створити_папку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        створити_послідовність_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          кількість_параметрів,</span></span>
+<span class="line"><span style="color:#E6EDF3">          дані_параметрів</span></span>
+<span class="line"><span style="color:#E6EDF3">        ),</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        рідна_дія__створити_папку,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      записати_властивість_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_модуля,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._створити_папку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ПРЕДМЕТ(д)</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

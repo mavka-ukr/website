@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.GqHLwcRUeA/мавка-0.124.14/машина/external/include/mavka/prystriy.h</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> PRYSTRIY_H</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> PRYSTRIY_H</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/tsil.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">#define ФОчистити </span><span style="color:#79C0FF">0</span></span>
+<span class="line"><span style="color:#E6EDF3">#define ФКолірТекстуЧервоний </span><span style="color:#79C0FF">1</span></span>
+<span class="line"><span style="color:#E6EDF3">#define ФКолірТекстуЗелений </span><span style="color:#79C0FF">2</span></span>
+<span class="line"><span style="color:#E6EDF3">#define ФКолірТекстуСиній </span><span style="color:#79C0FF">3</span></span>
+<span class="line"><span style="color:#E6EDF3">#define ФКолірТекстуЖовтий </span><span style="color:#79C0FF">4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> ЕлементШляхуПристроюМавки ЕлементШляхуПристроюМавки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> ЕлементШляхуПристроюМавки {</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> логічне (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">КористувацькийПристрійМавкиЧитатиКД)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_перед,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_перед,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне дозволити_історію,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> кінець_файлу);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> змінити_користувацький_пристрій_мавки_читати_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">    КористувацькийПристрійМавкиЧитатиКД нова_функція);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_версію(природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                              п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// втілено в Цілі</span></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перекодувати_ю8_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_позиції_помилки);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// втілено в Цілі, вертає null-terminated</span></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перекодувати_кд_в_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_позиції_помилки);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_вивести_формат(природне значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_вивести_сирі_дані(природне розмір, п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_вивести_кд(природне розмір, п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_надрукувати_кд(природне розмір, п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_вивести_шлях(природне розмір, п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_надрукувати_шлях(природне розмір, п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_вивести_ю8(природне розмір, п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_надрукувати_ю8(природне розмір, п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> пристрій_мавки_виділити_сиру_памʼять(природне розмір);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> пристрій_мавки_перевиділити_сиру_памʼять(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    природне новий_розмір);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_звільнити_сиру_памʼять(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_вийти(ц32 код_виходу);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_прочитати_файл(природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                             п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                             природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                             п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перетворити_п64_в_кд(п64 значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перетворити_ц64_в_кд(ц64 значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перетворити_р64_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">    р64 значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    ціле</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру_експоненти);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> п64 пристрій_мавки_піднести_до_степеня_п64(п64 значення, п64 степінь);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> ц64 пристрій_мавки_піднести_до_степеня_ц64(ц64 значення, ц64 степінь);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> р64 пристрій_мавки_піднести_до_степеня_р64(р64 значення, р64 степінь);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перевірити_чи_шлях_існує_і_є_файлом(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перевірити_чи_шлях_закінчується_як_модуль_мавки(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_абсолютний_шлях(природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                       п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                       природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                       п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_теку_шляху(природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                  природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                  п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                  природне рівень);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_теку_до_паків(природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_назву_модуля_з_шляху(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_збити_шлях_до_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне кількість_елементів,</span></span>
+<span class="line"><span style="color:#E6EDF3">    ЕлементШляхуПристроюМавки</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> елементи,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_відносний_шлях(природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                      п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                      природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                      п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перевірити_чи_шлях_починається_на(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_початку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_початку);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_шлях_до_паку_з_шляху_теки_модулів(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху_до_паків,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху_до_паків,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_читати_кд(природне розмір_перед,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                        п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_перед,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                        природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                        п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                        природне дозволити_історію,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                        природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> кінець_файлу);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_поточний_шлях_процесу(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#endif</span><span style="color:#8B949E"> // PRYSTRIY_H</span></span></code></pre>
+</body>
+</html>

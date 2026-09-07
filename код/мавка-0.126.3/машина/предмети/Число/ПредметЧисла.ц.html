@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.pYA2HGq4EF/мавка-0.126.3/машина/предмети/Число/ПредметЧисла.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> копіювати_памʼять&#x3C;Т>(</span></span>
+<span class="line"><span style="color:#E6EDF3">  куди: *Т,</span></span>
+<span class="line"><span style="color:#E6EDF3">  звідки: *Т,</span></span>
+<span class="line"><span style="color:#E6EDF3">  кількість: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  поки</span><span style="color:#E6EDF3"> п &#x3C; кількість {</span></span>
+<span class="line"><span style="color:#E6EDF3">    куди[п] = звідки[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> заповнити_памʼять&#x3C;Т>(</span></span>
+<span class="line"><span style="color:#E6EDF3">  куди: *Т,</span></span>
+<span class="line"><span style="color:#E6EDF3">  значення: Т,</span></span>
+<span class="line"><span style="color:#E6EDF3">  кількість: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  поки</span><span style="color:#E6EDF3"> п &#x3C; кількість {</span></span>
+<span class="line"><span style="color:#E6EDF3">    куди[п] = значення;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу_Число__чародія_число(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу_Число__чародія_текст(М: *Машина);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Число(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Число.вбудований = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Число.заборонити_наслідування = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_класу_Число__чародія_число(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_класу_Число__чародія_текст(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_числа(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> задіяне_значення: Значення = НЕДІЙСНЕ;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    знайти_задіяне(М, задіяні, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, М.константи_назв._значення, задіяне_значення::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> задіяне_значення.вид == ЗНедійсне {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(</span><span style="color:#79C0FF">0.0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> задіяне_значення.вид == ЗДійсне {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(</span><span style="color:#79C0FF">1.0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> задіяне_значення.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> задіяне_значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> здійснити_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      задіяне_значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._чародія_число,</span></span>
+<span class="line"><span style="color:#E6EDF3">      Задіяні { ВидЗадіяних2, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> },</span></span>
+<span class="line"><span style="color:#E6EDF3">      Місцезнаходження { </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> }</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_отримати_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_методу = знайти_метод_в_класі(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.клас_Число,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_методу == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_методу);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

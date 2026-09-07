@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.pYA2HGq4EF/мавка-0.126.3/машина/предмети/Словник/ПредметСловника.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу_Словник__чародія_текст(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу_Словник__чародія_перебір(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу_Словник__ключі(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу_Словник__значення(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу_Словник__містить(М: *Машина);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> записати_ознаки_класу_Словник(М: *Машина) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> кількість_ознак = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дані_ознак = виділити&#x3C;Значення>(М, кількість_ознак);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    дані_ознак[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_ознаку(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._розмір,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Словник.ознаки = створити_послідовність_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      кількість_ознак,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_ознак</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Словник(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Словник.вбудований = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Словник.заборонити_наслідування = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_ознаки_класу_Словник(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_класу_Словник__чародія_текст(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_класу_Словник__чародія_перебір(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_класу_Словник__ключі(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_класу_Словник__значення(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_класу_Словник__містить(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_словник(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> *ПредметСловника {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = виділити_предмет&#x3C;ПредметСловника>(М, М.клас_Словник);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.розмір = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.елементи = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_в_словник(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    словник: *ПредметСловника,</span></span>
+<span class="line"><span style="color:#E6EDF3">    ключ: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> властивості_словника = словник;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; властивості_словника.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> елемент = властивості_словника.елементи[п]::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> порівняти_значення(М, елемент.ключ, ключ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        елемент.значення = значення;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    властивості_словника.елементи = перевиділити&#x3C;ЕлементСловника>(М, властивості_словника.елементи, властивості_словника.розмір + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    властивості_словника.елементи[властивості_словника.розмір] = ЕлементСловника { ключ, значення };</span></span>
+<span class="line"><span style="color:#E6EDF3">    властивості_словника.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_словника(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити клас </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Словник</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_словника_отримати_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника: *ПредметСловника,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> порівняти_тексти(М, назва, М.константи_назв._розмір) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(предмет_словника.розмір));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_методу = знайти_метод_в_класі(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.клас_Словник,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_методу == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_методу);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_словника_отримати_елемент(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника: *ПредметСловника,</span></span>
+<span class="line"><span style="color:#E6EDF3">    ключ: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; предмет_словника.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> елемент = предмет_словника.елементи[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> порівняти_значення(М, елемент.ключ, ключ) {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> елемент.значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_словника_змінити_елемент(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника: *ПредметСловника,</span></span>
+<span class="line"><span style="color:#E6EDF3">    ключ: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення_елемента: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> СтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; предмет_словника.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> елемент = предмет_словника.елементи[п]::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> порівняти_значення(М, елемент.ключ, ключ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        елемент.значення = значення_елемента;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника.елементи = перевиділити&#x3C;ЕлементСловника>(М, предмет_словника.елементи, предмет_словника.розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника.елементи[предмет_словника.розмір - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ЕлементСловника {</span></span>
+<span class="line"><span style="color:#E6EDF3">      ключ = ключ,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення = значення_елемента</span></span>
+<span class="line"><span style="color:#E6EDF3">    };</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

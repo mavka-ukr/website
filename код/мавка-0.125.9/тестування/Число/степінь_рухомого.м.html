@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Hvp4K8tfrK/мавка-0.125.9/тестування/Число/степінь_рухомого.м</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">;; тест 0: простий степінь</span></span>
+<span class="line"><span style="color:#E6EDF3">а = </span><span style="color:#79C0FF">2.0</span></span>
+<span class="line"><span style="color:#E6EDF3">б = </span><span style="color:#79C0FF">3.0</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = а ** б</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = </span><span style="color:#79C0FF">8.0</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 0: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 1: степінь 0</span></span>
+<span class="line"><span style="color:#E6EDF3">а = </span><span style="color:#79C0FF">5.5</span></span>
+<span class="line"><span style="color:#E6EDF3">б = </span><span style="color:#79C0FF">0.0</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = а ** б</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = </span><span style="color:#79C0FF">1.0</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 1: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 2: степінь 1</span></span>
+<span class="line"><span style="color:#E6EDF3">а = </span><span style="color:#79C0FF">42.7</span></span>
+<span class="line"><span style="color:#E6EDF3">б = </span><span style="color:#79C0FF">1.0</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = а ** б</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = </span><span style="color:#79C0FF">42.7</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 2: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 3: від'ємна основа, парний степінь</span></span>
+<span class="line"><span style="color:#E6EDF3">а = -</span><span style="color:#79C0FF">3.0</span></span>
+<span class="line"><span style="color:#E6EDF3">б = </span><span style="color:#79C0FF">2.0</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = а ** б</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = </span><span style="color:#79C0FF">9.0</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 3: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 4: від'ємна основа, непарний степінь</span></span>
+<span class="line"><span style="color:#E6EDF3">а = -</span><span style="color:#79C0FF">2.0</span></span>
+<span class="line"><span style="color:#E6EDF3">б = </span><span style="color:#79C0FF">3.0</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = а ** б</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = -</span><span style="color:#79C0FF">8.0</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 4: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 5: дробовий степінь (квадратний корінь)</span></span>
+<span class="line"><span style="color:#E6EDF3">а = </span><span style="color:#79C0FF">4.0</span></span>
+<span class="line"><span style="color:#E6EDF3">б = </span><span style="color:#79C0FF">0.5</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = а ** б</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = </span><span style="color:#79C0FF">2.0</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 5: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 0</span></span>
+<span class="line"><span style="color:#E6EDF3">а = </span><span style="color:#79C0FF">15.0</span></span>
+<span class="line"><span style="color:#E6EDF3">б = </span><span style="color:#79C0FF">5.0</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = а ** б</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = </span><span style="color:#79C0FF">759375.0</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат == очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">інакше</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат == очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">інакше</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span></code></pre>
+</body>
+</html>

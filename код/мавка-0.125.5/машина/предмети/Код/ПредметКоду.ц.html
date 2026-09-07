@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.lSRdVhMdOt/мавка-0.125.5/машина/предмети/Код/ПредметКоду.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу_Код__чародія_текст(М: *Машина);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> записати_ознаки_класу_Код(М: *Машина) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Код.ознаки = М.пуста_послідовність;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Код(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Код.вбудований = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Код.заборонити_наслідування = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_ознаки_класу_Код(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_класу_Код__чародія_текст(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_код(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    константи: *ПредметПослідовності,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вказівки: *ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях: *ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_вказівок: МісцезнаходженняВказівок</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> *ПредметКоду {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = виділити_предмет&#x3C;ПредметКоду>(М, М.клас_Код);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.константи = константи;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.вказівки = вказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.шлях = шлях;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.місцезнаходження_вказівок = місцезнаходження_вказівок;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_рядок_вказівки(</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_вказівок: МісцезнаходженняВказівок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція_вказівки: </span><span style="color:#79C0FF">п32</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; місцезнаходження_вказівок.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> м = місцезнаходження_вказівок.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> м.початок &#x3C;= позиція_вказівки {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> м.кінець >= позиція_вказівки {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> м.рядок;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

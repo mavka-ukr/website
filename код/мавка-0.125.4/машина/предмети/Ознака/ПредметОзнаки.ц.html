@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.WX4ZOhQSy4/мавка-0.125.4/машина/предмети/Ознака/ПредметОзнаки.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> записати_ознаки_класу_Ознака(М: *Машина) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> кількість_ознак = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дані_ознак = виділити&#x3C;Значення>(М, кількість_ознак);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    дані_ознак[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_ознаку(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._назва,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані_ознак[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_ознаку(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._тип,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані_ознак[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_ознаку(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._значення,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Ознака.ознаки = створити_послідовність_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      кількість_ознак,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_ознак</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Ознака(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Ознака.вбудований = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.клас_Ознака.заборонити_наслідування = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_ознаки_класу_Ознака(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_ознаку(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">    тип: *Предмет,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> *ПредметОзнаки {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = виділити_предмет&#x3C;ПредметОзнаки>(М, М.клас_Ознака);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.назва = назва;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.тип = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.значення = значення;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_ознаки(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо створити ознаку вручну."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_ознаки_отримати_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_ознаки: *ПредметОзнаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту, місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._назва) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_ознаки.назва);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._тип) {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_ознаки.тип == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_ознаки.тип);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> предмет_ознаки.значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_методу = знайти_метод_в_класі(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.клас_Ознака,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_методу == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_методу);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

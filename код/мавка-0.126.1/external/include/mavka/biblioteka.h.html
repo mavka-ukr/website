@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.XkGXo8K6wS/мавка-0.126.1/external/include/mavka/biblioteka.h</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> BIBLIOTEKA_H</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> BIBLIOTEKA_H</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/tsil.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_синус_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_косинус_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_тангенс_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арксинус_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арккосинус_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арктангенс_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арктангенс2_р64(р64 а, р64 б);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_абсолютне_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_експонента_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_корінь_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_стеля_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_підлога_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_округлити_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_остача_від_ділення_р64(р64 а, р64 б);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_видалити(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху, природне розмір_шляху);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_дописати_файл(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       природне розмір_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_записати_файл(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       природне розмір_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_прочитати_файл(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                        природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                        Дані</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_створити_папку(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху, природне розмір_шляху);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#endif</span><span style="color:#8B949E"> // BIBLIOTEKA_H</span></span></code></pre>
+</body>
+</html>

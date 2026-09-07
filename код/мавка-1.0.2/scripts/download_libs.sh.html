@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Zmu4IZbMnX/мавка-1.0.2/scripts/download_libs.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -euo</span><span style="color:#A5D6FF"> pipefail</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">SCRIPT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">dirname</span><span style="color:#A5D6FF"> "${</span><span style="color:#E6EDF3">BASH_SOURCE</span><span style="color:#A5D6FF">[0]}")" &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#E6EDF3">ROOT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/.." &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">NCURSES_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/NCURSES_VERSION")"</span></span>
+<span class="line"><span style="color:#E6EDF3">READLINE_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/READLINE_VERSION")"</span></span>
+<span class="line"><span style="color:#E6EDF3">LIBUV_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/LIBUV_VERSION")"</span></span>
+<span class="line"><span style="color:#E6EDF3">OPENSSL_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/OPENSSL_VERSION")"</span></span>
+<span class="line"><span style="color:#E6EDF3">CURL_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/CURL_VERSION")"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#79C0FF"> command</span><span style="color:#79C0FF"> -v</span><span style="color:#A5D6FF"> curl</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF">/dev/null</span><span style="color:#FF7B72"> 2>&#x26;1</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">  FETCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"curl -L --fail -o"</span></span>
+<span class="line"><span style="color:#FF7B72">elif</span><span style="color:#79C0FF"> command</span><span style="color:#79C0FF"> -v</span><span style="color:#A5D6FF"> wget</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF">/dev/null</span><span style="color:#FF7B72"> 2>&#x26;1</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">  FETCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wget -O"</span></span>
+<span class="line"><span style="color:#FF7B72">else</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Error: install curl or wget to download dependencies."</span><span style="color:#FF7B72"> >&#x26;2</span></span>
+<span class="line"><span style="color:#79C0FF">  exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">download_file</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> url</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> dest</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$2</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-f</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$dest</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "Already downloaded: $(</span><span style="color:#FFA657">basename</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$dest</span><span style="color:#A5D6FF">")"</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">dirname</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$dest</span><span style="color:#A5D6FF">")"</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Downloading $(</span><span style="color:#FFA657">basename</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$dest</span><span style="color:#A5D6FF">")..."</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#79C0FF"> command</span><span style="color:#79C0FF"> -v</span><span style="color:#A5D6FF"> curl</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF">/dev/null</span><span style="color:#FF7B72"> 2>&#x26;1</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FFA657">    curl</span><span style="color:#79C0FF"> -L</span><span style="color:#79C0FF"> --fail</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$dest</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$url</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#FFA657">    wget</span><span style="color:#79C0FF"> -O</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$dest</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$url</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">cat</span><span style="color:#FF7B72"> &#x3C;&#x3C;</span><span style="color:#E6EDF3">'EOF'</span></span>
+<span class="line"><span style="color:#A5D6FF">This script downloads the third-party source archives required by</span></span>
+<span class="line"><span style="color:#A5D6FF">scripts/build_deps.sh: ncurses, readline, libuv, openssl, curl.</span></span>
+<span class="line"><span style="color:#E6EDF3">EOF</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">download_file</span><span style="color:#A5D6FF"> "https://ftp.gnu.org/gnu/ncurses/ncurses-${</span><span style="color:#E6EDF3">NCURSES_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span><span style="color:#A5D6FF"> "scripts/ncurses-${</span><span style="color:#E6EDF3">NCURSES_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"><span style="color:#FFA657">download_file</span><span style="color:#A5D6FF"> "https://ftp.gnu.org/gnu/readline/readline-${</span><span style="color:#E6EDF3">READLINE_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span><span style="color:#A5D6FF"> "scripts/readline-${</span><span style="color:#E6EDF3">READLINE_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"><span style="color:#FFA657">download_file</span><span style="color:#A5D6FF"> "https://dist.libuv.org/dist/v${</span><span style="color:#E6EDF3">LIBUV_VERSION</span><span style="color:#A5D6FF">}/libuv-v${</span><span style="color:#E6EDF3">LIBUV_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span><span style="color:#A5D6FF"> "scripts/libuv-v${</span><span style="color:#E6EDF3">LIBUV_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"><span style="color:#FFA657">download_file</span><span style="color:#A5D6FF"> "https://github.com/openssl/openssl/releases/download/openssl-${</span><span style="color:#E6EDF3">OPENSSL_VERSION</span><span style="color:#A5D6FF">}/openssl-${</span><span style="color:#E6EDF3">OPENSSL_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span><span style="color:#A5D6FF"> "scripts/openssl-${</span><span style="color:#E6EDF3">OPENSSL_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"><span style="color:#FFA657">download_file</span><span style="color:#A5D6FF"> "https://curl.se/download/curl-${</span><span style="color:#E6EDF3">CURL_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span><span style="color:#A5D6FF"> "scripts/curl-${</span><span style="color:#E6EDF3">CURL_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "Download complete."</span></span></code></pre>
+</body>
+</html>

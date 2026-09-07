@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.DBrbTe6kSp/мавка-0.126.2/.github/workflows/build-artifacts.yml</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Build and Push Artifacts</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">on</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">  push</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">    branches</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#A5D6FF">main</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#A5D6FF">dev</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7EE787">jobs</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">  build</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">    name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Build object and LLVM files</span></span>
+<span class="line"><span style="color:#7EE787">    runs-on</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">ubuntu-latest</span></span>
+<span class="line"><span style="color:#7EE787">    strategy</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">      matrix</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">        platform</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">linux-x86_64</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">linux-aarch64</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">windows-x86_64</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">windows-aarch64</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#7EE787">        mode</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">debug</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">release</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#7EE787">        format</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">ll</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">o</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#7EE787">        exclude</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">          - </span><span style="color:#7EE787">mode</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ github.ref_name == 'main' &#x26;&#x26; 'debug' || 'release' }}</span></span>
+<span class="line"><span style="color:#7EE787">    steps</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Checkout source code</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/checkout@v4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Install system build dependencies</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo apt-get update</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo apt-get install -y clang llvm make xz-utils curl</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Download and install tsil compiler tool</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          TSIL_VERSION=$(cat ЦІЛЬ | xargs)</span></span>
+<span class="line"><span style="color:#A5D6FF">          URL="https://github.com/tsil-ukr/files/raw/main/випуски-цілі/${TSIL_VERSION}/ціль-${TSIL_VERSION}-лінукс-ікс86_64.tar.xz"</span></span>
+<span class="line"><span style="color:#A5D6FF">          curl -L "$URL" -o tsil.tar.xz</span></span>
+<span class="line"><span style="color:#A5D6FF">          tar -xf tsil.tar.xz</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo cp "ціль-${TSIL_VERSION}-лінукс-ікс86_64/програми/ціль" /usr/local/bin/ціль</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo chmod +x /usr/local/bin/ціль</span></span>
+<span class="line"><span style="color:#A5D6FF">          rm -rf tsil.tar.xz "ціль-${TSIL_VERSION}-лінукс-ікс86_64"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Run compilation</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x scripts/build_tsil.sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          /bin/bash scripts/build_tsil.sh \</span></span>
+<span class="line"><span style="color:#A5D6FF">            "${{ matrix.mode }}" \</span></span>
+<span class="line"><span style="color:#A5D6FF">            "${{ matrix.platform }}" \</span></span>
+<span class="line"><span style="color:#A5D6FF">            "${{ matrix.format }}" \</span></span>
+<span class="line"><span style="color:#A5D6FF">            "/usr/local/bin/ціль" \</span></span>
+<span class="line"><span style="color:#A5D6FF">            "clang"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Upload matrix workspace artifacts</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/upload-artifact@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">artifacts-${{ matrix.platform }}-${{ matrix.mode }}-${{ matrix.format }}</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">будування/</span></span>
+<span class="line"><span style="color:#7EE787">          retention-days</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7EE787">  deploy</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">    name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Aggregate and push to storage repo</span></span>
+<span class="line"><span style="color:#7EE787">    needs</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">build</span></span>
+<span class="line"><span style="color:#7EE787">    runs-on</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">ubuntu-latest</span></span>
+<span class="line"><span style="color:#7EE787">    steps</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Checkout source code</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/checkout@v4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Checkout target storage repository</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/checkout@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          repository</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"diysnist-static/mavka-artifacts"</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">".будування_репозиторій"</span></span>
+<span class="line"><span style="color:#7EE787">          ssh-key</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ secrets.SSH_ARTIFACTS_DEPLOY_KEY }}</span></span>
+<span class="line"><span style="color:#7EE787">          persist-credentials</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Remove previous build paths if they exist</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          cd .будування_репозиторій</span></span>
+<span class="line"><span style="color:#A5D6FF">          VERSION=$(cat ../ВЕРСІЯ | xargs)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          if [ "${{ github.ref_name }}" = "main" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            TSIL_MODE="випуск"</span></span>
+<span class="line"><span style="color:#A5D6FF">          else</span></span>
+<span class="line"><span style="color:#A5D6FF">            TSIL_MODE="відлагодження"</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          while IFS= read -r matrix_platform; do</span></span>
+<span class="line"><span style="color:#A5D6FF">            case "$matrix_platform" in</span></span>
+<span class="line"><span style="color:#A5D6FF">              linux-x86_64)    TSIL_FOLDER="лінукс-ікс86_64" ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">              linux-aarch64)   TSIL_FOLDER="лінукс-аарч64" ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">              windows-x86_64)  TSIL_FOLDER="віндовс-ікс86_64" ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">              windows-aarch64) TSIL_FOLDER="віндовс-аарч64" ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">            esac</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">            TARGET_PATH="будування/${VERSION}/${TSIL_FOLDER}/${TSIL_MODE}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">            if [ -d "$TARGET_PATH" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">              git rm -rf "$TARGET_PATH" || rm -rf "$TARGET_PATH"</span></span>
+<span class="line"><span style="color:#A5D6FF">            fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          done &#x3C;&#x3C; 'EOF'</span></span>
+<span class="line"><span style="color:#A5D6FF">          linux-x86_64</span></span>
+<span class="line"><span style="color:#A5D6FF">          linux-aarch64</span></span>
+<span class="line"><span style="color:#A5D6FF">          windows-x86_64</span></span>
+<span class="line"><span style="color:#A5D6FF">          windows-aarch64</span></span>
+<span class="line"><span style="color:#A5D6FF">          EOF</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Download all matrix build artifacts</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/download-artifact@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">.будування_репозиторій/будування</span></span>
+<span class="line"><span style="color:#7EE787">          merge-multiple</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Commit and push changes</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          VERSION=$(cat ВЕРСІЯ | xargs)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          cd .будування_репозиторій</span></span>
+<span class="line"><span style="color:#A5D6FF">          git config --local user.name "КДБ"</span></span>
+<span class="line"><span style="color:#A5D6FF">          git config --local user.email "prykhozhdenko@gmail.com"</span></span>
+<span class="line"><span style="color:#A5D6FF">          git add .</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          if ! git diff-index --quiet HEAD; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            git commit -m "Мавка $VERSION. b:${GITHUB_REF_NAME} c:${GITHUB_SHA} r:${GITHUB_RUN_NUMBER}"</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Push to target repository</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">ad-m/github-push-action@master</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          branch</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">main</span></span>
+<span class="line"><span style="color:#7EE787">          directory</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">".будування_репозиторій"</span></span>
+<span class="line"><span style="color:#7EE787">          repository</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"diysnist-static/mavka-artifacts"</span></span>
+<span class="line"><span style="color:#7EE787">          ssh</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">true</span></span>
+<span class="line"><span style="color:#7EE787">          github_token</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ secrets.SSH_ARTIFACTS_DEPLOY_KEY }}</span></span>
+<span class="line"></span></code></pre>
+</body>
+</html>

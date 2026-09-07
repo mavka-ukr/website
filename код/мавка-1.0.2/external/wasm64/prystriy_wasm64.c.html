@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Zmu4IZbMnX/мавка-1.0.2/external/wasm64/prystriy_wasm64.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "./galloc.c"</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/prystriy.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">size_t</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> str</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">char*</span><span style="color:#D2A8FF"> dirname</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">char*</span><span style="color:#D2A8FF"> strrchr</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> s</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">int</span><span style="color:#FFA657"> c</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">char*</span><span style="color:#D2A8FF"> strdup</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> s</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> memcpy</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FF7B72"> restrict</span><span style="color:#FFA657"> dest</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> void*</span><span style="color:#FF7B72"> restrict</span><span style="color:#FFA657"> src</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> n</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">char*</span><span style="color:#D2A8FF"> basename</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">size_t</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> str</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  while</span><span style="color:#E6EDF3"> (</span><span style="color:#FFA657">str</span><span style="color:#E6EDF3">[len] </span><span style="color:#FF7B72">!=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    len</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> len;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">char*</span><span style="color:#D2A8FF"> dirname</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  static</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3"> dot</span><span style="color:#FF7B72">[]</span><span style="color:#FF7B72"> =</span><span style="color:#A5D6FF"> "."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Return "." if path is NULL or an empty string</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (path </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> NULL</span><span style="color:#FF7B72"> ||</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">path </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> dot;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  len </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(path);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Strip trailing slashes, but don't strip the leading slash if it's the only one</span></span>
+<span class="line"><span style="color:#FF7B72">  while</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">></span><span style="color:#79C0FF"> 1</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#FFA657"> path</span><span style="color:#E6EDF3">[len </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '/'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">    path</span><span style="color:#E6EDF3">[</span><span style="color:#FF7B72">--</span><span style="color:#E6EDF3">len] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // If the path was just slashes (e.g., "///"), it's now "/"</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 1</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#FFA657"> path</span><span style="color:#E6EDF3">[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '/'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> path;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Find the last remaining slash</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> last_slash </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strrchr</span><span style="color:#E6EDF3">(path, </span><span style="color:#A5D6FF">'/'</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (last_slash </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (last_slash </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> path) {</span></span>
+<span class="line"><span style="color:#8B949E">      // Path is something like "/usr", dirname is "/"</span></span>
+<span class="line"><span style="color:#FFA657">      path</span><span style="color:#E6EDF3">[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">      // Path is something like "/usr/bin", dirname is "/usr"</span></span>
+<span class="line"><span style="color:#FF7B72">      *</span><span style="color:#E6EDF3">last_slash </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> path;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // No slashes remaining, so it's a relative file in the current directory</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> dot;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">char*</span><span style="color:#D2A8FF"> strrchr</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> s</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">int</span><span style="color:#FFA657"> c</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> last </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#8B949E">  // The C standard specifies that 'c' is converted to 'unsigned char'</span></span>
+<span class="line"><span style="color:#FF7B72">  unsigned</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3"> ch </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3">)c;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Loop including the null terminator to handle searching for '\0' natively</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (;;) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> ((</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">s </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> ch) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      last </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)s;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">s </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      break</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    s</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> last;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">char*</span><span style="color:#D2A8FF"> strdup</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> s</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (s </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 1. Calculate the length of the string</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(s);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 2. Allocate memory ( +1 byte for the null terminator '\0' )</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> dup </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">malloc</span><span style="color:#E6EDF3">(len </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 3. Check if malloc failed (out of memory)</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (dup </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 4. Copy the string contents into the new memory block</span></span>
+<span class="line"><span style="color:#D2A8FF">  memcpy</span><span style="color:#E6EDF3">(dup, s, len </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> dup;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> memcpy</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FF7B72"> restrict</span><span style="color:#FFA657"> dest</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> void*</span><span style="color:#FF7B72"> restrict</span><span style="color:#FFA657"> src</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> n</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#8B949E">  // Cast the void pointers to unsigned char pointers so we can operate byte-by-byte</span></span>
+<span class="line"><span style="color:#FF7B72">  unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> d </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)dest;</span></span>
+<span class="line"><span style="color:#FF7B72">  const</span><span style="color:#FF7B72"> unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> s </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)src;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Loop through and copy each byte</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> i </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; i </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> n; i</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">    d</span><span style="color:#E6EDF3">[i] </span><span style="color:#FF7B72">=</span><span style="color:#FFA657"> s</span><span style="color:#E6EDF3">[i];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // The standard specifies that memcpy always returns the original dest pointer</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> dest;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">char*</span><span style="color:#D2A8FF"> basename</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  static</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3"> dot</span><span style="color:#FF7B72">[]</span><span style="color:#FF7B72"> =</span><span style="color:#A5D6FF"> "."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 1. If path is NULL or an empty string, return "."</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (path </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> NULL</span><span style="color:#FF7B72"> ||</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">path </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> dot;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  len </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(path);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 2. Strip trailing slashes, but keep the first slash if it's the only one</span></span>
+<span class="line"><span style="color:#FF7B72">  while</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">></span><span style="color:#79C0FF"> 1</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#FFA657"> path</span><span style="color:#E6EDF3">[len </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '/'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">    path</span><span style="color:#E6EDF3">[</span><span style="color:#FF7B72">--</span><span style="color:#E6EDF3">len] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 3. If the path was entirely slashes (e.g., "///"), it's now "/"</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 1</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#FFA657"> path</span><span style="color:#E6EDF3">[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '/'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> path;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 4. Find the last remaining slash</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> last_slash </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strrchr</span><span style="color:#E6EDF3">(path, </span><span style="color:#A5D6FF">'/'</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 5. If a slash is found, the component is everything after it</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (last_slash </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> last_slash </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // 6. If no slash is found, the entire string is the basename</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> path;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "../unix_wasm/prystriy_unix_wasm64.c"</span></span></code></pre>
+</body>
+</html>

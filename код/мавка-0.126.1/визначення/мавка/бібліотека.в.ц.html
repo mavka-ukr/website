@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.XkGXo8K6wS/мавка-0.126.1/визначення/мавка/бібліотека.в.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">/* Бібліотека Мавки */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> бібліотека {</span></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> Дані {</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#8B949E">// ВАЖЛИВО: параметри дій бібліотеки НЕ ЗМІНЮВАТИ! інакше прийдеться змінювати ВСЮДИ (віндовс, лінукс, макос, васм)</span></span>
+<span class="line"><span style="color:#8B949E">//          якщо треба щось таке зробити, то треба створити нову дію!</span></span>
+<span class="line"><span style="color:#8B949E">//          сумісність цих дій між версіями має завжли зберігатись!</span></span>
+<span class="line"><span style="color:#8B949E">//          це головна біль потім міняти їх у Васм!</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_синус_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_косинус_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_тангенс_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_арксинус_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_арккосинус_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_арктангенс_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_арктангенс2_р64(а: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">, б: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_абсолютне_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_експонента_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_корінь_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_стеля_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_підлога_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_округлити_р64(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_видалити(дані_шляху: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_дописати_файл(дані_шляху: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір_даних: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_записати_файл(дані_шляху: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір_даних: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_прочитати_файл(дані_шляху: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, вихід: *мавка::бібліотека::Дані) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> бібліотека_мавки_створити_папку(дані_шляху: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> бібліотека {</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> Е = </span><span style="color:#79C0FF">2.71828182845904523536</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> ЛОГ2Е = </span><span style="color:#79C0FF">1.44269504088896340736</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> ЛОГ10Е = </span><span style="color:#79C0FF">0.434294481903251827651</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> ЛОГ2 = </span><span style="color:#79C0FF">0.693147180559945309417</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> ЛОГ10 = </span><span style="color:#79C0FF">2.30258509299404568402</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> ПІ = </span><span style="color:#79C0FF">3.14159265358979323846</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> КОРІНЬ2 = </span><span style="color:#79C0FF">1.41421356237309504880</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> КОРІНЬ1_2 = </span><span style="color:#79C0FF">0.707106781186547524401</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> КористувацькіДаніБібліотекиМавки {</span></span>
+<span class="line"><span style="color:#E6EDF3">      взято__мат: *Притриманий; </span><span style="color:#8B949E">// ПредметМодуля</span></span>
+<span class="line"><span style="color:#E6EDF3">      взято__фс: *Притриманий; </span><span style="color:#8B949E">// ПредметМодуля</span></span>
+<span class="line"><span style="color:#E6EDF3">      взято__читати: *Притриманий; </span><span style="color:#8B949E">// ПредметДії</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> ініціалізувати(М: *Машина);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__син(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__кос(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__тан(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__асин(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__акос(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__атан(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__абс(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__експ(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__кор(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__верх(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__низ(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__мат__ціле(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> ініціалізувати__мат(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__фс__видалити(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__фс__дописати(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__фс__записати(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__фс__прочитати(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__фс__створити_папку(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> ініціалізувати__фс(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> створити_дію__читати(М: *Машина) -> *ПредметДії;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

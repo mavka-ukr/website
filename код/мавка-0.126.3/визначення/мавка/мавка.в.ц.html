@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.pYA2HGq4EF/мавка-0.126.3/визначення/мавка/мавка.в.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">/* Мавка */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">/* ВАЖЛИВО: цей файл має бути повністю самостійний! */</span></span>
+<span class="line"><span style="color:#8B949E">/*          ніяких "взяти" інших файлів! */</span></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Місцезнаходження;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Притриманий;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Притримувач;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> КористувацькіДані;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Дійсність;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметДаних;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПроміжкаЧисел;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметДії;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметКоду;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметМодуля;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПараметра;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметОзнаки;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПереборуПроміжкаЧисел;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПереборуСписку;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметСловника;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметСписку;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметКласу;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметТексту;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> СкладенийПредмет;</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ЗНедійсне = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ЗДійсне = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ЗЧисло = </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ЗПредмет = </span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Значення {</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *Предмет | </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вид: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> НЕДІЙСНЕ = Значення { дані = </span><span style="color:#FF7B72">пусто</span><span style="color:#FF7B72"> як</span><span style="color:#E6EDF3"> *Предмет, вид = ЗНедійсне };</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ДІЙСНЕ = Значення { дані = </span><span style="color:#FF7B72">пусто</span><span style="color:#FF7B72"> як</span><span style="color:#E6EDF3"> *Предмет, вид = ЗДійсне };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> ЧИСЛО(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> Значення {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> Значення { дані = значення, вид = ЗЧисло };</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> Значення {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> Значення { дані = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет, вид = ЗПредмет };</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> ЛОГЛОГ(значення: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">) -> Значення {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> ЗначенняАбоСтанПадіння = Значення;</span></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> СтанПадіння = </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПокластиНедійсне = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// []() -> [недійсне]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПокластиДійсне = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// []() -> [дійсне]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПокластиПредмет = </span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// []() -> [Предмет]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПокластиЯ = </span><span style="color:#79C0FF">4</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// []() -> [значення_я]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПокластиКонстанту = </span><span style="color:#79C0FF">5</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [](позиція_константи) -> [константа]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиПослідовність = </span><span style="color:#79C0FF">6</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [...](кількість_елементів) -> [значення_послідовності]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиДію = </span><span style="color:#79C0FF">7</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [назва, ..., тип_результату, код](кількість_параметрів) -> [предмет_дії]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиКлас = </span><span style="color:#79C0FF">8</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [назва, ...](кількість_параметрів) -> [предмет_класу]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиМодуль = </span><span style="color:#79C0FF">9</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [назва, код]() -> [предмет_модуля]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиСписок = </span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [...](кількість_елементів) -> [предмет_списку]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиСловник = </span><span style="color:#79C0FF">11</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [...](кількість_елементів) -> [предмет_словника]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиПроміжок = </span><span style="color:#79C0FF">12</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [від, включно, до]() -> [предмет_проміжка]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиПараметр = </span><span style="color:#79C0FF">13</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [назва, тип, значення]() -> [параметр]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиОзнаку = </span><span style="color:#79C0FF">68</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [назва, тип, значення]() -> [ознака]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтворитиТип = </span><span style="color:#79C0FF">14</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [...](кількість_структур) -> [тип]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗаписатиМетод = </span><span style="color:#79C0FF">15</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет_класу, назва, предмет_дії]() -> [предмет_дії]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВВизначити = </span><span style="color:#79C0FF">16</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [назва, значення]() -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗвернутись = </span><span style="color:#79C0FF">17</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [назва]() -> [предмет]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗдійснити = </span><span style="color:#79C0FF">18</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет_дії, ..., ...](кількість_аргументів, кількість_іменованих_аргументів) -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВОтриматиВластивість = </span><span style="color:#79C0FF">19</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет, назва]() -> [предмет_властивості]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗмінитиВластивість = </span><span style="color:#79C0FF">20</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет, назва, значення]() -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗдійснитиВластивість = </span><span style="color:#79C0FF">21</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет, назва, ..., ...](кількість_аргументів, кількість_іменованих_аргументів) -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВОтриматиЕлемент = </span><span style="color:#79C0FF">22</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет, ключ]() -> [елемент]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗмінитиЕлемент = </span><span style="color:#79C0FF">23</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет, ключ, значення]() -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВОтриматиПеребір = </span><span style="color:#79C0FF">24</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет]() -> [предмет_перебору]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВДодати = </span><span style="color:#79C0FF">25</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВВідняти = </span><span style="color:#79C0FF">26</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПомножити = </span><span style="color:#79C0FF">27</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПоділити = </span><span style="color:#79C0FF">28</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВОтриматиОстачуДілення = </span><span style="color:#79C0FF">29</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВОтриматиНеповнуЧасткуДілення = </span><span style="color:#79C0FF">30</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПіднестиДоСтепеня = </span><span style="color:#79C0FF">31</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗсунутиВліво = </span><span style="color:#79C0FF">32</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗсунутиВправо = </span><span style="color:#79C0FF">33</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗсунутиВправо2 = </span><span style="color:#79C0FF">34</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВДвійковеІ = </span><span style="color:#79C0FF">35</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВДвійковеАБО = </span><span style="color:#79C0FF">36</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВДвійковеВиключнеАБО = </span><span style="color:#79C0FF">37</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВМенше = </span><span style="color:#79C0FF">38</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВБільше = </span><span style="color:#79C0FF">39</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВНеБільше = </span><span style="color:#79C0FF">40</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВНеМенше = </span><span style="color:#79C0FF">41</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВРівно = </span><span style="color:#79C0FF">42</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВНеРівно = </span><span style="color:#79C0FF">43</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЄ = </span><span style="color:#79C0FF">46</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВНеЄ = </span><span style="color:#79C0FF">47</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а, б]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВДвійковеНЕ = </span><span style="color:#79C0FF">48</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВВідʼємне = </span><span style="color:#79C0FF">49</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗаперечити = </span><span style="color:#79C0FF">51</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [а]() -> [результат]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПочатиСпробу = </span><span style="color:#79C0FF">52</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [назва](позиція_вказівки_зловити) -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВВпасти = </span><span style="color:#79C0FF">53</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет_помилки]() -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗакінчитиСпробу = </span><span style="color:#79C0FF">54</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [](позиція_вказівки_виходу) -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВВзяти = </span><span style="color:#79C0FF">55</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [назва, ...](кількість_назв) -> [предмет_модуля]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВДати = </span><span style="color:#79C0FF">56</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет, назва]() -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВПеребратиДалі = </span><span style="color:#79C0FF">57</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет_перебору]() -> [предмет_перебору, результат_виконання]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗбитиТекст = </span><span style="color:#79C0FF">58</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [...](кількість_предметів) -> [збитий_текст]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтрибнути = </span><span style="color:#79C0FF">59</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [](позиція_вказівки) -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтрибнутиЯкщоНедійсне = </span><span style="color:#79C0FF">60</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет](позиція_вказівки) -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗабрати = </span><span style="color:#79C0FF">61</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет]() -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВВернути = </span><span style="color:#79C0FF">62</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет]() -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВСтрибнутиЯкщоДійсне = </span><span style="color:#79C0FF">63</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет](позиція_вказівки) -> [предмет]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВДублювати = </span><span style="color:#79C0FF">64</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [предмет]() -> [предмет, предмет]</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВВизначитиНавпаки = </span><span style="color:#79C0FF">65</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [значення, назва]() -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВВизначитиШвидко = </span><span style="color:#79C0FF">66</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [значення](позиція_в_дійсності) -> []</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВЗвернутисьШвидко = </span><span style="color:#79C0FF">67</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// [](позиція_в_дійсності) -> [предмет]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Шлях {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Місцезнаходження {</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_або_код: *ПредметДаних | *ПредметКоду;</span></span>
+<span class="line"><span style="color:#E6EDF3">    рядок_або_позиція_вказівки: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Притриманий {</span></span>
+<span class="line"><span style="color:#E6EDF3">    попередній: *Притриманий;</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Притриманий;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Притримувач {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Притримувач;</span></span>
+<span class="line"><span style="color:#E6EDF3">    попередній: *Притримувач;</span></span>
+<span class="line"><span style="color:#E6EDF3">    перший: *Притриманий;</span></span>
+<span class="line"><span style="color:#E6EDF3">    останній: *Притриманий;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> ДіяПередЗнищеннямКористувацькихДаних = (М: *Машина, користувацькі_дані: *КористувацькіДані) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> КористувацькіДані {</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дія_перед_знищенням: ДіяПередЗнищеннямКористувацькихДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> НакопичувачТексту {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Предмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПослідовності {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    елементи: *Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Призначене;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Призначене {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Призначене;</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Призначення {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: **Призначене;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Дійсність {</span></span>
+<span class="line"><span style="color:#E6EDF3">    попередня: *Дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступна: *Дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    кількість_запозичень: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    зовні: *Дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    призначення: Призначення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Метод {</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: *ПредметДії;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Методи {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *Метод;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВидЗадіяних1 = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// з накопичувача діяльності</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> ВидЗадіяних2 = </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// виділені користувачем</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Задіяні {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вид: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    кількість_імен: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Діяльність;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> РіднаДія = (</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    діяльність: *Діяльність</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ЕлементСловника {</span></span>
+<span class="line"><span style="color:#E6EDF3">    ключ: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметКласу {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вбудований: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    заборонити_наслідування: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    ознаки: *ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#E6EDF3">    методи: Методи;</span></span>
+<span class="line"><span style="color:#E6EDF3">    властивості: Призначення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметДії {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність_створення: *Дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    рідна: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    параметри: *ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#E6EDF3">    тип_результату: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    код: *ПредметКоду | РіднаДія;</span></span>
+<span class="line"><span style="color:#E6EDF3">    метод_класу: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_до_теки_модулів: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметСписку {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    елементи: *Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметСловника {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    елементи: *ЕлементСловника;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметМодуля {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    готовий: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    властивості: Призначення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПараметра {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    тип: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметОзнаки {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    тип: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметТексту {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> МісцезнаходженняВказівки {</span></span>
+<span class="line"><span style="color:#E6EDF3">    початок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    кінець: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    рядок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> МісцезнаходженняВказівок {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *МісцезнаходженняВказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметКоду {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    константи: *ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вказівки: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_вказівок: МісцезнаходженняВказівок;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметДаних {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПроміжкаЧисел {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    від: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    до: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    включно: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПереборуДаних {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_даних: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    почато: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    поточне_значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПереборуПроміжкаЧисел {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_проміжка: *ПредметПроміжкаЧисел;</span></span>
+<span class="line"><span style="color:#E6EDF3">    почато: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    поточне_значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПереборуПослідовності {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_послідовності: *ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#E6EDF3">    почато: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    поточне_значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПереборуСловника {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника: *ПредметСловника;</span></span>
+<span class="line"><span style="color:#E6EDF3">    почато: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    поточне_значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПереборуСписку {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_списку: *ПредметСписку;</span></span>
+<span class="line"><span style="color:#E6EDF3">    почато: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    поточне_значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ПредметПереборуТексту {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_тексту: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    почато: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    поточне_значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> СкладенийПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначено: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    властивості: Призначення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> МісцезнаходженняІнформаціїПадіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    рядок: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ЕлементІсторіїЗдійсненняІнформаціїПадіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: МісцезнаходженняІнформаціїПадіння;</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ІнформаціяПадіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: МісцезнаходженняІнформаціїПадіння;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_історії: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    історія: *ЕлементІсторіїЗдійсненняІнформаціїПадіння;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> КолірВиводуСтандартний = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> КолірВиводуЧервоний = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> КолірВиводуЗелений = </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> КолірВиводуСиній = </span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  стала</span><span style="color:#E6EDF3"> КолірВиводуЖовтий = </span><span style="color:#79C0FF">4</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> ОбробникПадінь = (М: *Машина, інформація_падіння: ІнформаціяПадіння) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Налаштування {</span></span>
+<span class="line"><span style="color:#E6EDF3">    виділити_сиру_памʼять: (М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    перевиділити_сиру_памʼять: (М: *Машина, значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, новий_розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_сиру_памʼять: (М: *Машина, значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    запанікувати: (М: *Машина, повідомлення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд: (М: *Машина, колір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_шлях: (М: *Машина, колір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    отримати_теку_файлу: (М: *Машина, шлях_до_файлу: *ПредметДаних, глибина: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    прочитати_файл: (М: *Машина, шлях_до_файлу: *ПредметДаних) -> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    перевірити_чи_шлях_починається_на: (М: *Машина, шлях: *ПредметДаних, початок: *ПредметДаних) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    отримати_шлях_до_паку_з_шляху_теки_модулів: (М: *Машина, шлях_до_теки_модулів: *ПредметДаних, шлях_до_теки_паків: *ПредметДаних, вихід: **ПредметДаних) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    збити_шлях_до_модуля: (М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, елементи: **ПредметДаних, вихід: **ПредметДаних) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    взяти_біб: (М: *Машина, довжина_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, шлях: **ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#E6EDF3">    обробник_падінь: ОбробникПадінь;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> НакопичувачЗначень {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Спроба {</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва_зловити: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція_вказівки_зловити: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_історії_здійснення: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_накопичувача_значень: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Спроби {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *Спроба;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Діяльність {</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність: *Дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    здійснювач: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_дії: *ПредметДії;</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні;</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження;</span></span>
+<span class="line"><span style="color:#E6EDF3">    спроби: Спроби;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ІсторіяЗдійснення {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *Діяльність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> КонстантиНазв {</span></span>
+<span class="line"><span style="color:#E6EDF3">    _значення: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _недійсне: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _дійсне: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Послідовність: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _дійсність: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Предмет: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Структура: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Модуль: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Параметр: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Ознака: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Число: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Текст: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Код: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Дія: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Список: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Словник: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Дані: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ПроміжокЧисел: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ПеребірПроміжкаЧисел: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ПеребірСписку: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _далі: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _з: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _довжина: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _0: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _1: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _модуль: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _пак: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _біб: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _читати: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _перед: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _розмір: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _чародія: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _чародія_число: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _чародія_текст: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _чародія_межа: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _чародія_перебір: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _чародія_послідовність: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _дія_перевірки: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _дія_перетворення: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _додати: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _забрати: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _знайти: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _знайти_позицію: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _відібрати: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _перетворити: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _обернути: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _містить: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ключ: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ключі: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _список: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _словник: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _послідовність: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _дані: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _проміжок: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ПеребірПослідовності: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ПеребірДаних: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _назва: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _параметри: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ознаки: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _тип_результату: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _код: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _константи: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _вказівки: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _шлях: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ПеребірСловника: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ПеребірТексту: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _текст: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _нескінченність: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _невизначеність: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _система: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _прочитати: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _тип: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _записати: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _куди: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _дописати: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _видалити: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _створити_папку: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _виконати: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _аргументи: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _РезультатВиконання: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _стдвив: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _стдпом: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _команда: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _с: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _місцезнаходження_вказівок: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _від: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _до: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _включно: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _дія_значення: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _позиція: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Клас: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _предок: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Перебір: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _виділити: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _обнулено: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _отримати_назву: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _афс: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _мат: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _Е: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ПІ: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ЛОГ2Е: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ЛОГ10Е: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ЛОГ2: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _ЛОГ10: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _КОРІНЬ2: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _КОРІНЬ1_2: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _син: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _кос: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _тан: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _асин: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _акос: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _атан: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _абс: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _експ: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _кор2: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _стеля: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _підлога: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _округлити: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _аввід: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _відклик: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _повідомлення: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">    _запитати: *ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ВзятеЗначення {</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ВзятіЗначення {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *ВзятеЗначення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ЕлементЧергиЗдійснення;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ЕлементЧергиЗдійснення {</span></span>
+<span class="line"><span style="color:#E6EDF3">    наступний: *ЕлементЧергиЗдійснення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ЧергаЗдійснення {</span></span>
+<span class="line"><span style="color:#E6EDF3">    перший: *ЕлементЧергиЗдійснення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    останній: *ЕлементЧергиЗдійснення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> ПочатиРозмовуДіяЧитати = (М: *Машина, перед: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, історія: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, обробник: (значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, кінець_файлу: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, помилка: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, позиція_помилки: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">, аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> ПочатиРозмовуДіяОбробитиПадіння = (М: *Машина, інформація_падіння: ІнформаціяПадіння) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> ПочатиРозмовуДіяОбробитиЗначення = (М: *Машина, значення: Значення) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Розмова {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина;</span></span>
+<span class="line"><span style="color:#E6EDF3">    читати: ПочатиРозмовуДіяЧитати;</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_до_стандартного_вводу: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    обробити_значення: ПочатиРозмовуДіяОбробитиЗначення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    обробити_падіння: ПочатиРозмовуДіяОбробитиПадіння;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_модуля: *ПредметМодуля;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність: *Дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // потім: зробити регістрову а не стекову</span></span>
+<span class="line"><span style="color:#8B949E">  // потім: не зберігати стан падіння в машині, а вертати в діях</span></span>
+<span class="line"><span style="color:#8B949E">  //        мабуть створити структуру Результат&#x3C;Т></span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Машина {</span></span>
+<span class="line"><span style="color:#E6EDF3">    налаштування: Налаштування;</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_до_теки_модулів: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_до_теки_паків: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">    перша_дійсність: *Дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    остання_дійсність: *Дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    перший_предмет: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    останній_предмет: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    кількість_дійсних: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    кількість_дійсних_для_очищення: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    потребує_очищення: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Клас: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Дані: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_ПроміжокЧисел: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Дія: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Код: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Модуль: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Параметр: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Ознака: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_ПеребірДаних: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_ПеребірПроміжкаЧисел: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_ПеребірПослідовності: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_ПеребірСловника: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_ПеребірСписку: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_ПеребірТексту: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Послідовність: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Словник: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Список: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Текст: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    клас_Число: *ПредметКласу;</span></span>
+<span class="line"><span style="color:#E6EDF3">    пуста_послідовність: *ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#E6EDF3">    глобальна_дійсність: *Дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач_значень: НакопичувачЗначень;</span></span>
+<span class="line"><span style="color:#E6EDF3">    історія_здійснення: ІсторіяЗдійснення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    стан_падіння: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення_падіння: Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_падіння: Місцезнаходження;</span></span>
+<span class="line"><span style="color:#E6EDF3">    константи_назв: КонстантиНазв;</span></span>
+<span class="line"><span style="color:#E6EDF3">    взяті_значення: ВзятіЗначення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані_пристрою: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані_бібліотеки: *КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    черга_здійснення: ЧергаЗдійснення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    глобальний_притримувач: *Притримувач; </span><span style="color:#8B949E">// перший притримувач</span></span>
+<span class="line"><span style="color:#E6EDF3">    останній_притримувач: *Притримувач;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмова: *Розмова;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перетворити_п64_в_кд(М: *Машина, значення: </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">, вихід_текстового_значення: *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перетворити_ц64_в_кд(М: *Машина, значення: </span><span style="color:#79C0FF">ц64</span><span style="color:#E6EDF3">, вихід_текстового_значення: *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перетворити_р64_в_кд(М: *Машина, значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">, вихід_текстового_значення: *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> піднести_до_степеня_р64(М: *Машина, значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">, степінь: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> ЗАПАНІКУВАТИ(М: *Машина, повідомлення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.налаштування.запанікувати(М, повідомлення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> виділити&#x3C;Т>(М: *Машина, кількість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *Т {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> М.налаштування.виділити_сиру_памʼять(М, кількість * Т.розмір) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Т;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> перевиділити&#x3C;Т>(М: *Машина, значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, нова_кількість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *Т {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> М.налаштування.перевиділити_сиру_памʼять(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, нова_кількість * Т.розмір) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Т;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити(М: *Машина, значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.налаштування.звільнити_сиру_памʼять(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_кд(М: *Машина, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.налаштування.вивести_кд(М, КолірВиводуСтандартний, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_кольорово(М: *Машина, колір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.налаштування.вивести_кд(М, колір, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> надрукувати_кд(М: *Машина, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> надрукувати_кольорово(М: *Машина, колір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кольорово(М, колір, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_шлях(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.налаштування.вивести_шлях(М, КолірВиводуСтандартний, розмір, дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_шлях_кольорово(М: *Машина, колір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.налаштування.вивести_шлях(М, колір, розмір, дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> надрукувати_шлях(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_шлях(М, розмір, дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> надрукувати_шлях_кольорово(М: *Машина, колір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_шлях_кольорово(М, колір, розмір, дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_п64(М: *Машина, значення: </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> текстове_значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перетворити_п64_в_кд(М, значення, текстове_значення::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, текстове_значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, текстове_значення.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> надрукувати_п64(М: *Машина, значення: </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_п64(М, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_ц64(М: *Машина, значення: </span><span style="color:#79C0FF">ц64</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> текстове_значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перетворити_ц64_в_кд(М, значення, текстове_значення::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, текстове_значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, текстове_значення.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> надрукувати_ц64(М: *Машина, значення: </span><span style="color:#79C0FF">ц64</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_ц64(М, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_р64(М: *Машина, значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> текстове_значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перетворити_р64_в_кд(М, значення, текстове_значення::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, текстове_значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, текстове_значення.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> надрукувати_р64(М: *Машина, значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_р64(М, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_природне(М: *Машина, значення: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_п64(М, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> отримати_теку_файлу(М: *Машина, шлях_до_файлу: *ПредметДаних, глибина: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *ПредметДаних {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> М.налаштування.отримати_теку_файлу(М, шлях_до_файлу, глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> прочитати_файл(М: *Машина, шлях_до_файлу: *ПредметДаних) -> *ПредметДаних {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> М.налаштування.прочитати_файл(М, шлях_до_файлу);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> перевірити_чи_шлях_починається_на(М: *Машина, шлях: *ПредметДаних, початок: *ПредметДаних) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> М.налаштування.перевірити_чи_шлях_починається_на(М, шлях, початок);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> отримати_шлях_до_паку_з_шляху_теки_модулів(М: *Машина, шлях_до_теки_модулів: *ПредметДаних, шлях_до_теки_паків: *ПредметДаних, вихід: **ПредметДаних) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> М.налаштування.отримати_шлях_до_паку_з_шляху_теки_модулів(М, шлях_до_теки_модулів, шлях_до_теки_паків, вихід);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> збити_шлях_до_модуля(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, елементи: **ПредметДаних, вихід: **ПредметДаних) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> М.налаштування.збити_шлях_до_модуля(М, розмір, елементи, вихід);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекодувати_ю8_в_кд(М: *Машина, значення: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, вихід_позиції_помилки: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекодувати_кд_в_ю8(М: *Машина, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, вихід_позиції_помилки: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> Накопичувач&#x3C;Т> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані: *Т;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> виділити_накопичувач&#x3C;Т>(М: *Машина, початкова_вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *Накопичувач&#x3C;Т> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> накопичувач = виділити&#x3C;Накопичувач&#x3C;Т>>();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач.розмір = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> початкова_вмісткість > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.дані = виділити&#x3C;Т>(М, початкова_вмісткість);</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.дані = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач.вмісткість = початкова_вмісткість;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> накопичувач;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> зробити_накопичувач&#x3C;Т>(М: *Машина, початкова_вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> Накопичувач&#x3C;Т> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> накопичувач: Накопичувач&#x3C;Т>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач.розмір = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> початкова_вмісткість > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.дані = виділити&#x3C;Т>(М, початкова_вмісткість);</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.дані = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач.вмісткість = початкова_вмісткість;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> накопичувач;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_в_накопичувач&#x3C;Т>(М: *Машина, накопичувач: *Накопичувач&#x3C;Т>, значення: Т) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> накопичувач.розмір == накопичувач.вмісткість {</span></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.вмісткість += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.дані = перевиділити&#x3C;Т>(М, накопичувач.дані, накопичувач.вмісткість);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач.дані[накопичувач.розмір] = значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> змінити_в_накопичувачі&#x3C;Т>(М: *Машина, накопичувач: *Накопичувач&#x3C;Т>, позиція: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, значення: Т) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> позиція >= накопичувач.вмісткість {</span></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.вмісткість = позиція + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.дані = перевиділити&#x3C;Т>(М, накопичувач.дані, накопичувач.вмісткість);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач.дані[позиція] = значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач.розмір = позиція + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> змінити_в_накопичувачі_без_розширення&#x3C;Т>(М: *Машина, накопичувач: *Накопичувач&#x3C;Т>, позиція: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, значення: Т) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач.дані[позиція] = значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обернути_накопичувач&#x3C;Т>(М: *Машина, накопичувач: *Накопичувач&#x3C;Т>) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; накопичувач.розмір / </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> тимчасове = накопичувач.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.дані[п] = накопичувач.дані[накопичувач.розмір - п - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      накопичувач.дані[накопичувач.розмір - п - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = тимчасове;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_значення_накопичувача&#x3C;Т>(М: *Машина, накопичувач: Накопичувач&#x3C;Т>) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, накопичувач.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_накопичувач&#x3C;Т>(М: *Машина, накопичувач: *Накопичувач&#x3C;Т>) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_значення_накопичувача&#x3C;Т>(М, накопичувач::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, накопичувач);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> виділити_дійсність(М: *Машина) -> *Дійсність {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дійсність = виділити&#x3C;Дійсність>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність.попередня = М.остання_дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність.наступна = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність.позначено = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність.кількість_запозичень = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність.зовні = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність.призначення = Призначення { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.остання_дійсність.наступна = дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.остання_дійсність = дійсність;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> дійсність;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> звільнити_призначення(М: *Машина, призначення: Призначення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перебрати_призначення(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    призначення: Призначення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    дія_перебору: (М: *Машина, призначення: Призначення, назва: *ПредметТексту, значення: Значення, аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    аргумент: </span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> відпустити_дійсність(М: *Машина, дійсність: *Дійсність) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність.кількість_запозичень -= </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> дійсність.кількість_запозичень == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> дійсність.попередня == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.перша_дійсність = дійсність.наступна;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        дійсність.попередня.наступна = дійсність.наступна;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> дійсність.наступна == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.остання_дійсність = дійсність.попередня;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        дійсність.наступна.попередня = дійсність.попередня;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> дійсність.зовні != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_дійсність(М, дійсність.зовні);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_призначення(М, дійсність.призначення);</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, дійсність);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> виділити_предмет&#x3C;Т>(М: *Машина, клас: *ПредметКласу) -> *Т {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = виділити&#x3C;Т>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.наступний = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.позначено = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.клас = клас;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.користувацькі_дані = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.останній_предмет.наступний = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.останній_предмет = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.кількість_дійсних += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.потребує_очищення = М.кількість_дійсних >= М.кількість_дійсних_для_очищення;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Взяти</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> взяти_файл(М: *Машина, шлях_до_файлу: *ПредметДаних, назва_модуля: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> взяти_модуль(М: *Машина, шлях_до_теки_модулів: *ПредметДаних, відносно: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, довжина_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, шлях: **ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> взяти_пак(М: *Машина, довжина_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, шлях: **ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> взяти_біб(М: *Машина, довжина_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, шлях: **ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ВзятіЗначення</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_взяте_значення(М: *Машина, шлях: *ПредметДаних, значення: Значення);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_взяте_значення(М: *Машина, шлях: *ПредметДаних, вихід_значення: *Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> видалити_взяте_значення(М: *Машина, шлях: *ПредметДаних) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Вивід</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> надрукувати_інформацію_падіння(М: *Машина, інформація_падіння: ІнформаціяПадіння);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> вивести_значення(М: *Машина, значення: Значення, розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, глибина: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> надрукувати_значення(М: *Машина, значення: Значення, розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, глибина: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Дійсність</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_дійсність(М: *Машина, зовні: *Дійсність) -> *Дійсність;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_в_дійсність(М: *Машина, дійсність: *Дійсність, назва: *ПредметТексту, значення: Значення);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_в_дійсності(М: *Машина, дійсність: *Дійсність, назва: *ПредметТексту, вихід_значення: *Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Призначення</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> призначити(М: *Машина, призначення: *Призначення, назва: *ПредметТексту, значення: Значення);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_призначене(М: *Машина, призначення: Призначення, назва: *ПредметТексту, вихід: *Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Допоміжне</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> розібрати_число_з_кд(М: *Машина, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, вихід: *</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Задіяні</span></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> ДіяПереборуПозиційнихЗадіяних = (М: *Машина, задіяні: Задіяні, розмір_позиційних: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, позиція: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, значення: Значення, аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  синонім</span><span style="color:#E6EDF3"> ДіяПереборуІменованихЗадіяних = (М: *Машина, задіяні: Задіяні, позиція: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, назва: *ПредметТексту, значення: Значення, аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_задіяне(М: *Машина, задіяні: Задіяні, позиція: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, назва: *ПредметТексту, вихід_значення: *Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перебрати_позиційні_задіяні(М: *Машина, задіяні: Задіяні, дія_перебору: ДіяПереборуПозиційнихЗадіяних, аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перебрати_іменовані_задіяні(М: *Машина, задіяні: Задіяні, дія_перебору: ДіяПереборуІменованихЗадіяних, аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> звільнити_задіяні(М: *Машина, задіяні: Задіяні);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Значення</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити(М: *Машина, здійснювач: Значення, значення: Значення, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_властивість(М: *Машина, предмет: Значення, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> змінити_властивість(М: *Машина, предмет: Значення, назва: *ПредметТексту, значення: Значення, місцезнаходження: Місцезнаходження) -> СтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_властивість(М: *Машина, предмет: Значення, назва: *ПредметТексту, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_елемент(М: *Машина, предмет: Значення, ключ: Значення, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> змінити_елемент(М: *Машина, предмет: Значення, ключ: Значення, значення: Значення, місцезнаходження: Місцезнаходження) -> СтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_текст(М: *Машина, значення: Значення, місцезнаходження: Місцезнаходження) -> *ПредметТексту;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_послідовність(М: *Машина, значення: Значення, місцезнаходження: Місцезнаходження) -> *ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_проміжок(М: *Машина, від: Значення, до: Значення, включно: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_перебір(М: *Машина, предмет: Значення, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> порівняти_значення(М: *Машина, а: Значення, б: Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перевірити_чи_предмет_є(М: *Машина, а: *Предмет, б: *ПредметКласу) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ІнформаціяПадіння</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_інформацію_падіння(М: *Машина, вихід: *ІнформаціяПадіння) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знищити_інформацію_падіння(М: *Машина, інформація_падіння: ІнформаціяПадіння) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // КористувацькіДані</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_користувацькі_дані(М: *Машина, значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, дія_перед_знищенням: ДіяПередЗнищеннямКористувацькихДаних) -> *КористувацькіДані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Машина</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> налаштувати_машину(М: *Машина, налаштування: Налаштування);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> розлаштувати_машину(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> увімкнути_стан_падіння(М: *Машина, значення_падіння: Значення, місцезнаходження_падіння: Місцезнаходження);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> вимкнути_стан_падіння(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> покласти_в_історію_здійснення(М: *Машина, дійсність: *Дійсність, здійснювач: Значення, предмет_дії: *ПредметДії, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> *Діяльність;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> видалити_з_історії_здійснення(М: *Машина, кількість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> покласти_в_чергу_здійснення(М: *Машина, предмет_дії: *ПредметДії, задіяні: Задіяні);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> забрати_з_черги_здійснення(М: *Машина, вихід: *ЕлементЧергиЗдійснення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // МісцезнаходженняВказівок</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> покласти_місцезнаходження_вказівки(М: *Машина, місцезнаходження_вказівок: *МісцезнаходженняВказівок, рядок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, позиція_вказівки: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // НакопичувачТексту</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> зробити_накопичувач_тексту(М: *Машина, вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> НакопичувачТексту;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> покласти_в_накопичувач_тексту(М: *Машина, накопичувач: *НакопичувачТексту, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Очищувач</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> запустити_очищувач(М: *Машина);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Притримувач</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_притримувач(М: *Машина) -> *Притримувач;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> притримати(М: *Машина, притримувач: *Притримувач, предмет: *Предмет) -> *Притриманий;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> відпустити_притриманий(М: *Машина, притримувач: *Притримувач, притриманий: *Притриманий);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> притримати_глобально(М: *Машина, предмет: *Предмет) -> *Притриманий;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> відпустити_притриманий_глобально(М: *Машина, притриманий: *Притриманий);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Розмова</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> почати_розмову(М: *Машина, шлях_до_файлу_стандартного_входу: *ПредметДаних, читати: ПочатиРозмовуДіяЧитати, обробити_значення: ПочатиРозмовуДіяОбробитиЗначення, обробити_падіння: ПочатиРозмовуДіяОбробитиПадіння);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Спроби</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> покласти_спробу(М: *Машина, спроби: *Спроби, назва_зловити: *ПредметТексту, позиція_вказівки_зловити: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *Спроба;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> видалити_останню_спробу(М: *Машина, спроби: *Спроби);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#8B949E">  // ПредметДаних</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Дані(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_дані(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_дані_без_копіювання(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_даних(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_даних_отримати_властивість(М: *Машина, предмет_даних: *ПредметДаних, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_даних_отримати_елемент(М: *Машина, предмет_даних: *ПредметДаних, ключ: Значення, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_даних_змінити_елемент(М: *Машина, предмет_даних: *ПредметДаних, ключ: Значення, значення: Значення, місцезнаходження: Місцезнаходження) -> СтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметПроміжкаЧисел</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_ПроміжокЧисел(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_проміжок_чисел(М: *Машина, від: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">, до: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">, включно: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">) -> *ПредметПроміжкаЧисел;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_проміжка_чисел(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_проміжка_чисел_отримати_властивість(М: *Машина, предмет_проміжка_чисел: *ПредметПроміжкаЧисел, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметДії</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Дія(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_дію(М: *Машина, дійсність_створення: *Дійсність, назва: *ПредметТексту, параметри: *ПредметПослідовності, тип_результату: *Предмет, код: *ПредметКоду, шлях_до_теки_модулів: *ПредметДаних) -> *ПредметДії;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_рідну_дію(М: *Машина, назва: *ПредметТексту, параметри: *ПредметПослідовності, тип_результату: *Предмет, рідна_дія: РіднаДія, шлях_до_теки_модулів: *ПредметДаних) -> *ПредметДії;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_дії(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_дії_здійснити(М: *Машина, здійснювач: Значення, предмет_дії: *ПредметДії, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_дії_отримати_властивість(М: *Машина, предмет_дії: *ПредметДії, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметКоду</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Код(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_код(М: *Машина, константи: *ПредметПослідовності, вказівки: *ПредметДаних, шлях: *ПредметДаних, місцезнаходження_вказівок: МісцезнаходженняВказівок) -> *ПредметКоду;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_рядок_вказівки(місцезнаходження_вказівок: МісцезнаходженняВказівок, позиція_вказівки: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметМодуля</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Модуль(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_модуль(М: *Машина, назва: *ПредметТексту) -> *ПредметМодуля;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_модуля(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_властивість_модуля(М: *Машина, предмет_модуля: *ПредметМодуля, назва: *ПредметТексту, значення: Значення);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_модуля_отримати_властивість(М: *Машина, предмет_модуля: *ПредметМодуля, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметПараметра</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Параметр(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_параметр(М: *Машина, назва: *ПредметТексту, тип: *Предмет, значення: Значення) -> *ПредметПараметра;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_параметра(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_параметра_отримати_властивість(М: *Машина, предмет_параметра: *ПредметПараметра, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметОзнаки</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Ознака(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_ознаку(М: *Машина, назва: *ПредметТексту, тип: *Предмет, значення: Значення) -> *ПредметОзнаки;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_ознаки(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_ознаки_отримати_властивість(М: *Машина, предмет_ознаки: *ПредметОзнаки, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметПереборуДаних</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_ПеребірДаних(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_перебір_даних(М: *Машина, предмет_даних: *ПредметДаних) -> *ПредметПереборуДаних;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_перебору_даних(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_перебору_даних_отримати_властивість(М: *Машина, предмет_перебору_даних: *ПредметПереборуДаних, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметПереборуПроміжкаЧисел</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_ПеребірПроміжкаЧисел(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_перебір_проміжка_чисел(М: *Машина, предмет_проміжка: *ПредметПроміжкаЧисел) -> *ПредметПереборуПроміжкаЧисел;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_перебору_проміжка_чисел(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_перебору_проміжка_чисел_отримати_властивість(М: *Машина, предмет_перебору_проміжка_чисел: *ПредметПереборуПроміжкаЧисел, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметПереборуПослідовності</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_ПеребірПослідовності(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_перебір_послідовності(М: *Машина, предмет_послідовності: *ПредметПослідовності) -> *ПредметПереборуПослідовності;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_перебору_послідовності(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_перебору_послідовності_отримати_властивість(М: *Машина, предмет_перебору_послідовності: *ПредметПереборуПослідовності, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметПереборуСловника</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_ПеребірСловника(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_перебір_словника(М: *Машина, предмет_словника: *ПредметСловника) -> *ПредметПереборуСловника;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_перебору_словника(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_перебору_словника_отримати_властивість(М: *Машина, предмет_перебору_словника: *ПредметПереборуСловника, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметПереборуСписку</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_ПеребірСписку(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_перебір_списку(М: *Машина, предмет_списку: *ПредметСписку) -> *ПредметПереборуСписку;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_перебору_списку(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_перебору_списку_отримати_властивість(М: *Машина, предмет_перебору_списку: *ПредметПереборуСписку, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметПереборуТексту</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_ПеребірТексту(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_перебір_тексту(М: *Машина, предмет_тексту: *ПредметТексту) -> *ПредметПереборуТексту;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_перебору_тексту(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_перебору_тексту_отримати_властивість(М: *Машина, предмет_перебору_тексту: *ПредметПереборуТексту, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметПослідовності</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Послідовність(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_послідовність(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, елементи: *Значення) -> *ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_послідовність_без_копіювання(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, елементи: *Значення) -> *ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_сиру_послідовність(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *ПредметПослідовності;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_послідовності(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_послідовності_отримати_властивість(М: *Машина, предмет_послідовності: *ПредметПослідовності, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_послідовності_отримати_елемент(М: *Машина, предмет_послідовності: *ПредметПослідовності, ключ: Значення, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> порівняти_послідовності(М: *Машина, а: *ПредметПослідовності, б: *ПредметПослідовності) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметСловника</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Словник(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_словник(М: *Машина) -> *ПредметСловника;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_словника(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_словника_отримати_властивість(М: *Машина, предмет_словника: *ПредметСловника, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_словника_отримати_елемент(М: *Машина, предмет_словника: *ПредметСловника, ключ: Значення, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_словника_змінити_елемент(М: *Машина, предмет_словника: *ПредметСловника, ключ: Значення, значення_елемента: Значення, місцезнаходження: Місцезнаходження) -> СтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_в_словник(М: *Машина, словник: *ПредметСловника, ключ: Значення, значення: Значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметСписку</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Список(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_список(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *ПредметСписку;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_списку(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_списку_отримати_властивість(М: *Машина, предмет_списку: *ПредметСписку, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_списку_отримати_елемент(М: *Машина, предмет_списку: *ПредметСписку, ключ: Значення, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_списку_змінити_елемент(М: *Машина, предмет_списку: *ПредметСписку, ключ: Значення, значення_елемента: Значення, місцезнаходження: Місцезнаходження) -> СтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_в_список(М: *Машина, предмет_списку: *ПредметСписку, позиція: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, значення: Значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметКласу</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Клас(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_клас(М: *Машина, назва: *ПредметТексту, ознаки: *ПредметПослідовності) -> *ПредметКласу;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> змінити_властивість_класу(М: *Машина, предмет_класу: *ПредметКласу, назва: *ПредметТексту, значення: Значення);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> клас_здійснити(М: *Машина, значення: *ПредметКласу, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_метод_в_класі(М: *Машина, предмет_класу: *ПредметКласу, назва: *ПредметТексту) -> *ПредметДії;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу(М: *Машина, предмет_класу: *ПредметКласу, назва: *ПредметТексту, значення_дії: *ПредметДії);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> клас_отримати_властивість(М: *Машина, предмет_класу: *ПредметКласу, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> клас_змінити_властивість(М: *Машина, предмет_класу: *ПредметКласу, назва: *ПредметТексту, значення: Значення, місцезнаходження: Місцезнаходження) -> СтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметТексту</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Текст(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_текст(М: *Машина, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> *ПредметТексту;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_текст_без_копіювання(М: *Машина, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> *ПредметТексту;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_тексту(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_тексту_отримати_властивість(М: *Машина, предмет_тексту: *ПредметТексту, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_тексту_отримати_елемент(М: *Машина, предмет_тексту: *ПредметТексту, ключ: Значення, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> порівняти_тексти(М: *Машина, а: *ПредметТексту, б: *ПредметТексту) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // ПредметЧисла</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_клас_Число(М: *Машина);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_число(М: *Машина, значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> Значення;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_клас_числа(М: *Машина, задіяні: Задіяні, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_отримати_властивість(М: *Машина, значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // СкладенийПредмет</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_складений_предмет(М: *Машина, значення_класу: *ПредметКласу) -> *СкладенийПредмет;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> складений_предмет_отримати_властивість(М: *Машина, складений_предмет: *СкладенийПредмет, назва: *ПредметТексту, місцезнаходження: Місцезнаходження) -> ЗначенняАбоСтанПадіння;</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> складений_предмет_змінити_властивість(М: *Машина, складений_предмет: *СкладенийПредмет, назва: *ПредметТексту, значення: Значення, місцезнаходження: Місцезнаходження) -> СтанПадіння;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> ПАДІННЯ(М: *Машина, предмет_тексту: *ПредметТексту) -> Значення {</span></span>
+<span class="line"><span style="color:#E6EDF3">    увімкнути_стан_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      ПРЕДМЕТ(предмет_тексту),</span></span>
+<span class="line"><span style="color:#E6EDF3">      Місцезнаходження { </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> }</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М: *Машина, предмет_тексту: *ПредметТексту, місцезнаходження: Місцезнаходження) -> Значення {</span></span>
+<span class="line"><span style="color:#E6EDF3">    увімкнути_стан_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      ПРЕДМЕТ(предмет_тексту),</span></span>
+<span class="line"><span style="color:#E6EDF3">      місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> МІСЦЕю8(М: *Машина, шлях: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">, рядок: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> Місцезнаходження {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дані_шляху = створити_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> Місцезнаходження { дані_шляху, рядок };</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> порівняти_тексти(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    а: *ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">    б: *ПредметТексту</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> а == б {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> а.значення.розмір != б.значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; а.значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> а.значення.дані[п] != б.значення.дані[п] {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> порівняти_послідовності(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    а: *ПредметПослідовності,</span></span>
+<span class="line"><span style="color:#E6EDF3">    б: *ПредметПослідовності</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> а == б {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> а.розмір != б.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; а.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> порівняти_значення(М, а.елементи[п], б.елементи[п]) {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

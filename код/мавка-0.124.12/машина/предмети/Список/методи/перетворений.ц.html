@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.KDsVL8KGo0/мавка-0.124.12/машина/предмети/Список/методи/перетворений.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти означення</span><span style="color:#E6EDF3"> мавка/машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_методу_структури_Список__перетворений(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    діяльність: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Діяльність></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> діяльність.здійснювач.вид != ЗМашиннийПредмет </span><span style="color:#FF7B72">і</span><span style="color:#E6EDF3"> діяльність.здійснювач.вид != ЗСкладенийПредмет {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити дію списку </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">перетворений</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_списку = діяльність.здійснювач.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;Предмет> </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСписку>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_списку.тип != М.предмет_структури_Список {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити дію списку </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">перетворений</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> задіяне_дія_перетворення = НЕДІЙСНЕ;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, М.константи_назв._дія_перетворення, задіяне_дія_перетворення::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> новий_список = створити_список(М, предмет_списку.розмір);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> притриманий_список = притримати_глобально(М, новий_список </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;Предмет>);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; предмет_списку.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> поточне_значення = предмет_списку.елементи[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяні = Задіяні { </span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">, виділити_памʼять&#x3C;Значення>(М, </span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#E6EDF3">      задіяні.дані[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = поточне_значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">      задіяні.дані[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(п));</span></span>
+<span class="line"><span style="color:#E6EDF3">      задіяні.дані[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">] = МАШИННИЙ_ПРЕДМЕТ(предмет_списку);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> результат_здійснення = здійснити(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ,</span></span>
+<span class="line"><span style="color:#E6EDF3">        задіяне_дія_перетворення,</span></span>
+<span class="line"><span style="color:#E6EDF3">        задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">        Місцезнаходження { </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> }</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, притриманий_список);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      записати_в_список(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        новий_список,</span></span>
+<span class="line"><span style="color:#E6EDF3">        п,</span></span>
+<span class="line"><span style="color:#E6EDF3">        результат_здійснення</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    відпустити_притриманий_глобально(М, притриманий_список);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МАШИННИЙ_ПРЕДМЕТ(новий_список);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_структури_Список__перетворений(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_дії = створити_рідну_дію(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._перетворений,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.предмет_пустої_послідовності,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      рідна_дія_методу_структури_Список__перетворений,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_структури(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.предмет_структури_Список,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._перетворений,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_дії</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">      ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"Помилка при записі дії </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">перетворений</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> для структури </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Список</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.XhhJkTkZwn/мавка-0.125.6/машина/Спроби.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> покласти_спробу(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    спроби: *Спроби,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва_зловити: *ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція_вказівки_зловити: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> *Спроба {</span></span>
+<span class="line"><span style="color:#E6EDF3">    спроби.дані = перевиділити&#x3C;Спроба>(М, спроби.дані, спроби.розмір + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    спроби.дані[спроби.розмір] = Спроба {</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва_зловити = назва_зловити,</span></span>
+<span class="line"><span style="color:#E6EDF3">      позиція_вказівки_зловити = позиція_вказівки_зловити,</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір_історії_здійснення = М.історія_здійснення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір_накопичувача_значень = М.накопичувач_значень.розмір</span></span>
+<span class="line"><span style="color:#E6EDF3">    };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    спроби.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> спроби.дані[спроби.розмір - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">]::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> видалити_останню_спробу(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    спроби: *Спроби</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> спроби.розмір == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"Немає спроб для видалення."</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    спроби.розмір -= </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.XhhJkTkZwn/мавка-0.125.6/scripts/package_source.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">RUNDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PWD</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">PROGRAM_NAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"мавка"</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> ВЕРСІЯ</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">VERSIONDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"випуски/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">PLATFORMDIRNAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">PLATFORMDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$PLATFORMDIRNAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Version directory </span><span style="color:#FF7B72">\"</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> already exists. Aborting to prevent overwriting."</span></span>
+<span class="line"><span style="color:#79C0FF">  exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$PLATFORMDIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">create_source_tarball</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tarball</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">.tar"</span></span>
+<span class="line"><span style="color:#FFA657">  tar</span><span style="color:#79C0FF"> -cf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF"> --exclude=.git</span><span style="color:#79C0FF"> --exclude-vcs</span><span style="color:#79C0FF"> --exclude-from=.gitignore</span><span style="color:#79C0FF"> --transform=</span><span style="color:#A5D6FF">"s|^\.|</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">|"</span><span style="color:#A5D6FF"> .</span></span>
+<span class="line"><span style="color:#FFA657">  tar</span><span style="color:#79C0FF"> -rf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF"> --transform=</span><span style="color:#A5D6FF">"s|^\.gitignore|</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">/.gitignore|"</span><span style="color:#A5D6FF"> .gitignore</span></span>
+<span class="line"><span style="color:#FFA657">  xz</span><span style="color:#79C0FF"> -z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">  rm</span><span style="color:#79C0FF"> -rf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$PLATFORMDIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">create_source_tarball</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">get_gpg_fingerprint</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FFA657">  gpg</span><span style="color:#79C0FF"> --with-colons</span><span style="color:#79C0FF"> --list-secret-keys</span><span style="color:#79C0FF"> --fingerprint</span><span style="color:#FF7B72"> |</span><span style="color:#FFA657"> awk</span><span style="color:#79C0FF"> -F:</span><span style="color:#A5D6FF"> '/^fpr:/ {print $10; exit}'</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">sign_release_files</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> private_key</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RUNDIR</span><span style="color:#A5D6FF">/.releasegpgkey"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> passphrase_file</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RUNDIR</span><span style="color:#A5D6FF">/.releasegpgkeypassphrase"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tmp_gpg_home</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">mktemp</span><span style="color:#79C0FF"> -d</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  export</span><span style="color:#E6EDF3"> GNUPGHOME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$tmp_gpg_home</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  gpg</span><span style="color:#79C0FF"> --batch</span><span style="color:#79C0FF"> --yes</span><span style="color:#79C0FF"> --import</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$private_key</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF">/dev/null</span><span style="color:#FF7B72"> 2>&#x26;1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> fingerprint</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">get_gpg_fingerprint</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$fingerprint</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "Failed to get fingerprint (no secret key found)"</span></span>
+<span class="line"><span style="color:#FFA657">    rm</span><span style="color:#79C0FF"> -rf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tmp_gpg_home</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#79C0FF">    exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Using fingerprint: </span><span style="color:#E6EDF3">$fingerprint</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> passphrase</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FF7B72">&#x3C;</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$passphrase_file</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">  cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> file </span><span style="color:#FF7B72">in</span><span style="color:#E6EDF3"> $PROGRAM_NAME</span><span style="color:#A5D6FF">-"</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">".tar.xz</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">do</span></span>
+<span class="line"><span style="color:#E6EDF3">    [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -f</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ] &#x26;&#x26; { </span><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "File not found: </span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">continue</span><span style="color:#E6EDF3">; }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    sha256sum</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">.sha256"</span></span>
+<span class="line"><span style="color:#FFA657">    gpg</span><span style="color:#79C0FF"> --batch</span><span style="color:#79C0FF"> --yes</span><span style="color:#79C0FF"> --pinentry-mode</span><span style="color:#A5D6FF"> loopback</span><span style="color:#79C0FF"> --passphrase</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$passphrase</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      --local-user</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$fingerprint</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF"> --clearsign</span><span style="color:#79C0FF"> --output</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">.sha256.signed"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">.sha256"</span></span>
+<span class="line"><span style="color:#FF7B72">  done</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">  cd</span><span style="color:#A5D6FF"> -</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF"> /dev/null</span></span>
+<span class="line"><span style="color:#FFA657">  rm</span><span style="color:#79C0FF"> -rf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tmp_gpg_home</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-f</span><span style="color:#A5D6FF"> ".releasegpgkey"</span><span style="color:#E6EDF3"> ] &#x26;&#x26; [ </span><span style="color:#FF7B72">-f</span><span style="color:#A5D6FF"> ".releasegpgkeypassphrase"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FFA657">  sign_release_files</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span></code></pre>
+</body>
+</html>

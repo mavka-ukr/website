@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.GqHLwcRUeA/мавка-0.124.14/машина/external/wasm64/prystriy_wasm64.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "./walloc.c"</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/prystriy.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">size_t</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> str</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  while</span><span style="color:#E6EDF3"> (</span><span style="color:#FFA657">str</span><span style="color:#E6EDF3">[len] </span><span style="color:#FF7B72">!=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    len</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> len;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">КористувацькийПристрійМавкиЧитатиКД користувацький_пристрій_мавки_читати_кд;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> змінити_користувацький_пристрій_мавки_читати_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">    КористувацькийПристрійМавкиЧитатиКД нова_функція) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  користувацький_пристрій_мавки_читати_кд </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> нова_функція;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_версію(природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                              п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> версія_ю8 </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> PROGRAM_VERSION;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  природне позиція_помилки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (пристрій_мавки_перекодувати_ю8_в_кд(</span><span style="color:#D2A8FF">strlen</span><span style="color:#E6EDF3">(версія_ю8), (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)версія_ю8,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                          вихід_розміру, вихід_даних,</span></span>
+<span class="line"><span style="color:#FF7B72">                                          &#x26;</span><span style="color:#E6EDF3">позиція_помилки)) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_вивести_кд(природне розмір, п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне розмір_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне позиція_помилки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (пристрій_мавки_перекодувати_кд_в_ю8(розмір, дані, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">розмір_ю8, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">дані_ю8,</span></span>
+<span class="line"><span style="color:#FF7B72">                                          &#x26;</span><span style="color:#E6EDF3">позиція_помилки)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_вивести_ю8(розмір_ю8, дані_ю8);</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити_сиру_памʼять(дані_ю8);</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">    // потім: обробити</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_надрукувати_кд(природне розмір, п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне розмір_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне позиція_помилки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (пристрій_мавки_перекодувати_кд_в_ю8(розмір, дані, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">розмір_ю8, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">дані_ю8,</span></span>
+<span class="line"><span style="color:#FF7B72">                                          &#x26;</span><span style="color:#E6EDF3">позиція_помилки)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_вивести_ю8(розмір_ю8, дані_ю8);</span></span>
+<span class="line"><span style="color:#FF7B72">    char</span><span style="color:#E6EDF3"> новий_рядок </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\n</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_вивести_ю8(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">новий_рядок);</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити_сиру_памʼять(дані_ю8);</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">    // потім: обробити</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> пристрій_мавки_виділити_сиру_памʼять(природне розмір) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> malloc</span><span style="color:#E6EDF3">(розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> пристрій_мавки_перевиділити_сиру_памʼять(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    природне новий_розмір) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> realloc</span><span style="color:#E6EDF3">(значення, новий_розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_звільнити_сиру_памʼять(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> значення) {</span></span>
+<span class="line"><span style="color:#D2A8FF">  free</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне перетворити_п64_в_ю8(п64 значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне перетворити_ц64_в_ю8(ц64 значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне перетворити_р64_в_ю8(р64 значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    ціле</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру_експоненти);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перетворити_п64_в_кд(п64 значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне розмір_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне позиція_помилки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (перетворити_п64_в_ю8(значення, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">розмір_ю8, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">дані_ю8)) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (пристрій_мавки_перекодувати_ю8_в_кд(розмір_ю8, дані_ю8, вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                            вихід_даних, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">позиція_помилки)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити_сиру_памʼять(дані_ю8);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити_сиру_памʼять(дані_ю8);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перетворити_ц64_в_кд(ц64 значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне розмір_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне позиція_помилки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (перетворити_ц64_в_ю8(значення, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">розмір_ю8, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">дані_ю8)) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (пристрій_мавки_перекодувати_ю8_в_кд(розмір_ю8, дані_ю8, вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                            вихід_даних, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">позиція_помилки)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити_сиру_памʼять(дані_ю8);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити_сиру_памʼять(дані_ю8);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перетворити_р64_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">    р64 значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    ціле</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру_експоненти) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне розмір_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_ю8;</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне позиція_помилки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (перетворити_р64_в_ю8(значення, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">розмір_ю8, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">дані_ю8,</span></span>
+<span class="line"><span style="color:#E6EDF3">                           вихід_розміру_експоненти)) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (пристрій_мавки_перекодувати_ю8_в_кд(розмір_ю8, дані_ю8, вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                            вихід_даних, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">позиція_помилки)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити_сиру_памʼять(дані_ю8);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити_сиру_памʼять(дані_ю8);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> п64 пристрій_мавки_піднести_до_степеня_п64(п64 значення, п64 степінь) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  п64 результат </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (п64 і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> степінь; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    результат </span><span style="color:#FF7B72">*=</span><span style="color:#E6EDF3"> значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> результат;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> ц64 пристрій_мавки_піднести_до_степеня_ц64(ц64 значення, ц64 степінь) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  ц64 результат </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (ц64 і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> степінь; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    результат </span><span style="color:#FF7B72">*=</span><span style="color:#E6EDF3"> значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> результат;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перевірити_чи_шлях_закінчується_як_модуль_мавки(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху) {</span></span>
+<span class="line"><span style="color:#FF7B72">  const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> суфікс </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> ".м"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне довжина_суфікса </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(суфікс);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (розмір_шляху </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> довжина_суфікса) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> довжина_суфікса; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (дані_шляху[розмір_шляху </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> довжина_суфікса </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> і] </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> (п8)суфікс[і]) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перевірити_чи_шлях_починається_на(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_початку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_початку) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (розмір_початку </span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> розмір_шляху) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_початку; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (дані_шляху[і] </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> дані_початку[і]) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

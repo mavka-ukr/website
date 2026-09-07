@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.EklGZRNZNh/мавка-1.0.0/external/unix_windows/biblioteka_unix_windows.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;uv.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void*</span><span style="color:#E6EDF3"> каллок(</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> num, </span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> size) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (num </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> ||</span><span style="color:#E6EDF3"> size </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> пристрій_мавки_виділити(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (num </span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> SIZE_MAX </span><span style="color:#FF7B72">/</span><span style="color:#E6EDF3"> size) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> total </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> num </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> size;</span></span>
+<span class="line"><span style="color:#FF7B72">  void*</span><span style="color:#E6EDF3"> ptr </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> пристрій_мавки_виділити(total);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (ptr </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> byte_ptr </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)ptr;</span></span>
+<span class="line"><span style="color:#FF7B72">    for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> i </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; i </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> total; i</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">      byte_ptr</span><span style="color:#E6EDF3">[i] </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> ptr;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void*</span><span style="color:#E6EDF3"> мемсет(</span><span style="color:#FF7B72">void*</span><span style="color:#E6EDF3"> s, </span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3"> c, </span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> n) {</span></span>
+<span class="line"><span style="color:#FF7B72">  unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> p </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)s;</span></span>
+<span class="line"><span style="color:#FF7B72">  unsigned</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3"> val </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3">)c;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  while</span><span style="color:#E6EDF3"> (n</span><span style="color:#FF7B72">--</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">p</span><span style="color:#FF7B72">++</span><span style="color:#FF7B72"> =</span><span style="color:#E6EDF3"> val;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> s;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void*</span><span style="color:#E6EDF3"> мемкоп(</span><span style="color:#FF7B72">void*</span><span style="color:#E6EDF3"> dest, </span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> void*</span><span style="color:#E6EDF3"> src, </span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> n) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">dest </span><span style="color:#FF7B72">||</span><span style="color:#FF7B72"> !</span><span style="color:#E6EDF3">src)</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> dest;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> d </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)dest;</span></span>
+<span class="line"><span style="color:#FF7B72">  const</span><span style="color:#FF7B72"> unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> s </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> unsigned</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)src;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  while</span><span style="color:#E6EDF3"> (n</span><span style="color:#FF7B72">--</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">d</span><span style="color:#FF7B72">++</span><span style="color:#FF7B72"> =</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">s</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> dest;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> стрдуп(</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> s) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">s)</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(s) </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> dup </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> пристрій_мавки_виділити(len);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (dup) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    мемкоп(dup, s, len);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> dup;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "./http.c"</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "./inet.c"</span></span></code></pre>
+</body>
+</html>

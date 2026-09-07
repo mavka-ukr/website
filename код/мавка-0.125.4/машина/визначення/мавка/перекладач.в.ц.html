@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.WX4ZOhQSy4/мавка-0.125.4/машина/визначення/мавка/перекладач.в.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">/* Перекладач Мавки */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/машина;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/розбирач;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> перекладач {</span></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> ПомилкаПерекладу {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позиція_в_тексті: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      рядок: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      стовпець: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      повідомлення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// має звільнити той хто оброляє помилку</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяСтворитиКод = (М: *Машина, шлях: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяПокластиКонстантуЧисла = (М: *Машина, код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяПокластиКонстантуТексту = (М: *Машина, код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяПокластиКонстантуКоду = (М: *Машина, код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяПокластиВказівку = (М: *Машина, код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, рядок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, вид: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяПокластиВказівкуЗАргументом = (М: *Машина, код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, рядок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, вид: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, аргумент: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяПокластиВказівкуЗДвомаАргументами = (М: *Машина, код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, рядок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, вид: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, аргумент1: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, аргумент2: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяЗмінитиАргументВказівки = (М: *Машина, код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, позиція_виду_вказівки: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, позиція_аргумента_вказівки: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, новий_аргумент: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяОтриматиРозмірВказівок = (М: *Машина, код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    синонім</span><span style="color:#E6EDF3"> ДіяОтриматиШляхКоду = (М: *Машина, код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> Дії {</span></span>
+<span class="line"><span style="color:#E6EDF3">      створити_код: ДіяСтворитиКод;</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_константу_числа: ДіяПокластиКонстантуЧисла;</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_константу_тексту: ДіяПокластиКонстантуТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_константу_коду: ДіяПокластиКонстантуКоду;</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_вказівку: ДіяПокластиВказівку;</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_вказівку_з_аргументом: ДіяПокластиВказівкуЗАргументом;</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_вказівку_з_двома_аргументами: ДіяПокластиВказівкуЗДвомаАргументами;</span></span>
+<span class="line"><span style="color:#E6EDF3">      змінити_аргумент_вказівки: ДіяЗмінитиАргументВказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">      отримати_розмір_вказівок: ДіяОтриматиРозмірВказівок;</span></span>
+<span class="line"><span style="color:#E6EDF3">      отримати_шлях_коду: ДіяОтриматиШляхКоду;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> перекласти(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      сирий_текст: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      знаки: розбирач::Знаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">      здійснимі: розбирач::Сполуки,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дії: Дії,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_коду: *</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_помилки: *ПомилкаПерекладу</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекласти_в_код(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях: *ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    сирий_текст: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    знаки: розбирач::Знаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    здійснимі: розбирач::Сполуки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_коду: **ПредметКоду,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_помилки: *перекладач::ПомилкаПерекладу</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекласти_у_файл_коду(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    сирий_текст: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    знаки: розбирач::Знаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    здійснимі: розбирач::Сполуки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_розміру: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_даних: **</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_помилки: *перекладач::ПомилкаПерекладу</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

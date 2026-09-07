@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.QtjArGIfnw/мавка-0.124.10/external/windows/biblioteka_windows.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;math.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;windows.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/biblioteka.h"</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/prystriy.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_синус_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> sin</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_косинус_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> cos</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_тангенс_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> tan</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_арксинус_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> asin</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_арккосинус_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> acos</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_арктангенс_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> atan</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_арктангенс2_д64(д64 а, д64 б) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> atan2</span><span style="color:#E6EDF3">(а, б);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_абсолютне_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> fabs</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_експонента_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> exp</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_корінь_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> sqrt</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_стеля_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> ceil</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_підлога_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> floor</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_округлити_д64(д64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> round</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">д64 бібліотека_мавки_остача_від_ділення_д64(д64 а, д64 б) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> fmod</span><span style="color:#E6EDF3">(а, б);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span></code></pre>
+</body>
+</html>

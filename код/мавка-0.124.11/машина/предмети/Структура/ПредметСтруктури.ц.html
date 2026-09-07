@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.0iAKBzXaOL/мавка-0.124.11/машина/предмети/Структура/ПредметСтруктури.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти означення</span><span style="color:#E6EDF3"> мавка/машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_структуру_Структура(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.предмет_структури_Структура.заборонити_наслідування = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_структуру(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    параметри: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметПослідовності></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСтруктури> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = виділити_предмет&#x3C;ПредметСтруктури>(М, М.предмет_структури_Структура);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.заборонити_наслідування = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.назва = назва;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.параметри = параметри;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.методи = Методи { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.властивості = Призначення { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // позначка: прохід по типах предметів</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_структури_здійснити(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_структури: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСтруктури>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Модуль {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Модуль</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Параметр {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Параметр</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Число {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Число</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Текст {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Текст</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Код {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Код</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Дія</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Список {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Список</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Словник {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Словник</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Дані {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_розмір = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_розмір = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_розмір = знайти_задіяне(М, задіяні, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, М.константи_назв._розмір, задіяне_розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">розмір</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути числом."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> задіяне_розмір.вид != ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">розмір</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути числом."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(задіяне_розмір.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані = виділити_памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>(М, розмір);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МАШИННИЙ_ПРЕДМЕТ(створити_дані_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_ДіапазонЧисел {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">ДіапазонЧисел</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_ПеребірДіапазонуЧисел {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">ПеребірДіапазонуЧисел</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_ПеребірДаних {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">ПеребірДаних</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_ПеребірПослідовності {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">ПеребірПослідовності</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_ПеребірСловника {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">ПеребірСловника</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_ПеребірСписку {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">ПеребірСписку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_ПеребірТексту {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">ПеребірТексту</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури == М.предмет_структури_Послідовність {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити структуру </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Послідовність</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = створити_складений_предмет(М, предмет_структури);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_метода = знайти_метод_в_структурі(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_структури,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._чародія</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_метода != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_дії_здійснити(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        СКЛАДЕНИЙ_ПРЕДМЕТ(предмет),</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_метода,</span></span>
+<span class="line"><span style="color:#E6EDF3">        задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">        місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> СКЛАДЕНИЙ_ПРЕДМЕТ(предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    покласти_в_історію_здійснення(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      СКЛАДЕНИЙ_ПРЕДМЕТ(предмет),</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">      місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_структури.параметри.розмір > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; предмет_структури.параметри.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> параметр = предмет_структури.параметри.елементи[п];</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> властивості_параметра = параметр.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;Предмет> </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметПараметра>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> (задіяні.розмір - задіяні.розмір_імен) > п {</span></span>
+<span class="line"><span style="color:#E6EDF3">          призначити(</span></span>
+<span class="line"><span style="color:#E6EDF3">            М,</span></span>
+<span class="line"><span style="color:#E6EDF3">            предмет.властивості::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">            властивості_параметра.назва,</span></span>
+<span class="line"><span style="color:#E6EDF3">            задіяні.дані[п]</span></span>
+<span class="line"><span style="color:#E6EDF3">          );</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> задіяні.розмір_імен > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        п = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; задіяні.розмір_імен {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> назва = задіяні.дані_імен[п];</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> значення = задіяні.дані[задіяні.розмір - задіяні.розмір_імен + п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          призначити(</span></span>
+<span class="line"><span style="color:#E6EDF3">            М,</span></span>
+<span class="line"><span style="color:#E6EDF3">            предмет.властивості::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">            назва,</span></span>
+<span class="line"><span style="color:#E6EDF3">            значення</span></span>
+<span class="line"><span style="color:#E6EDF3">          );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    видалити_з_історії_здійснення(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> СКЛАДЕНИЙ_ПРЕДМЕТ(предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_структури(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_структури: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСтруктури>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення_дії: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДії></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; предмет_структури.методи.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> метод = предмет_структури.методи.дані[п]::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> метод.назва == назва </span><span style="color:#FF7B72">або</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, метод.назва, назва) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        метод.значення = значення_дії;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_структури.методи.дані = перевиділити_памʼять&#x3C;Метод>(М, предмет_структури.методи.дані, предмет_структури.методи.розмір + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_структури.методи.дані[предмет_структури.методи.розмір] = Метод { назва, значення_дії };</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_структури.методи.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знайти_метод_в_структурі(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_структури: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСтруктури>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДії> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; предмет_структури.методи.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> метод = предмет_структури.методи.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> метод.назва == назва </span><span style="color:#FF7B72">або</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, метод.назва, назва) {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> метод.значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_структури_змінити_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_структури: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСтруктури>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    призначити(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_структури.властивості::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_структури_отримати_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_структури: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСтруктури>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> назва == М.константи_назв._назва </span><span style="color:#FF7B72">або</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._назва) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МАШИННИЙ_ПРЕДМЕТ(предмет_структури.назва);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> назва == М.константи_назв._параметри </span><span style="color:#FF7B72">або</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._параметри) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МАШИННИЙ_ПРЕДМЕТ(предмет_структури.параметри);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> значення_властивості = НЕДІЙСНЕ;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> знайти_призначене(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_структури.властивості,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення_властивості::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> значення_властивості;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_методу = знайти_метод_в_структурі(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.предмет_структури_Структура,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_методу == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МАШИННИЙ_ПРЕДМЕТ(предмет_методу);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

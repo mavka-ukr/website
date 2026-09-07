@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.pYA2HGq4EF/мавка-0.126.3/машина/Вивід.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/розбирач;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> надрукувати_інформацію_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    інформація_падіння: ІнформаціяПадіння</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кольорово(М, КолірВиводуЧервоний, </span><span style="color:#A5D6FF">"Помилка"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> інформація_падіння.місцезнаходження.шлях != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">" в "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_шлях(М, інформація_падіння.місцезнаходження.шлях.розмір, інформація_падіння.місцезнаходження.шлях.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> інформація_падіння.місцезнаходження.рядок > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">":"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_п64(М, </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">(інформація_падіння.місцезнаходження.рядок));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    надрукувати_значення(М, інформація_падіння.значення, </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> інформація_падіння.розмір_історії > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      надрукувати_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">Історія здійснення:"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; інформація_падіння.розмір_історії {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> елемент_історії = інформація_падіння.історія[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> назва = </span><span style="color:#A5D6FF">"&#x3C;безіменна>"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> елемент_історії.назва != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        назва = елемент_історії.назва.значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"  "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, назва);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> елемент_історії.місцезнаходження.шлях == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">" в "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_шлях(М, елемент_історії.місцезнаходження.шлях.розмір, елемент_історії.місцезнаходження.шлях.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> елемент_історії.місцезнаходження.рядок > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">":"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_п64(М, </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">(елемент_історії.місцезнаходження.рядок));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_пропуски(М: *Машина, кількість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; кількість {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_вбудований_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет: *Предмет,</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    глибина: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет: *Предмет,</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    глибина: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_значення_1(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    глибина: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> зберегти_стан_виведених_предметів(</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> виведені_предмети.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> відновити_стан_виведених_предметів(</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    стан: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети.розмір = стан;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_виведений_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет: *Предмет</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    покласти_в_накопичувач&#x3C;*Предмет>(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      виведені_предмети,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> предмет_вже_виведено(</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет: *Предмет</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; виведені_предмети.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> виведені_предмети.дані[п] == предмет {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_вбудований_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет: *Предмет,</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    глибина: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Клас {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> властивості = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметКласу;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> властивості.назва == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"&#x3C;клас>"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"&#x3C;клас "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, властивості.назва.значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Модуль {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> властивості_модуля = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметМодуля;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> властивості_модуля.назва == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"&#x3C;модуль"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"&#x3C;модуль "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, властивості_модуля.назва.значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> властивості_модуля.властивості.вмісткість > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"["</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> виведено_першу = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; властивості_модуля.властивості.вмісткість {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> призначене = властивості_модуля.властивості.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          поки</span><span style="color:#E6EDF3"> призначене != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> виведено_першу {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">", "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            виведено_першу = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кольорово(М, КолірВиводуСиній, призначене.назва.значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            призначене = призначене.наступний;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"]"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Текст {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> властивості = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметТексту;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> глибина != </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЗелений, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> глибина == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> глибина == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, властивості.значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кольорово(М, КолірВиводуЗелений, властивості.значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; властивості.значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> символ = властивості.значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> символ == КД::символи::Міжряд {</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> глибина == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\</span><span style="color:#A5D6FF">р"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">                вивести_кольорово(М, КолірВиводуЗелений, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\</span><span style="color:#A5D6FF">р"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> символ == КД::символи::Дволапка {</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> глибина == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\\"</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">                вивести_кольорово(М, КолірВиводуЗелений, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\\"</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> символ == КД::символи::Обернена_похила {</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> глибина == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\\\</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">                вивести_кольорово(М, КолірВиводуЗелений, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\\\</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> символ == КД::символи::Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> глибина == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\</span><span style="color:#A5D6FF">д"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">                вивести_кольорово(М, КолірВиводуЗелений, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\</span><span style="color:#A5D6FF">д"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> глибина == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3"> { символ::</span><span style="color:#79C0FF">адреса</span><span style="color:#FF7B72"> як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> });</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кольорово(М, КолірВиводуЗелений, </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3"> { символ::</span><span style="color:#79C0FF">адреса</span><span style="color:#FF7B72"> як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> });</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> глибина != </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЗелений, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> властивості = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДії;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> властивості.назва == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"&#x3C;дія>"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"&#x3C;дія "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, властивості.назва.значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Параметр {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_параметра = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПараметра;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"Параметр"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"назва="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_параметра.назва), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"тип="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_параметра.тип == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_параметра.тип), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"значення="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, предмет_параметра.значення, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Ознака {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_ознаки = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметОзнаки;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"Ознака"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"("</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"назва="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_ознаки.назва), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"тип="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_ознаки.тип == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_ознаки.тип), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"значення="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, предмет_ознаки.значення, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Код {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_коду = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметКоду;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"Код"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"константи="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_коду.константи == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_коду.константи), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"вказівки="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_коду.вказівки == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_коду.вказівки), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"шлях="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_коду.шлях == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_коду.шлях), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"місцезнаходження_вказівок="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Список {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> властивості_списку = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметСписку;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_вже_виведено(виведені_предмети, предмет) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"[...]"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> свп = зберегти_стан_виведених_предметів(виведені_предмети);</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_виведений_предмет(М, виведені_предмети, предмет);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"["</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> властивості_списку.розмір > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; властивості_списку.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> елемент = властивості_списку.елементи[п];</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_значення_1(М, виведені_предмети, елемент, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"]"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      відновити_стан_виведених_предметів(виведені_предмети, свп);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Словник {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> властивості_словника = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметСловника;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_вже_виведено(виведені_предмети, предмет) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"{...}"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> свп = зберегти_стан_виведених_предметів(виведені_предмети);</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_виведений_предмет(М, виведені_предмети, предмет);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"{"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> властивості_словника.розмір > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; властивості_словника.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> пара = властивості_словника.елементи[п];</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_значення_1(М, виведені_предмети, пара.ключ, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">" => "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_значення_1(М, виведені_предмети, пара.значення, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"}"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      відновити_стан_виведених_предметів(виведені_предмети, свп);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Дані {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_даних = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"Дані"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"розмір="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(предмет_даних.розмір)), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПроміжокЧисел {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_проміжка_чисел = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПроміжкаЧисел;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"ПроміжокЧисел"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"від="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(предмет_проміжка_чисел.від)), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"до="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(предмет_проміжка_чисел.до)), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"включно="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_проміжка_чисел.включно {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"дійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірПроміжкаЧисел {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_перебору_проміжка_чисел = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуПроміжкаЧисел;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"ПеребірПроміжкаЧисел"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"проміжок="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_перебору_проміжка_чисел.предмет_проміжка), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"значення="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_проміжка_чисел.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ЧИСЛО(предмет_перебору_проміжка_чисел.поточне_значення), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірДаних {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_перебору_даних = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"ПеребірДаних"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"дані="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_перебору_даних.предмет_даних), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"значення="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_даних.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ЧИСЛО(предмет_перебору_даних.поточне_значення), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"позиція="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_даних.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(предмет_перебору_даних.позиція)), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірПослідовності {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_перебору_послідовності = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуПослідовності;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"ПеребірПослідовності"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"послідовність="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_перебору_послідовності.предмет_послідовності), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"значення="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_послідовності.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, предмет_перебору_послідовності.поточне_значення, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"позиція="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_послідовності.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(предмет_перебору_послідовності.позиція)), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірСловника {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_перебору_словника = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуСловника;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"ПеребірСловника"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"словник="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_перебору_словника.предмет_словника), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"значення="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_словника.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, предмет_перебору_словника.поточне_значення, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірСписку {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_перебору_списку = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуСписку;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"ПеребірСписку"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"список="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_перебору_списку.предмет_списку), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"значення="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_списку.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, предмет_перебору_списку.поточне_значення, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"позиція="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_списку.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(предмет_перебору_списку.позиція)), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірТексту {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_перебору_тексту = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"ПеребірТексту"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"текст="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_перебору_тексту.предмет_тексту), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">",</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"значення="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_тексту.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ЧИСЛО(предмет_перебору_тексту.поточне_значення), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"позиція="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_перебору_тексту.почато {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(предмет_перебору_тексту.позиція)), розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Послідовність {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_послідовності = предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПослідовності;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_вже_виведено(виведені_предмети, предмет) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"(...)"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> свп = зберегти_стан_виведених_предметів(виведені_предмети);</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_виведений_предмет(М, виведені_предмети, предмет);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"("</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_послідовності.розмір > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; предмет_послідовності.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> елемент = предмет_послідовності.елементи[п];</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_значення_1(М, виведені_предмети, елемент, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> п + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> &#x3C; предмет_послідовності.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      відновити_стан_виведених_предметів(виведені_предмети, свп);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"&#x3C;невідомо>"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> ДаніДіїПереборуВиводуВластивостейПредмета {</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет: *Предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>;</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_властивості: *Накопичувач&#x3C;*ПредметТексту>;</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    глибина: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    щось_виведено: *</span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> дія_перебору_виводу_властивостей_предмета(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    призначення: Призначення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: *ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    аргумент: </span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дані = аргумент </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ДаніДіїПереборуВиводуВластивостейПредмета;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = дані.предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> виведені_предмети = дані.виведені_предмети;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> виведені_властивості = дані.виведені_властивості;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> розмір_відступу = дані.розмір_відступу;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> глибина = дані.глибина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; виведені_властивості.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> порівняти_тексти(М, назва, виведені_властивості.дані[п]) {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> дані.щось_виведено::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    дані.щось_виведено::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(назва), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_значення_1(М, виведені_предмети, значення, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет: *Предмет,</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    глибина: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас.вбудований {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_вбудований_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        виведені_предмети,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_відступу,</span></span>
+<span class="line"><span style="color:#E6EDF3">        глибина</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас.назва == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, </span><span style="color:#A5D6FF">"&#x3C;без_назви>"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуСиній, предмет.клас.назва.значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_вже_виведено(виведені_предмети, предмет) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"(...)"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> свп = зберегти_стан_виведених_предметів(виведені_предмети);</span></span>
+<span class="line"><span style="color:#E6EDF3">    покласти_виведений_предмет(М, виведені_предмети, предмет);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"("</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> щось_виведено = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> виведені_властивості = зробити_накопичувач&#x3C;*ПредметТексту>(М, предмет.клас.ознаки.розмір);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас.ознаки.розмір > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; предмет.клас.ознаки.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> ознака = предмет.клас.ознаки.елементи[п];</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> предмет_ознаки = ознака.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметОзнаки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        покласти_в_накопичувач&#x3C;*ПредметТексту>(М, виведені_властивості::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, предмет_ознаки.назва);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> значення_властивості = отримати_властивість(М, ПРЕДМЕТ(предмет), предмет_ознаки.назва, Місцезнаходження { </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">});</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, ПРЕДМЕТ(предмет_ознаки.назва), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення_1(М, виведені_предмети, значення_властивості, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        щось_виведено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дані_дпввп = ДаніДіїПереборуВиводуВластивостейПредмета {</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет,</span></span>
+<span class="line"><span style="color:#E6EDF3">      виведені_предмети,</span></span>
+<span class="line"><span style="color:#E6EDF3">      виведені_властивості::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір_відступу,</span></span>
+<span class="line"><span style="color:#E6EDF3">      глибина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      щось_виведено::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">    };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    перебрати_призначення(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      (предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *СкладенийПредмет).властивості,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дія_перебору_виводу_властивостей_предмета,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_дпввп::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, виведені_властивості.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> щось_виведено {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    відновити_стан_виведених_предметів(виведені_предмети, свп);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // позначка: прохід по типах предметів</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_значення_1(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    виведені_предмети: *Накопичувач&#x3C;*Предмет>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    глибина: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.вид == ЗНедійсне {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.вид == ЗДійсне {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кольорово(М, КолірВиводуЖовтий, </span><span style="color:#A5D6FF">"дійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> значення_кд: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> перетворити_р64_в_кд(М, значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">, значення_кд::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кольорово(М, КолірВиводуЖовтий, значення_кд);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, значення_кд.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      виведені_предмети,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет,</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір_відступу,</span></span>
+<span class="line"><span style="color:#E6EDF3">      глибина</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // позначка: прохід по типах предметів</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> вивести_значення(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    глибина: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> виведені_предмети = зробити_накопичувач&#x3C;*Предмет>(М, </span><span style="color:#79C0FF">32</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_значення_1(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      виведені_предмети::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір_відступу,</span></span>
+<span class="line"><span style="color:#E6EDF3">      глибина</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, виведені_предмети.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> надрукувати_значення(М: *Машина, значення: Значення, розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, глибина: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_значення(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір_відступу,</span></span>
+<span class="line"><span style="color:#E6EDF3">      глибина</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

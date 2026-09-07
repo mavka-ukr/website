@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.8MFkfkgUcd/мавка-0.124.13/машина/предмети/Число/ПредметЧисла.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти означення</span><span style="color:#E6EDF3"> мавка/машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> копіювати_памʼять&#x3C;Т>(</span></span>
+<span class="line"><span style="color:#E6EDF3">  куди: памʼять&#x3C;Т>,</span></span>
+<span class="line"><span style="color:#E6EDF3">  звідки: памʼять&#x3C;Т>,</span></span>
+<span class="line"><span style="color:#E6EDF3">  кількість: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  поки</span><span style="color:#E6EDF3"> п &#x3C; кількість {</span></span>
+<span class="line"><span style="color:#E6EDF3">    куди[п] = звідки[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> заповнити_памʼять&#x3C;Т>(</span></span>
+<span class="line"><span style="color:#E6EDF3">  куди: памʼять&#x3C;Т>,</span></span>
+<span class="line"><span style="color:#E6EDF3">  значення: Т,</span></span>
+<span class="line"><span style="color:#E6EDF3">  кількість: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  поки</span><span style="color:#E6EDF3"> п &#x3C; кількість {</span></span>
+<span class="line"><span style="color:#E6EDF3">    куди[п] = значення;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_структури_Число__чародія_число(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_структури_Число__чародія_текст(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_дію_структури_Число__з(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_структуру_Число(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.предмет_структури_Число.заборонити_наслідування = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_структури_Число__чародія_число(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_структури_Число__чародія_текст(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_дію_структури_Число__з(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_додати(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(значення + право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Додати до числа можна лише число."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_відняти(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(значення - право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Відняти від числа можна лише число."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_помножити(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(значення * право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Помножити число можна лише на число."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_поділити(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(значення / право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Поділити число можна лише на число."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_остача(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(значення % право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Отримати остачу від числа можна лише з числом."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_степінь(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(піднести_до_степеня_р64(М, значення, право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Піднести число до степеня можна лише з числом."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_вліво(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(значення) &#x3C;&#x3C; </span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">)));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Зсунути вліво число можна лише з числом."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_вправо(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(значення) >> </span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">)));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Зсунути вправо число можна лише з числом."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_двійкове_і(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(значення) &#x26; </span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">)));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Виконати двійкове І можна лише між числами."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_двійкове_або(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(значення) | </span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">)));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Виконати двійкове АБО можна лише між числами."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_двійкове_вабо(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(значення) </span><span style="color:#FF7B72">вабо</span><span style="color:#79C0FF"> ц32</span><span style="color:#E6EDF3">(право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">)));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Виконати двійкове ВАБО можна лише між числами."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_менше(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИ(значення &#x3C; право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Виконати перевірку число менше можна з числом."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_більше(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    право: Значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> право.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИ(значення > право.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_двійкове_не(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(~</span><span style="color:#79C0FF">ц32</span><span style="color:#E6EDF3">(значення)));</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_змінити_знак(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> ЧИСЛО(-значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_числа_отримати_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_методу = знайти_метод_в_структурі(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.предмет_структури_Число,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_методу == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> МАШИННИЙ_ПРЕДМЕТ(предмет_методу);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

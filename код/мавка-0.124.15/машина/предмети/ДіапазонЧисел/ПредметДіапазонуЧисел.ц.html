@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Yq3Ae32EiS/мавка-0.124.15/машина/предмети/ДіапазонЧисел/ПредметДіапазонуЧисел.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти означення</span><span style="color:#E6EDF3"> мавка/машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_структури_ДіапазонЧисел__чародія_перебір(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> записати_параметри_структури_ДіапазонЧисел(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> кількість_параметрів = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дані_параметрів = виділити&#x3C;Значення>(М, кількість_параметрів);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    дані_параметрів[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._від,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані_параметрів[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._до,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані_параметрів[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._включно,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.предмет_структури_ДіапазонЧисел.параметри = створити_послідовність_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      кількість_параметрів,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> заповнити_структуру_ДіапазонЧисел(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина></span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.предмет_структури_ДіапазонЧисел.вбудована = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    М.предмет_структури_ДіапазонЧисел.заборонити_наслідування = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_параметри_структури_ДіапазонЧисел(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_структури_ДіапазонЧисел__чародія_перебір(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_діапазон_чисел(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    від: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    до: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    включно: </span><span style="color:#79C0FF">логічне</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДіапазонуЧисел> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = виділити_предмет&#x3C;ПредметДіапазонуЧисел>(М, М.предмет_структури_ДіапазонЧисел);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.від = від;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.до = до;</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет.включно = включно;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> здійснити_структуру_діапазону_чисел(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> задіяне_від = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> задіяне_до = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> задіяне_включно = НЕДІЙСНЕ;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    знайти_задіяне(М, задіяні, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, М.константи_назв._від, задіяне_від::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    знайти_задіяне(М, задіяні, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, М.константи_назв._до, задіяне_до::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    знайти_задіяне(М, задіяні, </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">, М.константи_назв._включно, задіяне_включно::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> від = </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0.0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> до = </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0.0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> включно = ЧИ(задіяне_включно);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> задіяне_від.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#E6EDF3">      від = задіяне_від.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">від</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути числом."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> задіяне_до.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#E6EDF3">      до = задіяне_до.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">до</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути числом."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(створити_діапазон_чисел(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      від,</span></span>
+<span class="line"><span style="color:#E6EDF3">      до,</span></span>
+<span class="line"><span style="color:#E6EDF3">      включно</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> предмет_діапазону_чисел_отримати_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_діапазону_чисел: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДіапазонуЧисел>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту>,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._від) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(предмет_діапазону_чисел.від);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._до) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЧИСЛО(предмет_діапазону_чисел.до);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> перевірити_чи_предмети_тексту_рівні(М, назва, М.константи_назв._включно) {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ЛОГЛОГ(предмет_діапазону_чисел.включно);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_методу = знайти_метод_в_структурі(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.предмет_структури_ДіапазонЧисел,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_методу == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(предмет_методу);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

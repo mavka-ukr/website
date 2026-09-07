@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.2oufJNuzcL/мавка-0.125.8/визначення/мавка/перекладач.в.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">/* Перекладач Мавки */</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/розбирач;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> перекладач {</span></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> ПомилкаПерекладу {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позиція_в_тексті: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      рядок: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      стовпець: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      повідомлення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// має звільнити той хто оброляє помилку</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> Константи {</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані: *Значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> Вказівки {</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> Повтор {</span></span>
+<span class="line"><span style="color:#E6EDF3">      початок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      позиції_вказівок_виходу: Накопичувач&#x3C;</span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">>;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    структура</span><span style="color:#E6EDF3"> Код {</span></span>
+<span class="line"><span style="color:#E6EDF3">      константи: Константи;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вказівки: Вказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях: *ПредметДаних;</span></span>
+<span class="line"><span style="color:#E6EDF3">      місцезнаходження_вказівок: МісцезнаходженняВказівок;</span></span>
+<span class="line"><span style="color:#E6EDF3">      повтори: Накопичувач&#x3C;Повтор>;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> перевірити_чи_кд_рівні(а: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, б: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> а.розмір != б.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; а.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> а.дані[п] != б.дані[п] {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> перевірити_чи_починається_на(значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, починається_на: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, п: *</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> пп: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> пп &#x3C; починається_на.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> ппп = п::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> + пп;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> ппп >= значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> значення.дані[ппп] != починається_на.дані[пп] {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пп += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = п::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> + пп - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> створити_код(М: *Машина, шлях: *ПредметДаних) -> *Код {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> код = виділити&#x3C;Код>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      код.константи = Константи { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки = Вказівки { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.шлях = шлях;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.місцезнаходження_вказівок = МісцезнаходженняВказівок { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.повтори = зробити_накопичувач&#x3C;Повтор>(М, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> код;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_константу(М: *Машина, код: *Код, значення: Значення) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.константи.дані = перевиділити&#x3C;Значення>(М, код.константи.дані, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(код.константи.розмір + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.константи.дані[код.константи.розмір] = значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.константи.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> код.константи.розмір - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_константу_числа(М: *Машина, код: *Код, значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; код.константи.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> константа = код.константи.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> константа.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> константа.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3"> == значення {</span></span>
+<span class="line"><span style="color:#FF7B72">            вернути</span><span style="color:#E6EDF3"> п;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> покласти_константу(М, код, ЧИСЛО(значення));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_константу_тексту(М: *Машина, код: *Код, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; код.константи.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> константа = код.константи.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> константа.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> предмет_тексту = константа.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметТексту;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> предмет_тексту.клас == М.клас_Текст {</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> перевірити_чи_кд_рівні(предмет_тексту.значення, значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">              вернути</span><span style="color:#E6EDF3"> п;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_тексту = створити_текст(М, значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> покласти_константу(М, код, ПРЕДМЕТ(предмет_тексту));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_константу_коду(М: *Машина, код: *Код, значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> значення_як_код = значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Код;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> константи = створити_послідовність_без_копіювання(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(значення_як_код.константи.розмір), значення_як_код.константи.дані);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> вказівки = створити_дані_без_копіювання(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(значення_як_код.вказівки.розмір), значення_як_код.вказівки.дані);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_коду = мавка::створити_код(М, константи, вказівки, значення_як_код.шлях, значення_як_код.місцезнаходження_вказівок);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> покласти_константу(М, код, ПРЕДМЕТ(предмет_коду));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_вказівку(М: *Машина, код: *Код, рядок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, вид: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані = перевиділити&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>(М, код.вказівки.дані, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(код.вказівки.розмір + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> позиція_вказівки = код.вказівки.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = вид;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_місцезнаходження_вказівки(М, код.місцезнаходження_вказівок::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, рядок, позиція_вказівки);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> позиція_вказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_вказівку_з_аргументом(М: *Машина, код: *Код, рядок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, вид: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, аргумент: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані = перевиділити&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>(М, код.вказівки.дані, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">((код.вказівки.розмір + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) + </span><span style="color:#79C0FF">4</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> позиція_вказівки = код.вказівки.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = вид;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> аргумент_байти = аргумент::</span><span style="color:#79C0FF">адреса</span><span style="color:#FF7B72"> як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_байти[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_байти[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_байти[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_байти[</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_місцезнаходження_вказівки(М, код.місцезнаходження_вказівок::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, рядок, позиція_вказівки);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> позиція_вказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_вказівку_з_двома_аргументами(М: *Машина, код: *Код, рядок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, вид: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, аргумент1: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, аргумент2: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані = перевиділити&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>(М, код.вказівки.дані, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">((код.вказівки.розмір + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) + </span><span style="color:#79C0FF">8</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> позиція_вказівки = код.вказівки.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = вид;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> аргумент_1_байти = аргумент1::</span><span style="color:#79C0FF">адреса</span><span style="color:#FF7B72"> як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_1_байти[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_1_байти[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_1_байти[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_1_байти[</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> аргумент_2_байти = аргумент2::</span><span style="color:#79C0FF">адреса</span><span style="color:#FF7B72"> як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_2_байти[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_2_байти[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_2_байти[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[код.вказівки.розмір] = аргумент_2_байти[</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_місцезнаходження_вказівки(М, код.місцезнаходження_вказівок::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, рядок, позиція_вказівки);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> позиція_вказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> змінити_аргумент_вказівки(М: *Машина, код: *Код, позиція_виду_вказівки: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, позиція_аргумента_вказівки: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, новий_аргумент: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> позиція_аргумента_як_байти = позиція_виду_вказівки + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> + (позиція_аргумента_вказівки * </span><span style="color:#79C0FF">4</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> новий_аргумент_як_байти = новий_аргумент::</span><span style="color:#79C0FF">адреса</span><span style="color:#FF7B72"> як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[позиція_аргумента_як_байти + </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = новий_аргумент_як_байти[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[позиція_аргумента_як_байти + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = новий_аргумент_як_байти[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[позиція_аргумента_як_байти + </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">] = новий_аргумент_як_байти[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.вказівки.дані[позиція_аргумента_як_байти + </span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">] = новий_аргумент_як_байти[</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> отримати_розмір_вказівок(М: *Машина, код: *Код) -> </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> код.вказівки.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> отримати_шлях_коду(М: *Машина, код: *Код) -> *ПредметДаних {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> код.шлях;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> покласти_повтор(М: *Машина, код: *Код, позиція_початку: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) -> *Повтор {</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_в_накопичувач&#x3C;Повтор>(М, код.повтори::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, Повтор { позиція_початку, зробити_накопичувач&#x3C;</span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">>(М, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">) });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> код.повтори.дані[код.повтори.розмір - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">]::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробити_позиції_вказівок_виходу_з_повтору(М: *Машина, код: *Код, повтор: *Повтор, позиція_виходу: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(повтор.позиції_вказівок_виходу.розмір) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        змінити_аргумент_вказівки(М, код, повтор.позиції_вказівок_виходу.дані[п], </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, позиція_виходу);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> видалити_останній_повтор(М: *Машина, код: *Код) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> повтор = код.повтори.дані[код.повтори.розмір - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, повтор.позиції_вказівок_виходу.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">      код.повтори.розмір -= </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> отримати_останній_повтор_з_коду(М: *Машина, код: *Код) -> *Повтор {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> код.повтори.розмір == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> код.повтори.дані[код.повтори.розмір - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">]::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> додати_позицію_перезапису_вказівки_стрибнути_для_виходу_з_повтору(М: *Машина, повтор: *Повтор, позиція: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      покласти_в_накопичувач&#x3C;</span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">>(М, повтор.позиції_вказівок_виходу::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, позиція);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> перекласти(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях: *ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      сирий_текст: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      знаки: розбирач::Знаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">      здійснимі: розбирач::Сполуки,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_коду: **Код,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_помилки: *ПомилкаПерекладу</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перекласти_в_код(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях: *ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    сирий_текст: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    знаки: розбирач::Знаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    здійснимі: розбирач::Сполуки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_коду: **ПредметКоду,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_помилки: *перекладач::ПомилкаПерекладу</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

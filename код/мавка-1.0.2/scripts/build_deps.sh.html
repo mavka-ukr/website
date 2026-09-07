@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Zmu4IZbMnX/мавка-1.0.2/scripts/build_deps.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">SCRIPT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">dirname</span><span style="color:#A5D6FF"> "${</span><span style="color:#E6EDF3">BASH_SOURCE</span><span style="color:#A5D6FF">[0]}")" &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">NCURSES_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/NCURSES_VERSION")"</span></span>
+<span class="line"><span style="color:#E6EDF3">READLINE_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/READLINE_VERSION")"</span></span>
+<span class="line"><span style="color:#E6EDF3">LIBUV_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/LIBUV_VERSION")"</span></span>
+<span class="line"><span style="color:#E6EDF3">OPENSSL_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/OPENSSL_VERSION")"</span></span>
+<span class="line"><span style="color:#E6EDF3">CURL_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/CURL_VERSION")"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">TARGET</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">TARGET_CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">TARGET_AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">TARGET_RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">TARGET_RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">TARGET_CPPFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">TARGET_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">TARGET_LDFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">extract_if_needed</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tarball</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> extract_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$2</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$extract_dir</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FFA657">    mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">dirname</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$extract_dir</span><span style="color:#A5D6FF">")"</span></span>
+<span class="line"><span style="color:#FFA657">    tar</span><span style="color:#79C0FF"> -xf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF"> -C</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">dirname</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$extract_dir</span><span style="color:#A5D6FF">")"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">ensure_tarball</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tarball</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -f</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "Skipping dependency: missing </span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> 0</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">build_ncurses</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> ncurses_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"build/ncurses/</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">/ncurses-${</span><span style="color:#E6EDF3">NCURSES_VERSION</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> build_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ncurses_dir</span><span style="color:#A5D6FF">/build_ncurses"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tarball</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)/scripts/ncurses-${</span><span style="color:#E6EDF3">NCURSES_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FF7B72"> !</span><span style="color:#FFA657"> ensure_tarball</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  extract_if_needed</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ncurses_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    pushd </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ncurses_dir</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"><span style="color:#E6EDF3">    CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CC</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_AR</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_RANLIB</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_RC</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> CPPFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CPPFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> LDFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_LDFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#FFA657"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">      ./configure</span><span style="color:#79C0FF"> --build=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">clang</span><span style="color:#79C0FF"> -dumpmachine</span><span style="color:#A5D6FF">)"</span><span style="color:#79C0FF"> --host=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF"> --prefix=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)/build_ncurses"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">        --with-shared=no</span><span style="color:#79C0FF"> --with-static=yes</span><span style="color:#79C0FF"> --without-progs</span><span style="color:#79C0FF"> --without-tests</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">        --without-cxx</span><span style="color:#79C0FF"> --without-cxx-binding</span><span style="color:#79C0FF"> --without-ada</span><span style="color:#79C0FF"> --without-curses-h</span></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#79C0FF"> -j</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">nproc</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#A5D6FF"> install</span></span>
+<span class="line"><span style="color:#E6EDF3">    popd </span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  RESULT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">build_readline</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> ncurses_build_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> readline_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"build/readline/</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">/readline-${</span><span style="color:#E6EDF3">READLINE_VERSION</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> build_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$readline_dir</span><span style="color:#A5D6FF">/build_readline"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tarball</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)/scripts/readline-${</span><span style="color:#E6EDF3">READLINE_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ncurses_build_dir</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "Skipping readline: missing ncurses build dir </span><span style="color:#E6EDF3">$ncurses_build_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#79C0FF">    exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FF7B72"> !</span><span style="color:#FFA657"> ensure_tarball</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  extract_if_needed</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$readline_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    pushd </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$readline_dir</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"android"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">      export</span><span style="color:#E6EDF3"> ac_cv_func_getpwent</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">no</span></span>
+<span class="line"><span style="color:#FF7B72">      export</span><span style="color:#E6EDF3"> ac_cv_func_setpwent</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">no</span></span>
+<span class="line"><span style="color:#FF7B72">      export</span><span style="color:#E6EDF3"> ac_cv_func_endpwent</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">no</span></span>
+<span class="line"><span style="color:#FF7B72">    fi</span></span>
+<span class="line"><span style="color:#E6EDF3">    CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CC</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_AR</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_RANLIB</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_RC</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> CPPFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CPPFLAGS</span><span style="color:#A5D6FF"> -I</span><span style="color:#E6EDF3">$ncurses_build_dir</span><span style="color:#A5D6FF">/include"</span><span style="color:#E6EDF3"> CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> LDFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_LDFLAGS</span><span style="color:#A5D6FF"> -L</span><span style="color:#E6EDF3">$ncurses_build_dir</span><span style="color:#A5D6FF">/lib"</span><span style="color:#FFA657"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">      ./configure</span><span style="color:#79C0FF"> --build=</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">clang</span><span style="color:#79C0FF"> -dumpmachine</span><span style="color:#A5D6FF">)"</span><span style="color:#79C0FF"> --host=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF"> --prefix=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)/build_readline"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">        --enable-static</span><span style="color:#79C0FF"> --disable-shared</span><span style="color:#79C0FF"> --with-curses</span></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#79C0FF"> -j</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">nproc</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#A5D6FF"> install</span></span>
+<span class="line"><span style="color:#E6EDF3">    popd </span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  RESULT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">build_libuv</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> uv_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"build/libuv/</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">/libuv-v${</span><span style="color:#E6EDF3">LIBUV_VERSION</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> build_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$uv_dir</span><span style="color:#A5D6FF">/build_libuv"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tarball</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)/scripts/libuv-v${</span><span style="color:#E6EDF3">LIBUV_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FF7B72"> !</span><span style="color:#FFA657"> ensure_tarball</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  extract_if_needed</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$uv_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> abs_uv_dir</span></span>
+<span class="line"><span style="color:#E6EDF3">    abs_uv_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$uv_dir</span><span style="color:#A5D6FF">" &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> abs_prefix</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$abs_uv_dir</span><span style="color:#A5D6FF">/build_libuv"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">    pushd </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> cmake_android_flags</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"w64-mingw32"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Windows"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"apple-darwin"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Darwin"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"android"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Android"</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ANDROID_NDK_HOME</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">        echo</span><span style="color:#A5D6FF"> "ANDROID_NDK_HOME is not set."</span></span>
+<span class="line"><span style="color:#79C0FF">        exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#FF7B72">      local</span><span style="color:#E6EDF3"> api_level</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">TARGET</span><span style="color:#FF7B72">##*</span><span style="color:#E6EDF3">android</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_android_flags</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-DCMAKE_ANDROID_NDK=</span><span style="color:#E6EDF3">$ANDROID_NDK_HOME</span><span style="color:#A5D6FF"> -DCMAKE_SYSTEM_VERSION=</span><span style="color:#E6EDF3">$api_level</span><span style="color:#A5D6FF"> -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"linux"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Linux"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"wasm64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Generic"</span></span>
+<span class="line"><span style="color:#FF7B72">    fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    cmake</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$abs_uv_dir</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_SYSTEM_NAME=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$cmake_system_name</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#E6EDF3">      $cmake_android_flags </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_INSTALL_PREFIX=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$abs_prefix</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_C_COMPILER=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CC</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_C_FLAGS=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CPPFLAGS</span><span style="color:#E6EDF3"> $TARGET_CFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_EXE_LINKER_FLAGS=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_LDFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_AR=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_AR</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_RANLIB=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_RANLIB</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DBUILD_SHARED_LIBS=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DBUILD_TESTING=OFF</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#79C0FF"> -j</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">nproc</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#A5D6FF"> install</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    popd </span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  RESULT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">build_openssl</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> openssl_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"build/openssl/</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">/openssl-${</span><span style="color:#E6EDF3">OPENSSL_VERSION</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> build_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$openssl_dir</span><span style="color:#A5D6FF">/build_openssl"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tarball</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)/scripts/openssl-${</span><span style="color:#E6EDF3">OPENSSL_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FF7B72"> !</span><span style="color:#FFA657"> ensure_tarball</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  extract_if_needed</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    pushd </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$openssl_dir</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> build_openssl</span></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> abs_prefix</span></span>
+<span class="line"><span style="color:#E6EDF3">    abs_prefix</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> build_openssl &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> os_target</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"gcc"</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"linux"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]] &#x26;&#x26; os_target</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux-x86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]] &#x26;&#x26; os_target</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux-aarch64"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"windows"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]] &#x26;&#x26; os_target</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"mingw64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]] &#x26;&#x26; os_target</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"mingw64"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"apple-darwin"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]] &#x26;&#x26; os_target</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"darwin64-x86_64-cc"</span></span>
+<span class="line"><span style="color:#E6EDF3">      [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]] &#x26;&#x26; os_target</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"darwin64-arm64-cc"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"android"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]] &#x26;&#x26; os_target</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"android64-aarch64"</span></span>
+<span class="line"><span style="color:#FF7B72">    fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> extra_config_flags</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_config_flags</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"no-asm"</span></span>
+<span class="line"><span style="color:#FF7B72">    fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    ./Configure</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$os_target</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      --prefix=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$abs_prefix</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      --libdir=lib</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">      no-shared</span><span style="color:#A5D6FF"> no-module</span><span style="color:#A5D6FF"> no-dso</span><span style="color:#A5D6FF"> no-tests</span><span style="color:#A5D6FF"> no-docs</span><span style="color:#A5D6FF"> no-apps</span><span style="color:#E6EDF3"> $extra_config_flags </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#A5D6FF">      CC="</span><span style="color:#E6EDF3">$TARGET_CC</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> AR="</span><span style="color:#E6EDF3">$TARGET_AR</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> RANLIB="</span><span style="color:#E6EDF3">$TARGET_RANLIB</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> RC="</span><span style="color:#E6EDF3">$TARGET_RC</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> CPPFLAGS="</span><span style="color:#E6EDF3">$TARGET_CPPFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> CFLAGS="</span><span style="color:#E6EDF3">$TARGET_CFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> LDFLAGS="</span><span style="color:#E6EDF3">$TARGET_LDFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#79C0FF"> -j</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">nproc</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#A5D6FF"> install_sw</span></span>
+<span class="line"><span style="color:#E6EDF3">    popd </span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  RESULT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">build_curl</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> openssl_build_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> curl_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"build/curl/</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">/curl-${</span><span style="color:#E6EDF3">CURL_VERSION</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> build_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$curl_dir</span><span style="color:#A5D6FF">/build_curl"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tarball</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)/scripts/curl-${</span><span style="color:#E6EDF3">CURL_VERSION</span><span style="color:#A5D6FF">}.tar.gz"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build_dir</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "Skipping curl: missing openssl build dir </span><span style="color:#E6EDF3">$openssl_build_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FF7B72"> !</span><span style="color:#FFA657"> ensure_tarball</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> abs_openssl_dir</span></span>
+<span class="line"><span style="color:#E6EDF3">  abs_openssl_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build_dir</span><span style="color:#A5D6FF">" &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  extract_if_needed</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tarball</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$curl_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> abs_curl_dir</span></span>
+<span class="line"><span style="color:#E6EDF3">    abs_curl_dir</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$curl_dir</span><span style="color:#A5D6FF">" &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> abs_prefix</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$abs_curl_dir</span><span style="color:#A5D6FF">/build_curl"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">    pushd </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">    local</span><span style="color:#E6EDF3"> cmake_android_flags</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"w64-mingw32"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Windows"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"apple-darwin"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Darwin"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"android"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Android"</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ANDROID_NDK_HOME</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">        echo</span><span style="color:#A5D6FF"> "ANDROID_NDK_HOME is not set."</span></span>
+<span class="line"><span style="color:#79C0FF">        exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#FF7B72">      local</span><span style="color:#E6EDF3"> api_level</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">TARGET</span><span style="color:#FF7B72">##*</span><span style="color:#E6EDF3">android</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_android_flags</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-DCMAKE_ANDROID_NDK=</span><span style="color:#E6EDF3">$ANDROID_NDK_HOME</span><span style="color:#A5D6FF"> -DCMAKE_SYSTEM_VERSION=</span><span style="color:#E6EDF3">$api_level</span><span style="color:#A5D6FF"> -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"linux"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Linux"</span></span>
+<span class="line"><span style="color:#FF7B72">    elif</span><span style="color:#E6EDF3"> [[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#FF7B72"> *</span><span style="color:#A5D6FF">"wasm64"</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ]]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">      cmake_system_name</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"Generic"</span></span>
+<span class="line"><span style="color:#FF7B72">    fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    cmake</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$abs_curl_dir</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_SYSTEM_NAME=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$cmake_system_name</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#E6EDF3">      $cmake_android_flags </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_INSTALL_PREFIX=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$abs_prefix</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_C_COMPILER=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CC</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_C_FLAGS=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CPPFLAGS</span><span style="color:#E6EDF3"> $TARGET_CFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_EXE_LINKER_FLAGS=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_LDFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_AR=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_AR</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCMAKE_RANLIB=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_RANLIB</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_USE_OPENSSL=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DOPENSSL_ROOT_DIR=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$abs_openssl_dir</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DOPENSSL_INCLUDE_DIR=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$abs_openssl_dir</span><span style="color:#A5D6FF">/include"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DOPENSSL_CRYPTO_LIBRARY=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$abs_openssl_dir</span><span style="color:#A5D6FF">/lib/libcrypto.a"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DOPENSSL_SSL_LIBRARY=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$abs_openssl_dir</span><span style="color:#A5D6FF">/lib/libssl.a"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DBUILD_SHARED_LIBS=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DBUILD_STATIC_LIBS=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DBUILD_CURL_EXE=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_ZLIB=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DUSE_LIBIDN2=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_USE_LIBPSL=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_USE_LIBSSH2=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_BROTLI=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_ZSTD=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DUSE_NGHTTP2=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DENABLE_THREADED_RESOLVER=OFF</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_LDAP=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_LDAPS=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_RTSP=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_DICT=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_TELNET=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_TFTP=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_POP3=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_IMAP=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_SMB=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_SMTP=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_GOPHER=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_DISABLE_MQTT=ON</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_CA_BUNDLE=none</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DCURL_CA_PATH=none</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      -DHAVE_STRUCT_TIMEVAL=1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#79C0FF"> -j</span><span style="color:#A5D6FF">"$(</span><span style="color:#FFA657">nproc</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#FFA657">    make</span><span style="color:#A5D6FF"> install</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    popd </span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> /dev/null</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  RESULT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$build_dir</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">setup_linux_libraries</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> root</span></span>
+<span class="line"><span style="color:#E6EDF3">  root</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_LIBS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> ncurses_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> readline_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> uv_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> openssl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> curl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FFA657"> build_ncurses</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    ncurses_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "ncurses support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ncurses_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ] &#x26;&#x26; </span><span style="color:#FFA657">build_readline</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ncurses_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    readline_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "readline support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FFA657"> build_libuv</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    uv_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "libuv support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FFA657"> build_openssl</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    openssl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "openssl support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ] &#x26;&#x26; </span><span style="color:#FFA657">build_curl</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    curl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "curl support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ncurses_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$ncurses_build</span><span style="color:#A5D6FF">/include"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$readline_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-DPROGRAM_USE_READLINE -I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$readline_build</span><span style="color:#A5D6FF">/include"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">/include"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">/include"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">/include -DCURL_STATICLIB"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$readline_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$readline_build</span><span style="color:#A5D6FF">/lib/libreadline.a"</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$readline_build</span><span style="color:#A5D6FF">/lib/libhistory.a"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ncurses_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$ncurses_build</span><span style="color:#A5D6FF">/lib/libncurses.a"</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$ncurses_build</span><span style="color:#A5D6FF">/lib/libform.a"</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$ncurses_build</span><span style="color:#A5D6FF">/lib/libpanel.a"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">/lib/libuv.a"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">/lib/libcurl.a"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">/lib/libssl.a"</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">/lib/libcrypto.a"</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" -ldl"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">setup_windows_libraries</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> root</span></span>
+<span class="line"><span style="color:#E6EDF3">  root</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_LIBS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> uv_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> openssl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> curl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FFA657"> build_libuv</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    uv_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "libuv support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FFA657"> build_openssl</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    openssl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "openssl support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ] &#x26;&#x26; </span><span style="color:#FFA657">build_curl</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    curl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "curl support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">/include"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">/include"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">/include -DCURL_STATICLIB"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">/lib/libuv.a"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">/lib/libcurl.a"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">/lib/libssl.a"</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">/lib/libcrypto.a"</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" -lws2_32 -lgdi32 -lcrypt32 -luser32 -lbcrypt -ladvapi32"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">setup_macos_libraries</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> root</span></span>
+<span class="line"><span style="color:#E6EDF3">  root</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_LIBS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> uv_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> openssl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> curl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FFA657"> build_libuv</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    uv_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "libuv support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#FFA657"> build_openssl</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    openssl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "openssl support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ] &#x26;&#x26; </span><span style="color:#FFA657">build_curl</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    curl_build</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RESULT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "curl support disabled"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">/include"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">/include"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">DEPS_CFLAGS</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$DEPS_CFLAGS</span><span style="color:#A5D6FF"> }-I</span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">/include -DCURL_STATICLIB"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$uv_build</span><span style="color:#A5D6FF">/lib/libuv.a"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$curl_build</span><span style="color:#A5D6FF">/lib/libcurl.a"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">/lib/libssl.a"</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$root</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$openssl_build</span><span style="color:#A5D6FF">/lib/libcrypto.a"</span></span>
+<span class="line"><span style="color:#E6EDF3">    DEPS_LIBS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" -framework CoreFoundation -framework CoreServices -framework SystemConfiguration"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

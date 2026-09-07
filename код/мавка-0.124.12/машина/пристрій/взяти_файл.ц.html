@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.KDsVL8KGo0/мавка-0.124.12/машина/пристрій/взяти_файл.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти означення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> пристрій {</span></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> дія_виводу(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> взяти_файл(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях_до_файлу: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДаних>,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва_модуля: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту>,</span></span>
+<span class="line"><span style="color:#E6EDF3">      місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> значення = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_файлу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_файлу: памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">> = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> сирий_текст: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3"> { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знаки: розбирач::Знаки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> помилка_розбору_на_знаки: розбирач::ПомилкаРозборуНаЗнаки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> сполуки: розбирач::Сполуки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> помилка_розбору_на_сполуки: розбирач::ПомилкаРозборуНаСполуки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> перекладений_код: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметКоду> = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> помилка_перекладу: перекладач::ПомилкаПерекладу;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> шлях_до_теки_модулів_ю8: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> шлях_до_теки_модулів: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДаних> = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> знайти_взяте_значення(М, шлях_до_файлу, значення::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      успіх = пристрій_мавки_отримати_теку_шляху(</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_файлу.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_файлу.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_теки_модулів_ю8.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_теки_модулів_ю8.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#79C0FF">        1</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося отримати теку шляху."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      шлях_до_теки_модулів = створити_дані(М, шлях_до_теки_модулів_ю8.розмір, шлях_до_теки_модулів_ю8.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      успіх = пристрій_мавки_прочитати_файл(</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_файлу.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_файлу.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_файлу::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_файлу::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося прочитати файл."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      успіх = пристрій_мавки_перекодувати_ю8_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_файлу,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_файлу,</span></span>
+<span class="line"><span style="color:#E6EDF3">        сирий_текст.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        сирий_текст.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити_памʼять(М, дані_файлу);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося перекодувати файл в код мавки."</span><span style="color:#E6EDF3">), Місцезнаходження { шлях_до_файлу, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> });</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      успіх = розбирач::розібрати_на_знаки(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        сирий_текст,</span></span>
+<span class="line"><span style="color:#E6EDF3">        знаки::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        помилка_розбору_на_знаки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> рядок = розбирач::отримати_рядок_помилки_розбору_на_знаки(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          помилка_розбору_на_знаки</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалось розібрати на знаки."</span><span style="color:#E6EDF3">), Місцезнаходження { шлях_до_файлу, рядок });</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      успіх = розбирач::розібрати_знаки_на_сполуки(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        сирий_текст,</span></span>
+<span class="line"><span style="color:#E6EDF3">        знаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">        сполуки::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        помилка_розбору_на_сполуки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> рядок = розбирач::отримати_рядок_помилки_розбору_на_сполуки(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          помилка_розбору_на_сполуки</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"><span style="color:#E6EDF3">        увімкнути_стан_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          МАШИННИЙ_ПРЕДМЕТ(створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалось розібрати на сполуки."</span><span style="color:#E6EDF3">)),</span></span>
+<span class="line"><span style="color:#E6EDF3">          Місцезнаходження { шлях_до_файлу, рядок }</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      успіх = перекласти_в_код(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        створити_дані(М, шлях_до_файлу.розмір, шлях_до_файлу.дані),</span></span>
+<span class="line"><span style="color:#E6EDF3">        сирий_текст,</span></span>
+<span class="line"><span style="color:#E6EDF3">        знаки,</span></span>
+<span class="line"><span style="color:#E6EDF3">        сполуки,</span></span>
+<span class="line"><span style="color:#E6EDF3">        перекладений_код::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        помилка_перекладу::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_код(М, перекладений_код.вказівки.розмір, перекладений_код.вказівки.дані, дія_виводу);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст_без_копіювання(М, помилка_перекладу.повідомлення.розмір, помилка_перекладу.повідомлення.дані), Місцезнаходження { шлях_до_файлу, помилка_перекладу.рядок });</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_модуля = створити_модуль(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        назва_модуля</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      записати_взяте_значення(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_файлу,</span></span>
+<span class="line"><span style="color:#E6EDF3">        МАШИННИЙ_ПРЕДМЕТ(предмет_модуля)</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_дії_модуля = створити_дію(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.глобальна_дійсність,</span></span>
+<span class="line"><span style="color:#E6EDF3">        назва_модуля,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.предмет_пустої_послідовності,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        перекладений_код </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметКоду>,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_теки_модулів</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> результат = предмет_дії_здійснити(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        МАШИННИЙ_ПРЕДМЕТ(предмет_модуля),</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_дії_модуля,</span></span>
+<span class="line"><span style="color:#E6EDF3">        Задіяні { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> },</span></span>
+<span class="line"><span style="color:#E6EDF3">        місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">        видалити_взяте_значення(М, шлях_до_файлу);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> МАШИННИЙ_ПРЕДМЕТ(предмет_модуля);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

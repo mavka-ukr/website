@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.ccAIuuupoU/мавка-0.126.4/external/unix_windows/inet.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;uv.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/biblioteka.h"</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/prystriy.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> MAVKA_NET_HIGH_WATERMARK</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">16</span><span style="color:#FF7B72"> *</span><span style="color:#79C0FF"> 1024</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> enum</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">  CONN_STATE_DISCONNECTED </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  CONN_STATE_CONNECTING,</span></span>
+<span class="line"><span style="color:#E6EDF3">  CONN_STATE_CONNECTED,</span></span>
+<span class="line"><span style="color:#E6EDF3">  CONN_STATE_CLOSING</span></span>
+<span class="line"><span style="color:#E6EDF3">} MavkaConnState;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#79C0FF">  uv_tcp_t</span><span style="color:#E6EDF3"> server;</span></span>
+<span class="line"><span style="color:#E6EDF3">  адреса argument;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникЗапуску on_start;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникПомилки on_error;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникЗупинки on_stop;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникЗнищення on_destroy;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникПідключенняЗвʼязку on_connection;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникДанихЗвʼязку on_data;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникСтіканняЗвʼязку on_drain;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникЗакінченняЗвʼязку on_end;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникПомилкиЗвʼязку on_conn_error;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетСлугаОбробникВідключенняЗвʼязку on_disconnect;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> closing;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> server_handle_closed;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> active_conns;</span></span>
+<span class="line"><span style="color:#E6EDF3">} MavkaServer;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> MavkaConn MavkaConn;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> MavkaConn {</span></span>
+<span class="line"><span style="color:#79C0FF">  uv_tcp_t</span><span style="color:#E6EDF3"> handle;</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> server;</span></span>
+<span class="line"><span style="color:#E6EDF3">  адреса conn_argument;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетЗвʼязокОбробникЗнищення on_conn_destroy;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетКлієнтОбробникПідключення client_on_connect;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетКлієнтОбробникДаних client_on_data;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетКлієнтОбробникСтікання client_on_drain;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетКлієнтОбробникЗакінчення client_on_end;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетКлієнтОбробникПомилки client_on_error;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетКлієнтОбробникВідключення client_on_disconnect;</span></span>
+<span class="line"><span style="color:#79C0FF">  uv_connect_t</span><span style="color:#E6EDF3"> connect_req;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> is_client;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> write_backlog_active;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> pending_close;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> active_writes;</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConnState state;</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#79C0FF">  uv_write_t</span><span style="color:#E6EDF3"> req;</span></span>
+<span class="line"><span style="color:#79C0FF">  uv_buf_t</span><span style="color:#E6EDF3"> buf;</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn;</span></span>
+<span class="line"><span style="color:#E6EDF3">  адреса arg;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетЗвʼязокОбробникНадіслання on_send;</span></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиІнетЗвʼязокОбробникЗакінчення on_end;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> is_end_req;</span></span>
+<span class="line"><span style="color:#E6EDF3">} MavkaWriteReq;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#E6EDF3"> природне </span><span style="color:#D2A8FF">map_uv_error</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">int</span><span style="color:#FFA657"> err</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  switch</span><span style="color:#E6EDF3"> (err) {</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_УСПІХ;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ENOMEM:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_НЕДОСТАТНЬО_ПАМʼЯТІ;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EINVAL:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_АРГУМЕНТУ;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EADDRINUSE:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_АДРЕСА_ВИКОРИСТОВУЄТЬСЯ;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ECONNREFUSED:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ЗʼЄДНАННЯ_ВІДХИЛЕНО;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ECONNRESET:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ЗʼЄДНАННЯ_СКИНОТО;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ENETUNREACH:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_МЕРЕЖА_НЕДОСТУПНА;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EHOSTUNREACH:</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EHOSTDOWN:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ХОСТ_НЕДОСТУПНИЙ;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ETIMEDOUT:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ТАЙМАУТ;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EPIPE:</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ECANCELED:</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ESHUTDOWN:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_КАНАЛ_ЗЛАМАНО;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EACCES:</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EPERM:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ДОСТУПУ;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EMFILE:</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ENFILE:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ЗАБАГАТО_ФАЙЛІВ;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EADDRNOTAVAIL:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_АДРЕСА_НЕДОСТУПНА;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ENOBUFS:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ПЕРЕПОВНЕННЯ_БУФЕРА;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ENETDOWN:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_МЕРЕЖА_ВІДМОВИЛА;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ECONNABORTED:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ЗʼЄДНАННЯ_ПЕРЕРВАНО;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EISCONN:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ВЖЕ_ПІДДОСЛІДЖЕНО;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ENOTCONN:</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_ENOTSOCK:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_НЕ_ПІДʼЄДНАНО;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EIO:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_ВХІД_ВИХІД;</span></span>
+<span class="line"><span style="color:#FF7B72">    case</span><span style="color:#E6EDF3"> UV_EBADF:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_НЕПРАВИЛЬНИЙ_ФАЙЛ;</span></span>
+<span class="line"><span style="color:#FF7B72">    default</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_НЕВІДОМА;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> alloc_cb</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> handle</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                     size_t</span><span style="color:#FFA657"> suggested_size</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#79C0FF">                     uv_buf_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> buf</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  (</span><span style="color:#FF7B72">void</span><span style="color:#E6EDF3">)handle;</span></span>
+<span class="line"><span style="color:#E6EDF3">  buf->base </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(suggested_size);</span></span>
+<span class="line"><span style="color:#E6EDF3">  buf->len </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> buf->base </span><span style="color:#FF7B72">?</span><span style="color:#E6EDF3"> suggested_size </span><span style="color:#FF7B72">:</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> maybe_destroy_server</span><span style="color:#E6EDF3">(MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> server</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (server->server_handle_closed </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> server->active_conns </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (server->on_destroy) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      server-></span><span style="color:#D2A8FF">on_destroy</span><span style="color:#E6EDF3">(server->argument);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(server);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> conn_close_cb</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> handle</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)handle->data;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->state </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CONN_STATE_DISCONNECTED;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> server </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> conn->server;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (server) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    server->active_conns</span><span style="color:#FF7B72">--</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (conn->on_conn_destroy) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn-></span><span style="color:#D2A8FF">on_conn_destroy</span><span style="color:#E6EDF3">(conn->conn_argument);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(conn);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (server) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    maybe_destroy_server</span><span style="color:#E6EDF3">(server);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> safe_close_conn</span><span style="color:#E6EDF3">(MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> conn</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (conn->state </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> CONN_STATE_DISCONNECTED </span><span style="color:#FF7B72">||</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn->state </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> CONN_STATE_CLOSING) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  conn->pending_close </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (conn->active_writes </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#FF7B72"> !</span><span style="color:#D2A8FF">uv_is_closing</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->state </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CONN_STATE_CLOSING;</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_close</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle, conn_close_cb);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> read_cb</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> stream</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">ssize_t</span><span style="color:#FFA657"> nread</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">const</span><span style="color:#79C0FF"> uv_buf_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> buf</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)stream->data;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (nread </span><span style="color:#FF7B72">></span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (conn->server </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->server->on_data) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn->server-></span><span style="color:#D2A8FF">on_data</span><span style="color:#E6EDF3">((адреса)conn->server, (адреса)conn, (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)buf->base,</span></span>
+<span class="line"><span style="color:#E6EDF3">                            (природне)nread);</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (conn->is_client </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->client_on_data) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn-></span><span style="color:#D2A8FF">client_on_data</span><span style="color:#E6EDF3">((адреса)conn, (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)buf->base, (природне)nread);</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(buf->base);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (nread </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_read_stop</span><span style="color:#E6EDF3">(stream);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (buf->base) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(buf->base);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (nread </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> UV_EOF) {</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (conn->server </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->server->on_end) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        conn->server-></span><span style="color:#D2A8FF">on_end</span><span style="color:#E6EDF3">((адреса)conn->server, (адреса)conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (conn->is_client </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->client_on_end) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        conn-></span><span style="color:#D2A8FF">client_on_end</span><span style="color:#E6EDF3">((адреса)conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      природне err_code </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> map_uv_error</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3">)nread);</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (conn->server </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->server->on_conn_error) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        conn->server-></span><span style="color:#D2A8FF">on_conn_error</span><span style="color:#E6EDF3">((адреса)conn->server, (адреса)conn,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    err_code);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (conn->is_client </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->client_on_error) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        conn-></span><span style="color:#D2A8FF">client_on_error</span><span style="color:#E6EDF3">((адреса)conn, err_code);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (conn->server </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->server->on_disconnect) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn->server-></span><span style="color:#D2A8FF">on_disconnect</span><span style="color:#E6EDF3">((адреса)conn->server, (адреса)conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (conn->is_client </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->client_on_disconnect) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn-></span><span style="color:#D2A8FF">client_on_disconnect</span><span style="color:#E6EDF3">((адреса)conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">    safe_close_conn</span><span style="color:#E6EDF3">(conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> server_close_cb</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> handle</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> server </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)handle->data;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->server_handle_closed </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (server->on_stop) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    server-></span><span style="color:#D2A8FF">on_stop</span><span style="color:#E6EDF3">((адреса)server);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  maybe_destroy_server</span><span style="color:#E6EDF3">(server);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> on_new_connection</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> server_handle</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">int</span><span style="color:#FFA657"> status</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> server </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)server_handle->data;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (server->closing) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (status </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (server->on_error) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      server-></span><span style="color:#D2A8FF">on_error</span><span style="color:#E6EDF3">((адреса)server, </span><span style="color:#D2A8FF">map_uv_error</span><span style="color:#E6EDF3">(status));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)каллок(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(MavkaConn));</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">conn) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  conn->is_client </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->state </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CONN_STATE_CONNECTED;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_tcp_init</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">uv_default_loop</span><span style="color:#E6EDF3">(), </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle) </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(conn);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->handle.data </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> conn;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_accept</span><span style="color:#E6EDF3">(server_handle, (</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->server </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> server;</span></span>
+<span class="line"><span style="color:#E6EDF3">    server->active_conns</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (server->on_connection) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      server-></span><span style="color:#D2A8FF">on_connection</span><span style="color:#E6EDF3">((адреса)server, (адреса)conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_read_start</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle, alloc_cb, read_cb) </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">      safe_close_conn</span><span style="color:#E6EDF3">(conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->state </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CONN_STATE_CLOSING;</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_close</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle, conn_close_cb);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> int</span><span style="color:#D2A8FF"> build_addr</span><span style="color:#E6EDF3">(природне іа_вид,</span></span>
+<span class="line"><span style="color:#E6EDF3">                      п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> іа_дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">                      природне іа_розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">                      природне порт,</span></span>
+<span class="line"><span style="color:#FF7B72">                      struct</span><span style="color:#E6EDF3"> sockaddr_storage</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> addr</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  мемсет(addr, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">addr));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (іа_вид </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 4</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    char</span><span style="color:#FFA657"> ip_str</span><span style="color:#E6EDF3">[</span><span style="color:#79C0FF">64</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (іа_розмір </span><span style="color:#FF7B72">>=</span><span style="color:#FF7B72"> sizeof</span><span style="color:#E6EDF3">(ip_str)) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    мемкоп(ip_str, іа_дані, іа_розмір);</span></span>
+<span class="line"><span style="color:#FFA657">    ip_str</span><span style="color:#E6EDF3">[іа_розмір] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#D2A8FF"> uv_ip4_addr</span><span style="color:#E6EDF3">(ip_str, (</span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3">)порт, (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> sockaddr_in</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)addr);</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (іа_вид </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 6</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (іа_розмір </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 16</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> sockaddr_in6</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> addr6 </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> sockaddr_in6</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)addr;</span></span>
+<span class="line"><span style="color:#E6EDF3">    addr6->sin6_family </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> AF_INET6;</span></span>
+<span class="line"><span style="color:#E6EDF3">    addr6->sin6_port </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> htons</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">uint16_t</span><span style="color:#E6EDF3">)порт);</span></span>
+<span class="line"><span style="color:#E6EDF3">    мемкоп(</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">addr6->sin6_addr, іа_дані, </span><span style="color:#79C0FF">16</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_служити(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне іа_вид,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> іа_дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне іа_розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне порт,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникЗапуску обробник_запуску,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникПомилки обробник_помилки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникЗупинки обробник_зупинки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникЗнищення обробник_знищення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникПідключенняЗвʼязку</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_підключення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникДанихЗвʼязку обробник_даних_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникСтіканняЗвʼязку обробник_стікання_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникЗакінченняЗвʼязку</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_закінчення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникПомилкиЗвʼязку обробник_помилки_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникВідключенняЗвʼязку</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_відключення_звʼязку) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> server </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)каллок(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(MavkaServer));</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">server) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  server->argument </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> аргумент;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_start </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_запуску;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_error </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_помилки;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_stop </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_зупинки;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_destroy </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_знищення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_connection </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_підключення_звʼязку;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_data </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_даних_звʼязку;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_drain </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_стікання_звʼязку;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_end </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_закінчення_звʼязку;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_conn_error </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_помилки_звʼязку;</span></span>
+<span class="line"><span style="color:#E6EDF3">  server->on_disconnect </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_відключення_звʼязку;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_tcp_init</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">uv_default_loop</span><span style="color:#E6EDF3">(), </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">server->server) </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    server->closing </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    server->server_handle_closed </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (server->on_start) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      server-></span><span style="color:#D2A8FF">on_start</span><span style="color:#E6EDF3">((адреса)server, МАВКА_ІНЕТ_ПОМИЛКА_НЕВІДОМА);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (server->on_destroy) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      server-></span><span style="color:#D2A8FF">on_destroy</span><span style="color:#E6EDF3">(server->argument);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(server);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  server->server.data </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> server;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> sockaddr_storage addr;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> addr_res </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> build_addr</span><span style="color:#E6EDF3">(іа_вид, іа_дані, іа_розмір, порт, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">addr);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (addr_res </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне err </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (addr_res </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">?</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_АРГУМЕНТУ</span></span>
+<span class="line"><span style="color:#FF7B72">                                    :</span><span style="color:#D2A8FF"> map_uv_error</span><span style="color:#E6EDF3">(addr_res);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (server->on_start) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      server-></span><span style="color:#D2A8FF">on_start</span><span style="color:#E6EDF3">((адреса)server, err);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_close</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">server->server, server_close_cb);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> res </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> uv_tcp_bind</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">server->server, (</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> sockaddr</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">addr, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (res </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (server->on_start) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      server-></span><span style="color:#D2A8FF">on_start</span><span style="color:#E6EDF3">((адреса)server, </span><span style="color:#D2A8FF">map_uv_error</span><span style="color:#E6EDF3">(res));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_close</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">server->server, server_close_cb);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  res </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> uv_listen</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">server->server, SOMAXCONN, on_new_connection);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (res </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (server->on_start) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      server-></span><span style="color:#D2A8FF">on_start</span><span style="color:#E6EDF3">((адреса)server, </span><span style="color:#D2A8FF">map_uv_error</span><span style="color:#E6EDF3">(res));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_close</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">server->server, server_close_cb);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (server->on_start) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    server-></span><span style="color:#D2A8FF">on_start</span><span style="color:#E6EDF3">((адреса)server, МАВКА_ІНЕТ_УСПІХ);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">адреса бібліотека_мавки_інет_отримати_аргумент_слуги(адреса адр_слуга) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> ((MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)адр_слуга)->argument;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> close_walk_cb</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> handle</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> arg</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> server </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)arg;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_is_closing</span><span style="color:#E6EDF3">(handle)) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (handle </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">server->server) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_close</span><span style="color:#E6EDF3">(handle, server_close_cb);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (handle->type </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> UV_TCP) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)handle->data;</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (conn </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#FF7B72"> !</span><span style="color:#E6EDF3">conn->is_client </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->server </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> server) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn->state </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CONN_STATE_CLOSING;</span></span>
+<span class="line"><span style="color:#D2A8FF">      uv_close</span><span style="color:#E6EDF3">(handle, conn_close_cb);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_зупинити_слугу(адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                          природне закрити_підключення) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> server </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaServer</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)адр_слуга;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (server->closing) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  server->closing </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (закрити_підключення) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_walk</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">uv_default_loop</span><span style="color:#E6EDF3">(), close_walk_cb, server);</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#D2A8FF">uv_is_closing</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">server->server)) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_close</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">server->server, server_close_cb);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> on_connect</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_connect_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> req</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">int</span><span style="color:#FFA657"> status</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)req->data;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  природне err_code </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> map_uv_error</span><span style="color:#E6EDF3">(status);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (status </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->state </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CONN_STATE_CONNECTED;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (conn->client_on_connect) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn-></span><span style="color:#D2A8FF">client_on_connect</span><span style="color:#E6EDF3">((адреса)conn, err_code);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (status </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    safe_close_conn</span><span style="color:#E6EDF3">(conn);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_read_start</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle, alloc_cb, read_cb) </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    safe_close_conn</span><span style="color:#E6EDF3">(conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_підключитись(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне іа_вид,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> іа_дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне іа_розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне порт,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникПідключення обробник_підключення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникДаних обробник_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникСтікання обробник_стікання,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникЗакінчення обробник_закінчення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникПомилки обробник_помилки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникВідключення обробник_відключення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетЗвʼязокОбробникЗнищення обробник_знищення) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)каллок(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(MavkaConn));</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">conn) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  conn->is_client </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->state </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CONN_STATE_CONNECTING;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->client_on_connect </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_підключення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->client_on_data </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_даних;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->client_on_drain </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_стікання;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->client_on_end </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_закінчення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->client_on_error </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_помилки;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->client_on_disconnect </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_відключення;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->conn_argument </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> аргумент;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->on_conn_destroy </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_знищення;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_tcp_init</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">uv_default_loop</span><span style="color:#E6EDF3">(), </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle) </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->state </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CONN_STATE_DISCONNECTED;</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (conn->client_on_connect) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn-></span><span style="color:#D2A8FF">client_on_connect</span><span style="color:#E6EDF3">((адреса)conn, МАВКА_ІНЕТ_ПОМИЛКА_НЕВІДОМА);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (conn->on_conn_destroy) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn-></span><span style="color:#D2A8FF">on_conn_destroy</span><span style="color:#E6EDF3">(conn->conn_argument);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(conn);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  conn->handle.data </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> conn;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->connect_req.data </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> conn;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> sockaddr_storage addr;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> addr_res </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> build_addr</span><span style="color:#E6EDF3">(іа_вид, іа_дані, іа_розмір, порт, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">addr);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (addr_res </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне err </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (addr_res </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">?</span><span style="color:#E6EDF3"> МАВКА_ІНЕТ_ПОМИЛКА_АРГУМЕНТУ</span></span>
+<span class="line"><span style="color:#FF7B72">                                    :</span><span style="color:#D2A8FF"> map_uv_error</span><span style="color:#E6EDF3">(addr_res);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (conn->client_on_connect) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn-></span><span style="color:#D2A8FF">client_on_connect</span><span style="color:#E6EDF3">((адреса)conn, err);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#D2A8FF">    safe_close_conn</span><span style="color:#E6EDF3">(conn);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> res </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> uv_tcp_connect</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->connect_req, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle,</span></span>
+<span class="line"><span style="color:#E6EDF3">                           (</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> sockaddr</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">addr, on_connect);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (res </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (conn->client_on_connect) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn-></span><span style="color:#D2A8FF">client_on_connect</span><span style="color:#E6EDF3">((адреса)conn, </span><span style="color:#D2A8FF">map_uv_error</span><span style="color:#E6EDF3">(res));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#D2A8FF">    safe_close_conn</span><span style="color:#E6EDF3">(conn);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">природне бібліотека_мавки_інет_отримати_іа_звʼязку(адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_іа4,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_іа6) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)адр_звʼязок;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> sockaddr_storage name;</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> namelen </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> sizeof</span><span style="color:#E6EDF3">(name);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_tcp_getsockname</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle, (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> sockaddr</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">name, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">namelen) </span><span style="color:#FF7B72">!=</span></span>
+<span class="line"><span style="color:#79C0FF">      0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (name.ss_family </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> AF_INET) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (вихід_іа4) {</span></span>
+<span class="line"><span style="color:#FF7B72">      struct</span><span style="color:#E6EDF3"> sockaddr_in</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> s4 </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> sockaddr_in</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">name;</span></span>
+<span class="line"><span style="color:#FF7B72">      *</span><span style="color:#E6EDF3">вихід_іа4 </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (природне)</span><span style="color:#D2A8FF">ntohl</span><span style="color:#E6EDF3">(s4->sin_addr.s_addr);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 4</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (name.ss_family </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> AF_INET6) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (вихід_іа6) {</span></span>
+<span class="line"><span style="color:#FF7B72">      struct</span><span style="color:#E6EDF3"> sockaddr_in6</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> s6 </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> sockaddr_in6</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">name;</span></span>
+<span class="line"><span style="color:#E6EDF3">      мемкоп(вихід_іа6, s6->sin6_addr.s6_addr, </span><span style="color:#79C0FF">16</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 6</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_записати_аргумент_звʼязку(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетЗвʼязокОбробникЗнищення обробник_знищення) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)адр_звʼязок;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->conn_argument </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> аргумент;</span></span>
+<span class="line"><span style="color:#E6EDF3">  conn->on_conn_destroy </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник_знищення;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">адреса бібліотека_мавки_інет_отримати_аргумент_звʼязку(адреса адр_звʼязок) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> ((MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)адр_звʼязок)->conn_argument;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> on_write_complete</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_write_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> req</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">int</span><span style="color:#FFA657"> status</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaWriteReq</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> wreq </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaWriteReq</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)req->data;</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> wreq->conn;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  conn->active_writes</span><span style="color:#FF7B72">--</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (wreq->is_end_req) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->pending_close </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (status </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (wreq->on_send) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      wreq-></span><span style="color:#D2A8FF">on_send</span><span style="color:#E6EDF3">((адреса)conn, wreq->arg);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (wreq->on_end) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      wreq-></span><span style="color:#D2A8FF">on_end</span><span style="color:#E6EDF3">((адреса)conn, wreq->arg);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">conn->pending_close </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->write_backlog_active) {</span></span>
+<span class="line"><span style="color:#FF7B72">      size_t</span><span style="color:#E6EDF3"> write_queue_size </span><span style="color:#FF7B72">=</span></span>
+<span class="line"><span style="color:#D2A8FF">          uv_stream_get_write_queue_size</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle);</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (write_queue_size </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> MAVKA_NET_HIGH_WATERMARK) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        conn->write_backlog_active </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        if</span><span style="color:#E6EDF3"> (conn->server </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->server->on_drain) {</span></span>
+<span class="line"><span style="color:#E6EDF3">          conn->server-></span><span style="color:#D2A8FF">on_drain</span><span style="color:#E6EDF3">((адреса)conn->server, (адреса)conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (conn->is_client </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->client_on_drain) {</span></span>
+<span class="line"><span style="color:#E6EDF3">          conn-></span><span style="color:#D2A8FF">client_on_drain</span><span style="color:#E6EDF3">((адреса)conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->write_backlog_active </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне err_code </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> map_uv_error</span><span style="color:#E6EDF3">(status);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (conn->server </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->server->on_conn_error) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn->server-></span><span style="color:#D2A8FF">on_conn_error</span><span style="color:#E6EDF3">((адреса)conn->server, (адреса)conn, err_code);</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (conn->is_client </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->client_on_error) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn-></span><span style="color:#D2A8FF">client_on_error</span><span style="color:#E6EDF3">((адреса)conn, err_code);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->pending_close </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (conn->pending_close </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> conn->active_writes </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> &#x26;&#x26;</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn->state </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> CONN_STATE_CLOSING </span><span style="color:#FF7B72">&#x26;&#x26;</span></span>
+<span class="line"><span style="color:#E6EDF3">      conn->state </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> CONN_STATE_DISCONNECTED </span><span style="color:#FF7B72">&#x26;&#x26;</span></span>
+<span class="line"><span style="color:#FF7B72">      !</span><span style="color:#D2A8FF">uv_is_closing</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->state </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CONN_STATE_CLOSING;</span></span>
+<span class="line"><span style="color:#D2A8FF">    uv_close</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_handle_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle, conn_close_cb);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (wreq->buf.base) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(wreq->buf.base);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(wreq);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_інет_звʼязок_надіслати(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетЗвʼязокОбробникНадіслання обробник) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)адр_звʼязок;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (conn->state </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> CONN_STATE_CONNECTED </span><span style="color:#FF7B72">||</span><span style="color:#E6EDF3"> conn->pending_close) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (розмір </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (обробник) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      обробник((адреса)conn, аргумент);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">дані) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaWriteReq</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> wreq </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaWriteReq</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)каллок(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(MavkaWriteReq));</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">wreq) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> data_copy </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити((</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3">)розмір);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">data_copy) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(wreq);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  мемкоп(data_copy, дані, (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3">)розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">  wreq->buf </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> uv_buf_init</span><span style="color:#E6EDF3">(data_copy, (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> int</span><span style="color:#E6EDF3">)розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">  wreq->conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> conn;</span></span>
+<span class="line"><span style="color:#E6EDF3">  wreq->arg </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> аргумент;</span></span>
+<span class="line"><span style="color:#E6EDF3">  wreq->on_send </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник;</span></span>
+<span class="line"><span style="color:#E6EDF3">  wreq->is_end_req </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  wreq->req.data </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> wreq;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  conn->active_writes</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> res </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> uv_write</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">wreq->req, (</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">wreq->buf, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">                     on_write_complete);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (res </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->active_writes</span><span style="color:#FF7B72">--</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(data_copy);</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(wreq);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_stream_get_write_queue_size</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle) </span><span style="color:#FF7B72">>=</span></span>
+<span class="line"><span style="color:#E6EDF3">      MAVKA_NET_HIGH_WATERMARK) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    conn->write_backlog_active </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_звʼязок_закінчити(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетЗвʼязокОбробникЗакінчення обробник) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)адр_звʼязок;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (conn->state </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> CONN_STATE_CONNECTED </span><span style="color:#FF7B72">||</span><span style="color:#E6EDF3"> conn->pending_close) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (обробник) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      обробник((адреса)conn, аргумент);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (дані </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> розмір </span><span style="color:#FF7B72">></span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    MavkaWriteReq</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> wreq </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaWriteReq</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)каллок(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(MavkaWriteReq));</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (wreq) {</span></span>
+<span class="line"><span style="color:#FF7B72">      char*</span><span style="color:#E6EDF3"> data_copy </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити((</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3">)розмір);</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (data_copy) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        мемкоп(data_copy, дані, (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3">)розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">        wreq->buf </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> uv_buf_init</span><span style="color:#E6EDF3">(data_copy, (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> int</span><span style="color:#E6EDF3">)розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">        wreq->conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> conn;</span></span>
+<span class="line"><span style="color:#E6EDF3">        wreq->arg </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> аргумент;</span></span>
+<span class="line"><span style="color:#E6EDF3">        wreq->on_end </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обробник;</span></span>
+<span class="line"><span style="color:#E6EDF3">        wreq->is_end_req </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        wreq->req.data </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> wreq;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        conn->active_writes</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_write</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">wreq->req, (</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">wreq->buf, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">                     on_write_complete) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">          if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_stream_get_write_queue_size</span><span style="color:#E6EDF3">((</span><span style="color:#79C0FF">uv_stream_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">conn->handle) </span><span style="color:#FF7B72">>=</span></span>
+<span class="line"><span style="color:#E6EDF3">              MAVKA_NET_HIGH_WATERMARK) {</span></span>
+<span class="line"><span style="color:#E6EDF3">            conn->write_backlog_active </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#FF7B72">          return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        conn->active_writes</span><span style="color:#FF7B72">--</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_звільнити(data_copy);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(wreq);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (обробник) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    обробник((адреса)conn, аргумент);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#D2A8FF">  safe_close_conn</span><span style="color:#E6EDF3">(conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_звʼязок_знищити(адреса адр_звʼязок) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> conn </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (MavkaConn</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)адр_звʼязок;</span></span>
+<span class="line"><span style="color:#D2A8FF">  safe_close_conn</span><span style="color:#E6EDF3">(conn);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

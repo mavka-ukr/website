@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.erdjogphda/мавка-1.0.1/.github/workflows/build-and-test.yml</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Build and Test</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">on</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">  workflow_dispatch</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7EE787">jobs</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">  build</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">    name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Build (${{ matrix.platform }}, ${{ matrix.mode }})</span></span>
+<span class="line"><span style="color:#7EE787">    runs-on</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">ubuntu-24.04</span></span>
+<span class="line"><span style="color:#7EE787">    strategy</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">      fail-fast</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">false</span></span>
+<span class="line"><span style="color:#7EE787">      matrix</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">        platform</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">          [</span></span>
+<span class="line"><span style="color:#A5D6FF">            linux-x86_64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#A5D6FF">            linux-aarch64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#A5D6FF">            macos-x86_64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#A5D6FF">            macos-aarch64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#A5D6FF">            windows-x86_64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#A5D6FF">            windows-aarch64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#A5D6FF">            android-aarch64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          ]</span></span>
+<span class="line"><span style="color:#7EE787">        mode</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">debug</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">release</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#7EE787">        exclude</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">          - </span><span style="color:#7EE787">mode</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ github.ref_name == 'main' &#x26;&#x26; 'debug' || 'release' }}</span></span>
+<span class="line"><span style="color:#7EE787">    steps</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Checkout source code</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/checkout@v4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Cache and install apt packages</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">awalsh128/cache-apt-pkgs-action@v1</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          packages</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">clang llvm lld make cmake ninja-build xz-utils curl unzip wget git patch python3 python-is-python3 libssl-dev lzma-dev libxml2-dev bzip2 cpio libbz2-dev zlib1g-dev bash build-essential libc6-dev-arm64-cross linux-libc-dev-arm64-cross gcc-aarch64-linux-gnu g++-aarch64-linux-gnu binutils-aarch64-linux-gnu libc6-arm64-cross</span></span>
+<span class="line"><span style="color:#7EE787">          version</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">v7</span></span>
+<span class="line"><span style="color:#7EE787">          execute_install_scripts</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Fix aarch64 cross-compiler sysroot paths</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">matrix.platform == 'linux-aarch64'</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo mkdir -p /usr/aarch64-linux-gnu/usr/aarch64-linux-gnu</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo ln -s /usr/aarch64-linux-gnu/lib /usr/aarch64-linux-gnu/usr/aarch64-linux-gnu/lib</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Test aarch64 cross-compiler</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">matrix.platform == 'linux-aarch64'</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo 'int main() { return 0; }' > test.c</span></span>
+<span class="line"><span style="color:#A5D6FF">          /usr/bin/clang --target=aarch64-linux-gnu --sysroot=/usr/aarch64-linux-gnu -fuse-ld=lld -g -O0 test.c -o test</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "Cross-compiler test passed!"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Cache tsil compiler</span></span>
+<span class="line"><span style="color:#7EE787">        id</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">cache-tsil</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/cache@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">tsil-cache</span></span>
+<span class="line"><span style="color:#7EE787">          key</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">tsil-${{ hashFiles('ЦІЛЬ') }}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Download and install tsil compiler tool</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ ! -d "tsil-cache" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            TSIL_VERSION=$(cat ЦІЛЬ | xargs)</span></span>
+<span class="line"><span style="color:#A5D6FF">            URL="https://github.com/tsil-ukr/files/raw/main/випуски-цілі/${TSIL_VERSION}/ціль-${TSIL_VERSION}-лінукс-ікс86_64.tar.xz"</span></span>
+<span class="line"><span style="color:#A5D6FF">            curl -L "$URL" -o tsil.tar.xz</span></span>
+<span class="line"><span style="color:#A5D6FF">            tar -xf tsil.tar.xz</span></span>
+<span class="line"><span style="color:#A5D6FF">            mv "ціль-${TSIL_VERSION}-лінукс-ікс86_64" tsil-cache</span></span>
+<span class="line"><span style="color:#A5D6FF">            rm -rf tsil.tar.xz</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo cp "tsil-cache/програми/ціль" /usr/local/bin/ціль</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo chmod +x /usr/local/bin/ціль</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Cache llvm-mingw</span></span>
+<span class="line"><span style="color:#7EE787">        id</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">cache-mingw</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">startsWith(matrix.platform, 'windows-')</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/cache@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64</span></span>
+<span class="line"><span style="color:#7EE787">          key</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Setup Windows cross-compilation (llvm-mingw)</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">startsWith(matrix.platform, 'windows-')</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          MINGW_DIR="llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64"</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ ! -d "$MINGW_DIR" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            MINGW_URL="https://github.com/mstorsjo/llvm-mingw/releases/download/20260616/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64.tar.xz"</span></span>
+<span class="line"><span style="color:#A5D6FF">            curl -L "$MINGW_URL" -o mingw.tar.xz</span></span>
+<span class="line"><span style="color:#A5D6FF">            tar -xf mingw.tar.xz</span></span>
+<span class="line"><span style="color:#A5D6FF">            rm -f mingw.tar.xz</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "LLVM_MINGW_PATH=$PWD/$MINGW_DIR" >> $GITHUB_ENV</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Cache Android NDK</span></span>
+<span class="line"><span style="color:#7EE787">        id</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">cache-ndk</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">matrix.platform == 'android-aarch64'</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/cache@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">android-ndk-r27d</span></span>
+<span class="line"><span style="color:#7EE787">          key</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">android-ndk-r27d</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Setup Android cross-compilation (NDK)</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">matrix.platform == 'android-aarch64'</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          NDK_DIR="android-ndk-r27d"</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ ! -d "$NDK_DIR" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            curl -L "https://dl.google.com/android/repository/android-ndk-r27d-linux.zip" -o ndk.zip</span></span>
+<span class="line"><span style="color:#A5D6FF">            unzip -q ndk.zip</span></span>
+<span class="line"><span style="color:#A5D6FF">            rm -f ndk.zip</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "ANDROID_NDK_HOME=$PWD/$NDK_DIR" >> $GITHUB_ENV</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Restore osxcross cache</span></span>
+<span class="line"><span style="color:#7EE787">        id</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">cache-osxcross-restore</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">startsWith(matrix.platform, 'macos-')</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/cache/restore@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">osxcross</span></span>
+<span class="line"><span style="color:#7EE787">          key</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">osxcross-MacOSX14.0-v5</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Setup MacOS cross-compilation (osxcross)</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">startsWith(matrix.platform, 'macos-')</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ ! -d "osxcross/target" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            echo "osxcross missing. Rebuilding..."</span></span>
+<span class="line"><span style="color:#A5D6FF">            rm -rf osxcross</span></span>
+<span class="line"><span style="color:#A5D6FF">            git clone https://github.com/tpoechtrager/osxcross.git</span></span>
+<span class="line"><span style="color:#A5D6FF">            curl -L "https://github.com/roblabla/MacOSX-SDKs/releases/download/macosx14.0/MacOSX14.0.sdk.tar.xz" \</span></span>
+<span class="line"><span style="color:#A5D6FF">              -o osxcross/tarballs/MacOSX14.0.sdk.tar.xz</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">            cd osxcross</span></span>
+<span class="line"><span style="color:#A5D6FF">            UNATTENDED=1 ./build.sh</span></span>
+<span class="line"><span style="color:#A5D6FF">            cd ..</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          echo "OSXCROSS_PATH=$PWD/osxcross/target" >> $GITHUB_ENV</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          SDK_DIR=$(ls -d $PWD/osxcross/target/SDK/MacOSX*.sdk | head -n 1)</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "CMAKE_FRAMEWORK_PATH=$SDK_DIR/System/Library/Frameworks" >> $GITHUB_ENV</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "CMAKE_INCLUDE_PATH=$SDK_DIR/usr/include" >> $GITHUB_ENV</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Save osxcross cache</span></span>
+<span class="line"><span style="color:#7EE787">        id</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">cache-osxcross-save</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">startsWith(matrix.platform, 'macos-') &#x26;&#x26; steps.cache-osxcross-restore.outputs.cache-hit != 'true'</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/cache/save@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">osxcross</span></span>
+<span class="line"><span style="color:#7EE787">          key</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.cache-osxcross-restore.outputs.cache-primary-key }}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Cache downloaded project libraries</span></span>
+<span class="line"><span style="color:#7EE787">        id</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">cache-libs</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/cache@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">scripts/*.tar.gz</span></span>
+<span class="line"><span style="color:#7EE787">          key</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">libs-${{ hashFiles('scripts/NCURSES_VERSION', 'scripts/READLINE_VERSION', 'scripts/LIBUV_VERSION', 'scripts/OPENSSL_VERSION', 'scripts/CURL_VERSION') }}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Download project libraries</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x scripts/download_libs.sh</span></span>
+<span class="line"><span style="color:#A5D6FF">          bash scripts/download_libs.sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Cache built dependencies</span></span>
+<span class="line"><span style="color:#7EE787">        id</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">cache-build-deps</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/cache@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">build</span></span>
+<span class="line"><span style="color:#7EE787">          key</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">build-${{ matrix.platform }}-${{ matrix.mode }}-v3-${{ hashFiles('scripts/NCURSES_VERSION', 'scripts/READLINE_VERSION', 'scripts/LIBUV_VERSION', 'scripts/OPENSSL_VERSION', 'scripts/CURL_VERSION') }}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Run compilation</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x scripts/build.sh</span></span>
+<span class="line"><span style="color:#A5D6FF">          bash scripts/build.sh \</span></span>
+<span class="line"><span style="color:#A5D6FF">            "${{ matrix.mode }}" \</span></span>
+<span class="line"><span style="color:#A5D6FF">            "${{ matrix.platform }}" || (find build -name "config.log" -exec tail -n 200 {} \; &#x26;&#x26; exit 1)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Set OS artifact paths</span></span>
+<span class="line"><span style="color:#7EE787">        id</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">os_paths</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">startsWith(matrix.platform, 'macos-') || startsWith(matrix.platform, 'windows-') || startsWith(matrix.platform, 'linux-') || startsWith(matrix.platform, 'android-')</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          VERSION=$(cat ВЕРСІЯ | xargs)</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ "${{ matrix.mode }}" = "release" ]; then TSIL_MODE="випуск"; else TSIL_MODE="відлагодження"; fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          TSIL_FOLDER=""</span></span>
+<span class="line"><span style="color:#A5D6FF">          MAVKA_BIN="мавка"</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ "${{ matrix.platform }}" = "linux-x86_64" ]; then TSIL_FOLDER="лінукс-ікс86_64"; fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ "${{ matrix.platform }}" = "linux-aarch64" ]; then TSIL_FOLDER="лінукс-аарч64"; fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ "${{ matrix.platform }}" = "macos-x86_64" ]; then TSIL_FOLDER="макос-ікс86_64"; fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ "${{ matrix.platform }}" = "macos-aarch64" ]; then TSIL_FOLDER="макос-аарч64"; fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ "${{ matrix.platform }}" = "windows-x86_64" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            TSIL_FOLDER="віндовс-ікс86_64"</span></span>
+<span class="line"><span style="color:#A5D6FF">            MAVKA_BIN="мавка.exe"</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ "${{ matrix.platform }}" = "windows-aarch64" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            TSIL_FOLDER="віндовс-аарч64"</span></span>
+<span class="line"><span style="color:#A5D6FF">            MAVKA_BIN="мавка.exe"</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ "${{ matrix.platform }}" = "android-aarch64" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            TSIL_FOLDER="андроїд-аарч64"</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          echo "version=$VERSION" >> $GITHUB_OUTPUT</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "mode=$TSIL_MODE" >> $GITHUB_OUTPUT</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "folder=$TSIL_FOLDER" >> $GITHUB_OUTPUT</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "bin=$MAVKA_BIN" >> $GITHUB_OUTPUT</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Upload OS binaries</span></span>
+<span class="line"><span style="color:#7EE787">        if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">startsWith(matrix.platform, 'macos-') || startsWith(matrix.platform, 'windows-') || startsWith(matrix.platform, 'linux-') || startsWith(matrix.platform, 'android-')</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/upload-artifact@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">mavka-${{ matrix.platform }}-${{ matrix.mode }}</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">будування/${{ steps.os_paths.outputs.version }}/${{ steps.os_paths.outputs.folder }}/${{ steps.os_paths.outputs.mode }}/готове/${{ steps.os_paths.outputs.bin }}</span></span>
+<span class="line"><span style="color:#7EE787">          retention-days</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7EE787">  check-artifacts</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">    name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Check Available Artifacts</span></span>
+<span class="line"><span style="color:#7EE787">    runs-on</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">ubuntu-latest</span></span>
+<span class="line"><span style="color:#7EE787">    needs</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">build</span></span>
+<span class="line"><span style="color:#7EE787">    outputs</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">      linux_matrix</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.linux_matrix }}</span></span>
+<span class="line"><span style="color:#7EE787">      macos_matrix</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.macos_matrix }}</span></span>
+<span class="line"><span style="color:#7EE787">      windows_matrix</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.windows_matrix }}</span></span>
+<span class="line"><span style="color:#7EE787">      windows_wine_matrix</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.windows_wine_matrix }}</span></span>
+<span class="line"><span style="color:#7EE787">      android_matrix</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.android_matrix }}</span></span>
+<span class="line"><span style="color:#7EE787">      has_linux</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.has_linux }}</span></span>
+<span class="line"><span style="color:#7EE787">      has_macos</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.has_macos }}</span></span>
+<span class="line"><span style="color:#7EE787">      has_windows</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.has_windows }}</span></span>
+<span class="line"><span style="color:#7EE787">      has_windows_wine</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.has_windows_wine }}</span></span>
+<span class="line"><span style="color:#7EE787">      has_android</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ steps.check.outputs.has_android }}</span></span>
+<span class="line"><span style="color:#7EE787">    steps</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Check for uploaded artifacts</span></span>
+<span class="line"><span style="color:#7EE787">        id</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">check</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/github-script@v7</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          script</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({</span></span>
+<span class="line"><span style="color:#A5D6FF">              owner: context.repo.owner,</span></span>
+<span class="line"><span style="color:#A5D6FF">              repo: context.repo.repo,</span></span>
+<span class="line"><span style="color:#A5D6FF">              run_id: context.runId,</span></span>
+<span class="line"><span style="color:#A5D6FF">            });</span></span>
+<span class="line"><span style="color:#A5D6FF">            const names = artifacts.data.artifacts.map(a => a.name);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">            const branch = context.ref.split('/').pop();</span></span>
+<span class="line"><span style="color:#A5D6FF">            const allowedMode = branch === 'main' ? 'release' : 'debug';</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">            function buildMatrix(runners) {</span></span>
+<span class="line"><span style="color:#A5D6FF">              let matrix = [];</span></span>
+<span class="line"><span style="color:#A5D6FF">              for (const [platform, runner] of Object.entries(runners)) {</span></span>
+<span class="line"><span style="color:#A5D6FF">                const name = `mavka-${platform}-${allowedMode}`;</span></span>
+<span class="line"><span style="color:#A5D6FF">                if (names.includes(name)) {</span></span>
+<span class="line"><span style="color:#A5D6FF">                  matrix.push({ platform: platform, mode: allowedMode, runner: runner });</span></span>
+<span class="line"><span style="color:#A5D6FF">                }</span></span>
+<span class="line"><span style="color:#A5D6FF">              }</span></span>
+<span class="line"><span style="color:#A5D6FF">              return matrix;</span></span>
+<span class="line"><span style="color:#A5D6FF">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">            const linuxMatrix = buildMatrix({ 'linux-x86_64': 'ubuntu-latest', 'linux-aarch64': 'ubuntu-24.04-arm' });</span></span>
+<span class="line"><span style="color:#A5D6FF">            const macosMatrix = buildMatrix({ 'macos-x86_64': 'macos-14', 'macos-aarch64': 'macos-latest' });</span></span>
+<span class="line"><span style="color:#A5D6FF">            const windowsMatrix = buildMatrix({ 'windows-x86_64': 'windows-latest', 'windows-aarch64': 'windows-11-arm' });</span></span>
+<span class="line"><span style="color:#A5D6FF">            const androidMatrix = buildMatrix({ 'android-aarch64': 'ubuntu-latest' });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('linux_matrix', JSON.stringify({ include: linuxMatrix }));</span></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('macos_matrix', JSON.stringify({ include: macosMatrix }));</span></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('windows_matrix', JSON.stringify({ include: windowsMatrix }));</span></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('android_matrix', JSON.stringify({ include: androidMatrix }));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('has_linux', linuxMatrix.length > 0);</span></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('has_macos', macosMatrix.length > 0);</span></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('has_windows', windowsMatrix.length > 0);</span></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('has_android', androidMatrix.length > 0);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">            // Special case for Windows Wine</span></span>
+<span class="line"><span style="color:#A5D6FF">            let winWineMatrix = [];</span></span>
+<span class="line"><span style="color:#A5D6FF">            if (names.includes(`mavka-windows-x86_64-${allowedMode}`)) {</span></span>
+<span class="line"><span style="color:#A5D6FF">              winWineMatrix.push({ platform: 'windows-x86_64', mode: allowedMode, runner: 'ubuntu-latest' });</span></span>
+<span class="line"><span style="color:#A5D6FF">            }</span></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('windows_wine_matrix', JSON.stringify({ include: winWineMatrix }));</span></span>
+<span class="line"><span style="color:#A5D6FF">            core.setOutput('has_windows_wine', winWineMatrix.length > 0);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7EE787">  test-ubuntu</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">    name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Test (${{ matrix.platform }}, ${{ matrix.mode }})</span></span>
+<span class="line"><span style="color:#7EE787">    needs</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">build</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">check-artifacts</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#7EE787">    if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">needs.check-artifacts.outputs.has_linux == 'true'</span></span>
+<span class="line"><span style="color:#7EE787">    strategy</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">      fail-fast</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">false</span></span>
+<span class="line"><span style="color:#7EE787">      matrix</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ fromJson(needs.check-artifacts.outputs.linux_matrix) }}</span></span>
+<span class="line"><span style="color:#7EE787">    runs-on</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ matrix.runner }}</span></span>
+<span class="line"><span style="color:#7EE787">    steps</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Checkout source code</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/checkout@v4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Download Linux binary</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/download-artifact@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">mavka-${{ matrix.platform }}-${{ matrix.mode }}</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">mavka-bin</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Run tests</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x scripts/test.sh</span></span>
+<span class="line"><span style="color:#A5D6FF">          MAVKA_PATH="$PWD/mavka-bin/мавка"</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x "$MAVKA_PATH"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          echo "Running tests using binary: $MAVKA_PATH"</span></span>
+<span class="line"><span style="color:#A5D6FF">          bash scripts/test.sh "$MAVKA_PATH"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7EE787">  test-macos</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">    name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Test (${{ matrix.platform }}, ${{ matrix.mode }})</span></span>
+<span class="line"><span style="color:#7EE787">    needs</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">build</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">check-artifacts</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#7EE787">    if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">needs.check-artifacts.outputs.has_macos == 'true'</span></span>
+<span class="line"><span style="color:#7EE787">    strategy</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">      fail-fast</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">false</span></span>
+<span class="line"><span style="color:#7EE787">      matrix</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ fromJson(needs.check-artifacts.outputs.macos_matrix) }}</span></span>
+<span class="line"><span style="color:#7EE787">    runs-on</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ matrix.runner }}</span></span>
+<span class="line"><span style="color:#7EE787">    steps</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Checkout source code</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/checkout@v4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Install bash (macOS)</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">brew install bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Download macOS binary</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/download-artifact@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">mavka-${{ matrix.platform }}-${{ matrix.mode }}</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">mavka-bin</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Run tests</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x mavka-bin/мавка</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x scripts/test.sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          if [ -f /usr/local/bin/bash ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            BASH_CMD="/usr/local/bin/bash"</span></span>
+<span class="line"><span style="color:#A5D6FF">          elif [ -f /opt/homebrew/bin/bash ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            BASH_CMD="/opt/homebrew/bin/bash"</span></span>
+<span class="line"><span style="color:#A5D6FF">          else</span></span>
+<span class="line"><span style="color:#A5D6FF">            BASH_CMD="bash"</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          echo "Running tests using binary: $PWD/mavka-bin/мавка"</span></span>
+<span class="line"><span style="color:#A5D6FF">          $BASH_CMD scripts/test.sh "$PWD/mavka-bin/мавка"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7EE787">  test-windows-native</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">    name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Test Native (${{ matrix.platform }}, ${{ matrix.mode }})</span></span>
+<span class="line"><span style="color:#7EE787">    needs</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">build</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">check-artifacts</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#7EE787">    if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">needs.check-artifacts.outputs.has_windows == 'true'</span></span>
+<span class="line"><span style="color:#7EE787">    strategy</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">      fail-fast</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">false</span></span>
+<span class="line"><span style="color:#7EE787">      matrix</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ fromJson(needs.check-artifacts.outputs.windows_matrix) }}</span></span>
+<span class="line"><span style="color:#7EE787">    runs-on</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ matrix.runner }}</span></span>
+<span class="line"><span style="color:#7EE787">    steps</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Checkout source code</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/checkout@v4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Download Windows binary</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/download-artifact@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">mavka-${{ matrix.platform }}-${{ matrix.mode }}</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">mavka-bin</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Run tests</span></span>
+<span class="line"><span style="color:#7EE787">        shell</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">bash</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x scripts/test.sh</span></span>
+<span class="line"><span style="color:#A5D6FF">          MAVKA_PATH="$PWD/mavka-bin/мавка.exe"</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x "$MAVKA_PATH"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          echo "Running tests using binary: $MAVKA_PATH"</span></span>
+<span class="line"><span style="color:#A5D6FF">          bash scripts/test.sh "$MAVKA_PATH"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7EE787">  test-windows-wine</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">    name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Test Wine (windows-x86_64, ${{ matrix.mode }})</span></span>
+<span class="line"><span style="color:#7EE787">    needs</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">build</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">check-artifacts</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#7EE787">    if</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">needs.check-artifacts.outputs.has_windows_wine == 'true' &#x26;&#x26; false</span></span>
+<span class="line"><span style="color:#7EE787">    strategy</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">      fail-fast</span><span style="color:#E6EDF3">: </span><span style="color:#79C0FF">false</span></span>
+<span class="line"><span style="color:#7EE787">      matrix</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ fromJson(needs.check-artifacts.outputs.windows_wine_matrix) }}</span></span>
+<span class="line"><span style="color:#7EE787">    runs-on</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">${{ matrix.runner }}</span></span>
+<span class="line"><span style="color:#7EE787">    steps</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Checkout source code</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/checkout@v4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Install Wine</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo apt-get update</span></span>
+<span class="line"><span style="color:#A5D6FF">          sudo apt-get install -y wine64</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Download Windows binary</span></span>
+<span class="line"><span style="color:#7EE787">        uses</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">actions/download-artifact@v4</span></span>
+<span class="line"><span style="color:#7EE787">        with</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#7EE787">          name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">mavka-windows-x86_64-${{ matrix.mode }}</span></span>
+<span class="line"><span style="color:#7EE787">          path</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">mavka-bin</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      - </span><span style="color:#7EE787">name</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">Run tests</span></span>
+<span class="line"><span style="color:#7EE787">        run</span><span style="color:#E6EDF3">: </span><span style="color:#FF7B72">|</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x scripts/test.sh</span></span>
+<span class="line"><span style="color:#A5D6FF">          MAVKA_PATH="$PWD/mavka-bin/мавка.exe"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          WINE_CMD=$(command -v wine64 || command -v wine)</span></span>
+<span class="line"><span style="color:#A5D6FF">          if [ -z "$WINE_CMD" ]; then</span></span>
+<span class="line"><span style="color:#A5D6FF">            echo "Error: Wine is not installed."</span></span>
+<span class="line"><span style="color:#A5D6FF">            exit 1</span></span>
+<span class="line"><span style="color:#A5D6FF">          fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          WRAPPER_PATH="/tmp/mavka_wrapper"</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "#!/bin/bash" > $WRAPPER_PATH</span></span>
+<span class="line"><span style="color:#A5D6FF">          echo "$WINE_CMD \"$MAVKA_PATH\" \"\$@\"" >> $WRAPPER_PATH</span></span>
+<span class="line"><span style="color:#A5D6FF">          chmod +x $WRAPPER_PATH</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A5D6FF">          echo "Running tests using wrapper: $WRAPPER_PATH"</span></span>
+<span class="line"><span style="color:#A5D6FF">          bash scripts/test.sh "$WRAPPER_PATH"</span></span>
+<span class="line"></span></code></pre>
+</body>
+</html>

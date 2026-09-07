@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Zmu4IZbMnX/мавка-1.0.2/external/windows/main_windows.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;uv.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;windows.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/main.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">п8</span><span style="color:#FF7B72">*</span><span style="color:#D2A8FF"> utf16_to_utf8</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">const</span><span style="color:#79C0FF"> wchar_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> utf16_str</span><span style="color:#E6EDF3">, природне</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> out_size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">utf16_str) {</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">out_size </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> size_needed </span><span style="color:#FF7B72">=</span></span>
+<span class="line"><span style="color:#D2A8FF">      WideCharToMultiByte</span><span style="color:#E6EDF3">(CP_UTF8, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, utf16_str, </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (size_needed </span><span style="color:#FF7B72">&#x3C;=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">out_size </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  HANDLE купа </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> GetProcessHeap</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> utf8_str </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">HeapAlloc</span><span style="color:#E6EDF3">(купа, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, size_needed);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">utf8_str) {</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">out_size </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  WideCharToMultiByte</span><span style="color:#E6EDF3">(CP_UTF8, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, utf16_str, </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)utf8_str, size_needed,</span></span>
+<span class="line"><span style="color:#79C0FF">                      NULL</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">out_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> size_needed </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span><span style="color:#8B949E"> // Exclude null terminator</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> utf8_str;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">int</span><span style="color:#D2A8FF"> main</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> argc;</span></span>
+<span class="line"><span style="color:#79C0FF">  wchar_t</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> argv </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> CommandLineToArgvW</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">GetCommandLineW</span><span style="color:#E6EDF3">(), </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">argc);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">argv) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  HANDLE купа </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> GetProcessHeap</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  ю8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> аргументи </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (ю8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">HeapAlloc</span><span style="color:#E6EDF3">(купа, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, argc </span><span style="color:#FF7B72">*</span><span style="color:#FF7B72"> sizeof</span><span style="color:#E6EDF3">(ю8));</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">аргументи) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    LocalFree</span><span style="color:#E6EDF3">(argv);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> allocated_buffers </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">HeapAlloc</span><span style="color:#E6EDF3">(купа, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, argc </span><span style="color:#FF7B72">*</span><span style="color:#FF7B72"> sizeof</span><span style="color:#E6EDF3">(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">allocated_buffers) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    HeapFree</span><span style="color:#E6EDF3">(купа, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, аргументи);</span></span>
+<span class="line"><span style="color:#D2A8FF">    LocalFree</span><span style="color:#E6EDF3">(argv);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3"> i </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; i </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> argc; i</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне size;</span></span>
+<span class="line"><span style="color:#FFA657">    allocated_buffers</span><span style="color:#E6EDF3">[i] </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> utf16_to_utf8</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">argv</span><span style="color:#E6EDF3">[i], </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">size);</span></span>
+<span class="line"><span style="color:#E6EDF3">    аргументи[i].розмір </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> size;</span></span>
+<span class="line"><span style="color:#E6EDF3">    аргументи[i].дані </span><span style="color:#FF7B72">=</span><span style="color:#FFA657"> allocated_buffers</span><span style="color:#E6EDF3">[i];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> r </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> почати(argc, аргументи);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3"> i </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; i </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> argc; i</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FFA657">allocated_buffers</span><span style="color:#E6EDF3">[i]) {</span></span>
+<span class="line"><span style="color:#D2A8FF">      HeapFree</span><span style="color:#E6EDF3">(купа, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FFA657">allocated_buffers</span><span style="color:#E6EDF3">[i]);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#D2A8FF">  HeapFree</span><span style="color:#E6EDF3">(купа, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, allocated_buffers);</span></span>
+<span class="line"><span style="color:#D2A8FF">  HeapFree</span><span style="color:#E6EDF3">(купа, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, аргументи);</span></span>
+<span class="line"><span style="color:#D2A8FF">  LocalFree</span><span style="color:#E6EDF3">(argv);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (r </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> r;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> uv_run</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">uv_default_loop</span><span style="color:#E6EDF3">(), UV_RUN_DEFAULT);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Zmu4IZbMnX/мавка-1.0.2/машина/предмети/Модуль/методи/чародія_текст.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_методу_структури_Модуль__чародія_текст(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    діяльність: *Діяльність</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> діяльність.здійснювач.вид != ЗПредмет {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити дію даних </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">чародія_текст</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_даних = діяльність.здійснювач.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_даних.клас != М.клас_Модуль {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити дію даних </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">чародія_текст</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(створити_текст(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#A5D6FF">      "&#x3C;Модуль>"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ));</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> записати_метод_класу_Модуль__чародія_текст(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет_дії = створити_рідну_дію(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._чародія_текст,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.пуста_послідовність,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      рідна_дія_методу_структури_Модуль__чародія_текст,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    записати_метод_класу(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.клас_Модуль,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.константи_назв._чародія_текст,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_дії</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">      ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"Помилка при записі методу </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">чародія_текст</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> для класу </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Модуль</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

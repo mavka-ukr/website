@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.pYA2HGq4EF/мавка-0.126.3/машина/ІнформаціяПадіння.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> отримати_інформацію_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід: *ІнформаціяПадіння</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> інформація_падіння: ІнформаціяПадіння;</span></span>
+<span class="line"><span style="color:#E6EDF3">      інформація_падіння.значення = М.значення_падіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> шлях = М.місцезнаходження_падіння.шлях_або_код </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> рядок = М.місцезнаходження_падіння.рядок_або_позиція_вказівки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> шлях != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> шлях.клас == М.клас_Код {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> код = шлях </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметКоду;</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях = код.шлях;</span></span>
+<span class="line"><span style="color:#E6EDF3">          рядок = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(знайти_рядок_вказівки(код.місцезнаходження_вказівок, </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(рядок)));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      інформація_падіння.місцезнаходження = МісцезнаходженняІнформаціїПадіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях = шлях,</span></span>
+<span class="line"><span style="color:#E6EDF3">        рядок = рядок,</span></span>
+<span class="line"><span style="color:#E6EDF3">      };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> накопичувач_історії = зробити_накопичувач&#x3C;ЕлементІсторіїЗдійсненняІнформаціїПадіння>(М, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; М.історія_здійснення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> елемент_історії = М.історія_здійснення.дані[п];</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> елемент_історії_виконання: ЕлементІсторіїЗдійсненняІнформаціїПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> елемент_історії.предмет_дії != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> шлях = елемент_історії.місцезнаходження.шлях_або_код </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> рядок = елемент_історії.місцезнаходження.рядок_або_позиція_вказівки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> шлях != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> шлях.клас == М.клас_Код {</span></span>
+<span class="line"><span style="color:#FF7B72">              змінна</span><span style="color:#E6EDF3"> код = шлях </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметКоду;</span></span>
+<span class="line"><span style="color:#E6EDF3">              шлях = код.шлях;</span></span>
+<span class="line"><span style="color:#E6EDF3">              рядок = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(знайти_рядок_вказівки(код.місцезнаходження_вказівок, </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(рядок)));</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          елемент_історії_виконання.місцезнаходження = МісцезнаходженняІнформаціїПадіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">            шлях = шлях,</span></span>
+<span class="line"><span style="color:#E6EDF3">            рядок = рядок</span></span>
+<span class="line"><span style="color:#E6EDF3">          };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          елемент_історії_виконання.назва = елемент_історії.предмет_дії.назва;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          покласти_в_накопичувач&#x3C;ЕлементІсторіїЗдійсненняІнформаціїПадіння>(М, накопичувач_історії::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, елемент_історії_виконання);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      обернути_накопичувач&#x3C;ЕлементІсторіїЗдійсненняІнформаціїПадіння>(М, накопичувач_історії::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      інформація_падіння.розмір_історії = накопичувач_історії.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">      інформація_падіння.історія = накопичувач_історії.дані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вихід::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = інформація_падіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> знищити_інформацію_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    інформація_падіння: ІнформаціяПадіння</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, інформація_падіння.історія);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

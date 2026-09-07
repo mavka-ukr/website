@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.DBrbTe6kSp/мавка-0.126.2/машина/МісцезнаходженняВказівок.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> покласти_місцезнаходження_вказівки(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_вказівок: *МісцезнаходженняВказівок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    рядок: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція_вказівки: </span><span style="color:#79C0FF">п32</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> місцезнаходження_вказівок.розмір != </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> м = місцезнаходження_вказівок.дані[місцезнаходження_вказівок.розмір - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">]::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> м.рядок == рядок {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> м.початок > позиція_вказівки {</span></span>
+<span class="line"><span style="color:#E6EDF3">          м.початок = позиція_вказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> м.кінець &#x3C; позиція_вказівки {</span></span>
+<span class="line"><span style="color:#E6EDF3">          м.кінець = позиція_вказівки;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_вказівок.дані = перевиділити&#x3C;МісцезнаходженняВказівки>(М, місцезнаходження_вказівок.дані, місцезнаходження_вказівок.розмір + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_вказівок.дані[місцезнаходження_вказівок.розмір] = МісцезнаходженняВказівки {</span></span>
+<span class="line"><span style="color:#E6EDF3">      початок = позиція_вказівки,</span></span>
+<span class="line"><span style="color:#E6EDF3">      кінець = позиція_вказівки,</span></span>
+<span class="line"><span style="color:#E6EDF3">      рядок = рядок</span></span>
+<span class="line"><span style="color:#E6EDF3">    };</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження_вказівок.розмір += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

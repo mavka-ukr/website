@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Wk2CVidBIZ/мавка-0.125.2/машина/пристрій/машина.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> пристрій {</span></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_виділити_сиру_памʼять(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      розмір: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> пристрій_мавки_виділити_сиру_памʼять(розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_перевиділити_сиру_памʼять(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      новий_розмір: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> пристрій_мавки_перевиділити_сиру_памʼять(значення, новий_розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_звільнити_сиру_памʼять(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: *</span><span style="color:#79C0FF">п8</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити_сиру_памʼять(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_запанікувати(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      повідомлення: </span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      надрукувати_кд(М, повідомлення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_вийти(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_вивести_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: </span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_вивести_кд(значення.розмір, значення.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_надрукувати(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: </span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_надрукувати_кд(значення.розмір, значення.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_перетворити_п64_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_текстового_значення: *</span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> значення_кд: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> пристрій_мавки_перетворити_п64_в_кд(значення, значення_кд.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення_кд.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вихід_текстового_значення.розмір = значення_кд.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">        вихід_текстового_значення.дані = значення_кд.дані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_перетворити_ц64_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: </span><span style="color:#79C0FF">ц64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_текстового_значення: *</span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> значення_кд: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> пристрій_мавки_перетворити_ц64_в_кд(значення, значення_кд.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення_кд.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вихід_текстового_значення.розмір = значення_кд.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">        вихід_текстового_значення.дані = значення_кд.дані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_перетворити_р64_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_текстового_значення: *</span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> значення_кд: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_експоненти: </span><span style="color:#79C0FF">ціле</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> пристрій_мавки_перетворити_р64_в_кд(значення, значення_кд.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення_кд.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, розмір_експоненти::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> розмір_експоненти == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вихід_текстового_значення.розмір = значення_кд.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">          вихід_текстового_значення.дані = значення_кд.дані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> накопичувач_тексту = зробити_накопичувач_тексту(М, значення_кд.розмір + </span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        покласти_в_накопичувач_тексту(М, накопичувач_тексту::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення_кд);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> значення_експоненти_кд: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> пристрій_мавки_перетворити_ц64_в_кд(розмір_експоненти, значення_експоненти_кд.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення_експоненти_кд.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">          покласти_в_накопичувач_тексту(М, накопичувач_тексту::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">"е"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> розмір_експоненти > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            покласти_в_накопичувач_тексту(М, накопичувач_тексту::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">"+"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          покласти_в_накопичувач_тексту(М, накопичувач_тексту::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення_експоненти_кд);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, значення_експоненти_кд.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, значення_кд.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          вихід_текстового_значення.розмір = накопичувач_тексту.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">          вихід_текстового_значення.дані = накопичувач_тексту.дані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, накопичувач_тексту.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, значення_кд.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_піднести_до_степеня_п64(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      степінь: </span><span style="color:#79C0FF">п64</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> пристрій_мавки_піднести_до_степеня_п64(значення, степінь);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_піднести_до_степеня_ц64(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: </span><span style="color:#79C0FF">ц64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      степінь: </span><span style="color:#79C0FF">ц64</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> </span><span style="color:#79C0FF">ц64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> пристрій_мавки_піднести_до_степеня_ц64(значення, степінь);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_піднести_до_степеня_р64(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      степінь: </span><span style="color:#79C0FF">р64</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> пристрій_мавки_піднести_до_степеня_р64(значення, степінь);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_взяти_модуль(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях_до_теки_модулів: *ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      відносно: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      довжина_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях: **ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">      місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдпм = М.користувацькі_дані_пристрою.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніПристроюМавки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> шлях_до_кореневої_теки_модулів = кдпм.шлях_до_теки_модулів.предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> шлях_до_теки_паків = кдпм.шлях_до_теки_паків.предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_шляху: *ПредметДаних = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_елементів_збиття: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = довжина_шляху + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> елементи_збиття = виділити&#x3C;ЕлементШляхуПристроюМавки>(М, розмір_елементів_збиття);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> позиція_елементів_збиття: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> значення_ю8: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3"> { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> позиція_помилки: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_збитого_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_збитого_шляху: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3"> = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> треба_звільнити_перший_елемент: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> відносно {</span></span>
+<span class="line"><span style="color:#E6EDF3">        елементи_збиття[позиція_елементів_збиття] = ЕлементШляхуПристроюМавки {</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_до_теки_модулів.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_до_теки_модулів.дані</span></span>
+<span class="line"><span style="color:#E6EDF3">        };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        треба_звільнити_перший_елемент = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        позиція_елементів_збиття += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        успіх = пристрій_мавки_перевірити_чи_шлях_починається_на(</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_до_теки_модулів.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_до_теки_модулів.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_до_теки_паків.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях_до_теки_паків.дані</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#E6EDF3">          успіх = пристрій_мавки_отримати_шлях_до_паку_з_шляху_теки_модулів(</span></span>
+<span class="line"><span style="color:#E6EDF3">            шлях_до_теки_модулів.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">            шлях_до_теки_модулів.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">            шлях_до_теки_паків.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">            шлях_до_теки_паків.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">            елементи_збиття[позиція_елементів_збиття].розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">            елементи_збиття[позиція_елементів_збиття].дані::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">          );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#E6EDF3">            звільнити(М, елементи_збиття);</span></span>
+<span class="line"><span style="color:#E6EDF3">            звільнити(М, шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося отримати шлях до паку з шляху модуля."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          елементи_збиття[позиція_елементів_збиття] = ЕлементШляхуПристроюМавки {</span></span>
+<span class="line"><span style="color:#E6EDF3">            шлях_до_кореневої_теки_модулів.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">            шлях_до_кореневої_теки_модулів.дані</span></span>
+<span class="line"><span style="color:#E6EDF3">          };</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        позиція_елементів_збиття += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; довжина_шляху {</span></span>
+<span class="line"><span style="color:#E6EDF3">        успіх = пристрій_мавки_перекодувати_кд_в_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях[п].значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях[п].значення.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          позиція_помилки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> треба_звільнити_перший_елемент {</span></span>
+<span class="line"><span style="color:#E6EDF3">            п = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            п = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#FF7B72">          поки</span><span style="color:#E6EDF3"> п &#x3C; позиція_елементів_збиття {</span></span>
+<span class="line"><span style="color:#E6EDF3">            звільнити(М, елементи_збиття[п].дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, елементи_збиття);</span></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося перекодувати елемент шляху модуля в ю8."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        елементи_збиття[позиція_елементів_збиття] = ЕлементШляхуПристроюМавки {</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.дані</span></span>
+<span class="line"><span style="color:#E6EDF3">        };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        позиція_елементів_збиття += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      успіх = пристрій_мавки_збити_шлях_до_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_елементів_збиття,</span></span>
+<span class="line"><span style="color:#E6EDF3">        елементи_збиття,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_збитого_шляху::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_збитого_шляху::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> треба_звільнити_перший_елемент {</span></span>
+<span class="line"><span style="color:#E6EDF3">          п = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          п = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; розмір_елементів_збиття {</span></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, елементи_збиття[п].дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, елементи_збиття);</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося збити шлях до модуля."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_шляху = створити_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_збитого_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_збитого_шляху</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> треба_звільнити_перший_елемент {</span></span>
+<span class="line"><span style="color:#E6EDF3">        п = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        п = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; розмір_елементів_збиття {</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, елементи_збиття[п].дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, елементи_збиття);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> результат = взяти_файл(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях[довжина_шляху - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">],</span></span>
+<span class="line"><span style="color:#E6EDF3">        місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> результат;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_взяти_пак(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      довжина_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях: **ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">      місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдпм = М.користувацькі_дані_пристрою.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніПристроюМавки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> шлях_до_теки_паків = кдпм.шлях_до_теки_паків.предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_шляху: *ПредметДаних = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_елементів_збиття: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = довжина_шляху + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> довжина_шляху == </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_елементів_збиття += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> елементи_збиття = виділити&#x3C;ЕлементШляхуПристроюМавки>(М, розмір_елементів_збиття);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> позиція_елементів_збиття: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> значення_ю8: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3"> { </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> позиція_помилки: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_збитого_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_збитого_шляху: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3"> = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      елементи_збиття[позиція_елементів_збиття] = ЕлементШляхуПристроюМавки {</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_теки_паків.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях_до_теки_паків.дані</span></span>
+<span class="line"><span style="color:#E6EDF3">      };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      позиція_елементів_збиття += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> довжина_шляху == </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        успіх = пристрій_мавки_перекодувати_кд_в_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях[п].значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях[п].значення.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          позиція_помилки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#E6EDF3">          п = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          поки</span><span style="color:#E6EDF3"> п &#x3C; позиція_елементів_збиття {</span></span>
+<span class="line"><span style="color:#E6EDF3">            звільнити(М, елементи_збиття[п].дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, елементи_збиття);</span></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося перекодувати елемент шляху модуля в ю8."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        елементи_збиття[позиція_елементів_збиття] = ЕлементШляхуПристроюМавки {</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.дані</span></span>
+<span class="line"><span style="color:#E6EDF3">        };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        позиція_елементів_збиття += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; довжина_шляху {</span></span>
+<span class="line"><span style="color:#E6EDF3">        успіх = пристрій_мавки_перекодувати_кд_в_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях[п].значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          шлях[п].значення.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">          позиція_помилки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#E6EDF3">          п = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          поки</span><span style="color:#E6EDF3"> п &#x3C; позиція_елементів_збиття {</span></span>
+<span class="line"><span style="color:#E6EDF3">            звільнити(М, елементи_збиття[п].дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, елементи_збиття);</span></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося перекодувати елемент шляху модуля в ю8."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        елементи_збиття[позиція_елементів_збиття] = ЕлементШляхуПристроюМавки {</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          значення_ю8.дані</span></span>
+<span class="line"><span style="color:#E6EDF3">        };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        позиція_елементів_збиття += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      успіх = пристрій_мавки_збити_шлях_до_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_елементів_збиття,</span></span>
+<span class="line"><span style="color:#E6EDF3">        елементи_збиття,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_збитого_шляху::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_збитого_шляху::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#E6EDF3">        п = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; розмір_елементів_збиття {</span></span>
+<span class="line"><span style="color:#E6EDF3">          звільнити(М, елементи_збиття[п].дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, елементи_збиття);</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> МІСЦЕПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалося збити шлях до модуля."</span><span style="color:#E6EDF3">), місцезнаходження);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_шляху = створити_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_збитого_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_збитого_шляху</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; розмір_елементів_збиття {</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, елементи_збиття[п].дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, елементи_збиття);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> результат = взяти_файл(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях[довжина_шляху - </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">],</span></span>
+<span class="line"><span style="color:#E6EDF3">        місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> результат;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> дія_перед_знищенням_користувацьких_даних_пристрою_мавки(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      користувацькі_дані: *КористувацькіДані</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдпм = користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніПристроюМавки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">      // потім: відпустити шляхи і звільнити кдпм</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> створити_машину() -> *Машина {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = пристрій_мавки_виділити_сиру_памʼять(Машина.розмір) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      налаштувати_машину(М, Налаштування {</span></span>
+<span class="line"><span style="color:#E6EDF3">        виділити_сиру_памʼять = машина_виділити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">        перевиділити_сиру_памʼять = машина_перевиділити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити_сиру_памʼять = машина_звільнити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">        запанікувати = машина_запанікувати,</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд = машина_вивести_кд,</span></span>
+<span class="line"><span style="color:#E6EDF3">        перетворити_п64_в_кд = машина_перетворити_п64_в_кд,</span></span>
+<span class="line"><span style="color:#E6EDF3">        перетворити_ц64_в_кд = машина_перетворити_ц64_в_кд,</span></span>
+<span class="line"><span style="color:#E6EDF3">        перетворити_р64_в_кд = машина_перетворити_р64_в_кд,</span></span>
+<span class="line"><span style="color:#E6EDF3">        піднести_до_степеня_п64 = машина_піднести_до_степеня_п64,</span></span>
+<span class="line"><span style="color:#E6EDF3">        піднести_до_степеня_ц64 = машина_піднести_до_степеня_ц64,</span></span>
+<span class="line"><span style="color:#E6EDF3">        піднести_до_степеня_р64 = машина_піднести_до_степеня_р64,</span></span>
+<span class="line"><span style="color:#E6EDF3">        взяти_модуль = машина_взяти_модуль,</span></span>
+<span class="line"><span style="color:#E6EDF3">        взяти_пак = машина_взяти_пак,</span></span>
+<span class="line"><span style="color:#E6EDF3">        взяти_біб = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдпм = виділити&#x3C;КористувацькіДаніПристроюМавки>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      кдпм.шлях_до_теки_модулів = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      кдпм.шлях_до_теки_паків = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      М.користувацькі_дані_пристрою = створити_користувацькі_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кдпм,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дія_перед_знищенням_користувацьких_даних_пристрою_мавки</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> М;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> розібрати_шлях_початкового_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях: *ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_абсолютного_шляху: **ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_теки_модулів: **ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_теки_паків: **ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_назви_модуля: **ПредметТексту</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_абсолютого_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_абсолютного_шляху: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_теки_модулів: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_теки_модулів: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_теки_паків: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_теки_паків: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> розмір_назви_модуля: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_назви_модуля: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> пристрій_мавки_перевірити_чи_шлях_існує_і_є_файлом(</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях.дані</span></span>
+<span class="line"><span style="color:#E6EDF3">      ) {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> пристрій_мавки_отримати_абсолютний_шлях(</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">        шлях.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_абсолютого_шляху::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_абсолютного_шляху::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">      ) {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> пристрій_мавки_отримати_теку_шляху(</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_абсолютого_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_абсолютного_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_теки_модулів::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_теки_модулів::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#79C0FF">        1</span></span>
+<span class="line"><span style="color:#E6EDF3">      ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_звільнити_сиру_памʼять(дані_абсолютного_шляху);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> пристрій_мавки_отримати_теку_до_паків(</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_теки_модулів,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_теки_модулів,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_теки_паків::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_теки_паків::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">      ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_звільнити_сиру_памʼять(дані_абсолютного_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_звільнити_сиру_памʼять(дані_теки_модулів);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> пристрій_мавки_отримати_назву_модуля_з_шляху(</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_абсолютого_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_абсолютного_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_назви_модуля::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_назви_модуля::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">      ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_звільнити_сиру_памʼять(дані_абсолютного_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_звільнити_сиру_памʼять(дані_теки_модулів);</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_звільнити_сиру_памʼять(дані_теки_паків);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_абсолютного_шляху::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = створити_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_абсолютого_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_абсолютного_шляху</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_теки_модулів::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = створити_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_теки_модулів,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_теки_модулів</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_теки_паків::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = створити_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        розмір_теки_паків,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_теки_паків</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_назви_модуля::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = створити_текст(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#79C0FF">        кд</span><span style="color:#E6EDF3"> { розмір_назви_модуля, дані_назви_модуля }</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_шлях_до_теки_модулів_та_паків(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях_до_теки_модулів: *ПредметДаних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях_до_теки_паків: *ПредметДаних</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдпм = М.користувацькі_дані_пристрою.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніПристроюМавки;</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> кдпм.шлях_до_теки_модулів != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"Шлях до теки модулів вже встановлено."</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> кдпм.шлях_до_теки_паків != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"Шлях до теки паків вже встановлено."</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      кдпм.шлях_до_теки_модулів = притримати_глобально(М, шлях_до_теки_модулів </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      кдпм.шлях_до_теки_паків = притримати_глобально(М, шлях_до_теки_паків </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

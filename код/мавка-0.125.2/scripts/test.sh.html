@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Wk2CVidBIZ/мавка-0.125.2/scripts/test.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">MAVKA</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$MAVKA</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Usage: </span><span style="color:#79C0FF">$0</span><span style="color:#A5D6FF"> &#x3C;path_to_mavka_executable>"</span></span>
+<span class="line"><span style="color:#79C0FF">  exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E"># Визначення кольорів</span></span>
+<span class="line"><span style="color:#E6EDF3">GREEN</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">'\033[0;32m'</span></span>
+<span class="line"><span style="color:#E6EDF3">RED</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">'\033[0;31m'</span></span>
+<span class="line"><span style="color:#E6EDF3">NC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">'\033[0m'</span><span style="color:#8B949E"> # No Color</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">run_test</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#E6EDF3">  test_file</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  # Виводимо назву тесту без переносу рядка</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#79C0FF"> -n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$test_file</span><span style="color:#A5D6FF">: "</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  # Запускаємо тест і захоплюємо як стандартний вивід (stdout), так і помилки (stderr)</span></span>
+<span class="line"><span style="color:#E6EDF3">  output</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$($MAVKA </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$test_file</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> 2>&#x26;1</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">  status</span><span style="color:#FF7B72">=</span><span style="color:#79C0FF">$?</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ $status </span><span style="color:#FF7B72">-eq</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#79C0FF"> -e</span><span style="color:#A5D6FF"> "${</span><span style="color:#E6EDF3">GREEN</span><span style="color:#A5D6FF">}УСПІХ${</span><span style="color:#E6EDF3">NC</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#79C0FF"> -e</span><span style="color:#A5D6FF"> "${</span><span style="color:#E6EDF3">RED</span><span style="color:#A5D6FF">}НЕВДАЧА${</span><span style="color:#E6EDF3">NC</span><span style="color:#A5D6FF">}"</span></span>
+<span class="line"><span style="color:#8B949E">    # Виводимо збережений текст помилки з невеликим відступом</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#79C0FF"> -e</span><span style="color:#A5D6FF"> "-------------------------"</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$output</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#79C0FF"> -e</span><span style="color:#A5D6FF"> "-------------------------\n"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/більше_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/віднімання_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/двійкове_або_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/двійкове_вабо_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/двійкове_і_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/двійкове_не_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/ділення_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/додавання_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/змінити_знак_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/зсув_вліво_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/зсув_вправо_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/менше_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/множення_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/не_більше_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/не_менше_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/остача_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/степінь_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/більше_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/віднімання_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/ділення_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/додавання_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/змінити_знак_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/менше_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/множення_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/не_більше_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/не_менше_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/остача_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Число/степінь_рухомого.м</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Дані/Дані.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Дані/виділити.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Дані/обнулено.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Дані/з_тексту.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Дані/з_послідовності.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Дані/зі_списку.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Дані/з_даних.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Дані/чародія_перебір.м</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Послідовність/Послідовність.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Послідовність/з_тексту.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Послідовність/з_послідовності.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Послідовність/зі_списку.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Послідовність/з_даних.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Послідовність/чародія_перебір.м</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/Список.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/з_тексту.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/з_послідовності.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/зі_списку.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/з_даних.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/чародія_перебір.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/додати.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/забрати.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/позиція.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/знайти.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/знайти_позицію.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/відібрати.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/перетворити.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/обернути.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/містить.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Список/змінити_елемент.м</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/біб/система/записати_прочитати.м</span></span></code></pre>
+</body>
+</html>

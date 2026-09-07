@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.lKlyKdL0S3/мавка-0.125.7/scripts/perf/perf.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">SCRIPT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#79C0FF">cd</span><span style="color:#79C0FF"> --</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">dirname</span><span style="color:#79C0FF"> --</span><span style="color:#A5D6FF"> "${</span><span style="color:#E6EDF3">BASH_SOURCE</span><span style="color:#A5D6FF">[0]}")"</span><span style="color:#E6EDF3"> &#x26;</span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> /dev/null &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">MAVKA</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "--- МАВКА ---"</span></span>
+<span class="line"><span style="color:#FF7B72">time</span><span style="color:#E6EDF3"> $MAVKA </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/міліон.м"</span></span>
+<span class="line"><span style="color:#79C0FF">echo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "--- PYTHON ---"</span></span>
+<span class="line"><span style="color:#FF7B72">time</span><span style="color:#E6EDF3"> python </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/milion.py"</span></span>
+<span class="line"><span style="color:#79C0FF">echo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "--- RUBY ---"</span></span>
+<span class="line"><span style="color:#FF7B72">time</span><span style="color:#E6EDF3"> ruby </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/milion.rb"</span></span>
+<span class="line"><span style="color:#79C0FF">echo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "--- LUA ---"</span></span>
+<span class="line"><span style="color:#FF7B72">time</span><span style="color:#E6EDF3"> lua </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/milion.lua"</span></span>
+<span class="line"><span style="color:#79C0FF">echo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "--- PHP ---"</span></span>
+<span class="line"><span style="color:#FF7B72">time</span><span style="color:#E6EDF3"> php </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/milion.php"</span></span>
+<span class="line"><span style="color:#79C0FF">echo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "--- NODE ---"</span></span>
+<span class="line"><span style="color:#FF7B72">time</span><span style="color:#E6EDF3"> node </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/milion.js"</span></span></code></pre>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.erdjogphda/мавка-1.0.1/scripts/build_tsil.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_MODE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$2</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">OUTPUT_FORMAT</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">${3</span><span style="color:#FF7B72">:-</span><span style="color:#E6EDF3">ll</span><span style="color:#79C0FF">}</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">TSIL_CMD</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">${4</span><span style="color:#FF7B72">:-</span><span style="color:#A5D6FF">ціль</span><span style="color:#79C0FF">}</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">CLANG</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$5</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">ROOT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">dirname</span><span style="color:#A5D6FF"> "${</span><span style="color:#E6EDF3">BASH_SOURCE</span><span style="color:#A5D6FF">[0]}")/.." &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#E6EDF3">LIST_FILE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">/БУДЦ"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">/ВЕРСІЯ"</span><span style="color:#FF7B72"> |</span><span style="color:#FFA657"> xargs</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">case</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_MODE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> in</span></span>
+<span class="line"><span style="color:#A5D6FF">  debug</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_MODE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"відлагодження"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  release</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_MODE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"випуск"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#FF7B72">  *)</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "Unsupported build mode: </span><span style="color:#E6EDF3">$BUILD_MODE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> >&#x26;2</span></span>
+<span class="line"><span style="color:#79C0FF">    exit</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">esac</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">case</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_PLATFORM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> in</span></span>
+<span class="line"><span style="color:#A5D6FF">  linux-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"ікс86_64-пк-лінукс-гну"</span><span style="color:#E6EDF3">; TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-linux-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  linux-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"аарч64-пк-лінукс-гну"</span><span style="color:#E6EDF3">;  TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-linux-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  macos-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"ікс86_64-епл-дарвін"</span><span style="color:#E6EDF3">;  TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-macos"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  macos-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"аарч64-епл-дарвін"</span><span style="color:#E6EDF3">;   TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-macos"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  windows-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"ікс86_64-пк-віндовс-гну"</span><span style="color:#E6EDF3">; TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-windows-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  windows-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"аарч64-пк-віндовс-гну"</span><span style="color:#E6EDF3">; TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-windows-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  msvc-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"ікс86_64-пк-віндовс-мсвс"</span><span style="color:#E6EDF3">; TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"мсвс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-windows-msvc"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  msvc-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"аарч64-пк-віндовс-мсвс"</span><span style="color:#E6EDF3">; TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"мсвс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-windows-msvc"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  android-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"аарч64-пк-лінукс-гну"</span><span style="color:#E6EDF3">;  TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"андроїд-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-linux-android24"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  wasm64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">    TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"васм64"</span><span style="color:#E6EDF3">;         TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"васм64"</span></span>
+<span class="line"><span style="color:#E6EDF3">    TARGET_TRIPLE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wasm64-unknown-unknown"</span></span>
+<span class="line"><span style="color:#E6EDF3">    ;;</span></span>
+<span class="line"><span style="color:#FF7B72">  *)</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "Unsupported platform: </span><span style="color:#E6EDF3">$BUILD_PLATFORM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> >&#x26;2</span></span>
+<span class="line"><span style="color:#79C0FF">    exit</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">esac</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OUTPUT_FORMAT</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#A5D6FF"> "o"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">  SEMIREADY_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">/будування/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$TSIL_PLATFORM_FOLDER</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$TSIL_MODE</span><span style="color:#A5D6FF">/напівготове/ллвмо"</span></span>
+<span class="line"><span style="color:#FF7B72">else</span></span>
+<span class="line"><span style="color:#E6EDF3">  SEMIREADY_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">/будування/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$TSIL_PLATFORM_FOLDER</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$TSIL_MODE</span><span style="color:#A5D6FF">/напівготове/ллвмір"</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -f</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$LIST_FILE</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Помилка: Файл конфігурації '</span><span style="color:#E6EDF3">$LIST_FILE</span><span style="color:#A5D6FF">' не знайдено."</span><span style="color:#FF7B72"> >&#x26;2</span></span>
+<span class="line"><span style="color:#79C0FF">  exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">while</span><span style="color:#E6EDF3"> IFS</span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> read</span><span style="color:#79C0FF"> -r</span><span style="color:#A5D6FF"> line</span><span style="color:#FF7B72"> ||</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">do</span></span>
+<span class="line"><span style="color:#E6EDF3">  line</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> |</span><span style="color:#FFA657"> xargs</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">  [[ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ||</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =~</span><span style="color:#E6EDF3"> ^# ]] &#x26;&#x26; </span><span style="color:#FF7B72">continue</span></span>
+<span class="line"><span style="color:#FFA657">  mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/$(</span><span style="color:#FFA657">dirname</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">")"</span></span>
+<span class="line"><span style="color:#FF7B72">done</span><span style="color:#FF7B72"> &#x3C;</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$LIST_FILE</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">LLIRFILES</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">while</span><span style="color:#E6EDF3"> IFS</span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> read</span><span style="color:#79C0FF"> -r</span><span style="color:#A5D6FF"> line</span><span style="color:#FF7B72"> ||</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-n</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">do</span></span>
+<span class="line"><span style="color:#E6EDF3">  line</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> |</span><span style="color:#FFA657"> xargs</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">  [[ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ||</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =~</span><span style="color:#E6EDF3"> ^# ]] &#x26;&#x26; </span><span style="color:#FF7B72">continue</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "компілювання </span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> >&#x26;2</span></span>
+<span class="line"><span style="color:#E6EDF3">  $TSIL_CMD </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#A5D6FF">    "$(</span><span style="color:#FFA657">realpath</span><span style="color:#79C0FF"> --relative-to=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)" "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">.ллвмір")"</span><span style="color:#79C0FF"> -П=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TSIL_PLATFORM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">    скомпілювати</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">    "$(</span><span style="color:#FFA657">realpath</span><span style="color:#79C0FF"> --relative-to=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)" "</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">")"</span><span style="color:#79C0FF"> -В=./КД/визначення</span><span style="color:#79C0FF"> -В=./визначення</span><span style="color:#FF7B72"> >&#x26;2</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OUTPUT_FORMAT</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#A5D6FF"> "o"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">    $CLANG </span><span style="color:#79C0FF">-c</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">.ллвмо"</span><span style="color:#79C0FF"> -x</span><span style="color:#A5D6FF"> ir</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">.ллвмір"</span></span>
+<span class="line"><span style="color:#E6EDF3">    LLIRFILES</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">.ллвмо"</span></span>
+<span class="line"><span style="color:#FFA657">    rm</span><span style="color:#79C0FF"> -f</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">.ллвмір"</span></span>
+<span class="line"><span style="color:#FF7B72">  else</span></span>
+<span class="line"><span style="color:#FFA657">    mv</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">.ллвмір"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">.ллвмір.ll"</span></span>
+<span class="line"><span style="color:#E6EDF3">    LLIRFILES</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$SEMIREADY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$line</span><span style="color:#A5D6FF">.ллвмір.ll"</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"><span style="color:#FF7B72">done</span><span style="color:#FF7B72"> &#x3C;</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$LIST_FILE</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$LLIRFILES</span><span style="color:#A5D6FF">"</span></span></code></pre>
+</body>
+</html>

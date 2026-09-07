@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Hvp4K8tfrK/мавка-0.125.9/машина/Очищувач.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет(М: *Машина, значення: *Предмет);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_класу(М: *Машина, предмет_класу: *ПредметКласу);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_даних(М: *Машина, предмет_даних: *ПредметДаних);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_проміжка_чисел(М: *Машина, предмет_проміжка_чисел: *ПредметПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_дії(М: *Машина, предмет_дії: *ПредметДії);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_коду(М: *Машина, предмет_коду: *ПредметКоду);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_модуля(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_параметра(М: *Машина, предмет_параметра: *ПредметПараметра);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_ознаки(М: *Машина, предмет_параметра: *ПредметОзнаки);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_даних(М: *Машина, предмет_перебору_даних: *ПредметПереборуДаних);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_проміжка_чисел(М: *Машина, предмет_перебору_проміжка_чисел: *ПредметПереборуПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_послідовності(М: *Машина, предмет_перебору_послідовності: *ПредметПереборуПослідовності);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_словника(М: *Машина, предмет_перебору_словника: *ПредметПереборуСловника);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_списку(М: *Машина, предмет_перебору_списку: *ПредметПереборуСписку);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_тексту(М: *Машина, предмет_перебору_тексту: *ПредметПереборуТексту);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_послідовності(М: *Машина, послідовність: *ПредметПослідовності);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_словника(М: *Машина, предмет_словника: *ПредметСловника);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_списку(М: *Машина, предмет_списку: *ПредметСписку);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_тексту(М: *Машина, предмет_тексту: *ПредметТексту);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_складений_предмет(М: *Машина, складений_предмет: *СкладенийПредмет);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_користувацькі_дані(М: *Машина, користувацькі_дані: *КористувацькіДані);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_методи(М: *Машина, методи: Методи);</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> звільнити_призначення(М: *Машина, призначення: Призначення);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_притримувач(М: *Машина, притримувач: *Притримувач);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // позначка: прохід по типах предметів</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: *Предмет</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Клас {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення дійсного предмету структури");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_класу(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметКласу);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Модуль {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення дійсного предмету модуля");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_модуля(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Параметр {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення дійсного предмету параметра");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_параметра(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПараметра);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Ознака {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення дійсного предмету параметра");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_ознаки(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметОзнаки);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Число {</span></span>
+<span class="line"><span style="color:#E6EDF3">      ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"[Помилка Машини][звільнити_предмет]: значення.клас == М.клас_Число"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Текст {</span></span>
+<span class="line"><span style="color:#8B949E">      // вивести_кд(М, "звільнення предмету тексту: ");</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, (значення як *ПредметТексту).значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_тексту(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметТексту);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Код {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету коду");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_коду(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметКоду);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Дія {</span></span>
+<span class="line"><span style="color:#8B949E">      // вивести_кд(М, "звільнення предмету дії ");</span></span>
+<span class="line"><span style="color:#8B949E">      // змінна предмет_дії = значення як *ПредметДії;</span></span>
+<span class="line"><span style="color:#8B949E">      // якщо предмет_дії.назва != пусто {</span></span>
+<span class="line"><span style="color:#8B949E">      //   надрукувати_кд(М, предмет_дії.назва.значення);</span></span>
+<span class="line"><span style="color:#8B949E">      // } інакше {</span></span>
+<span class="line"><span style="color:#8B949E">      //   надрукувати_кд(М, "&#x3C;без назви>");</span></span>
+<span class="line"><span style="color:#8B949E">      // }</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_дії(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДії);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Список {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету списку");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_списку(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметСписку);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Словник {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету словника");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_словника(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметСловника);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Дані {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету даних");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_даних(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_ПроміжокЧисел {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету проміжка чисел");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_проміжка_чисел(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_ПеребірПроміжкаЧисел {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету перебору проміжка чисел");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_перебору_проміжка_чисел(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_ПеребірДаних {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету перебору даних");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_перебору_даних(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуДаних);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_ПеребірПослідовності {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету перебору послідовності");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_перебору_послідовності(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуПослідовності);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_ПеребірСловника {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету перебору словника");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_перебору_словника(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуСловника);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_ПеребірСписку {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету перебору списку");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_перебору_списку(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуСписку);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_ПеребірТексту {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету перебору тексту");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_перебору_тексту(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуТексту);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> значення.клас == М.клас_Послідовність {</span></span>
+<span class="line"><span style="color:#8B949E">      // надрукувати_кд(М, "звільнення предмету послідовності");</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_предмет_послідовності(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПослідовності);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнення складеного предмету");</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_складений_предмет(М, значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *СкладенийПредмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_послідовності(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    послідовність: *ПредметПослідовності</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_послідовності");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> послідовність.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, послідовність.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, послідовність.елементи);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, послідовність);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_класу(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_класу: *ПредметКласу</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_класу");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_класу.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_класу.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_методи(М, предмет_класу.методи);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_призначення(М, предмет_класу.властивості);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_класу);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_модуля: *ПредметМодуля</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_модуля");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_модуля.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_модуля.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_призначення(М, предмет_модуля.властивості);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_модуля);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_параметра(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_параметра: *ПредметПараметра</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // вивести_кд(М, "звільнити_предмет_параметра: ");</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, предмет_параметра.назва.значення);</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_параметра.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_параметра.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_параметра);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_ознаки(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_ознаки: *ПредметОзнаки</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // вивести_кд(М, "звільнити_предмет_ознаки: ");</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, предмет_ознаки.назва.значення);</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_ознаки.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_ознаки.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_ознаки);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_тексту(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_тексту: *ПредметТексту</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_тексту");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_тексту.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_тексту.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_тексту.значення.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_тексту);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_коду(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_коду: *ПредметКоду</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_коду");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_коду.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_коду.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_коду.місцезнаходження_вказівок.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_коду);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_дії(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_дії: *ПредметДії</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_дії");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_дії.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_дії.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_дії.дійсність_створення != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      відпустити_дійсність(М, предмет_дії.дійсність_створення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_дії);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_списку(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_списку: *ПредметСписку</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_списку");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_списку.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_списку.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_списку.елементи);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_списку);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_словника(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника: *ПредметСловника</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_словника");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_словника.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_словника.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_словника.елементи);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_словника);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_даних(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_даних: *ПредметДаних</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_даних");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_даних.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_даних.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_даних.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_даних);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_проміжка_чисел(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_проміжка_чисел: *ПредметПроміжкаЧисел</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_проміжка_чисел");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_проміжка_чисел.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_проміжка_чисел.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_проміжка_чисел);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_проміжка_чисел(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_проміжка_чисел: *ПредметПереборуПроміжкаЧисел</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_перебору_проміжка_чисел");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_проміжка_чисел.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_перебору_проміжка_чисел.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_перебору_проміжка_чисел);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_даних(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_даних: *ПредметПереборуДаних</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_перебору_даних");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_даних.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_перебору_даних.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_перебору_даних);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_послідовності(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_послідовності: *ПредметПереборуПослідовності</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_перебору_послідовності");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_послідовності.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_перебору_послідовності.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_перебору_послідовності);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_словника(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_словника: *ПредметПереборуСловника</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_перебору_словника");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_словника.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_перебору_словника.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_перебору_словника);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_списку(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_списку: *ПредметПереборуСписку</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_перебору_списку");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_списку.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_перебору_списку.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_перебору_списку);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_предмет_перебору_тексту(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_тексту: *ПредметПереборуТексту</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_предмет_перебору_тексту");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_тексту.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, предмет_перебору_тексту.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, предмет_перебору_тексту);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_складений_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    складений_предмет: *СкладенийПредмет</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_складений_предмет");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> складений_предмет.користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити_користувацькі_дані(М, складений_предмет.користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_призначення(М, складений_предмет.властивості);</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, складений_предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_користувацькі_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    користувацькі_дані: *КористувацькіДані</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_користувацькі_дані");</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> користувацькі_дані.дія_перед_знищенням != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      користувацькі_дані.дія_перед_знищенням(М, користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, користувацькі_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_методи(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    методи: Методи</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_методи");</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, методи.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> звільнити_призначення(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    призначення: Призначення</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_призначення");</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; призначення.вмісткість {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> призначене = призначення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> призначене != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> наступний = призначене.наступний;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, призначене);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        призначене = наступний;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п = п + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, призначення.дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> звільнити_притримувач(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    притримувач: *Притримувач</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, "звільнити_притримувач");</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> притриманий = притримувач.перший;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> притриманий != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> наступний_притриманий = притриманий.наступний;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, притриманий);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      притриманий = наступний_притриманий;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, притримувач);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_дійсність(М: *Машина, дійсність: *Дійсність);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет(М: *Машина, значення: *Предмет);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_послідовності(М: *Машина, послідовність: *ПредметПослідовності);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_класу(М: *Машина, предмет_класу: *ПредметКласу);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_модуля(М: *Машина, предмет_модуля: *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_параметра(М: *Машина, предмет_параметра: *ПредметПараметра);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_ознаки(М: *Машина, предмет_параметра: *ПредметОзнаки);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_тексту(М: *Машина, предмет_тексту: *ПредметТексту);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_коду(М: *Машина, предмет_коду: *ПредметКоду);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_дії(М: *Машина, предмет_дії: *ПредметДії);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_списку(М: *Машина, предмет_списку: *ПредметСписку);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_словника(М: *Машина, предмет_словника: *ПредметСловника);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_даних(М: *Машина, предмет_даних: *ПредметДаних);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_проміжка_чисел(М: *Машина, предмет_проміжка_чисел: *ПредметПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_проміжка_чисел(М: *Машина, предмет_перебору_проміжка_чисел: *ПредметПереборуПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_даних(М: *Машина, предмет_перебору_даних: *ПредметПереборуДаних);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_послідовності(М: *Машина, предмет_перебору_послідовності: *ПредметПереборуПослідовності);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_словника(М: *Машина, предмет_перебору_словника: *ПредметПереборуСловника);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_списку(М: *Машина, предмет_перебору_списку: *ПредметПереборуСписку);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_тексту(М: *Машина, предмет_перебору_тексту: *ПредметПереборуТексту);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_складений_предмет(М: *Машина, складений_предмет: *СкладенийПредмет);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_накопичувач_значень(М: *Машина, накопичувач_значень: НакопичувачЗначень);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_спроби(М: *Машина, спроби: Спроби);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_історію_здійснення(М: *Машина, історія_здійснення: ІсторіяЗдійснення);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_місцезнаходження(М: *Машина, місцезнаходження: Місцезнаходження);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_константи_назв(М: *Машина, константи_назв: КонстантиНазв);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_взяті_значення(М: *Машина, взяті_значення: ВзятіЗначення);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_методи(М: *Машина, методи: Методи);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_властивості(М: *Машина, призначення: Призначення);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_притримувач(М: *Машина, притримувач: *Притримувач);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_чергу_здійснення(М: *Машина, черга_здійснення: ЧергаЗдійснення);</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_задіяні(М: *Машина, задіяні: Задіяні);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_дійсність(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність: *Дійсність</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> дійсність.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    дійсність.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> дійсність.зовні != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_дійсність(М, дійсність.зовні);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_властивості(М, дійсність.призначення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // позначка: прохід по типах предметів</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет: *Предмет</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Клас {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_класу(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметКласу);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Модуль {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_модуля(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметМодуля);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Параметр {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_параметра(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПараметра);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Ознака {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_ознаки(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметОзнаки);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Число {</span></span>
+<span class="line"><span style="color:#E6EDF3">      ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"[Помилка Машини][позначити_предмет]: предмет.клас == М.клас_Число"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Текст {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_тексту(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметТексту);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Код {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_коду(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметКоду);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Дія {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_дії(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДії);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Список {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_списку(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметСписку);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Словник {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_словника(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметСловника);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Дані {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_даних(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПроміжокЧисел {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_проміжка_чисел(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірПроміжкаЧисел {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_перебору_проміжка_чисел(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірДаних {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_перебору_даних(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуДаних);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірПослідовності {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_перебору_послідовності(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуПослідовності);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірСловника {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_перебору_словника(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуСловника);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірСписку {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_перебору_списку(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуСписку);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_ПеребірТексту {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_перебору_тексту(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПереборуТексту);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет.клас == М.клас_Послідовність {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_послідовності(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПослідовності);</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_складений_предмет(М, предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *СкладенийПредмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_послідовності(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    послідовність: *ПредметПослідовності</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> послідовність.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    послідовність.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; послідовність.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> послідовність.елементи[п].вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, послідовність.елементи[п].дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_класу(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_класу: *ПредметКласу</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_класу.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_класу.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_класу.назва != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_тексту(М, предмет_класу.назва);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_класу.ознаки != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_послідовності(М, предмет_класу.ознаки </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПослідовності);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_методи(М, предмет_класу.методи);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_властивості(М, предмет_класу.властивості);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_модуля: *ПредметМодуля</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_модуля.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_модуля.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_модуля.назва != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_тексту(М, предмет_модуля.назва);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_властивості(М, предмет_модуля.властивості);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_параметра(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_параметра: *ПредметПараметра</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_параметра.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // вивести_кд(М, "позначити_предмет_параметра: ");</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, предмет_параметра.назва.значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_параметра.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_параметра.назва != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_тексту(М, предмет_параметра.назва);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_параметра.тип != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">      // ...</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_параметра.значення.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет(М, предмет_параметра.значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_ознаки(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_ознаки: *ПредметОзнаки</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_ознаки.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // вивести_кд(М, "позначити_предмет_ознаки: ");</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, предмет_ознаки.назва.значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_ознаки.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_ознаки.назва != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_тексту(М, предмет_ознаки.назва);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_ознаки.тип != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">      // ...</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_ознаки.значення.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет(М, предмет_ознаки.значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_тексту(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_тексту: *ПредметТексту</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_тексту.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_тексту.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_коду(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_коду: *ПредметКоду</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_коду.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_коду.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_коду.константи != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_послідовності(М, предмет_коду.константи);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_коду.вказівки != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_даних(М, предмет_коду.вказівки);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_коду.шлях != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_даних(М, предмет_коду.шлях);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_дії(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_дії: *ПредметДії</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_дії.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // вивести_кд(М, "позначити_предмет_дії: ");</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_кд(М, предмет_дії.назва.значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_дії.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_дії.дійсність_створення != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_дійсність(М, предмет_дії.дійсність_створення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_послідовності(М, предмет_дії.параметри </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметПослідовності);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_дії.назва != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_тексту(М, предмет_дії.назва);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // якщо предмет_дії.тип_результату != пусто {</span></span>
+<span class="line"><span style="color:#8B949E">    //   позначити_предмет(М, предмет_дії.тип_результату);</span></span>
+<span class="line"><span style="color:#8B949E">    // }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> предмет_дії.рідна {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_коду(М, предмет_дії.код </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметКоду);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_дії.метод_класу != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_класу(М, предмет_дії.метод_класу);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_дії.шлях_до_теки_модулів != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_даних(М, предмет_дії.шлях_до_теки_модулів);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_списку(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_списку: *ПредметСписку</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_списку.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_списку.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; предмет_списку.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_списку.елементи[п].вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, предмет_списку.елементи[п].дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_словника(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника: *ПредметСловника</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_словника.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_словника.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; предмет_словника.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_словника.елементи[п].ключ.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, предмет_словника.елементи[п].ключ.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_словника.елементи[п].значення.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, предмет_словника.елементи[п].значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_даних(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_даних: *ПредметДаних</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_даних.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_даних.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_проміжка_чисел(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_проміжка_чисел: *ПредметПроміжкаЧисел</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_проміжка_чисел.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_проміжка_чисел.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_проміжка_чисел(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_проміжка_чисел: *ПредметПереборуПроміжкаЧисел</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_проміжка_чисел.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_проміжка_чисел.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_проміжка_чисел.предмет_проміжка != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_проміжка_чисел(М, предмет_перебору_проміжка_чисел.предмет_проміжка);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_даних(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_даних: *ПредметПереборуДаних</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_даних.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_даних.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_даних.предмет_даних != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_даних(М, предмет_перебору_даних.предмет_даних);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_послідовності(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_послідовності: *ПредметПереборуПослідовності</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_послідовності.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_послідовності.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_послідовності.предмет_послідовності != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_послідовності(М, предмет_перебору_послідовності.предмет_послідовності);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_послідовності.поточне_значення.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет(М, предмет_перебору_послідовності.поточне_значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_словника(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_словника: *ПредметПереборуСловника</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_словника.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_словника.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_словника.предмет_словника != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_словника(М, предмет_перебору_словника.предмет_словника);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_словника.поточне_значення.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет(М, предмет_перебору_словника.поточне_значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_списку(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_списку: *ПредметПереборуСписку</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_списку.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_списку.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_списку.предмет_списку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_списку(М, предмет_перебору_списку.предмет_списку);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_списку.поточне_значення.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет(М, предмет_перебору_списку.поточне_значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_предмет_перебору_тексту(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_тексту: *ПредметПереборуТексту</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_тексту.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    предмет_перебору_тексту.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> предмет_перебору_тексту.предмет_тексту != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_тексту(М, предмет_перебору_тексту.предмет_тексту);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_складений_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    складений_предмет: *СкладенийПредмет</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> складений_предмет.позначено {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    складений_предмет.позначено = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_властивості(М, складений_предмет.властивості);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_накопичувач_значень(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    накопичувач_значень: НакопичувачЗначень</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // вивести_кд(М, "пвизначення накопичувача значень... розмір: ");</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_п64(М, накопичувач_значень.розмір);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; накопичувач_значень.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> накопичувач_значень.дані[п].вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, накопичувач_значень.дані[п].дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_спроби(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    спроби: Спроби</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; спроби.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> спроба = спроби.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> спроба.назва_зловити != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет_тексту(М, спроба.назва_зловити);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_історію_здійснення(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    історія_здійснення: ІсторіяЗдійснення</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // вивести_кд(М, "пвизначення історії здійснення... розмір: ");</span></span>
+<span class="line"><span style="color:#8B949E">    // надрукувати_п64(М, історія_здійснення.розмір);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; історія_здійснення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> елемент = історія_здійснення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_спроби(М, елемент.спроби);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> елемент.дійсність != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_дійсність(М, елемент.дійсність);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> елемент.здійснювач.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, елемент.здійснювач.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> елемент.предмет_дії != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет_дії(М, елемент.предмет_дії);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_задіяні(М, елемент.задіяні);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_місцезнаходження(М, елемент.місцезнаходження);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_місцезнаходження(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> шлях = місцезнаходження.шлях_або_код </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> шлях != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет(М, шлях);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_константи_назв(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    константи_назв: КонстантиНазв</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._дійсне);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Послідовність);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._дійсність);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Структура);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Модуль);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Параметр);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Ознака);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Число);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Текст);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Код);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Дія);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Список);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Словник);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ПроміжокЧисел);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ПеребірПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ПеребірСписку);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._далі);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._з);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._довжина);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._0);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._1);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._модуль);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._пак);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._біб);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._математика);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._читати);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._перед);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._чародія);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._чародія_число);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._чародія_текст);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._чародія_межа);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._чародія_перебір);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._чародія_послідовність);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._дія_перевірки);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._дія_перетворення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._додати);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._забрати);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._знайти);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._знайти_позицію);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._відібрати);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._перетворити);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._обернути);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._містить);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ключ);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ключі);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._список);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._словник);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._послідовність);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._проміжок);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ПеребірПослідовності);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ПеребірДаних);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._назва);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._параметри);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ознаки);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._тип_результату);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._код);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._константи);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._вказівки);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._шлях);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ПеребірСловника);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Е);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ПІ);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ЛОГ2Е);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ЛОГ10Е);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ЛОГ2);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ЛОГ10);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._КОРІНЬ2);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._КОРІНЬ1_2);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._синус);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._косинус);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._тангенс);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._арксинус);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._арккосинус);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._арктангенс);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._арктангенс2);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._абсолютне);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._експонента);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._корінь);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._стеля);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._підлога);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._округлити);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._ПеребірТексту);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._текст);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._система);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._прочитати);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._тип);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._записати);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._куди);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._дописати);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._видалити);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._створити_папку);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._виконати);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._аргументи);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._РезультатВиконання);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._стдвив);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._стдпом);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._команда);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._с);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._місцезнаходження_вказівок);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._від);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._до);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._включно);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._дія_значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._позиція);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Клас);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._предок);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._Перебір);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._виділити);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._обнулено);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_тексту(М, М.константи_назв._отримати_назву);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_взяті_значення(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    взяті_значення: ВзятіЗначення</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; взяті_значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> взяте_значення = взяті_значення.дані[п]::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> взяте_значення.шлях != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет_даних(М, взяте_значення.шлях);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> взяте_значення.значення.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, взяте_значення.значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_методи(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    методи: Методи</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; методи.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> метод = методи.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_тексту(М, метод.назва);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> метод.значення != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет_дії(М, метод.значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_властивості(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    призначення: Призначення</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; призначення.вмісткість {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> призначене = призначення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> призначене != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет_тексту(М, призначене.назва);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> призначене.значення.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">          позначити_предмет(М, призначене.значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        призначене = призначене.наступний;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_притримувач(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    притримувач: *Притримувач</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> притриманий = притримувач.перший;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> притриманий != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> притриманий.предмет != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, притриманий.предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      притриманий = притриманий.наступний;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_чергу_здійснення(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    черга_здійснення: ЧергаЗдійснення</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> елемент = черга_здійснення.перший;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> елемент != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> елемент.значення.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, елемент.значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_задіяні(М, елемент.задіяні);</span></span>
+<span class="line"><span style="color:#E6EDF3">      елемент = елемент.наступний;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити_задіяні(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    задіяні: Задіяні</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> задіяні.вид == ВидЗадіяних1 {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3">; </span><span style="color:#8B949E">// задіяні з накопичувача діяльності будуть позначені під час позначення самого накопичувача</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> п &#x3C; задіяні.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> задіяні.дані[п].вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        позначити_предмет(М, задіяні.дані[п].дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // позначка: прохід по типах предметів</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> позначити(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> М.шлях_до_теки_модулів != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_даних(М, М.шлях_до_теки_модулів);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> М.шлях_до_теки_паків != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_даних(М, М.шлях_до_теки_паків);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Клас);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_ПроміжокЧисел);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Дія);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Код);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Модуль);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Параметр);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Ознака);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_ПеребірДаних);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_ПеребірПроміжкаЧисел);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_ПеребірПослідовності);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_ПеребірСловника);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_ПеребірСписку);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_ПеребірТексту);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Послідовність);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Словник);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Список);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Текст);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_класу(М, М.клас_Число);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_предмет_послідовності(М, М.пуста_послідовність);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_дійсність(М, М.глобальна_дійсність);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_накопичувач_значень(М, М.накопичувач_значень);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_історію_здійснення(М, М.історія_здійснення);</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> М.значення_падіння.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет(М, М.значення_падіння.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_місцезнаходження(М, М.місцезнаходження_падіння);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_константи_назв(М, М.константи_назв);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_взяті_значення(М, М.взяті_значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позначити_чергу_здійснення(М, М.черга_здійснення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> притримувач = М.глобальний_притримувач;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> притримувач != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_притримувач(М, притримувач);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      притримувач = притримувач.наступний;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> М.розмова != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_даних(М, М.розмова.шлях_до_стандартного_вводу);</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_предмет_модуля(М, М.розмова.предмет_модуля);</span></span>
+<span class="line"><span style="color:#E6EDF3">      позначити_дійсність(М, М.розмова.дійсність);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> запустити_очищувач(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) {</span></span>
+<span class="line"><span style="color:#8B949E">    //  надрукувати_кд(М, "очищува запущено");</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    позначити(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> попередній_предмет: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> предмет = М.перший_предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> предмет != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.позначено {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет.позначено = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        попередній_предмет = предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        предмет = предмет.наступний;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> предмет_до_знищення = предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        предмет = предмет.наступний;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        попередній_предмет.наступний = предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити_предмет(М, предмет_до_знищення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        М.кількість_дійсних -= </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.останній_предмет = попередній_предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.кількість_дійсних_для_очищення = (М.кількість_дійсних * </span><span style="color:#79C0FF">5</span><span style="color:#E6EDF3">) + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.потребує_очищення = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дійсність = М.перша_дійсність;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    поки</span><span style="color:#E6EDF3"> дійсність != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      дійсність.позначено = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дійсність = дійсність.наступна;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

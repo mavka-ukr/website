@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Zmu4IZbMnX/мавка-1.0.2/бібліотека/інет/Слуга.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/бібліотека;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> бібліотека {</span></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_методу_структури_Слуга__зупинити(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      діяльність: *Діяльність</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдбм = М.користувацькі_дані_бібліотеки.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніБібліотекиМавки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> діяльність.здійснювач.вид != ЗПредмет {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити метод </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">зупинити</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = діяльність.здійснювач.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *СкладенийПредмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_слуги.клас != кдбм.інет__Слуга {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо здійснити дію </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">зупинити</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_закрити_підключення = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_закрити_підключення = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_закрити_підключення = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, М.константи_назв._закрити_підключення, задіяне_закрити_підключення::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдс = предмет_слуги.користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> кдс.адр_слуга == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      бібліотека_мавки_інет_зупинити_слугу(</span></span>
+<span class="line"><span style="color:#E6EDF3">        кдс.адр_слуга,</span></span>
+<span class="line"><span style="color:#79C0FF">        природне</span><span style="color:#E6EDF3">(ЧИ(задіяне_закрити_підключення)),</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> ДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> записати_метод_класу_Слуга__зупинити(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      клас: *ПредметКласу</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_дії = створити_рідну_дію(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._зупинити,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.пуста_послідовність,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        рідна_дія_методу_структури_Слуга__зупинити,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      записати_метод_класу(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        клас,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._зупинити,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_дії</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"Помилка при записі методу </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">зупинити</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> для класу </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">Слуга</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">."</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_клас__інет__Слуга(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_модуля: *ПредметМодуля</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдбм = М.користувацькі_дані_бібліотеки.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніБібліотекиМавки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      кдбм.інет__Слуга = створити_клас(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._Слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.пуста_послідовність</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      записати_метод_класу_Слуга__зупинити(М, кдбм.інет__Слуга);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      записати_властивість_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_модуля,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._Слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ПРЕДМЕТ(кдбм.інет__Слуга)</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

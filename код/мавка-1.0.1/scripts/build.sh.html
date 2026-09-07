@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.erdjogphda/мавка-1.0.1/scripts/build.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">SCRIPT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">dirname</span><span style="color:#A5D6FF"> "${</span><span style="color:#E6EDF3">BASH_SOURCE</span><span style="color:#A5D6FF">[0]}")" &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#E6EDF3">ROOT_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/.." &#x26;&#x26; </span><span style="color:#79C0FF">pwd</span><span style="color:#A5D6FF">)"</span></span>
+<span class="line"><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">source</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/build_deps.sh"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">PROGRAM_NAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"мавка"</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> ВЕРСІЯ</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_MODE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$2</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">TSIL</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">TSIL</span><span style="color:#FF7B72">:-</span><span style="color:#A5D6FF">ціль}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">CLANG_OPTIONS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-DMAVKA_VERSION=</span><span style="color:#FF7B72">\"</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> -Iexternal/include"</span></span>
+<span class="line"><span style="color:#E6EDF3">OPTIMIZATIONS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">print_usage</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Usage: </span><span style="color:#79C0FF">$0</span><span style="color:#A5D6FF"> &#x3C;debug|release> &#x3C;platform> [ll|o]"</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Platforms: linux-x86_64, linux-aarch64, macos-x86_64, macos-aarch64, windows-x86_64, windows-aarch64, android-aarch64, wasm64"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">set_build_mode</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  case</span><span style="color:#A5D6FF"> "</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> in</span></span>
+<span class="line"><span style="color:#A5D6FF">    debug</span><span style="color:#FF7B72">)</span><span style="color:#E6EDF3">   OPTIMIZATIONS_CFLAGS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">"-g -O0"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    release</span><span style="color:#FF7B72">)</span><span style="color:#E6EDF3"> OPTIMIZATIONS_CFLAGS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">"-O3"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">    *)</span></span>
+<span class="line"><span style="color:#79C0FF">      echo</span><span style="color:#A5D6FF"> "Unsupported build mode: </span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">      print_usage</span></span>
+<span class="line"><span style="color:#79C0FF">      exit</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">  esac</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">set_platform_vars</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> platform</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span><span style="color:#E6EDF3"> static_libs</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#E6EDF3">  DEPS_LIBS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  case</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$platform</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> in</span></span>
+<span class="line"><span style="color:#A5D6FF">    linux-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-pc-linux-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">which</span><span style="color:#A5D6FF"> clang)"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">which</span><span style="color:#A5D6FF"> llvm-ar)"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">which</span><span style="color:#A5D6FF"> llvm-ranlib)"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">which</span><span style="color:#A5D6FF"> llvm-rc)"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OPTIMIZATIONS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_LDFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-fuse-ld=lld"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-lm -ldl -lpthread"</span></span>
+<span class="line"><span style="color:#FFA657">      setup_linux_libraries</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    linux-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-linux-gnu"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">which</span><span style="color:#A5D6FF"> clang)"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">which</span><span style="color:#A5D6FF"> llvm-ar)"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">which</span><span style="color:#A5D6FF"> llvm-ranlib)"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"$(</span><span style="color:#79C0FF">which</span><span style="color:#A5D6FF"> llvm-rc)"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"--target=</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#A5D6FF"> --sysroot=/usr/</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#E6EDF3"> $OPTIMIZATIONS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_LDFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-fuse-ld=lld"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-lm -ldl -lpthread </span><span style="color:#E6EDF3">$LDFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">      setup_linux_libraries</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    macos-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$OSXCROSS_PATH</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">        echo</span><span style="color:#A5D6FF"> "OSXCROSS_PATH is not set."</span></span>
+<span class="line"><span style="color:#79C0FF">        exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#FF7B72">      local</span><span style="color:#E6EDF3"> osxcross_path</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OSXCROSS_PATH</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">      export</span><span style="color:#E6EDF3"> PATH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin:</span><span style="color:#E6EDF3">$PATH</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"macos"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-apple-darwin23"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin/x86_64-apple-darwin23-clang"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin/x86_64-apple-darwin23-ar"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin/x86_64-apple-darwin23-ranlib"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin/x86_64-apple-darwin23-rc"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OPTIMIZATIONS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">      setup_macos_libraries</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-Wl,-export_dynamic -lm -lpthread"</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    macos-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$OSXCROSS_PATH</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">        echo</span><span style="color:#A5D6FF"> "OSXCROSS_PATH is not set."</span></span>
+<span class="line"><span style="color:#79C0FF">        exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#FF7B72">      local</span><span style="color:#E6EDF3"> osxcross_path</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OSXCROSS_PATH</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">      export</span><span style="color:#E6EDF3"> PATH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin:</span><span style="color:#E6EDF3">$PATH</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"macos"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-apple-darwin23"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin/aarch64-apple-darwin23-clang"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin/aarch64-apple-darwin23-ar"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin/aarch64-apple-darwin23-ranlib"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$osxcross_path</span><span style="color:#A5D6FF">/bin/aarch64-apple-darwin23-rc"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OPTIMIZATIONS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">      setup_macos_libraries</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-Wl,-export_dynamic -lm -lpthread"</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    windows-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$LLVM_MINGW_PATH</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">        echo</span><span style="color:#A5D6FF"> "LLVM_MINGW_PATH is not set."</span></span>
+<span class="line"><span style="color:#79C0FF">        exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#FF7B72">      local</span><span style="color:#E6EDF3"> llvm_mingw_path</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$LLVM_MINGW_PATH</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64-w64-mingw32"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$llvm_mingw_path</span><span style="color:#A5D6FF">/bin/x86_64-w64-mingw32-clang"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$llvm_mingw_path</span><span style="color:#A5D6FF">/bin/x86_64-w64-mingw32-llvm-ar"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$llvm_mingw_path</span><span style="color:#A5D6FF">/bin/x86_64-w64-mingw32-llvm-ranlib"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$llvm_mingw_path</span><span style="color:#A5D6FF">/bin/x86_64-w64-mingw32-llvm-rc"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CPPFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-DNOCRYPT"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OPTIMIZATIONS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-ікс86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">.exe"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-static -lws2_32 -liphlpapi -luserenv -ldbghelp -lole32 -lgdi32 -lcrypt32 -luser32"</span></span>
+<span class="line"><span style="color:#E6EDF3">      static_libs</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"scripts/icon.res"</span></span>
+<span class="line"><span style="color:#FFA657">      setup_windows_libraries</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    windows-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$LLVM_MINGW_PATH</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">        echo</span><span style="color:#A5D6FF"> "LLVM_MINGW_PATH is not set."</span></span>
+<span class="line"><span style="color:#79C0FF">        exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#FF7B72">      local</span><span style="color:#E6EDF3"> llvm_mingw_path</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$LLVM_MINGW_PATH</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-w64-mingw32"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$llvm_mingw_path</span><span style="color:#A5D6FF">/bin/aarch64-w64-mingw32-clang"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$llvm_mingw_path</span><span style="color:#A5D6FF">/bin/aarch64-w64-mingw32-llvm-ar"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$llvm_mingw_path</span><span style="color:#A5D6FF">/bin/aarch64-w64-mingw32-llvm-ranlib"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$llvm_mingw_path</span><span style="color:#A5D6FF">/bin/aarch64-w64-mingw32-llvm-rc"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CPPFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-DNOCRYPT"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OPTIMIZATIONS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">.exe"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-static -lws2_32 -liphlpapi -luserenv -ldbghelp -lole32 -lgdi32 -lcrypt32 -luser32"</span></span>
+<span class="line"><span style="color:#E6EDF3">      static_libs</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"scripts/icon.res"</span></span>
+<span class="line"><span style="color:#FFA657">      setup_windows_libraries</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    android-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$ANDROID_NDK_HOME</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">        echo</span><span style="color:#A5D6FF"> "ANDROID_NDK_HOME is not set."</span></span>
+<span class="line"><span style="color:#79C0FF">        exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">      fi</span></span>
+<span class="line"><span style="color:#FF7B72">      local</span><span style="color:#E6EDF3"> ndk_toolchain</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ANDROID_NDK_HOME</span><span style="color:#A5D6FF">/toolchains/llvm/prebuilt/linux-x86_64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"unix"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64-linux-android24"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ndk_toolchain</span><span style="color:#A5D6FF">/bin/aarch64-linux-android24-clang"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ndk_toolchain</span><span style="color:#A5D6FF">/bin/llvm-ar"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ndk_toolchain</span><span style="color:#A5D6FF">/bin/llvm-ranlib"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ndk_toolchain</span><span style="color:#A5D6FF">/bin/llvm-rc"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OPTIMIZATIONS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"андроїд-аарч64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-ldl -lc -lm"</span></span>
+<span class="line"><span style="color:#FFA657">      setup_linux_libraries</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    wasm64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wasm64"</span><span style="color:#E6EDF3">; BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wasm64"</span><span style="color:#E6EDF3">; COMMON_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wasm64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"wasm64-unknown-unknown"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"clang"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_AR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"llvm-ar"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RANLIB</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"llvm-ranlib"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_RC</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"llvm-rc"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TARGET_CFLAGS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"--target=</span><span style="color:#E6EDF3">$TARGET</span><span style="color:#E6EDF3"> $OPTIMIZATIONS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"васм64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      TSIL_PLATFORM_FOLDER</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"васм64"</span></span>
+<span class="line"><span style="color:#E6EDF3">      OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">.wasm"</span></span>
+<span class="line"><span style="color:#E6EDF3">      extra_opts</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"-nostdlib -Wl,--no-entry -Wl,--export-all -Wl,--allow-undefined -Wl,--export-dynamic -Wl,--export-memory -Wl,--initial-memory=16777216 -Wl,--max-memory=1073741824"</span></span>
+<span class="line"><span style="color:#E6EDF3">      ;;</span></span>
+<span class="line"><span style="color:#FF7B72">    *)</span></span>
+<span class="line"><span style="color:#79C0FF">      echo</span><span style="color:#A5D6FF"> "Unsupported platform: </span><span style="color:#E6EDF3">$platform</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">      print_usage</span></span>
+<span class="line"><span style="color:#79C0FF">      exit</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">  esac</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  CLANG</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$TARGET_CC</span><span style="color:#E6EDF3"> $TARGET_CPPFLAGS</span><span style="color:#E6EDF3"> $TARGET_CFLAGS</span><span style="color:#E6EDF3"> $TARGET_LDFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  CLANG_OPTIONS</span><span style="color:#FF7B72">+=</span><span style="color:#A5D6FF">" </span><span style="color:#E6EDF3">$extra_opts</span><span style="color:#E6EDF3"> $CFLAGS</span><span style="color:#E6EDF3"> $DEPS_CFLAGS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  STATIC_LIBS</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"${</span><span style="color:#E6EDF3">static_libs</span><span style="color:#FF7B72">:</span><span style="color:#A5D6FF">+</span><span style="color:#E6EDF3">$static_libs</span><span style="color:#A5D6FF"> }</span><span style="color:#E6EDF3">$DEPS_LIBS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_MODE</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ] </span><span style="color:#FF7B72">||</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_PLATFORM</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FFA657">  print_usage</span></span>
+<span class="line"><span style="color:#79C0FF">  exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">set_build_mode</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_MODE</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">set_platform_vars</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_PLATFORM</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">case</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_MODE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> in</span></span>
+<span class="line"><span style="color:#A5D6FF">  debug</span><span style="color:#FF7B72">)</span><span style="color:#E6EDF3">   TSIL_MODE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"відлагодження"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">  release</span><span style="color:#FF7B72">)</span><span style="color:#E6EDF3"> TSIL_MODE</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"випуск"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">esac</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">READY_DIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$ROOT_DIR</span><span style="color:#A5D6FF">/будування/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$TSIL_PLATFORM_FOLDER</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$TSIL_MODE</span><span style="color:#A5D6FF">/готове"</span></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">CLANG_CMD</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$CLANG</span><span style="color:#E6EDF3"> $CLANG_OPTIONS</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">LLIRFILES</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">/bin/bash</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$SCRIPT_DIR</span><span style="color:#A5D6FF">/build_tsil.sh"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$BUILD_MODE</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$BUILD_PLATFORM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "ll"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$TSIL</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$TARGET_CC</span><span style="color:#E6EDF3"> $TARGET_CPPFLAGS</span><span style="color:#E6EDF3"> $TARGET_CFLAGS</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "створення виконуваного файлу"</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -x</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3"> $CLANG_CMD </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#79C0FF">  -c</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/main.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "external/</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">/main_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.c"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3"> $CLANG_CMD </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#79C0FF">  -c</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/prystriy_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "external/</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">/prystriy_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.c"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3"> $CLANG_CMD </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#79C0FF">  -c</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "external/</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.c"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> !=</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#E6EDF3">  $CLANG_CMD </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#79C0FF">    -c</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">    "external/</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">.c"</span></span>
+<span class="line"><span style="color:#E6EDF3">  BIBLIOTEKA_SYSTEM_OBJ</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">.o"</span></span>
+<span class="line"><span style="color:#FF7B72">else</span></span>
+<span class="line"><span style="color:#E6EDF3">  BIBLIOTEKA_SYSTEM_OBJ</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">""</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3"> $CLANG_CMD </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#79C0FF">  -o</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$OUTFILENAME</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/main.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/prystriy_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#A5D6FF">  "</span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/biblioteka_</span><span style="color:#E6EDF3">$COMMON_SYSTEM</span><span style="color:#A5D6FF">.o"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#E6EDF3">  $BIBLIOTEKA_SYSTEM_OBJ </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#E6EDF3">  $LLIRFILES </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#E6EDF3">  $STATIC_LIBS</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "готово: </span><span style="color:#E6EDF3">$READY_DIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$OUTFILENAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span></code></pre>
+</body>
+</html>

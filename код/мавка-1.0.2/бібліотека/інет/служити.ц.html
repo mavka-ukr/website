@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Zmu4IZbMnX/мавка-1.0.2/бібліотека/інет/служити.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/бібліотека;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> бібліотека {</span></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> перед_знищенням_кдс(М: *Машина, користувацькі_дані: *КористувацькіДані) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдс = користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> кдс.адр_слуга != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        надрукувати_кд(М, </span><span style="color:#A5D6FF">"ПОМИЛКА МАВКИ: кдс.адр_слуга != пусто!!!"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, кдс);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> здійснити_предмет(М: *Машина, предмет: *Предмет, кількість_задіяних: </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">, дані_задіяних: *Значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> інформація_падіння: ІнформаціяПадіння;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ПРЕДМЕТ(предмет),</span></span>
+<span class="line"><span style="color:#E6EDF3">        Задіяні { ВидЗадіяних2, кількість_задіяних, дані_задіяних, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> },</span></span>
+<span class="line"><span style="color:#E6EDF3">        МІСЦЕю8(М, </span><span style="color:#79C0FF">ю8</span><span style="color:#A5D6FF">"вм://бібліотека/інет/служити.ц"</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">),</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> отримати_інформацію_падіння(М, інформація_падіння::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> М.налаштування.обробник_падінь == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"необроблене падіння!"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вимкнути_стан_падіння(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          М.налаштування.обробник_падінь(</span></span>
+<span class="line"><span style="color:#E6EDF3">            М,</span></span>
+<span class="line"><span style="color:#E6EDF3">            інформація_падіння</span></span>
+<span class="line"><span style="color:#E6EDF3">          );</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_запуску(адр_слуга: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, помилка: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> адр_слуга == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">        // потім: паніка</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = бібліотека_мавки_інет_отримати_аргумент_слуги(адр_слуга) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = ас.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдбм = М.користувацькі_дані_бібліотеки.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніБібліотекиМавки;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = створити_складений_предмет(М, кдбм.інет__Слуга);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдс = виділити&#x3C;КористувацькіДаніІнетСлуги>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      кдс.адр_слуга = адр_слуга;</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_слуги.користувацькі_дані = створити_користувацькі_дані(М, кдс, перед_знищенням_кдс);</span></span>
+<span class="line"><span style="color:#E6EDF3">      ас.прт_слуга = притримати_глобально(М, предмет_слуги </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_запуску: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_запуску != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_запуску = ас.прт_обробник_запуску.предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_запуску == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_помилки: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> помилка != </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_помилки = створити_помилку(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          отримати_текст_інет_помилки(М, помилка),</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"><span style="color:#E6EDF3">        змінити_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          ПРЕДМЕТ(предмет_помилки),</span></span>
+<span class="line"><span style="color:#E6EDF3">          М.константи_назв._код,</span></span>
+<span class="line"><span style="color:#E6EDF3">          ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(помилка)),</span></span>
+<span class="line"><span style="color:#E6EDF3">          МІСЦЕю8(М, </span><span style="color:#79C0FF">ю8</span><span style="color:#A5D6FF">"вм://бібліотека/інет/служити.ц"</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">),</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_слуги);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_помилки == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_помилки);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_запуску,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кількість_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_помилки(адр_слуга: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, помилка: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = бібліотека_мавки_інет_отримати_аргумент_слуги(адр_слуга) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = ас.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = ас.прт_слуга.предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_помилки: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_помилки != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_помилки = ас.прт_обробник_помилки.предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_помилки == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_помилки = створити_помилку(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        отримати_текст_інет_помилки(М, помилка),</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">      змінити_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ПРЕДМЕТ(предмет_помилки),</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._код,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(помилка)),</span></span>
+<span class="line"><span style="color:#E6EDF3">        МІСЦЕю8(М, </span><span style="color:#79C0FF">ю8</span><span style="color:#A5D6FF">"вм://бібліотека/інет/служити.ц"</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">),</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_слуги);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_помилки == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_помилки);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_помилки,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кількість_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_зупинки(адр_слуга: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = бібліотека_мавки_інет_отримати_аргумент_слуги(адр_слуга) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = ас.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = ас.прт_слуга.предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_зупинки: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_зупинки != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_зупинки = ас.прт_обробник_зупинки.предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_зупинки == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_слуги);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_зупинки,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кількість_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_підключення_звʼязку(адр_слуга: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, адр_звʼязок: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = бібліотека_мавки_інет_отримати_аргумент_слуги(адр_слуга) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = ас.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = ас.прт_слуга.предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_підключення_звʼязку: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_підключення_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_підключення_звʼязку = ас.прт_обробник_підключення_звʼязку.предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_звʼязку = створити_інет_Звʼязок(М, адр_звʼязок);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> акс = виділити_аргумент_інет_звʼязку(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">      акс.М = М;</span></span>
+<span class="line"><span style="color:#E6EDF3">      акс.прт_звʼязок = притримати_глобально(М, предмет_звʼязку </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      бібліотека_мавки_інет_записати_аргумент_звʼязку(</span></span>
+<span class="line"><span style="color:#E6EDF3">        адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">        акс,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_знищення_інет_звʼязку</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_підключення_звʼязку == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_слуги);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_підключення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кількість_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_даних_звʼязку(адр_слуга: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, адр_звʼязок: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = бібліотека_мавки_інет_отримати_аргумент_слуги(адр_слуга) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = ас.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = ас.прт_слуга.предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_даних_звʼязку: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_даних_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_даних_звʼязку = ас.прт_обробник_даних_звʼязку.предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_даних_звʼязку == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, дані);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> акс = бібліотека_мавки_інет_отримати_аргумент_звʼязку(адр_звʼязок) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_звʼязку = акс.прт_звʼязок.предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_звʼязку);</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.як_текст {</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_текст_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_дані_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">          дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_слуги);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_даних_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кількість_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_стікання_звʼязку(адр_слуга: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, адр_звʼязок: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = бібліотека_мавки_інет_отримати_аргумент_слуги(адр_слуга) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> аз = бібліотека_мавки_інет_отримати_аргумент_звʼязку(адр_звʼязок) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = аз.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = ас.прт_слуга.предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_звʼязку = аз.прт_звʼязок.предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *СкладенийПредмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдз = предмет_звʼязку.користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_стікання_звʼязку: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_стікання_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_стікання_звʼязку = ас.прт_обробник_стікання_звʼязку.предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_стікання_звʼязку == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_слуги);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_стікання_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кількість_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_закінчення_звʼязку(адр_слуга: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, адр_звʼязок: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = бібліотека_мавки_інет_отримати_аргумент_слуги(адр_слуга) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> аз = бібліотека_мавки_інет_отримати_аргумент_звʼязку(адр_звʼязок) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = аз.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = ас.прт_слуга.предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_звʼязку = аз.прт_звʼязок.предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *СкладенийПредмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдз = предмет_звʼязку.користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_закінчення_звʼязку: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_закінчення_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_закінчення_звʼязку = ас.прт_обробник_закінчення_звʼязку.предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_закінчення_звʼязку == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_слуги);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_закінчення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кількість_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_помилки_звʼязку(адр_слуга: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, адр_звʼязок: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, помилка: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = бібліотека_мавки_інет_отримати_аргумент_слуги(адр_слуга) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> аз = бібліотека_мавки_інет_отримати_аргумент_звʼязку(адр_звʼязок) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = ас.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = ас.прт_слуга.предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_звʼязку = аз.прт_звʼязок.предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *СкладенийПредмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_помилки_звʼязку: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_помилки_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_помилки_звʼязку = ас.прт_обробник_помилки_звʼязку.предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_помилки_звʼязку == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_помилки = створити_помилку(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        отримати_текст_інет_помилки(М, помилка),</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">      змінити_властивість(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ПРЕДМЕТ(предмет_помилки),</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._код,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(помилка)),</span></span>
+<span class="line"><span style="color:#E6EDF3">        МІСЦЕю8(М, </span><span style="color:#79C0FF">ю8</span><span style="color:#A5D6FF">"вм://бібліотека/інет/служити.ц"</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">),</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_помилки);</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_слуги);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_помилки_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кількість_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_відключення_звʼязку(адр_слуга: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, адр_звʼязок: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = бібліотека_мавки_інет_отримати_аргумент_слуги(адр_слуга) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> акс = бібліотека_мавки_інет_отримати_аргумент_звʼязку(адр_звʼязок) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = акс.М;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_слуги = ас.прт_слуга.предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_звʼязку = акс.прт_звʼязок.предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *СкладенийПредмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдз = предмет_звʼязку.користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_відключення_звʼязку: *Предмет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      кдз.адр_звʼязок = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_відключення_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_відключення_звʼязку = ас.прт_обробник_відключення_звʼязку.предмет;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_відключення_звʼязку == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_задіяних = </span><span style="color:#79C0FF">п32</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_задіяних = виділити&#x3C;Значення>(М, </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(кількість_задіяних));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_задіяних[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(предмет_слуги);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      здійснити_предмет(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_відключення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кількість_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дані_задіяних,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_знищення(аргумент_слуги: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = аргумент_слуги </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетСлуги;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = ас.М;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_слуга != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, ас.прт_слуга);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_підключення_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, ас.прт_обробник_підключення_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_даних_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, ас.прт_обробник_даних_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_стікання_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, ас.прт_обробник_стікання_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_закінчення_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, ас.прт_обробник_закінчення_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_помилки_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, ас.прт_обробник_помилки_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> ас.прт_обробник_відключення_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, ас.прт_обробник_відключення_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, ас);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія__служити(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      діяльність: *Діяльність</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_іа = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_іа = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_порт = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_порт = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_формат = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_формат = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_обробник_запуску = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_запуску = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_обробник_помилки = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_помилки = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_обробник_зупинки = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_зупинки = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_обробник_підключення_звʼязку = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_підключення_звʼязку = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_обробник_даних_звʼязку = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_даних_звʼязку = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_обробник_стікання_звʼязку = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_стікання_звʼязку = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_обробник_закінчення_звʼязку = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_закінчення_звʼязку = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_обробник_помилки_звʼязку = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_помилки_звʼязку = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> задіяне_обробник_відключення_звʼязку = НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_відключення_звʼязку = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_іа = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, М.константи_назв._іа, задіяне_іа::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_порт = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, М.константи_назв._порт, задіяне_порт::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_формат = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">, М.константи_назв._формат, задіяне_формат::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_обробник_запуску = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">, М.константи_назв._обробник_запуску, задіяне_обробник_запуску::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_обробник_помилки = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">4</span><span style="color:#E6EDF3">, М.константи_назв._обробник_помилки, задіяне_обробник_помилки::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_обробник_зупинки = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">5</span><span style="color:#E6EDF3">, М.константи_назв._обробник_зупинки, задіяне_обробник_зупинки::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_обробник_підключення_звʼязку = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">6</span><span style="color:#E6EDF3">, М.константи_назв._обробник_підключення_звʼязку, задіяне_обробник_підключення_звʼязку::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_обробник_даних_звʼязку = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">7</span><span style="color:#E6EDF3">, М.константи_назв._обробник_даних_звʼязку, задіяне_обробник_даних_звʼязку::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_обробник_стікання_звʼязку = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">8</span><span style="color:#E6EDF3">, М.константи_назв._обробник_стікання_звʼязку, задіяне_обробник_стікання_звʼязку::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_обробник_закінчення_звʼязку = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">9</span><span style="color:#E6EDF3">, М.константи_назв._обробник_закінчення_звʼязку, задіяне_обробник_закінчення_звʼязку::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_обробник_помилки_звʼязку = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3">, М.константи_назв._обробник_помилки_звʼязку, задіяне_обробник_помилки_звʼязку::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено_задіяне_обробник_відключення_звʼязку = знайти_задіяне(М, діяльність.задіяні, </span><span style="color:#79C0FF">11</span><span style="color:#E6EDF3">, М.константи_назв._обробник_відключення_звʼязку, задіяне_обробник_відключення_звʼязку::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> іа_вид: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> іа_дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> іа_розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> треба_звільнити_іа_дані = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> порт: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> як_текст = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_запуску: *Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_помилки: *Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_зупинки: *Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_підключення_звʼязку: *Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_даних_звʼязку: *Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_стікання_звʼязку: *Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_закінчення_звʼязку: *Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_помилки_звʼязку: *Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_обробник_відключення_звʼязку: *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_іа {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> нульова_іа = </span><span style="color:#79C0FF">ю8</span><span style="color:#A5D6FF">"0.0.0.0"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        іа_вид = БІБЛІОТЕКА_МАВКИ_ВИД_ІА_ІП4;</span></span>
+<span class="line"><span style="color:#E6EDF3">        іа_дані = нульова_іа.дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">        іа_розмір = нульова_іа.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">        треба_звільнити_іа_дані = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_іа.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> предмет_іа = задіяне_іа.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_іа.клас == М.клас_Дані {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> предмет_даних = предмет_іа </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметДаних;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          іа_вид = БІБЛІОТЕКА_МАВКИ_ВИД_ІА_ІП6;</span></span>
+<span class="line"><span style="color:#E6EDF3">          іа_дані = предмет_даних.дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">          іа_розмір = предмет_даних.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">          треба_звільнити_іа_дані = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> предмет_іа.клас == М.клас_Текст {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> предмет_тексту = предмет_іа </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ПредметТексту;</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> іа_ю8: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> позиція_помилки: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> успіх = перекодувати_кд_в_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">            М,</span></span>
+<span class="line"><span style="color:#E6EDF3">            предмет_тексту.значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">            іа_ю8::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">            позиція_помилки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">          );</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">            вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Не вдалось перекодувати іа в ю8."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          іа_вид = БІБЛІОТЕКА_МАВКИ_ВИД_ІА_ІП4;</span></span>
+<span class="line"><span style="color:#E6EDF3">          іа_дані = іа_ю8.дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">          іа_розмір = іа_ю8.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">          треба_звільнити_іа_дані = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">іа</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути текстом або даними."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_порт {</span></span>
+<span class="line"><span style="color:#E6EDF3">        порт = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_порт.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#E6EDF3">        порт = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(задіяне_порт.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">порт</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути числом."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_порт {</span></span>
+<span class="line"><span style="color:#E6EDF3">        порт = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_порт.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#E6EDF3">        порт = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(задіяне_порт.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">порт</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути числом."</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> знайдено_задіяне_формат {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> задіяне_формат.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> пф = задіяне_формат.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> пф == М.клас_Дані {</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> пф == М.клас_Текст {</span></span>
+<span class="line"><span style="color:#E6EDF3">            як_текст = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">формат</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути класом Дані або Текст!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">формат</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути класом Дані або Текст!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_запуску {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_запуску = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_обробник_запуску.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_запуску = задіяне_обробник_запуску.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_обробник_запуску.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_запуску</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_запуску</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_помилки {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_помилки = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_обробник_помилки.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_помилки = задіяне_обробник_помилки.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_обробник_помилки.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_помилки</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_помилки</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_зупинки {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_зупинки = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_обробник_зупинки.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_зупинки = задіяне_обробник_зупинки.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_обробник_зупинки.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_зупинки</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_зупинки</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_підключення_звʼязку {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_підключення_звʼязку = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_обробник_підключення_звʼязку.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_підключення_звʼязку = задіяне_обробник_підключення_звʼязку.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_обробник_підключення_звʼязку.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_підключення_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_підключення_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_даних_звʼязку {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_даних_звʼязку = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_обробник_даних_звʼязку.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_даних_звʼязку = задіяне_обробник_даних_звʼязку.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_обробник_даних_звʼязку.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_даних_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_даних_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_стікання_звʼязку {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_стікання_звʼязку = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_обробник_стікання_звʼязку.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_стікання_звʼязку = задіяне_обробник_стікання_звʼязку.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_обробник_стікання_звʼязку.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_стікання_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_стікання_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_закінчення_звʼязку {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_закінчення_звʼязку = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_обробник_закінчення_звʼязку.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_закінчення_звʼязку = задіяне_обробник_закінчення_звʼязку.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_обробник_закінчення_звʼязку.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_закінчення_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_закінчення_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_помилки_звʼязку {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_помилки_звʼязку = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_обробник_помилки_звʼязку.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_помилки_звʼязку = задіяне_обробник_помилки_звʼязку.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_обробник_помилки_звʼязку.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_помилки_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_помилки_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> знайдено_задіяне_обробник_відключення_звʼязку {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_відключення_звʼязку = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> задіяне_обробник_відключення_звʼязку.вид == ЗПредмет {</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_обробник_відключення_звʼязку = задіяне_обробник_відключення_звʼязку.дані </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> предмет_обробник_відключення_звʼязку.клас != М.клас_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_відключення_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3"> ПАДІННЯ(М, створити_текст(М, </span><span style="color:#A5D6FF">"Задіяне </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">обробник_відключення_звʼязку</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> має бути дією!"</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> ас = виділити&#x3C;АргументІнетСлуги>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      ас.М = М;</span></span>
+<span class="line"><span style="color:#E6EDF3">      ас.як_текст = як_текст;</span></span>
+<span class="line"><span style="color:#E6EDF3">      ас.прт_слуга = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_запуску != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас.прт_обробник_запуску = притримати_глобально(М, предмет_обробник_запуску);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_помилки != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас.прт_обробник_помилки = притримати_глобально(М, предмет_обробник_помилки);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_зупинки != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас.прт_обробник_зупинки = притримати_глобально(М, предмет_обробник_зупинки);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_підключення_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас.прт_обробник_підключення_звʼязку = притримати_глобально(М, предмет_обробник_підключення_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_даних_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас.прт_обробник_даних_звʼязку = притримати_глобально(М, предмет_обробник_даних_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_стікання_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас.прт_обробник_стікання_звʼязку = притримати_глобально(М, предмет_обробник_стікання_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_закінчення_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас.прт_обробник_закінчення_звʼязку = притримати_глобально(М, предмет_обробник_закінчення_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_помилки_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас.прт_обробник_помилки_звʼязку = притримати_глобально(М, предмет_обробник_помилки_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет_обробник_відключення_звʼязку != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас.прт_обробник_відключення_звʼязку = притримати_глобально(М, предмет_обробник_відключення_звʼязку);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      бібліотека_мавки_інет_служити(</span></span>
+<span class="line"><span style="color:#E6EDF3">        іа_вид,</span></span>
+<span class="line"><span style="color:#E6EDF3">        іа_дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">        іа_розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">        порт,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_запуску,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_помилки,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_зупинки,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ас,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_знищення,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_підключення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_даних_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_стікання_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_закінчення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_помилки_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_відключення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> треба_звільнити_іа_дані {</span></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити(М, іа_дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> записати_дію__інет__служити(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_модуля: *ПредметМодуля</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кількість_параметрів = </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">12</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> дані_параметрів = виділити&#x3C;Значення>(М, кількість_параметрів);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._іа,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._порт,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._формат,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._обробник_запуску,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">4</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._обробник_помилки,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">5</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._обробник_зупинки,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">6</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._обробник_підключення_звʼязку,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">7</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._обробник_даних_звʼязку,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">8</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._обробник_стікання_звʼязку,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">9</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._обробник_закінчення_звʼязку,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._обробник_помилки_звʼязку,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"><span style="color:#E6EDF3">      дані_параметрів[</span><span style="color:#79C0FF">11</span><span style="color:#E6EDF3">] = ПРЕДМЕТ(створити_параметр(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._обробник_відключення_звʼязку,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        НЕДІЙСНЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">      ));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> д = створити_рідну_дію(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._служити,</span></span>
+<span class="line"><span style="color:#E6EDF3">        створити_послідовність_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          кількість_параметрів,</span></span>
+<span class="line"><span style="color:#E6EDF3">          дані_параметрів</span></span>
+<span class="line"><span style="color:#E6EDF3">        ),</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">        рідна_дія__служити,</span></span>
+<span class="line"><span style="color:#FF7B72">        пусто</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      записати_властивість_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        предмет_модуля,</span></span>
+<span class="line"><span style="color:#E6EDF3">        М.константи_назв._служити,</span></span>
+<span class="line"><span style="color:#E6EDF3">        ПРЕДМЕТ(д)</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

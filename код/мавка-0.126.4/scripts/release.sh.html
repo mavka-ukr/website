@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.ccAIuuupoU/мавка-0.126.4/scripts/release.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">RUNDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PWD</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">PROGRAM_NAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"мавка"</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> ВЕРСІЯ</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">VERSIONDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"випуски/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-d</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Version directory </span><span style="color:#FF7B72">\"</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> already exists. Aborting to prevent overwriting."</span></span>
+<span class="line"><span style="color:#79C0FF">  exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">rm</span><span style="color:#79C0FF"> -rf</span><span style="color:#A5D6FF"> "будування"</span></span>
+<span class="line"><span style="color:#FFA657">rm</span><span style="color:#79C0FF"> -rf</span><span style="color:#A5D6FF"> "build"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> release</span><span style="color:#A5D6FF"> linux-x86_64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> release</span><span style="color:#A5D6FF"> linux-aarch64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> release</span><span style="color:#A5D6FF"> macos-x86_64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> release</span><span style="color:#A5D6FF"> macos-aarch64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> release</span><span style="color:#A5D6FF"> windows-x86_64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> release</span><span style="color:#A5D6FF"> windows-aarch64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> release</span><span style="color:#A5D6FF"> android-aarch64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> release</span><span style="color:#A5D6FF"> wasm64</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/package_source.sh</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/package_platform.sh</span><span style="color:#A5D6FF"> linux-x86_64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/package_platform.sh</span><span style="color:#A5D6FF"> linux-aarch64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/package_platform.sh</span><span style="color:#A5D6FF"> macos-x86_64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/package_platform.sh</span><span style="color:#A5D6FF"> macos-aarch64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/package_platform.sh</span><span style="color:#A5D6FF"> windows-x86_64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/package_platform.sh</span><span style="color:#A5D6FF"> windows-aarch64</span></span>
+<span class="line"><span style="color:#FFA657">bash</span><span style="color:#A5D6FF"> scripts/package_platform.sh</span><span style="color:#A5D6FF"> android-aarch64</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">cp</span><span style="color:#79C0FF"> -r</span><span style="color:#A5D6FF"> "будування/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">/васм64/випуск/готове/мавка.wasm"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#A5D6FF">/мавка-</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">.wasm"</span></span></code></pre>
+</body>
+</html>

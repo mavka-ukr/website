@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.ccAIuuupoU/мавка-0.126.4/бібліотека/інет/_.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/бібліотека;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> бібліотека {</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> отримати_текст_інет_помилки(М: *Машина, помилка: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> *ПредметТексту {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> значення = </span><span style="color:#A5D6FF">""</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_УСПІХ {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Успіх!"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_НЕВІДОМА {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Невідома помилка."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_НЕДОСТАТНЬО_ПАМʼЯТІ {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Недостатньо памʼяті."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_АРГУМЕНТУ {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"ПОМИЛКА_АРГУМЕНТУ"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_АДРЕСА_ВИКОРИСТОВУЄТЬСЯ {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Адреса використовується."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ЗʼЄДНАННЯ_ВІДХИЛЕНО {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Зʼєднання відхилено."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ЗʼЄДНАННЯ_СКИНОТО {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Зʼєднання скинуто."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_МЕРЕЖА_НЕДОСТУПНА {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Мережа недоступна."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ХОСТ_НЕДОСТУПНИЙ {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Хост недоступний."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ТАЙМАУТ {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Час вийшов."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_КАНАЛ_ЗЛАМАНО {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Канал зламано."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ДОСТУПУ {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Помилка доступу."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ЗАБАГАТО_ФАЙЛІВ {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Забагато файлів."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_АДРЕСА_НЕДОСТУПНА {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Адреса недоступна."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ПЕРЕПОВНЕННЯ_БУФЕРА {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Переповнення буфера."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_МЕРЕЖА_ВІДМОВИЛА {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Мережа відмовила."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_МЕРЕЖА_СКИНУТА {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Мережа скинута."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ЗʼЄДНАННЯ_ПЕРЕРВАНО {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Зʼєднання перерваною"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ВЖЕ_ПІДДОСЛІДЖЕНО {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"ВЖЕ_ПІДДОСЛІДЖЕНО"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_НЕ_ПІДʼЄДНАНО {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Не підʼєднано."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_ВХІД_ВИХІД {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"ВХІД_ВИХІД"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> помилка == МАВКА_ІНЕТ_ПОМИЛКА_НЕПРАВИЛЬНИЙ_ФАЙЛ {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Неправильний файл."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        значення = </span><span style="color:#A5D6FF">"Невідома помилка."</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> створити_текст(М, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> виділити_аргумент_інет_звʼязку(М: *Машина) -> *АргументІнетЗвʼязку {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> аз = виділити&#x3C;АргументІнетЗвʼязку>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      аз.М = М;</span></span>
+<span class="line"><span style="color:#E6EDF3">      аз.прт_звʼязок = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      аз.як_текст = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      аз.прт_обробник_підключення = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      аз.прт_обробник_даних = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      аз.прт_обробник_стікання = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      аз.прт_обробник_закінчення = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      аз.прт_обробник_помилки = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      аз.прт_обробник_відключення = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> аз;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> обробник_знищення_інет_звʼязку(аргумент_звʼязку: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> аз = аргумент_звʼязку </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *АргументІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> М = аз.М;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> аз.прт_звʼязок != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> предмет_звʼязку = аз.прт_звʼязок.предмет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *СкладенийПредмет;</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> кдз = предмет_звʼязку.користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніІнетЗвʼязку;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        кдз.адр_звʼязок = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, аз.прт_звʼязок);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> аз.прт_обробник_підключення != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, аз.прт_обробник_підключення);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> аз.прт_обробник_даних != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, аз.прт_обробник_даних);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> аз.прт_обробник_стікання != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, аз.прт_обробник_стікання);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> аз.прт_обробник_закінчення != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, аз.прт_обробник_закінчення);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> аз.прт_обробник_помилки != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, аз.прт_обробник_помилки);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> аз.прт_обробник_відключення != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        відпустити_притриманий_глобально(М, аз.прт_обробник_відключення);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, аз);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> створити_інет_Звʼязок(М: *Машина, адр_звʼязок: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) -> *СкладенийПредмет {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдбм = М.користувацькі_дані_бібліотеки.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніБібліотекиМавки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет_звʼязку = створити_складений_предмет(М, кдбм.інет__Звʼязок);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдз = виділити&#x3C;КористувацькіДаніІнетЗвʼязку>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      кдз.адр_звʼязок = адр_звʼязок;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_звʼязку.користувацькі_дані = створити_користувацькі_дані(М, кдз, перед_знищенням_користувацьких_даних_інет_звʼязку);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> предмет_звʼязку;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> перед_знищенням_користувацьких_даних_інет_звʼязку(М: *Машина, користувацькі_дані: *КористувацькіДані) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдз = користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніІнетЗвʼязку;</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> кдз.адр_звʼязок != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        надрукувати_кд(М, </span><span style="color:#A5D6FF">"ПОМИЛКА МАВКИ: кдз.адр_звʼязок != пусто!!!"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      звільнити(М, кдз);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> ініціалізувати__інет(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      предмет_модуля: *ПредметМодуля</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      записати_клас__інет__Слуга(М, предмет_модуля);</span></span>
+<span class="line"><span style="color:#E6EDF3">      записати_клас__інет__Звʼязок(М, предмет_модуля);</span></span>
+<span class="line"><span style="color:#E6EDF3">      записати_дію__інет__служити(М, предмет_модуля);</span></span>
+<span class="line"><span style="color:#E6EDF3">      записати_дію__інет__підключитись(М, предмет_модуля);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

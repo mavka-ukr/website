@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.WX4ZOhQSy4/мавка-0.125.4/scripts/package_platform.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -e</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">RUNDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PWD</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">PROGRAM_NAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"мавка"</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_VERSION</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> машина/ВЕРСІЯ</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#E6EDF3">BUILD_PLATFORM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">print_usage</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Usage: </span><span style="color:#79C0FF">$0</span><span style="color:#A5D6FF"> &#x3C;platform>"</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Supported platforms: linux-x86_64, linux-aarch64, macos-x86_64, macos-aarch64, windows-x86_64, windows-aarch64, android-aarch64"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">set_platform_vars</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> platform</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> system arch tsil_system tsil_arch outfile</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  case</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$platform</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> in</span></span>
+<span class="line"><span style="color:#A5D6FF">    linux-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux"</span><span style="color:#E6EDF3">; arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#E6EDF3">; tsil_system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс"</span><span style="color:#E6EDF3">; tsil_arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"ікс86_64"</span><span style="color:#E6EDF3">; outfile</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    linux-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"linux"</span><span style="color:#E6EDF3">; arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; tsil_system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"лінукс"</span><span style="color:#E6EDF3">; tsil_arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"аарч64"</span><span style="color:#E6EDF3">; outfile</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    macos-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"macos"</span><span style="color:#E6EDF3">; arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#E6EDF3">; tsil_system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос"</span><span style="color:#E6EDF3">; tsil_arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"ікс86_64"</span><span style="color:#E6EDF3">; outfile</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    macos-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"macos"</span><span style="color:#E6EDF3">; arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; tsil_system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"макос"</span><span style="color:#E6EDF3">; tsil_arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"аарч64"</span><span style="color:#E6EDF3">; outfile</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    windows-x86_64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span><span style="color:#E6EDF3">; arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"x86_64"</span><span style="color:#E6EDF3">; tsil_system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс"</span><span style="color:#E6EDF3">; tsil_arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"ікс86_64"</span><span style="color:#E6EDF3">; outfile</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">.exe"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    windows-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"windows"</span><span style="color:#E6EDF3">; arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; tsil_system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"віндовс"</span><span style="color:#E6EDF3">; tsil_arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"аарч64"</span><span style="color:#E6EDF3">; outfile</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">.exe"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#A5D6FF">    android-aarch64</span><span style="color:#FF7B72">)</span></span>
+<span class="line"><span style="color:#E6EDF3">      system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"android"</span><span style="color:#E6EDF3">; arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"aarch64"</span><span style="color:#E6EDF3">; tsil_system</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"андроїд"</span><span style="color:#E6EDF3">; tsil_arch</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"аарч64"</span><span style="color:#E6EDF3">; outfile</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">    *)</span></span>
+<span class="line"><span style="color:#79C0FF">      echo</span><span style="color:#A5D6FF"> "Unsupported build platform: </span><span style="color:#E6EDF3">$platform</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#79C0FF">      exit</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3"> ;;</span></span>
+<span class="line"><span style="color:#FF7B72">  esac</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  BUILD_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$system</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  BUILD_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$arch</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  TSIL_SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$tsil_system</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  TSIL_ARCH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$tsil_arch</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  OUTFILENAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$outfile</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_PLATFORM</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FFA657">  print_usage</span></span>
+<span class="line"><span style="color:#79C0FF">  exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">set_platform_vars</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_PLATFORM</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">VERSIONDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"випуски/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">PLATFORMDIRNAME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$TSIL_SYSTEM</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$TSIL_ARCH</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">PLATFORMDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$PLATFORMDIRNAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">BINDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PLATFORMDIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">[[ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#A5D6FF"> "linux"</span><span style="color:#FF7B72"> ||</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#A5D6FF"> "macos"</span><span style="color:#FF7B72"> ||</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BUILD_SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ==</span><span style="color:#A5D6FF"> "android"</span><span style="color:#E6EDF3"> ]] &#x26;&#x26; BINDIR</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$PLATFORMDIR</span><span style="color:#A5D6FF">/програми"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BINDIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">prepare_platform_dir</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$PWD</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">  cp</span><span style="color:#A5D6FF"> "будування/</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">/</span><span style="color:#E6EDF3">$TSIL_SYSTEM</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$TSIL_ARCH</span><span style="color:#A5D6FF">/готове/</span><span style="color:#E6EDF3">$OUTFILENAME</span><span style="color:#A5D6FF">"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$BINDIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#8B949E">  # mkdir -p "$PLATFORMDIR/визначення"</span></span>
+<span class="line"><span style="color:#8B949E">  # cp -a "бібліотека/визначення" "$PLATFORMDIR"</span></span>
+<span class="line"><span style="color:#8B949E">  # cp -a "машина/визначення" "$PLATFORMDIR"</span></span>
+<span class="line"><span style="color:#FFA657">  cp</span><span style="color:#A5D6FF"> ДОЗВІЛ</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$PLATFORMDIR</span><span style="color:#A5D6FF">/ДОЗВІЛ"</span></span>
+<span class="line"><span style="color:#FFA657">  cp</span><span style="color:#A5D6FF"> LICENSE</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$PLATFORMDIR</span><span style="color:#A5D6FF">/LICENSE"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">create_platform_tarball</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#79C0FF">  cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">  tar</span><span style="color:#79C0FF"> -cJvf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$PROGRAM_NAME</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$TSIL_SYSTEM</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$TSIL_ARCH</span><span style="color:#A5D6FF">.tar.xz"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$PLATFORMDIRNAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#FFA657">  rm</span><span style="color:#79C0FF"> -rf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$PLATFORMDIRNAME</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#79C0FF">  cd</span><span style="color:#A5D6FF"> -</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF"> /dev/null</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">prepare_platform_dir</span></span>
+<span class="line"><span style="color:#FFA657">create_platform_tarball</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">get_gpg_fingerprint</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FFA657">  gpg</span><span style="color:#79C0FF"> --with-colons</span><span style="color:#79C0FF"> --list-secret-keys</span><span style="color:#79C0FF"> --fingerprint</span><span style="color:#FF7B72"> |</span><span style="color:#FFA657"> awk</span><span style="color:#79C0FF"> -F:</span><span style="color:#A5D6FF"> '/^fpr:/ {print $10; exit}'</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">sign_release_files</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> private_key</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RUNDIR</span><span style="color:#A5D6FF">/.releasegpgkey"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> passphrase_file</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$RUNDIR</span><span style="color:#A5D6FF">/.releasegpgkeypassphrase"</span></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> tmp_gpg_home</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">mktemp</span><span style="color:#79C0FF"> -d</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  export</span><span style="color:#E6EDF3"> GNUPGHOME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$tmp_gpg_home</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  gpg</span><span style="color:#79C0FF"> --batch</span><span style="color:#79C0FF"> --yes</span><span style="color:#79C0FF"> --import</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$private_key</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF">/dev/null</span><span style="color:#FF7B72"> 2>&#x26;1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> fingerprint</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">get_gpg_fingerprint</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$fingerprint</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">    echo</span><span style="color:#A5D6FF"> "Failed to get fingerprint (no secret key found)"</span></span>
+<span class="line"><span style="color:#FFA657">    rm</span><span style="color:#79C0FF"> -rf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tmp_gpg_home</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#79C0FF">    exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">  fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Using fingerprint: </span><span style="color:#E6EDF3">$fingerprint</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  local</span><span style="color:#E6EDF3"> passphrase</span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3">$(</span><span style="color:#FF7B72">&#x3C;</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$passphrase_file</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">  cd</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$VERSIONDIR</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> file </span><span style="color:#FF7B72">in</span><span style="color:#E6EDF3"> $PROGRAM_NAME</span><span style="color:#A5D6FF">-"</span><span style="color:#E6EDF3">$BUILD_VERSION</span><span style="color:#A5D6FF">"-</span><span style="color:#E6EDF3">$TSIL_SYSTEM</span><span style="color:#A5D6FF">-</span><span style="color:#E6EDF3">$TSIL_ARCH</span><span style="color:#A5D6FF">.tar.xz</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">do</span></span>
+<span class="line"><span style="color:#E6EDF3">    [ </span><span style="color:#FF7B72">!</span><span style="color:#FF7B72"> -f</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ] &#x26;&#x26; { </span><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "File not found: </span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">; </span><span style="color:#FF7B72">continue</span><span style="color:#E6EDF3">; }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    sha256sum</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">.sha256"</span></span>
+<span class="line"><span style="color:#FFA657">    gpg</span><span style="color:#79C0FF"> --batch</span><span style="color:#79C0FF"> --yes</span><span style="color:#79C0FF"> --pinentry-mode</span><span style="color:#A5D6FF"> loopback</span><span style="color:#79C0FF"> --passphrase</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$passphrase</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#79C0FF">      --local-user</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$fingerprint</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF"> --clearsign</span><span style="color:#79C0FF"> --output</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">.sha256.signed"</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$file</span><span style="color:#A5D6FF">.sha256"</span></span>
+<span class="line"><span style="color:#FF7B72">  done</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">  cd</span><span style="color:#A5D6FF"> -</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF"> /dev/null</span></span>
+<span class="line"><span style="color:#FFA657">  rm</span><span style="color:#79C0FF"> -rf</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$tmp_gpg_home</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-f</span><span style="color:#A5D6FF"> ".releasegpgkey"</span><span style="color:#E6EDF3"> ] &#x26;&#x26; [ </span><span style="color:#FF7B72">-f</span><span style="color:#A5D6FF"> ".releasegpgkeypassphrase"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FFA657">  sign_release_files</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span></code></pre>
+</body>
+</html>

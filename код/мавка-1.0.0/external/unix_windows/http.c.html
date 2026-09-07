@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.EklGZRNZNh/мавка-1.0.0/external/unix_windows/http.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;curl/curl.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;uv.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/biblioteka.h"</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/prystriy.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#79C0FF">  uv_work_t</span><span style="color:#E6EDF3"> work;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> url;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> method;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> payload;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> content_type;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  CURLcode err_code;</span></span>
+<span class="line"><span style="color:#FF7B72">  long</span><span style="color:#E6EDF3"> status_code;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> response_buffer;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> response_len;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  БібліотекаМавкиХТТПВідклик user_cb;</span></span>
+<span class="line"><span style="color:#FF7B72">  void*</span><span style="color:#E6EDF3"> user_arg;</span></span>
+<span class="line"><span style="color:#E6EDF3">} </span><span style="color:#79C0FF">http_req_t</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void*</span><span style="color:#D2A8FF"> my_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> пристрій_мавки_виділити(size);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> my_free</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> ptr</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(ptr);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void*</span><span style="color:#D2A8FF"> my_realloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> ptr</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> пристрій_мавки_перевиділити(ptr, size);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void*</span><span style="color:#D2A8FF"> my_calloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> count</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> каллок(count, size);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> char*</span><span style="color:#D2A8FF"> my_strdup</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> str</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> стрдуп(str);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">int</span><span style="color:#D2A8FF"> custom_init</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">uv_replace_allocator</span><span style="color:#E6EDF3">(my_malloc, my_realloc, my_calloc, my_free) </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  CURLcode curl_err </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> curl_global_init_mem</span><span style="color:#E6EDF3">(CURL_GLOBAL_ALL, my_malloc, my_free,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                           my_realloc, my_strdup, my_calloc);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (curl_err </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> CURLE_OK) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> size_t</span><span style="color:#D2A8FF"> write_cb</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> ptr</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> nmemb</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> userdata</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#79C0FF">  http_req_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> hreq </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">http_req_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)userdata;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> total </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> size </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> nmemb;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> new_buf </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> пристрій_мавки_перевиділити(hreq->response_buffer,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                              hreq->response_len </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> total </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">new_buf)</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  hreq->response_buffer </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> new_buf;</span></span>
+<span class="line"><span style="color:#E6EDF3">  мемкоп(hreq->response_buffer </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> hreq->response_len, ptr, total);</span></span>
+<span class="line"><span style="color:#E6EDF3">  hreq->response_len </span><span style="color:#FF7B72">+=</span><span style="color:#E6EDF3"> total;</span></span>
+<span class="line"><span style="color:#E6EDF3">  hreq->response_buffer[hreq->response_len] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> total;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> http_work_cb</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_work_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> req</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#79C0FF">  http_req_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> hreq </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">http_req_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)req->data;</span></span>
+<span class="line"><span style="color:#E6EDF3">  CURL</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> curl </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> curl_easy_init</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">curl) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    hreq->err_code </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> CURLE_FAILED_INIT;</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> curl_slist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> headers </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  curl_easy_setopt</span><span style="color:#E6EDF3">(curl, CURLOPT_URL, hreq->url);</span></span>
+<span class="line"><span style="color:#D2A8FF">  curl_easy_setopt</span><span style="color:#E6EDF3">(curl, CURLOPT_WRITEFUNCTION, write_cb);</span></span>
+<span class="line"><span style="color:#D2A8FF">  curl_easy_setopt</span><span style="color:#E6EDF3">(curl, CURLOPT_WRITEDATA, hreq);</span></span>
+<span class="line"><span style="color:#D2A8FF">  curl_easy_setopt</span><span style="color:#E6EDF3">(curl, CURLOPT_FOLLOWLOCATION, </span><span style="color:#79C0FF">1</span><span style="color:#FF7B72">L</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">strcmp</span><span style="color:#E6EDF3">(hreq->method, </span><span style="color:#A5D6FF">"POST"</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    curl_easy_setopt</span><span style="color:#E6EDF3">(curl, CURLOPT_POST, </span><span style="color:#79C0FF">1</span><span style="color:#FF7B72">L</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">strcmp</span><span style="color:#E6EDF3">(hreq->method, </span><span style="color:#A5D6FF">"GET"</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    curl_easy_setopt</span><span style="color:#E6EDF3">(curl, CURLOPT_CUSTOMREQUEST, hreq->method);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (hreq->payload) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    curl_easy_setopt</span><span style="color:#E6EDF3">(curl, CURLOPT_POSTFIELDS, hreq->payload);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (hreq->content_type) {</span></span>
+<span class="line"><span style="color:#FF7B72">    char</span><span style="color:#FFA657"> header_buf</span><span style="color:#E6EDF3">[</span><span style="color:#79C0FF">256</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#D2A8FF">    snprintf</span><span style="color:#E6EDF3">(header_buf, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(header_buf), </span><span style="color:#A5D6FF">"Content-Type: </span><span style="color:#FF7B72">%s</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">             hreq->content_type);</span></span>
+<span class="line"><span style="color:#E6EDF3">    headers </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> curl_slist_append</span><span style="color:#E6EDF3">(headers, header_buf);</span></span>
+<span class="line"><span style="color:#D2A8FF">    curl_easy_setopt</span><span style="color:#E6EDF3">(curl, CURLOPT_HTTPHEADER, headers);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  hreq->err_code </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> curl_easy_perform</span><span style="color:#E6EDF3">(curl);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (hreq->err_code </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> CURLE_OK) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    curl_easy_getinfo</span><span style="color:#E6EDF3">(curl, CURLINFO_RESPONSE_CODE, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">hreq->status_code);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (headers)</span></span>
+<span class="line"><span style="color:#D2A8FF">    curl_slist_free_all</span><span style="color:#E6EDF3">(headers);</span></span>
+<span class="line"><span style="color:#D2A8FF">  curl_easy_cleanup</span><span style="color:#E6EDF3">(curl);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> http_after_work_cb</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_work_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> req</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">int</span><span style="color:#FFA657"> status</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#79C0FF">  http_req_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> hreq </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">http_req_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)req->data;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (hreq->user_cb) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    hreq-></span><span style="color:#D2A8FF">user_cb</span><span style="color:#E6EDF3">(hreq->err_code, hreq->status_code, (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)hreq->response_buffer,</span></span>
+<span class="line"><span style="color:#E6EDF3">                  hreq->response_len, hreq->user_arg);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(hreq->url);</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(hreq->method);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (hreq->payload)</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(hreq->payload);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (hreq->content_type)</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(hreq->content_type);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (hreq->response_buffer)</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(hreq->response_buffer);</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(hreq);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> int</span><span style="color:#D2A8FF"> http_request</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">uv_loop_t</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> loop</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                        const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> method</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                        const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> url</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                        const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> payload</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                        const</span><span style="color:#FF7B72"> char*</span><span style="color:#FFA657"> content_type</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">                        БібліотекаМавкиХТТПВідклик cb,</span></span>
+<span class="line"><span style="color:#FF7B72">                        void*</span><span style="color:#FFA657"> arg</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#79C0FF">  http_req_t</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> hreq </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> calloc</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">http_req_t</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">hreq)</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  hreq->url </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strdup</span><span style="color:#E6EDF3">(url);</span></span>
+<span class="line"><span style="color:#E6EDF3">  hreq->method </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strdup</span><span style="color:#E6EDF3">(method);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (payload)</span></span>
+<span class="line"><span style="color:#E6EDF3">    hreq->payload </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strdup</span><span style="color:#E6EDF3">(payload);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (content_type)</span></span>
+<span class="line"><span style="color:#E6EDF3">    hreq->content_type </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strdup</span><span style="color:#E6EDF3">(content_type);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  hreq->user_cb </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> cb;</span></span>
+<span class="line"><span style="color:#E6EDF3">  hreq->user_arg </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> arg;</span></span>
+<span class="line"><span style="color:#E6EDF3">  hreq->work.data </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> hreq;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> uv_queue_work</span><span style="color:#E6EDF3">(loop, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">hreq->work, http_work_cb, http_after_work_cb);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_хттп_гет(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_урл,</span></span>
+<span class="line"><span style="color:#E6EDF3">                               природне розмір_урл,</span></span>
+<span class="line"><span style="color:#E6EDF3">                               БібліотекаМавкиХТТПВідклик відклик,</span></span>
+<span class="line"><span style="color:#E6EDF3">                               адреса аргумент) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> url </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(розмір_урл </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">url)</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне i </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; i </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_урл; i</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">    url</span><span style="color:#E6EDF3">[i] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char</span><span style="color:#E6EDF3">)дані_урл[i];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FFA657">  url</span><span style="color:#E6EDF3">[розмір_урл] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  http_request</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">uv_default_loop</span><span style="color:#E6EDF3">(), </span><span style="color:#A5D6FF">"GET"</span><span style="color:#E6EDF3">, url, </span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">, відклик, аргумент);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(url);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

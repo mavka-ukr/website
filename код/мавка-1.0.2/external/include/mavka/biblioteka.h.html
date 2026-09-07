@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Zmu4IZbMnX/мавка-1.0.2/external/include/mavka/biblioteka.h</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> BIBLIOTEKA_H</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> BIBLIOTEKA_H</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/tsil.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// мат</span></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_Е_р64();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_ЛОГ10_р64();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_ЛОГ2_р64();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_ЛОГ2Е_р64();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_ЛОГ10Е_р64();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_ПІ_р64();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_КОРІНЬ1_2_р64();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_КОРІНЬ2_р64();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_синус_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_косинус_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_тангенс_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арксинус_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арккосинус_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арктангенс_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арктангенс2_р64(р64 а, р64 б);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_абсолютне_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_експонента_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_корінь2_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_стеля_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_підлога_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_округлити_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_остача_від_ділення_р64(р64 а, р64 б);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_лог_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_лог2_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_лог10_р64(р64 значення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// афс</span></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_видалити(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#FF7B72">                                   void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(природне видалено,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   адреса аргумент);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_дописати(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_даних,</span></span>
+<span class="line"><span style="color:#FF7B72">                                   void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   адреса аргумент);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_записати(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_даних,</span></span>
+<span class="line"><span style="color:#FF7B72">                                   void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   адреса аргумент);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_прочитати(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#FF7B72">                                    void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     природне розмір_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    адреса аргумент);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_створити_папку(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                         природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#FF7B72">                                         void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                          адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                         адреса аргумент);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// інет</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_УСПІХ </span><span style="color:#79C0FF">0</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_НЕВІДОМА </span><span style="color:#79C0FF">1000</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_НЕДОСТАТНЬО_ПАМʼЯТІ </span><span style="color:#79C0FF">1001</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_АРГУМЕНТУ </span><span style="color:#79C0FF">1002</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_АДРЕСА_ВИКОРИСТОВУЄТЬСЯ </span><span style="color:#79C0FF">1003</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ЗʼЄДНАННЯ_ВІДХИЛЕНО </span><span style="color:#79C0FF">1004</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ЗʼЄДНАННЯ_СКИНОТО </span><span style="color:#79C0FF">1005</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_МЕРЕЖА_НЕДОСТУПНА </span><span style="color:#79C0FF">1006</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ХОСТ_НЕДОСТУПНИЙ </span><span style="color:#79C0FF">1007</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ТАЙМАУТ </span><span style="color:#79C0FF">1008</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_КАНАЛ_ЗЛАМАНО </span><span style="color:#79C0FF">1009</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ДОСТУПУ </span><span style="color:#79C0FF">1010</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ЗАБАГАТО_ФАЙЛІВ </span><span style="color:#79C0FF">1011</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_АДРЕСА_НЕДОСТУПНА </span><span style="color:#79C0FF">1012</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ПЕРЕПОВНЕННЯ_БУФЕРА </span><span style="color:#79C0FF">1013</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_МЕРЕЖА_ВІДМОВИЛА </span><span style="color:#79C0FF">1014</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_МЕРЕЖА_СКИНУТА </span><span style="color:#79C0FF">1015</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ЗʼЄДНАННЯ_ПЕРЕРВАНО </span><span style="color:#79C0FF">1016</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ВЖЕ_ПІДДОСЛІДЖЕНО </span><span style="color:#79C0FF">1017</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_НЕ_ПІДʼЄДНАНО </span><span style="color:#79C0FF">1018</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_ВХІД_ВИХІД </span><span style="color:#79C0FF">1019</span></span>
+<span class="line"><span style="color:#E6EDF3">#define МАВКА_ІНЕТ_ПОМИЛКА_НЕПРАВИЛЬНИЙ_ФАЙЛ </span><span style="color:#79C0FF">1020</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">#define БІБЛІОТЕКА_МАВКИ_ВИД_ІА_ІП4 </span><span style="color:#79C0FF">4</span></span>
+<span class="line"><span style="color:#E6EDF3">#define БІБЛІОТЕКА_МАВКИ_ВИД_ІА_ІП6 </span><span style="color:#79C0FF">6</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// інет слуга</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникЗапуску)(адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                        природне помилка);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникПомилки)(адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                        природне помилка);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникЗупинки)(адреса адр_слуга);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникЗнищення)(адреса аргумент);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникПідключенняЗвʼязку)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникДанихЗвʼязку)(адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                             адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                             п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                             природне розмір);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникСтіканняЗвʼязку)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникЗакінченняЗвʼязку)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникПомилкиЗвʼязку)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне помилка);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетСлугаОбробникВідключенняЗвʼязку)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_служити(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне іа_вид,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> іа_дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне іа_розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне порт,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникЗапуску обробник_запуску,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникПомилки обробник_помилки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникЗупинки обробник_зупинки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникЗнищення обробник_знищення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникПідключенняЗвʼязку</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_підключення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникДанихЗвʼязку обробник_даних_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникСтіканняЗвʼязку обробник_стікання_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникЗакінченняЗвʼязку</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_закінчення_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникПомилкиЗвʼязку обробник_помилки_звʼязку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетСлугаОбробникВідключенняЗвʼязку</span></span>
+<span class="line"><span style="color:#E6EDF3">        обробник_відключення_звʼязку);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">адреса бібліотека_мавки_інет_отримати_аргумент_слуги(адреса адр_слуга);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_зупинити_слугу(адреса адр_слуга,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                          природне закрити_підключення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// інет клієнт</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетКлієнтОбробникПідключення)(адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                             природне помилка);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетКлієнтОбробникДаних)(адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                       п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                       природне розмір);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетКлієнтОбробникСтікання)(адреса адр_звʼязок);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетКлієнтОбробникЗакінчення)(адреса адр_звʼязок);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетКлієнтОбробникПомилки)(адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                         природне помилка);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетКлієнтОбробникВідключення)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетЗвʼязокОбробникЗнищення)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент_звʼязку);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетЗвʼязокОбробникНадіслання)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент_надіслання);</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиІнетЗвʼязокОбробникЗакінчення)(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент_закінчення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_підключитись(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне іа_вид,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> іа_дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне іа_розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне порт,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникПідключення обробник_підключення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникДаних обробник_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникСтікання обробник_стікання,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникЗакінчення обробник_закінчення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникПомилки обробник_помилки,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетКлієнтОбробникВідключення обробник_відключення,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетЗвʼязокОбробникЗнищення обробник_знищення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// returns 4 if IPv4</span></span>
+<span class="line"><span style="color:#8B949E">// returns 6 if IPv6</span></span>
+<span class="line"><span style="color:#E6EDF3">природне бібліотека_мавки_інет_отримати_іа_звʼязку(адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_іа4,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                   п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_іа6);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_записати_аргумент_звʼязку(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетЗвʼязокОбробникЗнищення обробник_знищення);</span></span>
+<span class="line"><span style="color:#E6EDF3">адреса бібліотека_мавки_інет_отримати_аргумент_звʼязку(адреса адр_звʼязок);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// returns true when queued</span></span>
+<span class="line"><span style="color:#8B949E">// returns false when buffer is full</span></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_інет_звʼязок_надіслати(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетЗвʼязокОбробникНадіслання обробник);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_звʼязок_закінчити(</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса адр_звʼязок,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    адреса аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    БібліотекаМавкиІнетЗвʼязокОбробникЗакінчення обробник);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_інет_звʼязок_знищити(адреса адр_звʼязок);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// хттп</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">БібліотекаМавкиХТТПВідклик)(ціле помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                           ціле код_статусу,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                           п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_тіла,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                           природне розмір_тіла,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                           адреса аргумент);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_хттп_гет(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_урл,</span></span>
+<span class="line"><span style="color:#E6EDF3">                               природне розмір_урл,</span></span>
+<span class="line"><span style="color:#E6EDF3">                               БібліотекаМавкиХТТПВідклик відклик,</span></span>
+<span class="line"><span style="color:#E6EDF3">                               адреса аргумент);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#endif</span><span style="color:#8B949E"> // BIBLIOTEKA_H</span></span></code></pre>
+</body>
+</html>

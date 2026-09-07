@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Zmu4IZbMnX/мавка-1.0.2/тестування/Число/двійкове_не_цілого.м</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">;; тест 0: просте НЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">а = </span><span style="color:#79C0FF">5</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = ~а</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = -</span><span style="color:#79C0FF">6</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 0: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 1: НЕ від нуля</span></span>
+<span class="line"><span style="color:#E6EDF3">а = </span><span style="color:#79C0FF">0</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = ~а</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = -</span><span style="color:#79C0FF">1</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 1: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 2: НЕ від -1</span></span>
+<span class="line"><span style="color:#E6EDF3">а = -</span><span style="color:#79C0FF">1</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = ~а</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = </span><span style="color:#79C0FF">0</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 2: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 3: подвійне НЕ</span></span>
+<span class="line"><span style="color:#E6EDF3">а = </span><span style="color:#79C0FF">42</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = ~(~а)</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = </span><span style="color:#79C0FF">42</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 3: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">;; тест 4: НЕ від від'ємного</span></span>
+<span class="line"><span style="color:#E6EDF3">а = -</span><span style="color:#79C0FF">10</span></span>
+<span class="line"><span style="color:#E6EDF3">результат = ~а</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_результат = </span><span style="color:#79C0FF">9</span></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> результат != очікуваний_результат</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span><span style="color:#A5D6FF"> "тест 4: результат має бути %(очікуваний_результат), а рівно %(результат)"</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span></code></pre>
+</body>
+</html>

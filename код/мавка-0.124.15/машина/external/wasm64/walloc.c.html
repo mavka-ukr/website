@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.Yq3Ae32EiS/мавка-0.124.15/машина/external/wasm64/walloc.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// walloc.c: a small malloc implementation for use in WebAssembly targets</span></span>
+<span class="line"><span style="color:#8B949E">// Copyright (c) 2020 Igalia, S.L.</span></span>
+<span class="line"><span style="color:#8B949E">//</span></span>
+<span class="line"><span style="color:#8B949E">// Permission is hereby granted, free of charge, to any person obtaining a</span></span>
+<span class="line"><span style="color:#8B949E">// copy of this software and associated documentation files (the</span></span>
+<span class="line"><span style="color:#8B949E">// "Software"), to deal in the Software without restriction, including</span></span>
+<span class="line"><span style="color:#8B949E">// without limitation the rights to use, copy, modify, merge, publish,</span></span>
+<span class="line"><span style="color:#8B949E">// distribute, sublicense, and/or sell copies of the Software, and to</span></span>
+<span class="line"><span style="color:#8B949E">// permit persons to whom the Software is furnished to do so, subject to</span></span>
+<span class="line"><span style="color:#8B949E">// the following conditions:</span></span>
+<span class="line"><span style="color:#8B949E">//</span></span>
+<span class="line"><span style="color:#8B949E">// The above copyright notice and this permission notice shall be included</span></span>
+<span class="line"><span style="color:#8B949E">// in all copies or substantial portions of the Software.</span></span>
+<span class="line"><span style="color:#8B949E">//</span></span>
+<span class="line"><span style="color:#8B949E">// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS</span></span>
+<span class="line"><span style="color:#8B949E">// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF</span></span>
+<span class="line"><span style="color:#8B949E">// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</span></span>
+<span class="line"><span style="color:#8B949E">// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE</span></span>
+<span class="line"><span style="color:#8B949E">// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION</span></span>
+<span class="line"><span style="color:#8B949E">// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION</span></span>
+<span class="line"><span style="color:#8B949E">// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FFA657"> __SIZE_TYPE__</span><span style="color:#FF7B72"> size_t</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FFA657"> __UINTPTR_TYPE__</span><span style="color:#FF7B72"> uintptr_t</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FFA657"> __UINT8_TYPE__</span><span style="color:#FF7B72"> uint8_t</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> NULL</span><span style="color:#E6EDF3"> ((</span><span style="color:#FF7B72">void*</span><span style="color:#E6EDF3">)</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> STATIC_ASSERT_EQ</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">a</span><span style="color:#E6EDF3">, </span><span style="color:#FFA657">b</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">_Static_assert</span><span style="color:#E6EDF3">((a) </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> (b), </span><span style="color:#A5D6FF">"eq"</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> NDEBUG</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> ASSERT</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">x</span><span style="color:#E6EDF3">)       </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FF7B72">  do</span><span style="color:#E6EDF3"> {                  </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">(x))           </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#D2A8FF">      __builtin_trap</span><span style="color:#E6EDF3">(); </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">while</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#FF7B72">#else</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> ASSERT</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">x</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FF7B72">  do</span><span style="color:#E6EDF3"> {            </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">while</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> ASSERT_EQ</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">a</span><span style="color:#E6EDF3">, </span><span style="color:#FFA657">b</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">ASSERT</span><span style="color:#E6EDF3">((a) </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> (b))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> inline</span><span style="color:#FF7B72"> size_t</span><span style="color:#D2A8FF"> max</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> a</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> b</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> a </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> b </span><span style="color:#FF7B72">?</span><span style="color:#E6EDF3"> b </span><span style="color:#FF7B72">:</span><span style="color:#E6EDF3"> a;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> inline</span><span style="color:#FF7B72"> uintptr_t</span><span style="color:#D2A8FF"> align</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#FFA657"> val</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">uintptr_t</span><span style="color:#FFA657"> alignment</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> (val </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> alignment </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">&#x26;</span><span style="color:#FF7B72"> ~</span><span style="color:#E6EDF3">(alignment </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> ASSERT_ALIGNED</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">x</span><span style="color:#E6EDF3">, </span><span style="color:#FFA657">y</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">ASSERT</span><span style="color:#E6EDF3">((x) </span><span style="color:#FF7B72">==</span><span style="color:#D2A8FF"> align</span><span style="color:#E6EDF3">((x), y))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> CHUNK_SIZE</span><span style="color:#79C0FF"> 256</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> CHUNK_SIZE_LOG_2</span><span style="color:#79C0FF"> 8</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> CHUNK_MASK</span><span style="color:#E6EDF3"> (CHUNK_SIZE </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#D2A8FF">STATIC_ASSERT_EQ</span><span style="color:#E6EDF3">(CHUNK_SIZE, </span><span style="color:#79C0FF">1</span><span style="color:#FF7B72"> &#x3C;&#x3C;</span><span style="color:#E6EDF3"> CHUNK_SIZE_LOG_2);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> PAGE_SIZE</span><span style="color:#79C0FF"> 65536</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> PAGE_SIZE_LOG_2</span><span style="color:#79C0FF"> 16</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> PAGE_MASK</span><span style="color:#E6EDF3"> (PAGE_SIZE </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#D2A8FF">STATIC_ASSERT_EQ</span><span style="color:#E6EDF3">(PAGE_SIZE, </span><span style="color:#79C0FF">1</span><span style="color:#FF7B72"> &#x3C;&#x3C;</span><span style="color:#E6EDF3"> PAGE_SIZE_LOG_2);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> CHUNKS_PER_PAGE</span><span style="color:#79C0FF"> 256</span></span>
+<span class="line"><span style="color:#D2A8FF">STATIC_ASSERT_EQ</span><span style="color:#E6EDF3">(PAGE_SIZE, CHUNK_SIZE</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> CHUNKS_PER_PAGE</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> GRANULE_SIZE</span><span style="color:#79C0FF"> 8</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> GRANULE_SIZE_LOG_2</span><span style="color:#79C0FF"> 3</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> LARGE_OBJECT_THRESHOLD</span><span style="color:#79C0FF"> 256</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> LARGE_OBJECT_GRANULE_THRESHOLD</span><span style="color:#79C0FF"> 32</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">STATIC_ASSERT_EQ</span><span style="color:#E6EDF3">(GRANULE_SIZE, </span><span style="color:#79C0FF">1</span><span style="color:#FF7B72"> &#x3C;&#x3C;</span><span style="color:#E6EDF3"> GRANULE_SIZE_LOG_2);</span></span>
+<span class="line"><span style="color:#D2A8FF">STATIC_ASSERT_EQ</span><span style="color:#E6EDF3">(LARGE_OBJECT_THRESHOLD,</span></span>
+<span class="line"><span style="color:#E6EDF3">                 LARGE_OBJECT_GRANULE_THRESHOLD</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> GRANULE_SIZE</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> chunk {</span></span>
+<span class="line"><span style="color:#FF7B72">  char</span><span style="color:#FFA657"> data</span><span style="color:#E6EDF3">[CHUNK_SIZE];</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// There are small object pages for allocations of these sizes.</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> FOR_EACH_SMALL_OBJECT_GRANULES</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">M</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#D2A8FF">  M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">4</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">5</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">6</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">8</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">16</span><span style="color:#E6EDF3">) </span><span style="color:#D2A8FF">M</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">32</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">enum</span><span style="color:#E6EDF3"> chunk_kind {</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> DEFINE_SMALL_OBJECT_CHUNK_KIND</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">i</span><span style="color:#E6EDF3">) GRANULES_##i,</span></span>
+<span class="line"><span style="color:#D2A8FF">  FOR_EACH_SMALL_OBJECT_GRANULES</span><span style="color:#E6EDF3">(DEFINE_SMALL_OBJECT_CHUNK_KIND)</span></span>
+<span class="line"><span style="color:#FF7B72">#undef</span><span style="color:#D2A8FF"> DEFINE_SMALL_OBJECT_CHUNK_KIND</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      SMALL_OBJECT_CHUNK_KINDS,</span></span>
+<span class="line"><span style="color:#E6EDF3">  FREE_LARGE_OBJECT </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 254</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  LARGE_OBJECT </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 255</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> const</span><span style="color:#FF7B72"> uint8_t</span><span style="color:#E6EDF3"> small_object_granule_sizes</span><span style="color:#FF7B72">[]</span><span style="color:#FF7B72"> =</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> SMALL_OBJECT_GRANULE_SIZE</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">i</span><span style="color:#E6EDF3">) i,</span></span>
+<span class="line"><span style="color:#D2A8FF">    FOR_EACH_SMALL_OBJECT_GRANULES</span><span style="color:#E6EDF3">(SMALL_OBJECT_GRANULE_SIZE)</span></span>
+<span class="line"><span style="color:#FF7B72">#undef</span><span style="color:#D2A8FF"> SMALL_OBJECT_GRANULE_SIZE</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> enum</span><span style="color:#E6EDF3"> chunk_kind </span><span style="color:#D2A8FF">granules_to_chunk_kind</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">unsigned</span><span style="color:#FFA657"> granules</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> TEST_GRANULE_SIZE</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">i</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (granules </span><span style="color:#FF7B72">&#x3C;=</span><span style="color:#E6EDF3"> i)         </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> GRANULES_##i;</span></span>
+<span class="line"><span style="color:#D2A8FF">  FOR_EACH_SMALL_OBJECT_GRANULES</span><span style="color:#E6EDF3">(TEST_GRANULE_SIZE);</span></span>
+<span class="line"><span style="color:#FF7B72">#undef</span><span style="color:#D2A8FF"> TEST_GRANULE_SIZE</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> LARGE_OBJECT;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> unsigned</span><span style="color:#D2A8FF"> chunk_kind_to_granules</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">enum</span><span style="color:#E6EDF3"> chunk_kind </span><span style="color:#FFA657">kind</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  switch</span><span style="color:#E6EDF3"> (kind) {</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> CHUNK_KIND_GRANULE_SIZE</span><span style="color:#E6EDF3">(</span><span style="color:#FFA657">i</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#E6EDF3">  case GRANULES_##i:               </span><span style="color:#FF7B72">\</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> i;</span></span>
+<span class="line"><span style="color:#D2A8FF">    FOR_EACH_SMALL_OBJECT_GRANULES</span><span style="color:#E6EDF3">(CHUNK_KIND_GRANULE_SIZE);</span></span>
+<span class="line"><span style="color:#FF7B72">#undef</span><span style="color:#D2A8FF"> CHUNK_KIND_GRANULE_SIZE</span></span>
+<span class="line"><span style="color:#FF7B72">    default</span><span style="color:#E6EDF3">:</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// Given a pointer P returned by malloc(), we get a header pointer via</span></span>
+<span class="line"><span style="color:#8B949E">// P&#x26;~PAGE_MASK, and a chunk index via (P&#x26;PAGE_MASK)/CHUNKS_PER_PAGE.  If</span></span>
+<span class="line"><span style="color:#8B949E">// chunk_kinds[chunk_idx] is [FREE_]LARGE_OBJECT, then the pointer is a large</span></span>
+<span class="line"><span style="color:#8B949E">// object, otherwise the kind indicates the size in granules of the objects in</span></span>
+<span class="line"><span style="color:#8B949E">// the chunk.</span></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> page_header {</span></span>
+<span class="line"><span style="color:#FF7B72">  uint8_t</span><span style="color:#FFA657"> chunk_kinds</span><span style="color:#E6EDF3">[CHUNKS_PER_PAGE];</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> page {</span></span>
+<span class="line"><span style="color:#FF7B72">  union</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> page_header header;</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> chunk </span><span style="color:#FFA657">chunks</span><span style="color:#E6EDF3">[CHUNKS_PER_PAGE];</span></span>
+<span class="line"><span style="color:#E6EDF3">  };</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> PAGE_HEADER_SIZE</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> page_header))</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> FIRST_ALLOCATABLE_CHUNK</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#D2A8FF">STATIC_ASSERT_EQ</span><span style="color:#E6EDF3">(PAGE_HEADER_SIZE, FIRST_ALLOCATABLE_CHUNK</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> CHUNK_SIZE</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#D2A8FF"> get_page</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> ptr</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)(</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)(((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)ptr) </span><span style="color:#FF7B72">&#x26;</span><span style="color:#FF7B72"> ~</span><span style="color:#E6EDF3">PAGE_MASK);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> unsigned</span><span style="color:#D2A8FF"> get_chunk_index</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> ptr</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> (((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)ptr) </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3"> PAGE_MASK) </span><span style="color:#FF7B72">/</span><span style="color:#E6EDF3"> CHUNK_SIZE;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> freelist {</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> next;</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object {</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> next;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> size;</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> LARGE_OBJECT_HEADER_SIZE</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> inline</span><span style="color:#FF7B72"> void*</span><span style="color:#D2A8FF"> get_large_object_payload</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> obj</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> ((</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)obj) </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> LARGE_OBJECT_HEADER_SIZE;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> inline</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#D2A8FF"> get_large_object</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> ptr</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)(((</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)ptr) </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> LARGE_OBJECT_HEADER_SIZE);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> small_object_freelists</span><span style="color:#E6EDF3">[SMALL_OBJECT_CHUNK_KINDS];</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> large_objects;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> __heap_base;</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> size_t</span><span style="color:#E6EDF3"> walloc_heap_size;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#D2A8FF"> allocate_pages</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> payload_size</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t*</span><span style="color:#FFA657"> n_allocated</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> needed </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> payload_size </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> PAGE_HEADER_SIZE;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> heap_size </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> __builtin_wasm_memory_size</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> PAGE_SIZE;</span></span>
+<span class="line"><span style="color:#FF7B72">  uintptr_t</span><span style="color:#E6EDF3"> base </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> heap_size;</span></span>
+<span class="line"><span style="color:#FF7B72">  uintptr_t</span><span style="color:#E6EDF3"> preallocated </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">, grow </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">walloc_heap_size) {</span></span>
+<span class="line"><span style="color:#8B949E">    // We are allocating the initial pages, if any.  We skip the first 64 kB,</span></span>
+<span class="line"><span style="color:#8B949E">    // then take any additional space up to the memory size.</span></span>
+<span class="line"><span style="color:#FF7B72">    uintptr_t</span><span style="color:#E6EDF3"> heap_base </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> align</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">__heap_base, PAGE_SIZE);</span></span>
+<span class="line"><span style="color:#E6EDF3">    preallocated </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> heap_size </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> heap_base;</span><span style="color:#8B949E"> // Preallocated pages.</span></span>
+<span class="line"><span style="color:#E6EDF3">    walloc_heap_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> preallocated;</span></span>
+<span class="line"><span style="color:#E6EDF3">    base </span><span style="color:#FF7B72">-=</span><span style="color:#E6EDF3"> preallocated;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (preallocated </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> needed) {</span></span>
+<span class="line"><span style="color:#8B949E">    // Always grow the walloc heap at least by 50%.</span></span>
+<span class="line"><span style="color:#E6EDF3">    grow </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> align</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">max</span><span style="color:#E6EDF3">(walloc_heap_size </span><span style="color:#FF7B72">/</span><span style="color:#79C0FF"> 2</span><span style="color:#E6EDF3">, needed </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> preallocated), PAGE_SIZE);</span></span>
+<span class="line"><span style="color:#D2A8FF">    ASSERT</span><span style="color:#E6EDF3">(grow);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">__builtin_wasm_memory_grow</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, grow </span><span style="color:#FF7B72">>></span><span style="color:#E6EDF3"> PAGE_SIZE_LOG_2) </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    walloc_heap_size </span><span style="color:#FF7B72">+=</span><span style="color:#E6EDF3"> grow;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ret </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)base;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> grow </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> preallocated;</span></span>
+<span class="line"><span style="color:#D2A8FF">  ASSERT</span><span style="color:#E6EDF3">(size);</span></span>
+<span class="line"><span style="color:#D2A8FF">  ASSERT_ALIGNED</span><span style="color:#E6EDF3">(size, PAGE_SIZE);</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">n_allocated </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> size </span><span style="color:#FF7B72">/</span><span style="color:#E6EDF3"> PAGE_SIZE;</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> ret;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> char*</span><span style="color:#D2A8FF"> allocate_chunk</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#FFA657"> page</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                            unsigned</span><span style="color:#FFA657"> idx</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                            enum</span><span style="color:#E6EDF3"> chunk_kind </span><span style="color:#FFA657">kind</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  page->header.chunk_kinds[idx] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> kind;</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> page->chunks[idx].data;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// It's possible for splitting to produce a large object of size 248 (256 minus</span></span>
+<span class="line"><span style="color:#8B949E">// the header size) -- i.e. spanning a single chunk.  In that case, push the</span></span>
+<span class="line"><span style="color:#8B949E">// chunk back on the GRANULES_32 small object freelist.</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> maybe_repurpose_single_chunk_large_objects_head</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (large_objects->size </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> CHUNK_SIZE) {</span></span>
+<span class="line"><span style="color:#FF7B72">    unsigned</span><span style="color:#E6EDF3"> idx </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_chunk_index</span><span style="color:#E6EDF3">(large_objects);</span></span>
+<span class="line"><span style="color:#FF7B72">    char*</span><span style="color:#E6EDF3"> ptr </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> allocate_chunk</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">get_page</span><span style="color:#E6EDF3">(large_objects), idx, GRANULES_32);</span></span>
+<span class="line"><span style="color:#E6EDF3">    large_objects </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> large_objects->next;</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> head </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)ptr;</span></span>
+<span class="line"><span style="color:#E6EDF3">    head->next </span><span style="color:#FF7B72">=</span><span style="color:#FFA657"> small_object_freelists</span><span style="color:#E6EDF3">[GRANULES_32];</span></span>
+<span class="line"><span style="color:#FFA657">    small_object_freelists</span><span style="color:#E6EDF3">[GRANULES_32] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> head;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// If there have been any large-object frees since the last large object</span></span>
+<span class="line"><span style="color:#8B949E">// allocation, go through the freelist and merge any adjacent objects.</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> int</span><span style="color:#E6EDF3"> pending_large_object_compact </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">**</span><span style="color:#D2A8FF"> maybe_merge_free_large_object</span><span style="color:#E6EDF3">(</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">**</span><span style="color:#FFA657"> prev</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> obj </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">prev;</span></span>
+<span class="line"><span style="color:#FF7B72">  while</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    char*</span><span style="color:#E6EDF3"> end </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_large_object_payload</span><span style="color:#E6EDF3">(obj) </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> obj->size;</span></span>
+<span class="line"><span style="color:#D2A8FF">    ASSERT_ALIGNED</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)end, CHUNK_SIZE);</span></span>
+<span class="line"><span style="color:#FF7B72">    unsigned</span><span style="color:#E6EDF3"> chunk </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_chunk_index</span><span style="color:#E6EDF3">(end);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (chunk </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> FIRST_ALLOCATABLE_CHUNK) {</span></span>
+<span class="line"><span style="color:#8B949E">      // Merging can't create a large object that newly spans the header chunk.</span></span>
+<span class="line"><span style="color:#8B949E">      // This check also catches the end-of-heap case.</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> prev;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> page </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_page</span><span style="color:#E6EDF3">(end);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (page->header.chunk_kinds[chunk] </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> FREE_LARGE_OBJECT) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> prev;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> next </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)end;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> large_object </span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3">prev_prev </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#E6EDF3">large_objects, </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">walk </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> large_objects;</span></span>
+<span class="line"><span style="color:#FF7B72">    while</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">      ASSERT</span><span style="color:#E6EDF3">(walk);</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (walk </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> next) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        obj->size </span><span style="color:#FF7B72">+=</span><span style="color:#E6EDF3"> LARGE_OBJECT_HEADER_SIZE </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> walk->size;</span></span>
+<span class="line"><span style="color:#FF7B72">        *</span><span style="color:#E6EDF3">prev_prev </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> walk->next;</span></span>
+<span class="line"><span style="color:#FF7B72">        if</span><span style="color:#E6EDF3"> (prev </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#E6EDF3">walk->next) {</span></span>
+<span class="line"><span style="color:#E6EDF3">          prev </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> prev_prev;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#FF7B72">        break</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      prev_prev </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#E6EDF3">walk->next;</span></span>
+<span class="line"><span style="color:#E6EDF3">      walk </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> walk->next;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> maybe_compact_free_large_objects</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (pending_large_object_compact) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    pending_large_object_compact </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> prev </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#E6EDF3">large_objects;</span></span>
+<span class="line"><span style="color:#FF7B72">    while</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">prev) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      prev </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#D2A8FF">maybe_merge_free_large_object</span><span style="color:#E6EDF3">(prev))->next;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// Allocate a large object with enough space for SIZE payload bytes.  Returns a</span></span>
+<span class="line"><span style="color:#8B949E">// large object with a header, aligned on a chunk boundary, whose payload size</span></span>
+<span class="line"><span style="color:#8B949E">// may be larger than SIZE, and whose total size (header included) is</span></span>
+<span class="line"><span style="color:#8B949E">// chunk-aligned.  Either a suitable allocation is found in the large object</span></span>
+<span class="line"><span style="color:#8B949E">// freelist, or we ask the OS for some more pages and treat those pages as a</span></span>
+<span class="line"><span style="color:#8B949E">// large object.  If the allocation fits in that large object and there's more</span></span>
+<span class="line"><span style="color:#8B949E">// than an aligned chunk's worth of data free at the end, the large object is</span></span>
+<span class="line"><span style="color:#8B949E">// split.</span></span>
+<span class="line"><span style="color:#8B949E">//</span></span>
+<span class="line"><span style="color:#8B949E">// The return value's corresponding chunk in the page as starting a large</span></span>
+<span class="line"><span style="color:#8B949E">// object.</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#D2A8FF"> allocate_large_object</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">  maybe_compact_free_large_objects</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> large_object </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">best </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3">best_prev </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#E6EDF3">large_objects;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> best_size </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object </span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3">prev </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#E6EDF3">large_objects, </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">walk </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> large_objects; walk;</span></span>
+<span class="line"><span style="color:#E6EDF3">       prev </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#E6EDF3">walk->next, walk </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> walk->next) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (walk->size </span><span style="color:#FF7B72">>=</span><span style="color:#E6EDF3"> size </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> walk->size </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> best_size) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      best_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> walk->size;</span></span>
+<span class="line"><span style="color:#E6EDF3">      best </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> walk;</span></span>
+<span class="line"><span style="color:#E6EDF3">      best_prev </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> prev;</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (best_size </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> LARGE_OBJECT_HEADER_SIZE </span><span style="color:#FF7B72">==</span></span>
+<span class="line"><span style="color:#D2A8FF">          align</span><span style="color:#E6EDF3">(size </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> LARGE_OBJECT_HEADER_SIZE, CHUNK_SIZE))</span></span>
+<span class="line"><span style="color:#8B949E">        // Not going to do any better than this; just return it.</span></span>
+<span class="line"><span style="color:#FF7B72">        break</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">best) {</span></span>
+<span class="line"><span style="color:#8B949E">    // The large object freelist doesn't have an object big enough for this</span></span>
+<span class="line"><span style="color:#8B949E">    // allocation.  Allocate one or more pages from the OS, and treat that new</span></span>
+<span class="line"><span style="color:#8B949E">    // sequence of pages as a fresh large object.  It will be split if</span></span>
+<span class="line"><span style="color:#8B949E">    // necessary.</span></span>
+<span class="line"><span style="color:#FF7B72">    size_t</span><span style="color:#E6EDF3"> size_with_header </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> size </span><span style="color:#FF7B72">+</span><span style="color:#FF7B72"> sizeof</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object);</span></span>
+<span class="line"><span style="color:#FF7B72">    size_t</span><span style="color:#E6EDF3"> n_allocated </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> page </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> allocate_pages</span><span style="color:#E6EDF3">(size_with_header, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">n_allocated);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">page) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    char*</span><span style="color:#E6EDF3"> ptr </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> allocate_chunk</span><span style="color:#E6EDF3">(page, FIRST_ALLOCATABLE_CHUNK, LARGE_OBJECT);</span></span>
+<span class="line"><span style="color:#E6EDF3">    best </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)ptr;</span></span>
+<span class="line"><span style="color:#FF7B72">    size_t</span><span style="color:#E6EDF3"> page_header </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> ptr </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> ((</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)page);</span></span>
+<span class="line"><span style="color:#E6EDF3">    best->next </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> large_objects;</span></span>
+<span class="line"><span style="color:#E6EDF3">    best->size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> best_size </span><span style="color:#FF7B72">=</span></span>
+<span class="line"><span style="color:#E6EDF3">        n_allocated </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> PAGE_SIZE </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> page_header </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> LARGE_OBJECT_HEADER_SIZE;</span></span>
+<span class="line"><span style="color:#D2A8FF">    ASSERT</span><span style="color:#E6EDF3">(best_size </span><span style="color:#FF7B72">>=</span><span style="color:#E6EDF3"> size_with_header);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  allocate_chunk</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">get_page</span><span style="color:#E6EDF3">(best), </span><span style="color:#D2A8FF">get_chunk_index</span><span style="color:#E6EDF3">(best), LARGE_OBJECT);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> next </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> best->next;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">best_prev </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> next;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> tail_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (best_size </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> size) </span><span style="color:#FF7B72">&#x26;</span><span style="color:#FF7B72"> ~</span><span style="color:#E6EDF3">CHUNK_MASK;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (tail_size) {</span></span>
+<span class="line"><span style="color:#8B949E">    // The best-fitting object has 1 or more aligned chunks free after the</span></span>
+<span class="line"><span style="color:#8B949E">    // requested allocation; split the tail off into a fresh aligned object.</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> start_page </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_page</span><span style="color:#E6EDF3">(best);</span></span>
+<span class="line"><span style="color:#FF7B72">    char*</span><span style="color:#E6EDF3"> start </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_large_object_payload</span><span style="color:#E6EDF3">(best);</span></span>
+<span class="line"><span style="color:#FF7B72">    char*</span><span style="color:#E6EDF3"> end </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> start </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> best_size;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (start_page </span><span style="color:#FF7B72">==</span><span style="color:#D2A8FF"> get_page</span><span style="color:#E6EDF3">(end </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> tail_size </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">)) {</span></span>
+<span class="line"><span style="color:#8B949E">      // The allocation does not span a page boundary; yay.</span></span>
+<span class="line"><span style="color:#D2A8FF">      ASSERT_ALIGNED</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)end, CHUNK_SIZE);</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (size </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> PAGE_SIZE </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> LARGE_OBJECT_HEADER_SIZE </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> CHUNK_SIZE) {</span></span>
+<span class="line"><span style="color:#8B949E">      // If the allocation itself smaller than a page, split off the head, then</span></span>
+<span class="line"><span style="color:#8B949E">      // fall through to maybe split the tail.</span></span>
+<span class="line"><span style="color:#D2A8FF">      ASSERT_ALIGNED</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)end, PAGE_SIZE);</span></span>
+<span class="line"><span style="color:#FF7B72">      size_t</span><span style="color:#E6EDF3"> first_page_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> PAGE_SIZE </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> (((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)start) </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3"> PAGE_MASK);</span></span>
+<span class="line"><span style="color:#FF7B72">      struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> head </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> best;</span></span>
+<span class="line"><span style="color:#D2A8FF">      allocate_chunk</span><span style="color:#E6EDF3">(start_page, </span><span style="color:#D2A8FF">get_chunk_index</span><span style="color:#E6EDF3">(start), FREE_LARGE_OBJECT);</span></span>
+<span class="line"><span style="color:#E6EDF3">      head->size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> first_page_size;</span></span>
+<span class="line"><span style="color:#E6EDF3">      head->next </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> large_objects;</span></span>
+<span class="line"><span style="color:#E6EDF3">      large_objects </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> head;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">      maybe_repurpose_single_chunk_large_objects_head</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> next_page </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> start_page </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      char*</span><span style="color:#E6EDF3"> ptr </span><span style="color:#FF7B72">=</span></span>
+<span class="line"><span style="color:#D2A8FF">          allocate_chunk</span><span style="color:#E6EDF3">(next_page, FIRST_ALLOCATABLE_CHUNK, LARGE_OBJECT);</span></span>
+<span class="line"><span style="color:#E6EDF3">      best </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)ptr;</span></span>
+<span class="line"><span style="color:#E6EDF3">      best->size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> best_size </span><span style="color:#FF7B72">=</span></span>
+<span class="line"><span style="color:#E6EDF3">          best_size </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> first_page_size </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> CHUNK_SIZE </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> LARGE_OBJECT_HEADER_SIZE;</span></span>
+<span class="line"><span style="color:#D2A8FF">      ASSERT</span><span style="color:#E6EDF3">(best_size </span><span style="color:#FF7B72">>=</span><span style="color:#E6EDF3"> size);</span></span>
+<span class="line"><span style="color:#E6EDF3">      start </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_large_object_payload</span><span style="color:#E6EDF3">(best);</span></span>
+<span class="line"><span style="color:#E6EDF3">      tail_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (best_size </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> size) </span><span style="color:#FF7B72">&#x26;</span><span style="color:#FF7B72"> ~</span><span style="color:#E6EDF3">CHUNK_MASK;</span></span>
+<span class="line"><span style="color:#E6EDF3">    } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">      // A large object that spans more than one page will consume all of its</span></span>
+<span class="line"><span style="color:#8B949E">      // tail pages.  Therefore if the split traverses a page boundary, round up</span></span>
+<span class="line"><span style="color:#8B949E">      // to page size.</span></span>
+<span class="line"><span style="color:#D2A8FF">      ASSERT_ALIGNED</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)end, PAGE_SIZE);</span></span>
+<span class="line"><span style="color:#FF7B72">      size_t</span><span style="color:#E6EDF3"> first_page_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> PAGE_SIZE </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> (((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)start) </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3"> PAGE_MASK);</span></span>
+<span class="line"><span style="color:#FF7B72">      size_t</span><span style="color:#E6EDF3"> tail_pages_size </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> align</span><span style="color:#E6EDF3">(size </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> first_page_size, PAGE_SIZE);</span></span>
+<span class="line"><span style="color:#E6EDF3">      size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> first_page_size </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> tail_pages_size;</span></span>
+<span class="line"><span style="color:#E6EDF3">      tail_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> best_size </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> size;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">    best->size </span><span style="color:#FF7B72">-=</span><span style="color:#E6EDF3"> tail_size;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    unsigned</span><span style="color:#E6EDF3"> tail_idx </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_chunk_index</span><span style="color:#E6EDF3">(end </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> tail_size);</span></span>
+<span class="line"><span style="color:#FF7B72">    while</span><span style="color:#E6EDF3"> (tail_idx </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> FIRST_ALLOCATABLE_CHUNK </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> tail_size) {</span></span>
+<span class="line"><span style="color:#8B949E">      // We would be splitting in a page header; don't do that.</span></span>
+<span class="line"><span style="color:#E6EDF3">      tail_size </span><span style="color:#FF7B72">-=</span><span style="color:#E6EDF3"> CHUNK_SIZE;</span></span>
+<span class="line"><span style="color:#E6EDF3">      tail_idx</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (tail_size) {</span></span>
+<span class="line"><span style="color:#FF7B72">      struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> page </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_page</span><span style="color:#E6EDF3">(end </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> tail_size);</span></span>
+<span class="line"><span style="color:#FF7B72">      char*</span><span style="color:#E6EDF3"> tail_ptr </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> allocate_chunk</span><span style="color:#E6EDF3">(page, tail_idx, FREE_LARGE_OBJECT);</span></span>
+<span class="line"><span style="color:#FF7B72">      struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> tail </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)tail_ptr;</span></span>
+<span class="line"><span style="color:#E6EDF3">      tail->next </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> large_objects;</span></span>
+<span class="line"><span style="color:#E6EDF3">      tail->size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> tail_size </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> LARGE_OBJECT_HEADER_SIZE;</span></span>
+<span class="line"><span style="color:#D2A8FF">      ASSERT_ALIGNED</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)(</span><span style="color:#D2A8FF">get_large_object_payload</span><span style="color:#E6EDF3">(tail) </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> tail->size),</span></span>
+<span class="line"><span style="color:#E6EDF3">                     CHUNK_SIZE);</span></span>
+<span class="line"><span style="color:#E6EDF3">      large_objects </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> tail;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">      maybe_repurpose_single_chunk_large_objects_head</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  ASSERT_ALIGNED</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">uintptr_t</span><span style="color:#E6EDF3">)(</span><span style="color:#D2A8FF">get_large_object_payload</span><span style="color:#E6EDF3">(best) </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> best->size),</span></span>
+<span class="line"><span style="color:#E6EDF3">                 CHUNK_SIZE);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> best;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#D2A8FF"> obtain_small_objects</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">enum</span><span style="color:#E6EDF3"> chunk_kind </span><span style="color:#FFA657">kind</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> whole_chunk_freelist </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#FFA657">small_object_freelists</span><span style="color:#E6EDF3">[GRANULES_32];</span></span>
+<span class="line"><span style="color:#FF7B72">  void*</span><span style="color:#E6EDF3"> chunk;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">whole_chunk_freelist) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    chunk </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">whole_chunk_freelist;</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">whole_chunk_freelist </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">whole_chunk_freelist)->next;</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    chunk </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> allocate_large_object</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">chunk) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> ptr </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> allocate_chunk</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">get_page</span><span style="color:#E6EDF3">(chunk), </span><span style="color:#D2A8FF">get_chunk_index</span><span style="color:#E6EDF3">(chunk), kind);</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> end </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> ptr </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> CHUNK_SIZE;</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> next </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> size </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> chunk_kind_to_granules</span><span style="color:#E6EDF3">(kind) </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> GRANULE_SIZE;</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> i </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> size; i </span><span style="color:#FF7B72">&#x3C;=</span><span style="color:#E6EDF3"> CHUNK_SIZE; i </span><span style="color:#FF7B72">+=</span><span style="color:#E6EDF3"> size) {</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> head </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)(end </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> i);</span></span>
+<span class="line"><span style="color:#E6EDF3">    head->next </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> next;</span></span>
+<span class="line"><span style="color:#E6EDF3">    next </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> head;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> next;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> inline</span><span style="color:#FF7B72"> size_t</span><span style="color:#D2A8FF"> size_to_granules</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> (size </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> GRANULE_SIZE </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">>></span><span style="color:#E6EDF3"> GRANULE_SIZE_LOG_2;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">**</span><span style="color:#D2A8FF"> get_small_object_freelist</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">enum</span><span style="color:#E6EDF3"> chunk_kind </span><span style="color:#FFA657">kind</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">  ASSERT</span><span style="color:#E6EDF3">(kind </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> SMALL_OBJECT_CHUNK_KINDS);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#FF7B72"> &#x26;</span><span style="color:#FFA657">small_object_freelists</span><span style="color:#E6EDF3">[kind];</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void*</span><span style="color:#D2A8FF"> allocate_small</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">enum</span><span style="color:#E6EDF3"> chunk_kind </span><span style="color:#FFA657">kind</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> loc </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_small_object_freelist</span><span style="color:#E6EDF3">(kind);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">loc) {</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> freelist </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> obtain_small_objects</span><span style="color:#E6EDF3">(kind);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">freelist) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">loc </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> freelist;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> ret </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">loc;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">loc </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> ret->next;</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">void*</span><span style="color:#E6EDF3">)ret;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void*</span><span style="color:#D2A8FF"> allocate_large</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> obj </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> allocate_large_object</span><span style="color:#E6EDF3">(size);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> obj </span><span style="color:#FF7B72">?</span><span style="color:#D2A8FF"> get_large_object_payload</span><span style="color:#E6EDF3">(obj) </span><span style="color:#FF7B72">:</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> granules </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> size_to_granules</span><span style="color:#E6EDF3">(size);</span></span>
+<span class="line"><span style="color:#FF7B72">  enum</span><span style="color:#E6EDF3"> chunk_kind kind </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> granules_to_chunk_kind</span><span style="color:#E6EDF3">(granules);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> (kind </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> LARGE_OBJECT) </span><span style="color:#FF7B72">?</span><span style="color:#D2A8FF"> allocate_large</span><span style="color:#E6EDF3">(size) </span><span style="color:#FF7B72">:</span><span style="color:#D2A8FF"> allocate_small</span><span style="color:#E6EDF3">(kind);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#D2A8FF"> free</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> ptr</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">ptr)</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> page </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_page</span><span style="color:#E6EDF3">(ptr);</span></span>
+<span class="line"><span style="color:#FF7B72">  unsigned</span><span style="color:#E6EDF3"> chunk </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_chunk_index</span><span style="color:#E6EDF3">(ptr);</span></span>
+<span class="line"><span style="color:#FF7B72">  uint8_t</span><span style="color:#E6EDF3"> kind </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> page->header.chunk_kinds[chunk];</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (kind </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> LARGE_OBJECT) {</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> obj </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_large_object</span><span style="color:#E6EDF3">(ptr);</span></span>
+<span class="line"><span style="color:#E6EDF3">    obj->next </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> large_objects;</span></span>
+<span class="line"><span style="color:#E6EDF3">    large_objects </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> obj;</span></span>
+<span class="line"><span style="color:#D2A8FF">    allocate_chunk</span><span style="color:#E6EDF3">(page, chunk, FREE_LARGE_OBJECT);</span></span>
+<span class="line"><span style="color:#E6EDF3">    pending_large_object_compact </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    size_t</span><span style="color:#E6EDF3"> granules </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> kind;</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> loc </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_small_object_freelist</span><span style="color:#E6EDF3">(granules);</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> freelist</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> obj </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> ptr;</span></span>
+<span class="line"><span style="color:#E6EDF3">    obj->next </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">loc;</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">loc </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> obj;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// generated by claude opus 4.5</span></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> realloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> ptr</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#8B949E">  // If ptr is NULL, realloc behaves like malloc</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">ptr)</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#D2A8FF"> malloc</span><span style="color:#E6EDF3">(size);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // If size is 0, realloc behaves like free and returns NULL</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (size </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    free</span><span style="color:#E6EDF3">(ptr);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> page</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> page </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_page</span><span style="color:#E6EDF3">(ptr);</span></span>
+<span class="line"><span style="color:#FF7B72">  unsigned</span><span style="color:#E6EDF3"> chunk </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_chunk_index</span><span style="color:#E6EDF3">(ptr);</span></span>
+<span class="line"><span style="color:#FF7B72">  uint8_t</span><span style="color:#E6EDF3"> kind </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> page->header.chunk_kinds[chunk];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> old_size;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (kind </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> LARGE_OBJECT) {</span></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> large_object</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> obj </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> get_large_object</span><span style="color:#E6EDF3">(ptr);</span></span>
+<span class="line"><span style="color:#E6EDF3">    old_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> obj->size;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // If the new size fits in the current large object, return the same pointer</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (size </span><span style="color:#FF7B72">&#x3C;=</span><span style="color:#E6EDF3"> old_size) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> ptr;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">    // Small object: calculate the size from granules</span></span>
+<span class="line"><span style="color:#FF7B72">    size_t</span><span style="color:#E6EDF3"> granules </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> chunk_kind_to_granules</span><span style="color:#E6EDF3">(kind);</span></span>
+<span class="line"><span style="color:#E6EDF3">    old_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> granules </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> GRANULE_SIZE;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // Check if new size still fits in the same chunk kind</span></span>
+<span class="line"><span style="color:#FF7B72">    size_t</span><span style="color:#E6EDF3"> new_granules </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> size_to_granules</span><span style="color:#E6EDF3">(size);</span></span>
+<span class="line"><span style="color:#FF7B72">    enum</span><span style="color:#E6EDF3"> chunk_kind new_kind </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> granules_to_chunk_kind</span><span style="color:#E6EDF3">(new_granules);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (new_kind </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> kind) {</span></span>
+<span class="line"><span style="color:#8B949E">      // Same size class, no need to reallocate</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#E6EDF3"> ptr;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // If new size is smaller but different class, we could optimize,</span></span>
+<span class="line"><span style="color:#8B949E">    // but for simplicity we'll reallocate</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Allocate new block, copy data, and free old block</span></span>
+<span class="line"><span style="color:#FF7B72">  void*</span><span style="color:#E6EDF3"> new_ptr </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> malloc</span><span style="color:#E6EDF3">(size);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">new_ptr)</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Copy the minimum of old and new sizes</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> copy_size </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> old_size </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> size </span><span style="color:#FF7B72">?</span><span style="color:#E6EDF3"> old_size </span><span style="color:#FF7B72">:</span><span style="color:#E6EDF3"> size;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> src </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)ptr;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> dst </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)new_ptr;</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> i </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; i </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> copy_size; i</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">    dst</span><span style="color:#E6EDF3">[i] </span><span style="color:#FF7B72">=</span><span style="color:#FFA657"> src</span><span style="color:#E6EDF3">[i];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  free</span><span style="color:#E6EDF3">(ptr);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> new_ptr;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span></code></pre>
+</body>
+</html>

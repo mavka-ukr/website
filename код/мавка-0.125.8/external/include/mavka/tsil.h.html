@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.2oufJNuzcL/мавка-0.125.8/external/include/mavka/tsil.h</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> TSIL_H</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> TSIL_H</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#ifdef</span><span style="color:#D2A8FF"> _WIN32</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;windows.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> BOOL логічне;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> UINT8 п8;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> UINT16 п16;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> UINT32 п32;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> UINT64 п64;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> INT32 ц32;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> INT64 ц64;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> double</span><span style="color:#E6EDF3"> р64;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> SIZE_T природне;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> SSIZE_T ціле;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#else</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stdbool.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stddef.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stdint.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// Include unistd.h on POSIX systems</span></span>
+<span class="line"><span style="color:#FF7B72">#if</span><span style="color:#FF7B72"> defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">__unix__</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">||</span><span style="color:#FF7B72"> defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">__unix</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">||</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#E6EDF3">    (</span><span style="color:#FF7B72">defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">__APPLE__</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#FF7B72"> defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">__MACH__</span><span style="color:#E6EDF3">))</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;unistd.h></span></span>
+<span class="line"><span style="color:#FF7B72">#else</span></span>
+<span class="line"><span style="color:#8B949E">// Define ssize_t for non-POSIX, non-Windows systems</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> intptr_t</span><span style="color:#FF7B72"> ssize_t</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> bool</span><span style="color:#E6EDF3"> логічне;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> uint8_t</span><span style="color:#E6EDF3"> п8;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> uint16_t</span><span style="color:#E6EDF3"> п16;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> uint32_t</span><span style="color:#E6EDF3"> п32;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> uint64_t</span><span style="color:#E6EDF3"> п64;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> int32_t</span><span style="color:#E6EDF3"> ц32;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> int64_t</span><span style="color:#E6EDF3"> ц64;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> double</span><span style="color:#E6EDF3"> р64;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> size_t</span><span style="color:#E6EDF3"> природне;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> ssize_t</span><span style="color:#E6EDF3"> ціле;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> void*</span><span style="color:#E6EDF3"> адреса;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> ю8 ю8;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> кд кд;</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> struct</span><span style="color:#E6EDF3"> Дані Дані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> ю8 {</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані;</span><span style="color:#8B949E"> // null-terminated</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> кд {</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані;</span><span style="color:#8B949E"> // null-terminated</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">struct</span><span style="color:#E6EDF3"> Дані {</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#endif</span><span style="color:#8B949E"> // TSIL_H</span></span></code></pre>
+</body>
+</html>

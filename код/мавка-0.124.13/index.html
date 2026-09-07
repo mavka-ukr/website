@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>мавка-0.124.13</title>
+    <link rel="icon" type="image/png" href="./докс_код_favicon.png" />
+    <link
+      rel="icon"
+      sizes="any"
+      type="image/svg+xml"
+      href="./докс_код_favicon.svg"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0d1117;
+        --bg-sidebar: #0d1117;
+        --bg-titlebar: #0d1117;
+        --bg-hover: #6e76811a;
+        --bg-selected: #6e768166;
+        --border: #30363d;
+        --accent: #1f6feb;
+        --text: #e6edf3;
+        --text-muted: #8b949e;
+        --text-heading: #8b949e;
+        --folder-color: #d29922;
+        --file-color: #79c0ff;
+        --tree-text: #c9d1d9;
+        --sidebar-width: 260px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+        font-size: 13px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ─── Рядок заголовку ───────────────────────────────── */
+      .TitleBar {
+        height: 35px;
+        flex-shrink: 0;
+        background: var(--bg-titlebar);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        user-select: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .TitleBar-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        pointer-events: none;
+        max-width: calc(100% - 80px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .TitleBar-toggle {
+        position: absolute;
+        left: 8px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: none;
+        border: none;
+        border-radius: 3px;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 0;
+      }
+      .TitleBar-toggle:hover {
+        background: var(--bg-hover);
+        color: var(--text);
+      }
+
+      .TitleBar-actions {
+        position: absolute;
+        left: 8px;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .TitleBar-action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: none;
+        border: none;
+        border-radius: 3px;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 0;
+        text-decoration: none;
+      }
+      .TitleBar-action:hover {
+        background: var(--bg-hover);
+        color: var(--text);
+      }
+      .TitleBar-action[hidden] {
+        display: none;
+      }
+
+      /* ─── Робоча область ─────────────────────────────────── */
+      .Workbench {
+        flex: 1;
+        display: flex;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* ─── Бічна панель ─────────────────────────────────── */
+      .Sidebar {
+        width: var(--sidebar-width);
+        flex-shrink: 0;
+        background: var(--bg-sidebar);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .Sidebar-head {
+        height: 35px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        padding: 0 14px;
+      }
+
+      .Sidebar-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        color: var(--text-heading);
+      }
+
+      /* ─── Дерево ─────────────────────────────────────────── */
+      .Tree {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 2px 0 8px;
+      }
+      .Tree::-webkit-scrollbar {
+        width: 8px;
+      }
+      .Tree::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .Tree::-webkit-scrollbar-thumb {
+        background: rgba(121, 121, 121, 0.35);
+        border-radius: 4px;
+      }
+      .Tree::-webkit-scrollbar-thumb:hover {
+        background: rgba(121, 121, 121, 0.6);
+      }
+
+      .TreeList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .TreeItem {
+        list-style: none;
+      }
+
+      .TreeRow {
+        display: flex;
+        align-items: center;
+        height: 22px;
+        padding-right: 8px;
+        gap: 2px;
+        cursor: pointer;
+        user-select: none;
+        color: var(--tree-text);
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        outline: none;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .TreeRow:hover {
+        background: var(--bg-hover);
+      }
+      .TreeRow.is-selected {
+        background: var(--bg-selected);
+      }
+      .TreeRow:focus-visible {
+        outline: 1px solid var(--accent);
+        outline-offset: -1px;
+      }
+
+      .TreeRow-chevron {
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        transition: transform 0.12s ease;
+      }
+      .TreeRow[aria-expanded="true"] .TreeRow-chevron {
+        transform: rotate(90deg);
+      }
+
+      .TreeRow-spacer {
+        flex-shrink: 0;
+        width: 16px;
+      }
+
+      .TreeRow-icon {
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .TreeRow-icon svg {
+        width: 16px;
+        height: 16px;
+        display: block;
+      }
+
+      .TreeRow-label {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 13px;
+        line-height: 1;
+      }
+
+      .TreeChildren {
+        list-style: none;
+      }
+      .TreeChildren[hidden] {
+        display: none;
+      }
+
+      /* ─── Редактор ───────────────────────────────────────── */
+      .Editor {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg);
+        overflow: hidden;
+      }
+
+      .Welcome {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--text-muted);
+        pointer-events: none;
+      }
+      .Welcome-icon {
+        opacity: 0.12;
+      }
+      .Welcome-hint {
+        font-size: 14px;
+      }
+      .Welcome.is-hidden {
+        display: none;
+      }
+
+      .EditorFrame {
+        flex: 1;
+        min-height: 0;
+        border: none;
+        width: 100%;
+        height: 100%;
+        background: var(--bg);
+        display: none;
+        color-scheme: dark;
+      }
+      .EditorFrame.is-visible {
+        display: block;
+      }
+
+      /* ─── Мобільне накладення ──────────────────────────── */
+      .Overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.48);
+        z-index: 50;
+      }
+
+      /* ─── Адаптивність ──────────────────────────────────── */
+      @media (max-width: 680px) {
+        .TitleBar-toggle {
+          display: flex;
+        }
+
+        .TitleBar-actions {
+          left: auto;
+          right: 8px;
+        }
+
+        .Sidebar {
+          position: fixed;
+          top: 35px;
+          bottom: 22px;
+          left: 0;
+          z-index: 100;
+          transform: translateX(-100%);
+          transition: transform 0.2s ease;
+          box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+          border-right-color: rgba(255, 255, 255, 0.08);
+        }
+        .Sidebar.is-open {
+          transform: translateX(0);
+        }
+
+        .Overlay.is-visible {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="TitleBar">
+      <button
+        class="TitleBar-toggle"
+        id="sidebarToggle"
+        aria-label="Перемкнути провідник"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M1 3.5h14v1H1v-1zm0 4h14v1H1v-1zm0 4h14v1H1v-1z"
+          />
+        </svg>
+      </button>
+      <span class="TitleBar-label" id="titleLabel">мавка-0.124.13</span>
+
+      <div class="TitleBar-actions">
+        <a
+          class="TitleBar-action"
+          id="versionsBtn"
+          href="../index.html"
+          aria-label="Версії"
+          title="Версії"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"
+            />
+          </svg>
+        </a>
+        <a
+          class="TitleBar-action"
+          id="downloadBtn"
+          href="https://github.com/mavka-ukr/files/raw/main/%D0%B2%D0%B8%D0%BF%D1%83%D1%81%D0%BA%D0%B8-%D0%BC%D0%B0%D0%B2%D0%BA%D0%B8/0.124.13/%D0%BC%D0%B0%D0%B2%D0%BA%D0%B0-0.124.13.tar.xz"
+          download
+          aria-label="Завантажити"
+          title="Завантажити"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75
+              8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75z"
+            />
+            <path
+              d="M1.75 13.25a.75.75 0 000 1.5h12.5a.75.75 0 000-1.5H1.75z"
+            />
+          </svg>
+        </a>
+        <a
+          class="TitleBar-action"
+          id="githubBtn"
+          href="https://github.com/mavka-ukr/mavka"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          title="GitHub"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+              0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+              -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+              .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+              -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
+              .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+              .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+              0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="Workbench">
+      <div class="Overlay" id="overlay"></div>
+
+      <aside class="Sidebar" id="sidebar" aria-label="Провідник">
+        <div class="Sidebar-head">
+          <span class="Sidebar-title">мавка-0.124.13</span>
+        </div>
+        <nav class="Tree" id="tree"></nav>
+      </aside>
+
+      <main class="Editor">
+        <div class="Welcome" id="welcome">
+          <svg
+            class="Welcome-icon"
+            width="72"
+            height="72"
+            viewBox="0 0 72 72"
+            fill="none"
+            aria-hidden="true"
+          >
+            <rect
+              x="4"
+              y="4"
+              width="64"
+              height="64"
+              rx="6"
+              stroke="#cccccc"
+              stroke-width="3"
+            />
+            <path
+              d="M18 26h36M18 36h28M18 46h20"
+              stroke="#cccccc"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span class="Welcome-hint">Оберіть файл для перегляду</span>
+        </div>
+
+        <iframe
+          class="EditorFrame"
+          id="editorFrame"
+          title="Перегляд файлу"
+          sandbox="allow-scripts allow-same-origin"
+        ></iframe>
+      </main>
+    </div>
+
+    <script>
+      const TREE      = {"children":[{"type":"file","name":".gitignore","path":".gitignore"},{"type":"file","name":"LICENSE","path":"LICENSE"},{"type":"file","name":"README.md","path":"README.md"},{"type":"folder","name":"external","children":[{"type":"file","name":".clang-format","path":"external/.clang-format"},{"type":"folder","name":"include","children":[{"type":"folder","name":"mavka","children":[{"type":"file","name":"biblioteka.h","path":"external/include/mavka/biblioteka.h"},{"type":"file","name":"main.h","path":"external/include/mavka/main.h"}]}]},{"type":"folder","name":"linux","children":[{"type":"file","name":"biblioteka_linux.c","path":"external/linux/biblioteka_linux.c"}]},{"type":"folder","name":"macos","children":[{"type":"file","name":"biblioteka_macos.c","path":"external/macos/biblioteka_macos.c"}]},{"type":"folder","name":"unix","children":[{"type":"file","name":"biblioteka_unix.c","path":"external/unix/biblioteka_unix.c"},{"type":"file","name":"main_unix.c","path":"external/unix/main_unix.c"}]},{"type":"folder","name":"wasm64","children":[{"type":"file","name":"biblioteka_wasm64.c","path":"external/wasm64/biblioteka_wasm64.c"},{"type":"file","name":"main_wasm64.c","path":"external/wasm64/main_wasm64.c"}]},{"type":"folder","name":"windows","children":[{"type":"file","name":"biblioteka_windows.c","path":"external/windows/biblioteka_windows.c"},{"type":"file","name":"main_windows.c","path":"external/windows/main_windows.c"}]}]},{"type":"folder","name":"scripts","children":[{"type":"file","name":"build.sh","path":"scripts/build.sh"},{"type":"file","name":"build_deps.sh","path":"scripts/build_deps.sh"},{"type":"file","name":"download_libs.sh","path":"scripts/download_libs.sh"},{"type":"file","name":"icon.res","path":"scripts/icon.res"},{"type":"file","name":"package_platform.sh","path":"scripts/package_platform.sh"},{"type":"file","name":"package_source.sh","path":"scripts/package_source.sh"},{"type":"file","name":"release.sh","path":"scripts/release.sh"},{"type":"file","name":"test.sh","path":"scripts/test.sh"}]},{"type":"file","name":"ДОЗВІЛ","path":"ДОЗВІЛ"},{"type":"folder","name":"бібліотека","children":[{"type":"file","name":"бібліотека.ц","path":"бібліотека/бібліотека.ц"},{"type":"folder","name":"математика","children":[{"type":"file","name":"_.ц","path":"бібліотека/математика/_.ц"}]},{"type":"folder","name":"означення","children":[{"type":"folder","name":"мавка","children":[{"type":"file","name":"бібліотека.о.ц","path":"бібліотека/означення/мавка/бібліотека.о.ц"}]}]},{"type":"folder","name":"система","children":[{"type":"file","name":"_.ц","path":"бібліотека/система/_.ц"},{"type":"file","name":"видалити.ц","path":"бібліотека/система/видалити.ц"},{"type":"file","name":"дописати.ц","path":"бібліотека/система/дописати.ц"},{"type":"file","name":"записати.ц","path":"бібліотека/система/записати.ц"},{"type":"file","name":"прочитати.ц","path":"бібліотека/система/прочитати.ц"},{"type":"file","name":"створити_папку.ц","path":"бібліотека/система/створити_папку.ц"}]},{"type":"folder","name":"читати","children":[{"type":"file","name":"_.ц","path":"бібліотека/читати/_.ц"}]}]},{"type":"folder","name":"машина","children":[{"type":"file","name":"LICENSE","path":"машина/LICENSE"},{"type":"file","name":"README.md","path":"машина/README.md"},{"type":"folder","name":"external","children":[{"type":"file","name":".clang-format","path":"машина/external/.clang-format"},{"type":"folder","name":"include","children":[{"type":"folder","name":"mavka","children":[{"type":"file","name":"prystriy.h","path":"машина/external/include/mavka/prystriy.h"},{"type":"file","name":"tsil.h","path":"машина/external/include/mavka/tsil.h"}]}]},{"type":"folder","name":"linux","children":[{"type":"file","name":"prystriy_linux.c","path":"машина/external/linux/prystriy_linux.c"}]},{"type":"folder","name":"macos","children":[{"type":"file","name":"prystriy_macos.c","path":"машина/external/macos/prystriy_macos.c"}]},{"type":"folder","name":"unix","children":[{"type":"file","name":"prystriy_unix.c","path":"машина/external/unix/prystriy_unix.c"}]},{"type":"folder","name":"wasm64","children":[{"type":"file","name":"prystriy_wasm64.c","path":"машина/external/wasm64/prystriy_wasm64.c"},{"type":"file","name":"walloc.c","path":"машина/external/wasm64/walloc.c"}]},{"type":"folder","name":"windows","children":[{"type":"file","name":"prystriy_windows.c","path":"машина/external/windows/prystriy_windows.c"}]}]},{"type":"folder","name":"scripts","children":[{"type":"file","name":"build.sh","path":"машина/scripts/build.sh"}]},{"type":"file","name":"ІнформаціяПадіння.ц","path":"машина/ІнформаціяПадіння.ц"},{"type":"file","name":"ВЕРСІЯ","path":"машина/ВЕРСІЯ"},{"type":"file","name":"ВзятіЗначення.ц","path":"машина/ВзятіЗначення.ц"},{"type":"file","name":"ДОЗВІЛ","path":"машина/ДОЗВІЛ"},{"type":"file","name":"Допоміжне.ц","path":"машина/Допоміжне.ц"},{"type":"file","name":"Дійсність.ц","path":"машина/Дійсність.ц"},{"type":"file","name":"Задіяні.ц","path":"машина/Задіяні.ц"},{"type":"file","name":"Значення.ц","path":"машина/Значення.ц"},{"type":"folder","name":"КД","children":[{"type":"file","name":"КД.ц","path":"машина/КД/КД.ц"},{"type":"folder","name":"означення","children":[{"type":"folder","name":"КД","children":[{"type":"file","name":"КД.о.ц","path":"машина/КД/означення/КД/КД.о.ц"}]}]}]},{"type":"file","name":"КористувацькіДані.ц","path":"машина/КористувацькіДані.ц"},{"type":"file","name":"Машина.ц","path":"машина/Машина.ц"},{"type":"file","name":"МісцезнаходженняВказівок.ц","path":"машина/МісцезнаходженняВказівок.ц"},{"type":"file","name":"НакопичувачТексту.ц","path":"машина/НакопичувачТексту.ц"},{"type":"file","name":"Очищувач.ц","path":"машина/Очищувач.ц"},{"type":"file","name":"Призначення.ц","path":"машина/Призначення.ц"},{"type":"file","name":"Притримувач.ц","path":"машина/Притримувач.ц"},{"type":"file","name":"Спроби.ц","path":"машина/Спроби.ц"},{"type":"folder","name":"означення","children":[{"type":"folder","name":"мавка","children":[{"type":"file","name":"мавка.о.ц","path":"машина/означення/мавка/мавка.о.ц"},{"type":"file","name":"машина.о.ц","path":"машина/означення/мавка/машина.о.ц"},{"type":"file","name":"перекладач.о.ц","path":"машина/означення/мавка/перекладач.о.ц"},{"type":"file","name":"пристрій.о.ц","path":"машина/означення/мавка/пристрій.о.ц"},{"type":"file","name":"розбирач.о.ц","path":"машина/означення/мавка/розбирач.о.ц"}]}]},{"type":"folder","name":"перекладач","children":[{"type":"file","name":"перекладач.ц","path":"машина/перекладач/перекладач.ц"}]},{"type":"folder","name":"предмети","children":[{"type":"folder","name":"Дані","children":[{"type":"file","name":"ПредметДаних.ц","path":"машина/предмети/Дані/ПредметДаних.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"чародія_перебір.ц","path":"машина/предмети/Дані/методи/чародія_перебір.ц"}]}]},{"type":"folder","name":"ДіапазонЧисел","children":[{"type":"file","name":"ПредметДіапазонуЧисел.ц","path":"машина/предмети/ДіапазонЧисел/ПредметДіапазонуЧисел.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"чародія_перебір.ц","path":"машина/предмети/ДіапазонЧисел/методи/чародія_перебір.ц"}]}]},{"type":"folder","name":"Дія","children":[{"type":"file","name":"ПредметДії.ц","path":"машина/предмети/Дія/ПредметДії.ц"}]},{"type":"folder","name":"Код","children":[{"type":"file","name":"ПредметКоду.ц","path":"машина/предмети/Код/ПредметКоду.ц"}]},{"type":"folder","name":"Модуль","children":[{"type":"file","name":"ПредметМодуля.ц","path":"машина/предмети/Модуль/ПредметМодуля.ц"}]},{"type":"folder","name":"Параметр","children":[{"type":"file","name":"ПредметПараметра.ц","path":"машина/предмети/Параметр/ПредметПараметра.ц"}]},{"type":"folder","name":"ПеребірДаних","children":[{"type":"file","name":"ПредметПереборуДаних.ц","path":"машина/предмети/ПеребірДаних/ПредметПереборуДаних.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"далі.ц","path":"машина/предмети/ПеребірДаних/методи/далі.ц"}]}]},{"type":"folder","name":"ПеребірДіапазонуЧисел","children":[{"type":"file","name":"ПредметПереборуДіапазонуЧисел.ц","path":"машина/предмети/ПеребірДіапазонуЧисел/ПредметПереборуДіапазонуЧисел.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"далі.ц","path":"машина/предмети/ПеребірДіапазонуЧисел/методи/далі.ц"}]}]},{"type":"folder","name":"ПеребірПослідовності","children":[{"type":"file","name":"ПредметПереборуПослідовності.ц","path":"машина/предмети/ПеребірПослідовності/ПредметПереборуПослідовності.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"далі.ц","path":"машина/предмети/ПеребірПослідовності/методи/далі.ц"}]}]},{"type":"folder","name":"ПеребірСловника","children":[{"type":"file","name":"ПредметПереборуСловника.ц","path":"машина/предмети/ПеребірСловника/ПредметПереборуСловника.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"далі.ц","path":"машина/предмети/ПеребірСловника/методи/далі.ц"}]}]},{"type":"folder","name":"ПеребірСписку","children":[{"type":"file","name":"ПредметПереборуСписку.ц","path":"машина/предмети/ПеребірСписку/ПредметПереборуСписку.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"далі.ц","path":"машина/предмети/ПеребірСписку/методи/далі.ц"}]}]},{"type":"folder","name":"ПеребірТексту","children":[{"type":"file","name":"ПредметПереборуТексту.ц","path":"машина/предмети/ПеребірТексту/ПредметПереборуТексту.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"далі.ц","path":"машина/предмети/ПеребірТексту/методи/далі.ц"}]}]},{"type":"folder","name":"Послідовність","children":[{"type":"file","name":"ПредметПослідовності.ц","path":"машина/предмети/Послідовність/ПредметПослідовності.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"чародія_перебір.ц","path":"машина/предмети/Послідовність/методи/чародія_перебір.ц"}]}]},{"type":"file","name":"СкладенийПредмет.ц","path":"машина/предмети/СкладенийПредмет.ц"},{"type":"folder","name":"Словник","children":[{"type":"file","name":"ПредметСловника.ц","path":"машина/предмети/Словник/ПредметСловника.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"значення.ц","path":"машина/предмети/Словник/методи/значення.ц"},{"type":"file","name":"ключі.ц","path":"машина/предмети/Словник/методи/ключі.ц"},{"type":"file","name":"містить.ц","path":"машина/предмети/Словник/методи/містить.ц"},{"type":"file","name":"чародія_перебір.ц","path":"машина/предмети/Словник/методи/чародія_перебір.ц"},{"type":"file","name":"чародія_текст.ц","path":"машина/предмети/Словник/методи/чародія_текст.ц"}]}]},{"type":"folder","name":"Список","children":[{"type":"file","name":"ПредметСписку.ц","path":"машина/предмети/Список/ПредметСписку.ц"},{"type":"folder","name":"методи","children":[{"type":"file","name":"додати.ц","path":"машина/предмети/Список/методи/додати.ц"},{"type":"file","name":"забрати.ц","path":"машина/предмети/Список/методи/забрати.ц"},{"type":"file","name":"знайти.ц","path":"машина/предмети/Список/методи/знайти.ц"},{"type":"file","name":"знайти_позицію.ц","path":"машина/предмети/Список/методи/знайти_позицію.ц"},{"type":"file","name":"містить.ц","path":"машина/предмети/Список/методи/містить.ц"},{"type":"file","name":"обернений.ц","path":"машина/предмети/Список/методи/обернений.ц"},{"type":"file","name":"перетворений.ц","path":"машина/предмети/Список/методи/перетворений.ц"},{"type":"file","name":"фільтрований.ц","path":"машина/предмети/Список/методи/фільтрований.ц"},{"type":"file","name":"чародія_перебір.ц","path":"машина/предмети/Список/методи/чародія_перебір.ц"},{"type":"file","name":"чародія_текст.ц","path":"машина/предмети/Список/методи/чародія_текст.ц"}]}]},{"type":"folder","name":"Структура","children":[{"type":"file","name":"ПредметСтруктури.ц","path":"машина/предмети/Структура/ПредметСтруктури.ц"}]},{"type":"folder","name":"Текст","children":[{"type":"file","name":"ПредметТексту.ц","path":"машина/предмети/Текст/ПредметТексту.ц"},{"type":"folder","name":"дії","children":[{"type":"file","name":"з.ц","path":"машина/предмети/Текст/дії/з.ц"}]},{"type":"folder","name":"методи","children":[{"type":"file","name":"чародія_перебір.ц","path":"машина/предмети/Текст/методи/чародія_перебір.ц"},{"type":"file","name":"чародія_текст.ц","path":"машина/предмети/Текст/методи/чародія_текст.ц"},{"type":"file","name":"чародія_число.ц","path":"машина/предмети/Текст/методи/чародія_число.ц"}]}]},{"type":"folder","name":"Число","children":[{"type":"file","name":"ПредметЧисла.ц","path":"машина/предмети/Число/ПредметЧисла.ц"},{"type":"folder","name":"дії","children":[{"type":"file","name":"з.ц","path":"машина/предмети/Число/дії/з.ц"}]},{"type":"folder","name":"методи","children":[{"type":"file","name":"чародія_текст.ц","path":"машина/предмети/Число/методи/чародія_текст.ц"},{"type":"file","name":"чародія_число.ц","path":"машина/предмети/Число/методи/чародія_число.ц"}]}]}]},{"type":"folder","name":"пристрій","children":[{"type":"file","name":"взяти_файл.ц","path":"машина/пристрій/взяти_файл.ц"},{"type":"file","name":"вивід.ц","path":"машина/пристрій/вивід.ц"},{"type":"file","name":"глобальні.ц","path":"машина/пристрій/глобальні.ц"},{"type":"file","name":"діалог.ц","path":"машина/пристрій/діалог.ц"},{"type":"file","name":"машина.ц","path":"машина/пристрій/машина.ц"},{"type":"file","name":"пристрій.ц","path":"машина/пристрій/пристрій.ц"}]},{"type":"folder","name":"розбирач","children":[{"type":"file","name":"розбирач.ц","path":"машина/розбирач/розбирач.ц"}]}]},{"type":"file","name":"старт.ц","path":"старт.ц"},{"type":"folder","name":"тестування","children":[{"type":"folder","name":"Рухоме","children":[{"type":"file","name":"більше_рухомого.м","path":"тестування/Рухоме/більше_рухомого.м"},{"type":"file","name":"віднімання_рухомого.м","path":"тестування/Рухоме/віднімання_рухомого.м"},{"type":"file","name":"додавання_рухомого.м","path":"тестування/Рухоме/додавання_рухомого.м"},{"type":"file","name":"ділення_рухомого.м","path":"тестування/Рухоме/ділення_рухомого.м"},{"type":"file","name":"змінити_знак_рухомого.м","path":"тестування/Рухоме/змінити_знак_рухомого.м"},{"type":"file","name":"менше_рухомого.м","path":"тестування/Рухоме/менше_рухомого.м"},{"type":"file","name":"множення_рухомого.м","path":"тестування/Рухоме/множення_рухомого.м"},{"type":"file","name":"не_більше_рухомого.м","path":"тестування/Рухоме/не_більше_рухомого.м"},{"type":"file","name":"не_менше_рухомого.м","path":"тестування/Рухоме/не_менше_рухомого.м"},{"type":"file","name":"остача_рухомого.м","path":"тестування/Рухоме/остача_рухомого.м"},{"type":"file","name":"степінь_рухомого.м","path":"тестування/Рухоме/степінь_рухомого.м"}]},{"type":"folder","name":"Ціле","children":[{"type":"file","name":"більше_цілого.м","path":"тестування/Ціле/більше_цілого.м"},{"type":"file","name":"віднімання_цілого.м","path":"тестування/Ціле/віднімання_цілого.м"},{"type":"file","name":"двійкове_або_цілого.м","path":"тестування/Ціле/двійкове_або_цілого.м"},{"type":"file","name":"двійкове_вабо_цілого.м","path":"тестування/Ціле/двійкове_вабо_цілого.м"},{"type":"file","name":"двійкове_не_цілого.м","path":"тестування/Ціле/двійкове_не_цілого.м"},{"type":"file","name":"двійкове_і_цілого.м","path":"тестування/Ціле/двійкове_і_цілого.м"},{"type":"file","name":"додавання_цілого.м","path":"тестування/Ціле/додавання_цілого.м"},{"type":"file","name":"ділення_цілого.м","path":"тестування/Ціле/ділення_цілого.м"},{"type":"file","name":"змінити_знак_цілого.м","path":"тестування/Ціле/змінити_знак_цілого.м"},{"type":"file","name":"зсув_вліво_цілого.м","path":"тестування/Ціле/зсув_вліво_цілого.м"},{"type":"file","name":"зсув_вправо_цілого.м","path":"тестування/Ціле/зсув_вправо_цілого.м"},{"type":"file","name":"менше_цілого.м","path":"тестування/Ціле/менше_цілого.м"},{"type":"file","name":"множення_цілого.м","path":"тестування/Ціле/множення_цілого.м"},{"type":"file","name":"не_більше_цілого.м","path":"тестування/Ціле/не_більше_цілого.м"},{"type":"file","name":"не_менше_цілого.м","path":"тестування/Ціле/не_менше_цілого.м"},{"type":"file","name":"остача_цілого.м","path":"тестування/Ціле/остача_цілого.м"},{"type":"file","name":"степінь_цілого.м","path":"тестування/Ціле/степінь_цілого.м"}]},{"type":"folder","name":"біб","children":[{"type":"folder","name":"система","children":[{"type":"file","name":"записати_прочитати.м","path":"тестування/біб/система/записати_прочитати.м"}]}]}]}]};
+      const ICONS     = {};
+      const PAGE_NAME = "мавка-0.124.13";
+
+      const elTree       = document.getElementById("tree");
+      const elWelcome    = document.getElementById("welcome");
+      const elFrame      = document.getElementById("editorFrame");
+      const elTitleLabel = document.getElementById("titleLabel");
+      const elSidebar    = document.getElementById("sidebar");
+      const elOverlay    = document.getElementById("overlay");
+      const elToggle     = document.getElementById("sidebarToggle");
+
+      // шлях → { node, rowEl, ancestors[] }
+      const fileIndex = new Map();
+      let activeRow = null;
+
+      function ext(name) {
+        const i = name.lastIndexOf(".");
+        return i !== -1 ? name.slice(i + 1).toLowerCase() : "";
+      }
+
+      function resolveIcon(node) {
+        if (!ICONS) return null;
+        if (node.type === "folder") return ICONS["folder"] ?? null;
+        return ICONS[ext(node.name)] ?? ICONS[node.name] ?? ICONS["file"] ?? null;
+      }
+
+      function makeIconEl(node) {
+        const span = document.createElement("span");
+        const custom = resolveIcon(node);
+        if (custom) {
+          span.innerHTML = custom;
+          return span;
+        }
+        if (node.type === "folder") {
+          span.innerHTML = `<svg viewBox="0 0 16 16" fill="var(--folder-color)"><path d="M1.5 13.5h13a.5.5 0 00.5-.5V5a.5.5 0 00-.5-.5H7.5L6.15 3.15A.5.5 0 005.8 3H1.5a.5.5 0 00-.5.5v9.5a.5.5 0 00.5.5z"/></svg>`;
+        } else {
+          span.innerHTML = `<svg viewBox="0 0 16 16" fill="none"><path d="M4 2h6l3.5 3.5V14a.5.5 0 01-.5.5h-9A.5.5 0 013 14V2.5A.5.5 0 014 2z" stroke="var(--file-color)" stroke-width="1.2"/><path d="M10 2v3.5H13.5" stroke="var(--file-color)" stroke-width="1.2"/></svg>`;
+        }
+        return span;
+      }
+
+      function sortNodes(nodes) {
+        return [...nodes].sort((a, b) => {
+          if (a.type !== b.type) return a.type === "folder" ? -1 : 1;
+          return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+        });
+      }
+
+      function buildList(nodes, depth, ancestors) {
+        const ul = document.createElement("ul");
+        ul.className = "TreeList";
+        for (const node of sortNodes(nodes)) {
+          ul.append(buildItem(node, depth, ancestors));
+        }
+        return ul;
+      }
+
+      function buildItem(node, depth, ancestors) {
+        const li = document.createElement("li");
+        li.className = "TreeItem";
+
+        const row = document.createElement("div");
+        row.className = "TreeRow";
+        row.setAttribute("tabindex", "0");
+        row.style.paddingLeft = `${6 + depth * 14}px`;
+
+        if (node.type === "folder") {
+          row.setAttribute("role", "treeitem");
+          row.setAttribute("aria-expanded", "false");
+
+          const chevron = document.createElement("span");
+          chevron.className = "TreeRow-chevron";
+          chevron.setAttribute("aria-hidden", "true");
+          chevron.innerHTML = `<svg viewBox="0 0 16 16" fill="currentColor" width="10" height="10"><path d="M4 3l6 5-6 5V3z"/></svg>`;
+
+          const icon = makeIconEl(node);
+          icon.className = "TreeRow-icon";
+
+          const label = document.createElement("span");
+          label.className = "TreeRow-label";
+          label.textContent = node.name;
+
+          row.append(chevron, icon, label);
+
+          const children = document.createElement("ul");
+          children.className = "TreeChildren";
+          children.hidden = true;
+
+          for (const child of sortNodes(node.children || [])) {
+            children.append(buildItem(child, depth + 1, [...ancestors, row]));
+          }
+
+          const toggle = () => {
+            const open = row.getAttribute("aria-expanded") === "true";
+            row.setAttribute("aria-expanded", open ? "false" : "true");
+            children.hidden = open;
+          };
+          row.addEventListener("click", toggle);
+          row.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+
+          li.append(row, children);
+        } else {
+          row.setAttribute("role", "treeitem");
+
+          const spacer = document.createElement("span");
+          spacer.className = "TreeRow-spacer";
+
+          const icon = makeIconEl(node);
+          icon.className = "TreeRow-icon";
+
+          const label = document.createElement("span");
+          label.className = "TreeRow-label";
+          label.textContent = node.name;
+
+          row.append(spacer, icon, label);
+
+          fileIndex.set(node.path, { node, rowEl: row, ancestors });
+          row.addEventListener("click", () => navigate(node.path));
+          row.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); navigate(node.path); } });
+
+          li.append(row);
+        }
+
+        return li;
+      }
+
+      function navigate(path) {
+        const entry = fileIndex.get(path);
+        if (!entry) return;
+
+        // Розгорнути батьківські вузли
+        for (const anc of entry.ancestors) {
+          if (anc.getAttribute("aria-expanded") === "false") {
+            anc.setAttribute("aria-expanded", "true");
+            anc.nextElementSibling.hidden = false;
+          }
+        }
+
+        // Виділити рядок
+        if (activeRow) activeRow.classList.remove("is-selected");
+        activeRow = entry.rowEl;
+        activeRow.classList.add("is-selected");
+        activeRow.scrollIntoView({ block: "nearest" });
+
+        // Завантажити iframe
+        elFrame.src = path + ".html";
+        elFrame.classList.add("is-visible");
+        elWelcome.classList.add("is-hidden");
+
+        // Оновити заголовок
+        document.title = path;
+        elTitleLabel.textContent = path;
+
+        // Оновити хеш URL
+        const encoded = encodeURIComponent(path);
+        if (location.hash !== `#${encoded}`) {
+          history.replaceState(null, "", `#${encoded}`);
+        }
+
+        // Закрити мобільну бічну панель
+        if (window.innerWidth <= 680) {
+          elSidebar.classList.remove("is-open");
+          elOverlay.classList.remove("is-visible");
+        }
+      }
+
+      // Мобільна бічна панель
+      elToggle.addEventListener("click", () => {
+        elSidebar.classList.toggle("is-open");
+        elOverlay.classList.toggle("is-visible");
+      });
+      elOverlay.addEventListener("click", () => {
+        elSidebar.classList.remove("is-open");
+        elOverlay.classList.remove("is-visible");
+      });
+
+      // Показати/сховати кнопки дій
+      const DOWNLOAD     = "https://github.com/mavka-ukr/files/raw/main/%D0%B2%D0%B8%D0%BF%D1%83%D1%81%D0%BA%D0%B8-%D0%BC%D0%B0%D0%B2%D0%BA%D0%B8/0.124.13/%D0%BC%D0%B0%D0%B2%D0%BA%D0%B0-0.124.13.tar.xz";
+      const GITHUB       = "https://github.com/mavka-ukr/mavka";
+      const VERSIONS_URL = "../index.html";
+      const elGithubBtn   = document.getElementById("githubBtn");
+      const elDownloadBtn = document.getElementById("downloadBtn");
+      const elVersionsBtn = document.getElementById("versionsBtn");
+      if (!GITHUB)       elGithubBtn.hidden   = true;
+      if (!DOWNLOAD)     elDownloadBtn.hidden = true;
+      if (!VERSIONS_URL) elVersionsBtn.hidden = true;
+
+      // Побудувати дерево
+      elTree.append(buildList(TREE.children || [], 0, []));
+
+      // Відновити з хешу
+      function openFromHash() {
+        const hash = location.hash.slice(1);
+        if (!hash) return;
+        const path = decodeURIComponent(hash);
+        if (fileIndex.has(path)) navigate(path);
+      }
+
+      openFromHash();
+      window.addEventListener("hashchange", openFromHash);
+    </script>
+  </body>
+</html>

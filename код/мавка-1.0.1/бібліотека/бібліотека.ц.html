@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.erdjogphda/мавка-1.0.1/бібліотека/бібліотека.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/бібліотека;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> бібліотека {</span></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_взяти_біб(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      довжина_шляху: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      шлях: **ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">      місцезнаходження: Місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдбм = М.користувацькі_дані_бібліотеки.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніБібліотекиМавки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> довжина_шляху == </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> порівняти_тексти(М, шлях[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">], М.константи_назв._мат) {</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> кдбм.взято__мат == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> предмет_модуля_мат = створити_модуль(</span></span>
+<span class="line"><span style="color:#E6EDF3">              М,</span></span>
+<span class="line"><span style="color:#E6EDF3">              М.константи_назв._мат</span></span>
+<span class="line"><span style="color:#E6EDF3">            );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            кдбм.взято__мат = притримати_глобально(</span></span>
+<span class="line"><span style="color:#E6EDF3">              М,</span></span>
+<span class="line"><span style="color:#E6EDF3">              предмет_модуля_мат </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет</span></span>
+<span class="line"><span style="color:#E6EDF3">            );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            ініціалізувати__мат(М, предмет_модуля_мат);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">              відпустити_притриманий_глобально(М, кдбм.взято__мат);</span></span>
+<span class="line"><span style="color:#E6EDF3">              кдбм.взято__мат = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">              вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(кдбм.взято__мат.предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> порівняти_тексти(М, шлях[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">], М.константи_назв._афс) {</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> кдбм.взято__афс == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> предмет_модуля_афс = створити_модуль(</span></span>
+<span class="line"><span style="color:#E6EDF3">              М,</span></span>
+<span class="line"><span style="color:#E6EDF3">              М.константи_назв._афс</span></span>
+<span class="line"><span style="color:#E6EDF3">            );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            кдбм.взято__афс = притримати_глобально(</span></span>
+<span class="line"><span style="color:#E6EDF3">              М,</span></span>
+<span class="line"><span style="color:#E6EDF3">              предмет_модуля_афс </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет</span></span>
+<span class="line"><span style="color:#E6EDF3">            );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            ініціалізувати__афс(М, предмет_модуля_афс);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">              відпустити_притриманий_глобально(М, кдбм.взято__афс);</span></span>
+<span class="line"><span style="color:#E6EDF3">              кдбм.взято__афс = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">              вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(кдбм.взято__афс.предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> порівняти_тексти(М, шлях[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">], М.константи_назв._аввід) {</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> кдбм.взято__аввід == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> предмет_модуля_аввід = створити_модуль(</span></span>
+<span class="line"><span style="color:#E6EDF3">              М,</span></span>
+<span class="line"><span style="color:#E6EDF3">              М.константи_назв._аввід</span></span>
+<span class="line"><span style="color:#E6EDF3">            );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            кдбм.взято__аввід = притримати_глобально(</span></span>
+<span class="line"><span style="color:#E6EDF3">              М,</span></span>
+<span class="line"><span style="color:#E6EDF3">              предмет_модуля_аввід </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет</span></span>
+<span class="line"><span style="color:#E6EDF3">            );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            ініціалізувати__аввід(М, предмет_модуля_аввід);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">              відпустити_притриманий_глобально(М, кдбм.взято__аввід);</span></span>
+<span class="line"><span style="color:#E6EDF3">              кдбм.взято__аввід = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">              вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(кдбм.взято__аввід.предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> порівняти_тексти(М, шлях[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">], М.константи_назв._інет) {</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> кдбм.взято__інет == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> предмет_модуля_інет = створити_модуль(</span></span>
+<span class="line"><span style="color:#E6EDF3">              М,</span></span>
+<span class="line"><span style="color:#E6EDF3">              М.константи_назв._інет</span></span>
+<span class="line"><span style="color:#E6EDF3">            );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            кдбм.взято__інет = притримати_глобально(</span></span>
+<span class="line"><span style="color:#E6EDF3">              М,</span></span>
+<span class="line"><span style="color:#E6EDF3">              предмет_модуля_інет </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Предмет</span></span>
+<span class="line"><span style="color:#E6EDF3">            );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            ініціалізувати__інет(М, предмет_модуля_інет);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> М.стан_падіння {</span></span>
+<span class="line"><span style="color:#E6EDF3">              відпустити_притриманий_глобально(М, кдбм.взято__інет);</span></span>
+<span class="line"><span style="color:#E6EDF3">              кдбм.взято__інет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">              вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          вернути</span><span style="color:#E6EDF3"> ПРЕДМЕТ(кдбм.взято__інет.предмет);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        увімкнути_стан_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">          М,</span></span>
+<span class="line"><span style="color:#E6EDF3">          ПРЕДМЕТ(створити_текст(М, </span><span style="color:#A5D6FF">"Неможливо взяти модуль бібліотеки."</span><span style="color:#E6EDF3">)),</span></span>
+<span class="line"><span style="color:#E6EDF3">          місцезнаходження</span></span>
+<span class="line"><span style="color:#E6EDF3">        );</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> дія_перед_знищенням_користувацьких_даних_бібліотеки_мавки(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      користувацькі_дані: *КористувацькіДані</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдбм = користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КористувацькіДаніБібліотекиМавки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">      // потім: відпустити взяті і звільнити кдбм</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> ініціалізувати(М: *Машина) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.налаштування.взяти_біб = машина_взяти_біб;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> кдбм = виділити&#x3C;КористувацькіДаніБібліотекиМавки>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      кдбм.взято__мат = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      кдбм.взято__афс = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      кдбм.взято__аввід = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      кдбм.взято__інет = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      М.користувацькі_дані_бібліотеки = створити_користувацькі_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">        М,</span></span>
+<span class="line"><span style="color:#E6EDF3">        кдбм,</span></span>
+<span class="line"><span style="color:#E6EDF3">        дія_перед_знищенням_користувацьких_даних_бібліотеки_мавки</span></span>
+<span class="line"><span style="color:#E6EDF3">      );</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

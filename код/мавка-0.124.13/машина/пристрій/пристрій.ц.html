@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.8MFkfkgUcd/мавка-0.124.13/машина/пристрій/пристрій.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти означення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> КД_виділити_сиру_памʼять(система: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;КД::Система>, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">> {</span></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> пристрій_мавки_виділити_сиру_памʼять(розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> КД_перевиділити_сиру_памʼять(система: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;КД::Система>, значення: памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>, новий_розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) -> памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">> {</span></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> пристрій_мавки_перевиділити_сиру_памʼять(значення, новий_розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> КД_звільнити_сиру_памʼять(система: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;КД::Система>, значення: невідома_памʼять) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити_сиру_памʼять(значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> пристрій_мавки_перекодувати_ю8_в_кд(розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>, вихід_розміру: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">>, вихід_даних: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>>, вихід_позиції_помилки: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">>) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> система_КД = КД::Система {</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    виділити_сиру_памʼять = КД_виділити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_сиру_памʼять = КД_звільнити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">    перевиділити_сиру_памʼять = КД_перевиділити_сиру_памʼять</span></span>
+<span class="line"><span style="color:#E6EDF3">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> вихід: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> позиція_помилки: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх = КД::перекодувати_з_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">    система_КД::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#79C0FF">    ю8</span><span style="color:#E6EDF3"> { розмір, дані },</span></span>
+<span class="line"><span style="color:#FF7B72">    ні</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">    ні</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція_помилки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_розміру::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = вихід.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_даних::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = вихід.дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> успіх;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// нул-термінатед</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> пристрій_мавки_перекодувати_кд_в_ю8(розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, дані: памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>, вихід_розміру: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">>, вихід_даних: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">>>, вихід_позиції_помилки: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;</span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">>) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> система_КД = КД::Система {</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    виділити_сиру_памʼять = КД_виділити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити_сиру_памʼять = КД_звільнити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">    перевиділити_сиру_памʼять = КД_перевиділити_сиру_памʼять</span></span>
+<span class="line"><span style="color:#E6EDF3">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> вихід: </span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> позиція_помилки: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх = КД::перекодувати_в_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">    система_КД::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#79C0FF">    кд</span><span style="color:#E6EDF3"> { розмір, дані },</span></span>
+<span class="line"><span style="color:#FF7B72">    так</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція_помилки::</span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_розміру::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = вихід.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_даних::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = вихід.дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> успіх;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

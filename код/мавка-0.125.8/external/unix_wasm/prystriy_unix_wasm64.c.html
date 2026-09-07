@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.2oufJNuzcL/мавка-0.125.8/external/unix_wasm/prystriy_unix_wasm64.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/prystriy.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_версію_як_ю8(п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру) {</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_розміру </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(MAVKA_VERSION);</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_даних </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">strdup</span><span style="color:#E6EDF3">(MAVKA_VERSION);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> адреса пристрій_мавки_виділити(природне розмір) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> (адреса)</span><span style="color:#D2A8FF">malloc</span><span style="color:#E6EDF3">(розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> адреса пристрій_мавки_перевиділити(адреса значення,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                          природне новий_розмір) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> (адреса)</span><span style="color:#D2A8FF">realloc</span><span style="color:#E6EDF3">(значення, новий_розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#FF7B72"> void</span><span style="color:#E6EDF3"> пристрій_мавки_звільнити(адреса значення) {</span></span>
+<span class="line"><span style="color:#D2A8FF">  free</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_теку_шляху(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                  природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                  п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                  природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                  природне рівень) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> шлях_рядок </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_шляху; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_рядок[і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char</span><span style="color:#E6EDF3">)дані_шляху[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях_рядок[розмір_шляху] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> шлях_копія </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strdup</span><span style="color:#E6EDF3">(шлях_рядок);</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> тека </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> dirname</span><span style="color:#E6EDF3">(шлях_копія);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> рівень; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    char*</span><span style="color:#E6EDF3"> нова_копія </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strdup</span><span style="color:#E6EDF3">(тека);</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях_копія);</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_копія </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> нова_копія;</span></span>
+<span class="line"><span style="color:#E6EDF3">    тека </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> dirname</span><span style="color:#E6EDF3">(шлях_копія);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  природне довжина </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(тека);</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_розміру </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> довжина;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_даних </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(довжина);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">вихід_даних) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях_рядок);</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях_копія);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> довжина; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">вихід_даних)[і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8)тека[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(шлях_рядок);</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(шлях_копія);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_теку_до_паків(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру) {</span></span>
+<span class="line"><span style="color:#FF7B72">  const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> паки_суфікс </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> "/паки"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне довжина_суфікса </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(паки_суфікс);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_розміру </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> довжина_суфікса;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_даних </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">вихід_розміру);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">вихід_даних) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_шляху; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">вихід_даних)[і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> дані_шляху[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> довжина_суфікса; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">вихід_даних)[розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8)паки_суфікс[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_назву_модуля_з_шляху_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> шлях_рядок </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_шляху; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_рядок[і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char</span><span style="color:#E6EDF3">)дані_шляху[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях_рядок[розмір_шляху] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> шлях_копія </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strdup</span><span style="color:#E6EDF3">(шлях_рядок);</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> назва </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> basename</span><span style="color:#E6EDF3">(шлях_копія);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> суфікс </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> ".м"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне довжина_суфікса </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(суфікс);</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне довжина </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(назва);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (довжина </span><span style="color:#FF7B72">>=</span><span style="color:#E6EDF3"> довжина_суфікса) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    логічне має_суфікс </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> довжина_суфікса; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (назва[довжина </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> довжина_суфікса </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> і] </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> суфікс[і]) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        має_суфікс </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        break</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (має_суфікс) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      довжина </span><span style="color:#FF7B72">-=</span><span style="color:#E6EDF3"> довжина_суфікса;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> назва_ю8 </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(довжина);</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> довжина; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    назва_ю8[і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8)назва[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_розміру </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> довжина;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_даних </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> назва_ю8;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(шлях_рядок);</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(шлях_копія);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_збити_шлях_до_модуля(</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне кількість_елементів,</span></span>
+<span class="line"><span style="color:#E6EDF3">    ЕлементШляхуПристроюМавки</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> елементи,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру) {</span></span>
+<span class="line"><span style="color:#FF7B72">  const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> суфікс </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> ".м"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  природне загальний_розмір </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> кількість_елементів </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#FF7B72"> +</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(суфікс);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> кількість_елементів; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    загальний_розмір </span><span style="color:#FF7B72">+=</span><span style="color:#E6EDF3"> елементи[і].розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_розміру </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> загальний_розмір;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_даних </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(загальний_розмір);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">вихід_даних) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  природне позиція </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> кількість_елементів; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    memcpy</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">вихід_даних </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> позиція, елементи[і].дані, елементи[і].розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція </span><span style="color:#FF7B72">+=</span><span style="color:#E6EDF3"> елементи[і].розмір;</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> кількість_елементів </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">вихід_даних)[позиція</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '/'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(суфікс); і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">вихід_даних)[позиція</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8)суфікс[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_перевірити_чи_шлях_починається_на(</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_початку,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_початку) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (розмір_початку </span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> розмір_шляху) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_початку; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (дані_шляху[і] </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> дані_початку[і]) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">extern</span><span style="color:#E6EDF3"> логічне пристрій_мавки_отримати_шлях_до_паку_з_шляху_теки_модулів(</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху_до_паків,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне розмір_шляху_до_паків,</span></span>
+<span class="line"><span style="color:#E6EDF3">    п8</span><span style="color:#FF7B72">**</span><span style="color:#E6EDF3"> вихід_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">    природне</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід_розміру) {</span></span>
+<span class="line"><span style="color:#8B949E">  // Check if the module path starts with the packages path</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (розмір_шляху </span><span style="color:#FF7B72">&#x3C;=</span><span style="color:#E6EDF3"> розмір_шляху_до_паків) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Verify that the module path starts with the packages path</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_шляху_до_паків; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (дані_шляху[і] </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> дані_шляху_до_паків[і]) {</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Find the next '/' after the packages path to get the package directory</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне позиція_наступного_слешу </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  логічне знайдено </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Skip the packages path and any immediate '/'</span></span>
+<span class="line"><span style="color:#E6EDF3">  природне початок </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> розмір_шляху_до_паків;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (початок </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_шляху </span><span style="color:#FF7B72">&#x26;&#x26;</span><span style="color:#E6EDF3"> дані_шляху[початок] </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '/'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    початок</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Find the next '/' which marks the end of the package name</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> початок; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_шляху; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (дані_шляху[і] </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '/'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      позиція_наступного_слешу </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> і;</span><span style="color:#8B949E"> // Don't include the trailing slash</span></span>
+<span class="line"><span style="color:#E6EDF3">      знайдено </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      break</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">знайдено) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    позиція_наступного_слешу </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> розмір_шляху;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Return the path up to but not including the trailing slash</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_розміру </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> позиція_наступного_слешу;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">вихід_даних </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">вихід_розміру);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">вихід_даних) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (природне і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> позиція_наступного_слешу; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">вихід_даних)[і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> дані_шляху[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

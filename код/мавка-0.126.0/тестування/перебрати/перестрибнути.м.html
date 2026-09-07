@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.fWVDIWbR8h/мавка-0.126.0/тестування/перебрати/перестрибнути.м</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#E6EDF3">а = [</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">"2"</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">3.14</span><span style="color:#E6EDF3">, {}, </span><span style="color:#FF7B72">недійсне</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#E6EDF3">б = []</span></span>
+<span class="line"><span style="color:#E6EDF3">очікуваний_б = [а[</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">], а[</span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">], а[</span><span style="color:#79C0FF">3</span><span style="color:#E6EDF3">], а[</span><span style="color:#79C0FF">4</span><span style="color:#E6EDF3">]]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">перебрати</span><span style="color:#E6EDF3"> а</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#E6EDF3"> цей == </span><span style="color:#A5D6FF">"2"</span></span>
+<span class="line"><span style="color:#E6EDF3">    перестрибнути</span></span>
+<span class="line"><span style="color:#FF7B72">  кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  б.додати(цей)</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">якщо</span><span style="color:#E6EDF3"> очікуваний_б.розмір != б.розмір</span></span>
+<span class="line"><span style="color:#FF7B72">  впасти</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">п = </span><span style="color:#79C0FF">0</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">поки</span><span style="color:#E6EDF3"> п &#x3C; б.розмір</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#E6EDF3"> очікуваний_б[п] != б[п]</span></span>
+<span class="line"><span style="color:#FF7B72">    впасти</span></span>
+<span class="line"><span style="color:#FF7B72">  кінець</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  п += </span><span style="color:#79C0FF">1</span></span>
+<span class="line"><span style="color:#FF7B72">кінець</span></span></code></pre>
+</body>
+</html>

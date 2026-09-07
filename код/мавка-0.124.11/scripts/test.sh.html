@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.0iAKBzXaOL/мавка-0.124.11/scripts/test.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">#!/bin/bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">MAVKA</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#FF7B72">-z</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$MAVKA</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "Usage: </span><span style="color:#79C0FF">$0</span><span style="color:#A5D6FF"> &#x3C;path_to_mavka_executable>"</span></span>
+<span class="line"><span style="color:#79C0FF">  exit</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">run_test</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#E6EDF3">  test_file</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#79C0FF">  echo</span><span style="color:#A5D6FF"> "</span><span style="color:#E6EDF3">$test_file</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">  $MAVKA </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$test_file</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "=== Ціле ==="</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/більше_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/віднімання_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/двійкове_або_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/двійкове_вабо_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/двійкове_і_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/двійкове_не_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/ділення_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/додавання_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/змінити_знак_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/зсув_вліво_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/зсув_вправо_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/менше_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/множення_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/не_більше_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/не_менше_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/остача_цілого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Ціле/степінь_цілого.м</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "=== Рухоме ==="</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/більше_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/віднімання_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/ділення_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/додавання_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/змінити_знак_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/менше_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/множення_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/не_більше_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/не_менше_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/остача_рухомого.м</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/Рухоме/степінь_рухомого.м</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> ""</span></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "=== біб система ==="</span></span>
+<span class="line"><span style="color:#FFA657">run_test</span><span style="color:#A5D6FF"> тестування/біб/система/записати_прочитати.м</span></span>
+<span class="line"></span></code></pre>
+</body>
+</html>

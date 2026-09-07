@@ -27,3 +27,8 @@ find .будування -type f -name "*.html" -exec sed -i "s/{{ВЕРСІЯ_�
 
 find .будування/версії -type f -name "*.html" -exec sed -i "s/{{ВЕРСІЯ_МАВКИ_УМОВНО}}/ $VERSION/g" {} \;
 find .будування/документація -type f -name "*.html" -exec sed -i "s/{{ВЕРСІЯ_МАВКИ_УМОВНО}}//g" {} \;
+
+cd код
+bash build.sh $VERSION
+cd -
+cp -a код .будування

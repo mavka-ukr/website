@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.KDsVL8KGo0/мавка-0.124.12/машина/пристрій/вивід.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко (кдб.дійсність.укр)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти означення</span><span style="color:#E6EDF3"> мавка/пристрій;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  простір</span><span style="color:#E6EDF3"> пристрій {</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> надрукувати_інформацію_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>,</span></span>
+<span class="line"><span style="color:#E6EDF3">      інформація_падіння: ІнформаціяПадіння</span></span>
+<span class="line"><span style="color:#E6EDF3">    ) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_вивести_формат(ФКолірТекстуЧервоний);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"Помилка"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> інформація_падіння.місцезнаходження.шлях != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">" в "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_шлях(інформація_падіння.місцезнаходження.шлях.розмір, інформація_падіння.місцезнаходження.шлях.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> інформація_падіння.місцезнаходження.рядок > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">":"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_п64(М, </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">(інформація_падіння.місцезнаходження.рядок));</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      надрукувати_значення(М, інформація_падіння.значення, </span><span style="color:#79C0FF">2</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> інформація_падіння.розмір_історії > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        надрукувати_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">Історія здійснення:"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; інформація_падіння.розмір_історії {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> елемент_історії = інформація_падіння.історія[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> елемент_історії.назва != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"  "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          пристрій_мавки_вивести_формат(ФКолірТекстуСиній);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, елемент_історії.назва.значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">          пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> елемент_історії.місцезнаходження.шлях == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">" в "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            пристрій_мавки_вивести_шлях(елемент_історії.місцезнаходження.шлях.розмір, елемент_історії.місцезнаходження.шлях.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> елемент_історії.місцезнаходження.рядок > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">":"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_п64(М, </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">(елемент_історії.місцезнаходження.рядок));</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> вивести_пропуски(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>, кількість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      поки</span><span style="color:#E6EDF3"> п &#x3C; кількість {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // позначка: прохід по типах предметів</span></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> вивести_значення(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>, значення: Значення, розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, глибина: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> значення.вид == ЗНедійсне {</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФКолірТекстуЖовтий);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"недійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> значення.вид == ЗДійсне {</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФКолірТекстуЖовтий);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"дійсне"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> значення.вид == ЗЧисло {</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФКолірТекстуЖовтий);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> значення_кд: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> перетворити_р64_в_кд(М, значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> р64</span><span style="color:#E6EDF3">, значення_кд::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, значення_кд);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        звільнити_памʼять(М, значення_кд.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> предмет = значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;Предмет>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Структура {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> властивості = предмет </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСтруктури>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФКолірТекстуСиній);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> властивості.назва == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"&#x3C;структура>"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"&#x3C;структура "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_значення(М, МАШИННИЙ_ПРЕДМЕТ(властивості.назва), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Модуль {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> властивості_модуля = предмет </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметМодуля>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФКолірТекстуСиній);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> властивості_модуля.назва == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"&#x3C;модуль"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"&#x3C;модуль "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_значення(М, МАШИННИЙ_ПРЕДМЕТ(властивості_модуля.назва), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> властивості_модуля.властивості.вмісткість > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"["</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> виведено_першу = </span><span style="color:#FF7B72">ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          поки</span><span style="color:#E6EDF3"> п &#x3C; властивості_модуля.властивості.вмісткість {</span></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> призначене = властивості_модуля.властивості.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            поки</span><span style="color:#E6EDF3"> призначене != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">              якщо</span><span style="color:#E6EDF3"> виведено_першу {</span></span>
+<span class="line"><span style="color:#E6EDF3">                вивести_кд(М, </span><span style="color:#A5D6FF">", "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">              }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">              виведено_першу = </span><span style="color:#FF7B72">так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_значення(М, МАШИННИЙ_ПРЕДМЕТ(призначене.назва), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">              призначене = призначене.наступний;</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"]"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Параметр {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"Параметр()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Число {</span></span>
+<span class="line"><span style="color:#E6EDF3">        ЗАПАНІКУВАТИ(М, </span><span style="color:#A5D6FF">"Неможливо вивести значення типу Число."</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Текст {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> властивості = предмет </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметТексту>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> глибина != </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          пристрій_мавки_вивести_формат(ФКолірТекстуЗелений);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> глибина == </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, властивості.значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          поки</span><span style="color:#E6EDF3"> п &#x3C; властивості.значення.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> символ = властивості.значення.дані[п];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> символ == КД::символи::Міжряд {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\</span><span style="color:#A5D6FF">р"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> символ == КД::символи::Дволапка {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\\"</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> символ == КД::символи::Обернена_похила {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\\\</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#FF7B72"> якщо</span><span style="color:#E6EDF3"> символ == КД::символи::Дія {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\\</span><span style="color:#A5D6FF">д"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3"> { </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, символ::</span><span style="color:#79C0FF">адреса</span><span style="color:#FF7B72"> як</span><span style="color:#E6EDF3"> памʼять&#x3C;</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">> });</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> глибина != </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Код {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"Код()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Дія {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> властивості = предмет </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДії>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФКолірТекстуСиній);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> властивості.назва == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"&#x3C;дія>"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"&#x3C;дія "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_значення(М, МАШИННИЙ_ПРЕДМЕТ(властивості.назва), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Список {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> властивості_списку = предмет </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСписку>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"["</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> властивості_списку.розмір > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          поки</span><span style="color:#E6EDF3"> п &#x3C; властивості_списку.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> елемент = властивості_списку.елементи[п];</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_значення(М, елемент, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> п + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> &#x3C; властивості_списку.розмір {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">              якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">                вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">              } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">                вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">              }</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"]"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Словник {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> властивості_словника = предмет </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСловника>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"{"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> властивості_словника.розмір > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          поки</span><span style="color:#E6EDF3"> п &#x3C; властивості_словника.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">            змінна</span><span style="color:#E6EDF3"> пара = властивості_словника.елементи[п];</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_значення(М, пара.ключ, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">" => "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_значення(М, пара.значення, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> п + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> &#x3C; властивості_словника.розмір {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">              якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">                вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">              } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">                вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">              }</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">            п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"}"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Дані {</span></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> предмет_даних = предмет </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметДаних>;</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФКолірТекстуСиній);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"Дані"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"(</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"розмір="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення(М, ЧИСЛО(</span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">(предмет_даних.розмір)), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_ДіапазонЧисел {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"ДіапазонЧисел()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_ПеребірДіапазонуЧисел {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"ПеребірДіапазонуЧисел()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_ПеребірДаних {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"ПеребірДаних()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_ПеребірПослідовності {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"ПеребірПослідовності()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_ПеребірСловника {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"ПеребірСловника()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_ПеребірСписку {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"ПеребірСписку()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_ПеребірТексту {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"ПеребірТексту()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> предмет.тип == М.предмет_структури_Послідовність {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"Послідовність()"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">        вернути</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      змінна</span><span style="color:#E6EDF3"> властивості_структури = предмет.тип </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметСтруктури>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_вивести_формат(ФКолірТекстуСиній);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> властивості_структури.назва == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_кд(М, </span><span style="color:#A5D6FF">"&#x3C;без_назви>"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_значення(М, МАШИННИЙ_ПРЕДМЕТ(властивості_структури.назва), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_вивести_формат(ФОчистити);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"("</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      якщо</span><span style="color:#E6EDF3"> властивості_структури.параметри.розмір > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3"> = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        поки</span><span style="color:#E6EDF3"> п &#x3C; властивості_структури.параметри.розмір {</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> параметр = властивості_структури.параметри.елементи[п];</span></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> властивості_параметра = параметр.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;Предмет> </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> адреса</span><span style="color:#E6EDF3">&#x3C;ПредметПараметра>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">          змінна</span><span style="color:#E6EDF3"> значення_властивості = отримати_властивість(М, значення, властивості_параметра.назва, Місцезнаходження { </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">});</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_пропуски(М, розмір_відступу * (глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">));</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_значення(М, МАШИННИЙ_ПРЕДМЕТ(властивості_параметра.назва), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"="</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_значення(М, значення_властивості, розмір_відступу, глибина + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">          якщо</span><span style="color:#E6EDF3"> п + </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3"> &#x3C; властивості_структури.параметри.розмір {</span></span>
+<span class="line"><span style="color:#E6EDF3">            вивести_кд(М, </span><span style="color:#A5D6FF">","</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">            якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">              вивести_кд(М, </span><span style="color:#A5D6FF">" "</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">            }</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">          п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">        якщо</span><span style="color:#E6EDF3"> розмір_відступу > </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">          вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">        вивести_пропуски(М, розмір_відступу * глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">")"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    дія</span><span style="color:#E6EDF3"> надрукувати_значення(М: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">&#x3C;Машина>, значення: Значення, розмір_відступу: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, глибина: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_значення(М, значення, розмір_відступу, глибина);</span></span>
+<span class="line"><span style="color:#E6EDF3">      вивести_кд(М, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\р</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

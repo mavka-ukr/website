@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.pYA2HGq4EF/мавка-0.126.3/external/unix/biblioteka_unix.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;dirent.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;errno.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;fcntl.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;math.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;memory.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stdbool.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stdio.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stdlib.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;string.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;sys/stat.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;sys/types.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;sys/wait.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;unistd.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/biblioteka.h"</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "mavka/prystriy.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_синус_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> sin</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_косинус_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> cos</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_тангенс_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> tan</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арксинус_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> asin</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арккосинус_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> acos</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арктангенс_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> atan</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_арктангенс2_р64(р64 а, р64 б) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> atan2</span><span style="color:#E6EDF3">(а, б);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_абсолютне_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> fabs</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_експонента_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> exp</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_корінь2_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> sqrt</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_стеля_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> ceil</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_підлога_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> floor</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_округлити_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> round</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_остача_від_ділення_р64(р64 а, р64 б) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> fmod</span><span style="color:#E6EDF3">(а, б);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_лог_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> log</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_лог2_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> log2</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">р64 бібліотека_мавки_лог10_р64(р64 значення) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> log10</span><span style="color:#E6EDF3">(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// видалити файл або папку за шляхом force recursively</span></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_видалити(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху, природне розмір_шляху) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> шлях </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">шлях) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#D2A8FF">  memcpy</span><span style="color:#E6EDF3">(шлях, дані_шляху, розмір_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях[розмір_шляху] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> stat статус;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">stat</span><span style="color:#E6EDF3">(шлях, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">статус) </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">S_ISDIR</span><span style="color:#E6EDF3">(статус.st_mode)) {</span></span>
+<span class="line"><span style="color:#8B949E">    // Delete directory recursively</span></span>
+<span class="line"><span style="color:#E6EDF3">    DIR</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> папка </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> opendir</span><span style="color:#E6EDF3">(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">папка) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    struct</span><span style="color:#E6EDF3"> dirent</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> запис;</span></span>
+<span class="line"><span style="color:#E6EDF3">    логічне успіх </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    while</span><span style="color:#E6EDF3"> ((запис </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> readdir</span><span style="color:#E6EDF3">(папка)) </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">strcmp</span><span style="color:#E6EDF3">(запис</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">d_name, </span><span style="color:#A5D6FF">"."</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> ||</span><span style="color:#D2A8FF"> strcmp</span><span style="color:#E6EDF3">(запис</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">d_name, </span><span style="color:#A5D6FF">".."</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">        continue</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      size_t</span><span style="color:#E6EDF3"> довжина_шляху </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(шлях) </span><span style="color:#FF7B72">+</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(запис</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">d_name) </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 2</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      char*</span><span style="color:#E6EDF3"> повний_шлях </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(довжина_шляху);</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">повний_шлях) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        успіх </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">        break</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#D2A8FF">      snprintf</span><span style="color:#E6EDF3">(повний_шлях, довжина_шляху, </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">%s</span><span style="color:#A5D6FF">/</span><span style="color:#FF7B72">%s</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">, шлях, запис</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">d_name);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">бібліотека_мавки_видалити((п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)повний_шлях, </span><span style="color:#D2A8FF">strlen</span><span style="color:#E6EDF3">(повний_шлях))) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        успіх </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(повний_шлях);</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">    closedir</span><span style="color:#E6EDF3">(папка);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">успіх) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    int</span><span style="color:#E6EDF3"> ok </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">rmdir</span><span style="color:#E6EDF3">(шлях) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">?</span><span style="color:#79C0FF"> true</span><span style="color:#FF7B72"> :</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> ok;</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">    // Delete file</span></span>
+<span class="line"><span style="color:#E6EDF3">    логічне результат </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> unlink</span><span style="color:#E6EDF3">(шлях) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> ?</span><span style="color:#79C0FF"> true</span><span style="color:#FF7B72"> :</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> результат;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_дописати_файл(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       природне розмір_даних) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> шлях </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">шлях) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#D2A8FF">  memcpy</span><span style="color:#E6EDF3">(шлях, дані_шляху, розмір_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях[розмір_шляху] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  FILE</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> файл </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> fopen</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)шлях, </span><span style="color:#A5D6FF">"ab"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">файл) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> записано </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> fwrite</span><span style="color:#E6EDF3">(дані_даних, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, розмір_даних, файл);</span></span>
+<span class="line"><span style="color:#D2A8FF">  fclose</span><span style="color:#E6EDF3">(файл);</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> записано </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> розмір_даних;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_записати_файл(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                       природне розмір_даних) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> шлях </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">шлях) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#D2A8FF">  memcpy</span><span style="color:#E6EDF3">(шлях, дані_шляху, розмір_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях[розмір_шляху] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  FILE</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> файл </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> fopen</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)шлях, </span><span style="color:#A5D6FF">"wb"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">файл) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> записано </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> fwrite</span><span style="color:#E6EDF3">(дані_даних, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, розмір_даних, файл);</span></span>
+<span class="line"><span style="color:#D2A8FF">  fclose</span><span style="color:#E6EDF3">(файл);</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> записано </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> розмір_даних;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_прочитати_файл(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                        природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                        Дані</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> шлях </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">шлях) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#D2A8FF">  memcpy</span><span style="color:#E6EDF3">(шлях, дані_шляху, розмір_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях[розмір_шляху] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  FILE</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> файл </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> fopen</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)шлях, </span><span style="color:#A5D6FF">"rb"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">файл) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  fseek</span><span style="color:#E6EDF3">(файл, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, SEEK_END);</span></span>
+<span class="line"><span style="color:#E6EDF3">  вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">розмір </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> ftell</span><span style="color:#E6EDF3">(файл);</span></span>
+<span class="line"><span style="color:#D2A8FF">  fseek</span><span style="color:#E6EDF3">(файл, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, SEEK_SET);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">дані </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">розмір);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">дані) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    fclose</span><span style="color:#E6EDF3">(файл);</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> прочитано </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> fread</span><span style="color:#E6EDF3">(вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">дані, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">розмір, файл);</span></span>
+<span class="line"><span style="color:#D2A8FF">  fclose</span><span style="color:#E6EDF3">(файл);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (прочитано </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">розмір) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">логічне бібліотека_мавки_створити_папку(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху, природне розмір_шляху) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> шлях </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">шлях) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#D2A8FF">  memcpy</span><span style="color:#E6EDF3">(шлях, дані_шляху, розмір_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях[розмір_шляху] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Check if directory already exists</span></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> stat статус;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">stat</span><span style="color:#E6EDF3">(шлях, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">статус) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#D2A8FF"> S_ISDIR</span><span style="color:#E6EDF3">(статус.st_mode)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Create a copy to parse</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> копія_шляху </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)пристрій_мавки_виділити(розмір_шляху </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">копія_шляху) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#D2A8FF">  memcpy</span><span style="color:#E6EDF3">(копія_шляху, дані_шляху, розмір_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">  копія_шляху[розмір_шляху] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Create directories recursively</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> я </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; я </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> розмір_шляху; я</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (копія_шляху[я] </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '/'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      копія_шляху[я] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (я </span><span style="color:#FF7B72">></span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span><span style="color:#8B949E"> // Skip if it's the root /</span></span>
+<span class="line"><span style="color:#FF7B72">        if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">mkdir</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)копія_шляху, </span><span style="color:#FF7B72">0</span><span style="color:#79C0FF">755</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">          if</span><span style="color:#E6EDF3"> (errno </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> EEXIST) {</span></span>
+<span class="line"><span style="color:#E6EDF3">            пристрій_мавки_звільнити(копія_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">            пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">            return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      копія_шляху[я] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '/'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Create the final directory</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">mkdir</span><span style="color:#E6EDF3">((</span><span style="color:#FF7B72">const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3">)шлях, </span><span style="color:#FF7B72">0</span><span style="color:#79C0FF">755</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (errno </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> EEXIST) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(копія_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#8B949E">    // EEXIST occurred - verify it's actually a directory, not a file</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">stat</span><span style="color:#E6EDF3">(шлях, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">статус) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#FF7B72"> !</span><span style="color:#D2A8FF">S_ISDIR</span><span style="color:#E6EDF3">(статус.st_mode)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(копія_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(копія_шляху);</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(шлях);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_видалити(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#FF7B72">                                   void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(природне видалено,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   адреса аргумент) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  бібліотека_мавки_видалити(дані_шляху, розмір_шляху);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  обробник(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, аргумент);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_дописати(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_даних,</span></span>
+<span class="line"><span style="color:#FF7B72">                                   void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   адреса аргумент) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  логічне успіх </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> бібліотека_мавки_дописати_файл(дані_шляху, розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                 дані_даних, розмір_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  обробник(</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">успіх, аргумент);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_записати(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   природне розмір_даних,</span></span>
+<span class="line"><span style="color:#FF7B72">                                   void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                    адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                   адреса аргумент) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  логічне успіх </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> бібліотека_мавки_записати_файл(дані_шляху, розмір_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                 дані_даних, розмір_даних);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  обробник(</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">успіх, аргумент);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_прочитати(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#FF7B72">                                    void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     природне розмір_даних,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                     адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                    адреса аргумент) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  Дані вихід;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  логічне успіх </span><span style="color:#FF7B72">=</span></span>
+<span class="line"><span style="color:#E6EDF3">      бібліотека_мавки_прочитати_файл(дані_шляху, розмір_шляху, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">вихід);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (успіх) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    обробник(вихід.дані, вихід.розмір, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, аргумент);</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    обробник(</span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, аргумент);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#E6EDF3"> бібліотека_мавки_афс_створити_папку(п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> дані_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                         природне розмір_шляху,</span></span>
+<span class="line"><span style="color:#FF7B72">                                         void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">обробник)(природне помилка,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                                          адреса аргумент),</span></span>
+<span class="line"><span style="color:#E6EDF3">                                         адреса аргумент) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  логічне успіх </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> бібліотека_мавки_створити_папку(дані_шляху, розмір_шляху);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  обробник(</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">успіх, аргумент);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#E6EDF3"> логічне встановити_закриття_при_виконанні(</span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3"> дескриптор) {</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> прапори </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> fcntl</span><span style="color:#E6EDF3">(дескриптор, F_GETFD);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (прапори </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> fcntl</span><span style="color:#E6EDF3">(дескриптор, F_SETFD, прапори </span><span style="color:#FF7B72">|</span><span style="color:#E6EDF3"> FD_CLOEXEC) </span><span style="color:#FF7B72">!=</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#E6EDF3"> логічне прочитати_потік_в_дані(</span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3"> дескриптор, Дані</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> вихід) {</span></span>
+<span class="line"><span style="color:#FF7B72">  const</span><span style="color:#FF7B72"> size_t</span><span style="color:#E6EDF3"> крок </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 4096</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> ємність </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> використано </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> буфер </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  while</span><span style="color:#E6EDF3"> (</span><span style="color:#79C0FF">true</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (використано </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> крок </span><span style="color:#FF7B72">></span><span style="color:#E6EDF3"> ємність) {</span></span>
+<span class="line"><span style="color:#FF7B72">      size_t</span><span style="color:#E6EDF3"> наступна_ємність </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> ємність </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> ?</span><span style="color:#E6EDF3"> крок </span><span style="color:#FF7B72">:</span><span style="color:#E6EDF3"> ємність </span><span style="color:#FF7B72">*</span><span style="color:#79C0FF"> 2</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (наступна_ємність </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> використано </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> крок) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        наступна_ємність </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> використано </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> крок;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> новий_буфер </span><span style="color:#FF7B72">=</span></span>
+<span class="line"><span style="color:#E6EDF3">          (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)пристрій_мавки_перевиділити(буфер, наступна_ємність);</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">новий_буфер) {</span></span>
+<span class="line"><span style="color:#E6EDF3">        пристрій_мавки_звільнити(буфер);</span></span>
+<span class="line"><span style="color:#FF7B72">        return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      буфер </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> новий_буфер;</span></span>
+<span class="line"><span style="color:#E6EDF3">      ємність </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> наступна_ємність;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    ssize_t</span><span style="color:#E6EDF3"> прочитано </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> read</span><span style="color:#E6EDF3">(дескриптор, буфер </span><span style="color:#FF7B72">+</span><span style="color:#E6EDF3"> використано, крок);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (прочитано </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (errno </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> EINTR) {</span></span>
+<span class="line"><span style="color:#FF7B72">        continue</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      пристрій_мавки_звільнити(буфер);</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (прочитано </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      break</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    використано </span><span style="color:#FF7B72">+=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3">)прочитано;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (використано </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(буфер);</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">розмір </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">дані </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> обрізаний_буфер </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (п8</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">)пристрій_мавки_перевиділити(буфер, використано);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (обрізаний_буфер) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    буфер </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> обрізаний_буфер;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">розмір </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> використано;</span></span>
+<span class="line"><span style="color:#E6EDF3">  вихід</span><span style="color:#FF7B72">-></span><span style="color:#E6EDF3">дані </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> буфер;</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "../common/biblioteka_common.c"</span></span></code></pre>
+</body>
+</html>
