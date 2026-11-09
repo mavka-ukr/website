@@ -444,9 +444,7 @@
         </div>
         <div class="MavkaHomeHeroCodeBlockWrapper">
           <div class="MavkaHomeHeroCodeBlock">
-            <pre data-hello-code="true" data-code-active="false"><code class="hljs"><span class="hljs-keyword">взяти</span> <span class="hljs-keyword">біб</span> аввід
-
-аввід.<span class="hljs-title function_">з</span><span class="hljs-title function_">апитати</span>(
+            <pre data-hello-code="true" data-code-active="false"><code class="hljs">аввід.<span class="hljs-title function_">з</span><span class="hljs-title function_">апитати</span>(
   <span class="hljs-string">"Як вас звати? "</span>,
   <span class="hljs-keyword">дія</span>(значення)
     <span class="hljs-title function_">д</span><span class="hljs-title function_">рук</span>(<span class="hljs-string">"Привіт, <span class="hljs-subst">%(значення)</span>!"</span>)
@@ -489,6 +487,8 @@
                 Бавитись
               </a>
             </div>
+
+            <div class="MavkaHomeHeroCodeBlockInfo hidden"></div>
           </div>
           <div class="MavkaHomeHeroCodeBlockTabs">
             <button data-button-show-hello-code="true" class="MavkaHomeHeroCodeBlockTab">
@@ -560,7 +560,7 @@
           </div>
         </div>
         <div class="MavkaHomeUsecaseCode">
-          <pre><div class="XDocsCodeWrapper"><code class="hljs">міста = (<span class="hljs-string">"Кия"</span>, <span class="hljs-string">"Левів"</span>, <span class="hljs-string">"Яворів"</span>, <span class="hljs-string">"Одісея"</span>, <span class="hljs-string">"Захарія"</span>)
+          <pre><div class="XDocsCodeWrapper"><code class="hljs">міста = [<span class="hljs-string">"Кия"</span>, <span class="hljs-string">"Левів"</span>, <span class="hljs-string">"Яворів"</span>, <span class="hljs-string">"Одісея"</span>, <span class="hljs-string">"Захарія"</span>]
 
 <span class="hljs-keyword">перебрати</span> міста <span class="hljs-keyword">як</span> м
   <span class="hljs-title function_">д</span><span class="hljs-title function_">рук</span>(<span class="hljs-string">"Вітання з міста <span class="hljs-subst">%(м)</span>!"</span>)
@@ -631,6 +631,9 @@
       document
         .querySelector(".MavkaHomeHeroCodeBlockButtons")
         .classList.remove("hidden");
+      document
+        .querySelector(".MavkaHomeHeroCodeBlockInfo")
+        .classList.add("hidden");
     }
 
     function showRocketCode() {
@@ -659,6 +662,9 @@
       document
         .querySelector(".MavkaHomeHeroCodeBlockButtons")
         .classList.remove("hidden");
+      document
+        .querySelector(".MavkaHomeHeroCodeBlockInfo")
+        .classList.add("hidden");
     }
 
     function showServerCode() {
@@ -687,6 +693,9 @@
       document
         .querySelector(".MavkaHomeHeroCodeBlockButtons")
         .classList.remove("hidden");
+      document
+        .querySelector(".MavkaHomeHeroCodeBlockInfo")
+        .classList.add("hidden");
     }
 
     function showRequestCode() {
@@ -720,6 +729,9 @@
 
       document
         .querySelector(".MavkaHomeHeroCodeBlockButtons")
+        .classList.add("hidden");
+      document
+        .querySelector(".MavkaHomeHeroCodeBlockInfo")
         .classList.add("hidden");
 
       setTimeout(() => {

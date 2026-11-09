@@ -1115,6 +1115,19 @@ html.mobile .MavkaHomeHeroCodeBlock {
   display: none;
 }
 
+.MavkaHomeHeroCodeBlockInfo {
+  display: flex;
+  padding: 0.5rem 1rem;
+  padding-top: calc(1rem - 1px);
+  border-top: 1px dashed #333;
+  color: #abb2bf;
+  font-size: 0.9rem;
+}
+
+.MavkaHomeHeroCodeBlockInfo.hidden {
+  display: none;
+}
+
 .MavkaHomeHeroCodeBlockButton {
   font-size: 0.8rem;
   display: flex;
