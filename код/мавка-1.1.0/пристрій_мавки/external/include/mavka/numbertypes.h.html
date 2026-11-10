@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.XUKWCeILy5/мавка-1.1.0/пристрій_мавки/external/include/mavka/numbertypes.h</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> MAVKA_NUMBERTYPES_H</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> MAVKA_NUMBERTYPES_H</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#ifdef</span><span style="color:#D2A8FF"> MAVKA_CUSTOM_NUMBERTYPES_H_PATH</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#E6EDF3"> MAVKA_CUSTOM_NUMBERTYPES_H_PATH</span></span>
+<span class="line"><span style="color:#FF7B72">#else</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stdbool.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stddef.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stdint.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#if</span><span style="color:#FF7B72"> defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">_WIN32</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">||</span><span style="color:#FF7B72"> defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">_MSC_VER</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">||</span><span style="color:#FF7B72"> defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">__WIN32__</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;basetsd.h></span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#E6EDF3"> SSIZE_T </span><span style="color:#FF7B72">ssize_t</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">#elif</span><span style="color:#FF7B72"> defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">__unix__</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">||</span><span style="color:#FF7B72"> defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">__linux__</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">||</span><span style="color:#FF7B72"> defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">__APPLE__</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">||</span><span style="color:#FF7B72"> \</span></span>
+<span class="line"><span style="color:#FF7B72">    defined</span><span style="color:#E6EDF3">(</span><span style="color:#D2A8FF">__FreeBSD__</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;sys/types.h></span></span>
+<span class="line"><span style="color:#FF7B72">#else</span></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#79C0FF"> ptrdiff_t</span><span style="color:#FF7B72"> ssize_t</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#endif</span><span style="color:#8B949E"> // MAVKA_NUMBERTYPES_H</span></span></code></pre>
+</body>
+</html>

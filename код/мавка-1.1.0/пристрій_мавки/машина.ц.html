@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.XUKWCeILy5/мавка-1.1.0/пристрій_мавки/машина.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> КД;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> пристрій_мавки;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> РМв1;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перетворити_п64_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">п64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_текстового_значення: *</span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> значення_кд: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> пристрій_мавки_перетворити_п64_в_кд(значення, значення_кд.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення_кд.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_текстового_значення.розмір = значення_кд.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_текстового_значення.дані = значення_кд.дані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перетворити_ц64_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">ц64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_текстового_значення: *</span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> значення_кд: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> пристрій_мавки_перетворити_ц64_в_кд(значення, значення_кд.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення_кд.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_текстового_значення.розмір = значення_кд.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_текстового_значення.дані = значення_кд.дані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> перетворити_р64_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід_текстового_значення: *</span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> значення_кд: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> пристрій_мавки_перетворити_р64_в_кд(значення, значення_кд.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, значення_кд.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_текстового_значення.розмір = значення_кд.розмір;</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід_текстового_значення.дані = значення_кд.дані;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> ні</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> розібрати_число_з_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    вихід: *</span><span style="color:#79C0FF">р64</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_отримати_р64_з_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">      вихід</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_степінь(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">, степінь: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_степінь(значення, степінь);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_син(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_син(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_кос(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_кос(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_тан(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_тан(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_асин(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_асин(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_акос(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_акос(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_атан(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_атан(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_абс(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_абс(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_експ(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_експ(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_кор2(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_кор2(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_стеля(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_стеля(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_підлога(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_підлога(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> мат_округлити(значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> пристрій_мавки_мат_округлити(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_виділити_сиру_памʼять(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  розмір: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> пристрій_мавки_виділити(розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_перевиділити_сиру_памʼять(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  значення: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  новий_розмір: </span><span style="color:#79C0FF">природне</span></span>
+<span class="line"><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> пристрій_мавки_перевиділити(значення, новий_розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_звільнити_сиру_памʼять(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  значення: </span><span style="color:#79C0FF">адреса</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_запанікувати(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  повідомлення: </span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  мавка::надрукувати_кд(М, повідомлення);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_вийти(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_вивести_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  колір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  значення: </span><span style="color:#79C0FF">кд</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_вивести_кд(колір, значення.дані, значення.розмір);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_отримати_поточний_шлях_процесу(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">) -> *мавка::ПредметТексту {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> шлях: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  успіх = пристрій_мавки_отримати_поточний_шлях_процесу(</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> мавка::створити_текст_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">структура</span><span style="color:#E6EDF3"> ДаніЧитанняВводу {</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина;</span></span>
+<span class="line"><span style="color:#E6EDF3">  перед: *мавка::ПредметТексту;</span></span>
+<span class="line"><span style="color:#E6EDF3">  обробник: мавка::ОбробникПрочитанняВводу;</span></span>
+<span class="line"><span style="color:#E6EDF3">  аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> обробник_прочитання(</span></span>
+<span class="line"><span style="color:#E6EDF3">  дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  кінець_файлу: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> дчв = аргумент </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *ДаніЧитанняВводу;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> М = дчв.М;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#E6EDF3"> кінець_файлу {</span></span>
+<span class="line"><span style="color:#E6EDF3">    дчв.обробник(</span></span>
+<span class="line"><span style="color:#79C0FF">      кд</span><span style="color:#E6EDF3"> { </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3"> },</span></span>
+<span class="line"><span style="color:#FF7B72">      так</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дчв.аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    дчв.обробник(</span></span>
+<span class="line"><span style="color:#79C0FF">      кд</span><span style="color:#E6EDF3"> { дані, розмір },</span></span>
+<span class="line"><span style="color:#FF7B72">      ні</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дчв.аргумент,</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  мавка::звільнити(М, дчв);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_читати_ввід_асинхронно(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  перед: *мавка::ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">  обробник: мавка::ОбробникПрочитанняВводу,</span></span>
+<span class="line"><span style="color:#E6EDF3">  аргумент: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  дозволити_історію: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> дчв = мавка::виділити&#x3C;ДаніЧитанняВводу>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  дчв.М = М;</span></span>
+<span class="line"><span style="color:#E6EDF3">  дчв.перед = перед;</span></span>
+<span class="line"><span style="color:#E6EDF3">  дчв.обробник = обробник;</span></span>
+<span class="line"><span style="color:#E6EDF3">  дчв.аргумент = аргумент;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_читати_асинхронно(</span></span>
+<span class="line"><span style="color:#E6EDF3">    перед.значення.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    перед.значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    обробник_прочитання,</span></span>
+<span class="line"><span style="color:#E6EDF3">    дчв,</span></span>
+<span class="line"><span style="color:#E6EDF3">    дозволити_історію,</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_перевірити_чи_шлях_існує_і_є_файлом(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях: *мавка::ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> пристрій_мавки_перевірити_чи_шлях_існує_і_є_файлом(</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях.значення.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях.значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_отримати_абсолютний_шлях(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях: *мавка::ПредметТексту</span></span>
+<span class="line"><span style="color:#E6EDF3">) -> *мавка::ПредметТексту {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> новий_шлях: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  успіх = пристрій_мавки_отримати_абсолютний_шлях(</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях.значення.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях.значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    новий_шлях.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    новий_шлях.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> мавка::створити_текст_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М,</span></span>
+<span class="line"><span style="color:#E6EDF3">    новий_шлях.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    новий_шлях.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_прочитати_файл(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях_до_файлу: *мавка::ПредметТексту</span></span>
+<span class="line"><span style="color:#E6EDF3">) -> *мавка::ПредметДаних {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  успіх = пристрій_мавки_прочитати_файл(</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_до_файлу.значення.дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">    шлях_до_файлу.значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> мавка::створити_дані_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М,</span></span>
+<span class="line"><span style="color:#E6EDF3">    розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">    дані</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_обробник_падінь(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  інформація_падіння: мавка::ІнформаціяПадіння</span></span>
+<span class="line"><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  мавка::надрукувати_інформацію_падіння(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М,</span></span>
+<span class="line"><span style="color:#E6EDF3">    інформація_падіння</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_вийти(</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">синонім</span><span style="color:#E6EDF3"> ТипДіїЗавантажитиРМв1 = (Р: *РМв1::Розширення, вихрез: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> машина_завантажити_РМв1(</span></span>
+<span class="line"><span style="color:#E6EDF3">  М: *мавка::Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">  Р: *РМв1::Розширення,</span></span>
+<span class="line"><span style="color:#E6EDF3">  шлях: *мавка::ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">  назва_символа: *мавка::ПредметТексту,</span></span>
+<span class="line"><span style="color:#E6EDF3">) -> мавка::ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> дб: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> сдб: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> рез: РМв1::Значення;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  дб = пристрій_мавки_відкрити_динамічну_бібліотеку(шлях.значення.дані, шлях.значення.розмір);</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#E6EDF3"> дб == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    мавка::надрукувати_кд(М, </span><span style="color:#A5D6FF">"дб == пусто"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> мавка::НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  сдб = пристрій_мавки_отримати_символ_динамічної_бібліотеки(дб, назва_символа.значення.дані, назва_символа.значення.розмір);</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#E6EDF3"> сдб == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    мавка::надрукувати_кд(М, </span><span style="color:#A5D6FF">"сдб == пусто"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> мавка::НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  успіх = (сдб </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> ТипДіїЗавантажитиРМв1)(Р, рез::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#8B949E">    // ...</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> мавка::НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> пристрій_мавки_створити_машину() -> *мавка::Машина {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> М = пристрій_мавки_виділити(мавка::Машина.розмір) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *мавка::Машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> ос: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> розділювач_шляху: </span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> версія: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  ос = пристрій_мавки_отримати_ос();</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#E6EDF3"> ос == </span><span style="color:#79C0FF">18</span><span style="color:#E6EDF3"> { </span><span style="color:#8B949E">// віндовс</span></span>
+<span class="line"><span style="color:#E6EDF3">    розділювач_шляху = КД::символи::Обернена_похила;</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">інакше</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    розділювач_шляху = КД::символи::Похила;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_отримати_версію(версія.дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, версія.розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  мавка::налаштувати_машину(М, версія, мавка::Налаштування {</span></span>
+<span class="line"><span style="color:#E6EDF3">    .виділити_сиру_памʼять = машина_виділити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .перевиділити_сиру_памʼять = машина_перевиділити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .звільнити_сиру_памʼять = машина_звільнити_сиру_памʼять,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .запанікувати = машина_запанікувати,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .розділювач_шляху = розділювач_шляху,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .вивести_кд = машина_вивести_кд,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .отримати_поточний_шлях_процесу = машина_отримати_поточний_шлях_процесу,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .читати_ввід_асинхронно = машина_читати_ввід_асинхронно,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .перевірити_чи_шлях_існує_і_є_файлом = машина_перевірити_чи_шлях_існує_і_є_файлом,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .отримати_абсолютний_шлях = машина_отримати_абсолютний_шлях,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .прочитати_файл = машина_прочитати_файл,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .взяти_біб = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .обробник_падінь = машина_обробник_падінь,</span></span>
+<span class="line"><span style="color:#E6EDF3">    .завантажити_РМв1 = машина_завантажити_РМв1,</span></span>
+<span class="line"><span style="color:#E6EDF3">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  мавка::звільнити(М, версія.дані);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> М;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> пристрій_мавки_знищити_машину(М: *мавка::Машина) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  мавка::розлаштувати_машину(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(М);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

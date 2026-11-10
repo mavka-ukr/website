@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.XUKWCeILy5/мавка-1.1.0/пристрій_мавки/початок.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#8B949E">// 2025-2026 Богданович Давид Когут Прихожденко</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> КД;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> пристрій_мавки;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// почати мавку з аргументами кд, і файлами ю8</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> почати_мавку_кд_ю8(кількість_аргументів: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, аргументи: *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ціле</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> код_помилки: </span><span style="color:#79C0FF">ціле</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> М: *мавка::Машина;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> текстові_аргументи: **мавка::ПредметТексту;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  М = пристрій_мавки_створити_машину();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  текстові_аргументи = мавка::виділити&#x3C;*мавка::ПредметТексту>(М, кількість_аргументів);</span></span>
+<span class="line"><span style="color:#E6EDF3">  п = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  поки</span><span style="color:#E6EDF3"> п &#x3C; кількість_аргументів {</span></span>
+<span class="line"><span style="color:#E6EDF3">    текстові_аргументи[п] = М.створити_текст(аргументи[п]);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  код_помилки = мавка::почати(</span></span>
+<span class="line"><span style="color:#E6EDF3">    М,</span></span>
+<span class="line"><span style="color:#E6EDF3">    кількість_аргументів,</span></span>
+<span class="line"><span style="color:#E6EDF3">    текстові_аргументи,</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"><span style="color:#FF7B72">  якщо</span><span style="color:#E6EDF3"> код_помилки {</span></span>
+<span class="line"><span style="color:#FF7B72">    стрибнути</span><span style="color:#E6EDF3"> вихід;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  мавка::звільнити(М, текстові_аргументи);</span></span>
+<span class="line"><span style="color:#E6EDF3">  мавка::розлаштувати_машину(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">вихід:</span></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> код_помилки;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// почати мавку з аргументами ю8, і файлами ю8</span></span>
+<span class="line"><span style="color:#FF7B72">дія</span><span style="color:#E6EDF3"> почати_мавку_ю8_ю8(кількість_аргументів: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, аргументи: *</span><span style="color:#79C0FF">ю8</span><span style="color:#E6EDF3">) -> </span><span style="color:#79C0FF">ціле</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> успіх: </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> п: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> аргументи_кд: *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> код_помилки: </span><span style="color:#79C0FF">ціле</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  змінна</span><span style="color:#E6EDF3"> позиція_помилки: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  аргументи_кд = пристрій_мавки_виділити(кількість_аргументів * </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">.розмір) </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *</span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  п = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  поки</span><span style="color:#E6EDF3"> п &#x3C; кількість_аргументів {</span></span>
+<span class="line"><span style="color:#E6EDF3">    успіх = пристрій_мавки_перекодувати_ю8_в_кд(</span></span>
+<span class="line"><span style="color:#E6EDF3">      аргументи[п].розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">      аргументи[п].дані,</span></span>
+<span class="line"><span style="color:#E6EDF3">      аргументи_кд[п].розмір::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      аргументи_кд[п].дані::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      позиція_помилки::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#E6EDF3">      кількість_аргументів = п;</span></span>
+<span class="line"><span style="color:#E6EDF3">      код_помилки = </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      стрибнути</span><span style="color:#E6EDF3"> вихід;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  код_помилки = почати_мавку_кд_ю8(</span></span>
+<span class="line"><span style="color:#E6EDF3">    кількість_аргументів,</span></span>
+<span class="line"><span style="color:#E6EDF3">    аргументи_кд</span></span>
+<span class="line"><span style="color:#E6EDF3">  );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">вихід:</span></span>
+<span class="line"><span style="color:#E6EDF3">  п = </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  поки</span><span style="color:#E6EDF3"> п &#x3C; кількість_аргументів {</span></span>
+<span class="line"><span style="color:#E6EDF3">    пристрій_мавки_звільнити(аргументи_кд[п].дані);</span></span>
+<span class="line"><span style="color:#E6EDF3">    п += </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">  пристрій_мавки_звільнити(аргументи_кд);</span></span>
+<span class="line"><span style="color:#FF7B72">  вернути</span><span style="color:#E6EDF3"> код_помилки;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.XUKWCeILy5/мавка-1.1.0/машина/РМв1/РМв1.ц</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> мавка;</span></span>
+<span class="line"><span style="color:#FF7B72">взяти визначення</span><span style="color:#E6EDF3"> РМв1;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">простір</span><span style="color:#E6EDF3"> мавка {</span></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> ЗРЗМ(значення: РМв1::Значення) -> Значення {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> Значення { значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> п64</span><span style="color:#E6EDF3">, значення.вид };</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> ЗМЗР(значення: Значення) -> РМв1::Значення {</span></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> РМв1::Значення { значення.дані </span><span style="color:#FF7B72">як</span><span style="color:#79C0FF"> п64</span><span style="color:#E6EDF3">, значення.вид };</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_надрукувати_кд(Р: *РМв1::Розширення, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    надрукувати_кд(Р.М </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Машина, значення);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_надрукувати_значення(Р: *РМв1::Розширення, значення: РМв1::Значення) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    надрукувати_значення(Р.М </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Машина, ЗРЗМ(значення), </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_притримувач(я: *РМв1::Розширення) -> *РМв1::Притримувач {</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> М = я.М </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> п = виділити&#x3C;РМв1::Притримувач>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    п.Р = я;</span></span>
+<span class="line"><span style="color:#E6EDF3">    п.пм = створити_притримувач(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> п;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_знищити_притримувач(я: *РМв1::Розширення, притримувач: *РМв1::Притримувач) -> </span><span style="color:#79C0FF">ніщо</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> М = я.М </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    знищити_притримувач(М, притримувач.пм </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Притримувач);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, притримувач);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_користувацькі_дані(я: *РМв1::Розширення, дані: </span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">, дія_перед_знищенням: РМв1::ДіяПередЗнищеннямКористувацькихДаних) -> *РМв1::КористувацькіДані {</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_записати_користувацькі_дані_предмету(я: *РМв1::Розширення, значення: РМв1::Значення, користувацькі_дані: *РМв1::КористувацькіДані, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_число(я: *РМв1::Розширення, значення: </span><span style="color:#79C0FF">р64</span><span style="color:#E6EDF3">, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    р::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = ЗМЗР(ЧИСЛО(значення));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_текст(я: *РМв1::Розширення, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    р::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = ЗМЗР(ПРЕДМЕТ(створити_текст(я.М </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Машина, значення)));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_текст_без_копіювання(я: *РМв1::Розширення, значення: </span><span style="color:#79C0FF">кд</span><span style="color:#E6EDF3">, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    р::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = ЗМЗР(ПРЕДМЕТ(створити_текст_без_копіювання(</span></span>
+<span class="line"><span style="color:#E6EDF3">      я.М </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення.розмір,</span></span>
+<span class="line"><span style="color:#E6EDF3">      значення.дані</span></span>
+<span class="line"><span style="color:#E6EDF3">    )));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  структура</span><span style="color:#E6EDF3"> КДРДРМв1 {</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р: *РМв1::Розширення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    рідна_дія: РМв1::РіднаДія;</span></span>
+<span class="line"><span style="color:#E6EDF3">    додаткові_користувацькі_дані: *РМв1::КористувацькіДані;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> дія_перед_знищенням_КДРДРМв1(М: *Машина, користувацькі_дані: *КористувацькіДані) {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> корд = користувацькі_дані.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КДРДРМв1;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> корд.додаткові_користувацькі_дані != </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#8B949E">      // ...</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    звільнити(М, корд);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1 (</span></span>
+<span class="line"><span style="color:#E6EDF3">    М: *Машина,</span></span>
+<span class="line"><span style="color:#E6EDF3">    діяльність: *Діяльність,</span></span>
+<span class="line"><span style="color:#E6EDF3">  ) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> дкд = діяльність.предмет_дії.додаткові_користувацькі_дані;</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#E6EDF3"> дкд == </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">      вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ; </span><span style="color:#8B949E">// щось пішло не так, вбудована помилка</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> корд = дкд.значення </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *КДРДРМв1;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> р: РМв1::Значення;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> успіх = корд.рідна_дія(корд.Р, діяльність </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *РМв1::Діяльність, р::</span><span style="color:#79C0FF">адреса</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    якщо</span><span style="color:#FF7B72"> не</span><span style="color:#E6EDF3"> успіх {</span></span>
+<span class="line"><span style="color:#8B949E">      // потім: доробити</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_дію(я: *РМв1::Розширення, назва: РМв1::Значення, рідна_дія: РМв1::РіднаДія, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    стала</span><span style="color:#E6EDF3"> М = я.М </span><span style="color:#FF7B72">як</span><span style="color:#E6EDF3"> *Машина;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> назва_пт: *ПредметТексту = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // потім: назва.дані як *Предмет як *ПредметТексту</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> д = створити_рідну_дію(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      назва_пт,</span></span>
+<span class="line"><span style="color:#E6EDF3">      М.пуста_послідовність,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      рідна_дія_РМв1,</span></span>
+<span class="line"><span style="color:#FF7B72">      пусто</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    р::</span><span style="color:#79C0FF">вміст</span><span style="color:#E6EDF3"> = ЗМЗР(ПРЕДМЕТ(д));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> корд = виділити&#x3C;КДРДРМв1>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">    корд.Р = я;</span></span>
+<span class="line"><span style="color:#E6EDF3">    корд.рідна_дія = рідна_дія;</span></span>
+<span class="line"><span style="color:#E6EDF3">    корд.додаткові_користувацькі_дані = </span><span style="color:#FF7B72">пусто</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    д.додаткові_користувацькі_дані = створити_користувацькі_дані(</span></span>
+<span class="line"><span style="color:#E6EDF3">      М,</span></span>
+<span class="line"><span style="color:#E6EDF3">      корд,</span></span>
+<span class="line"><span style="color:#E6EDF3">      дія_перед_знищенням_КДРДРМв1,</span></span>
+<span class="line"><span style="color:#E6EDF3">    );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#FF7B72"> так</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_клас(я: *РМв1::Розширення, назва: РМв1::Значення, предок: РМв1::Значення, параметри: РМв1::Значення, дії: РМв1::Значення, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_модуль(я: *РМв1::Розширення, назва: РМв1::Значення, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_список(я: *РМв1::Розширення, вмісткість: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_словник(я: *РМв1::Розширення, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_дані(я: *РМв1::Розширення, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_створити_дані_без_копіювання(я: *РМв1::Розширення, дані: *</span><span style="color:#79C0FF">п8</span><span style="color:#E6EDF3">, розмір: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  внутрішня</span><span style="color:#FF7B72"> дія</span><span style="color:#E6EDF3"> рідна_дія_РМв1_здійснити(я: *РМв1::Розширення, значення: РМв1::Значення, здійснювач: РМв1::Значення, дз: *РМв1::Значення, кз: </span><span style="color:#79C0FF">природне</span><span style="color:#E6EDF3">, р: *РМв1::Значення) -> </span><span style="color:#79C0FF">логічне</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> створити_РМв1(М: *Машина) -> *РМв1::Розширення {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> Р = виділити&#x3C;РМв1::Розширення>(М, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    Р.М = М;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.надрукувати_кд = рідна_дія_РМв1_надрукувати_кд;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.надрукувати_значення = рідна_дія_РМв1_надрукувати_значення;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_притримувач = рідна_дія_РМв1_створити_притримувач;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.знищити_притримувач = рідна_дія_РМв1_знищити_притримувач;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_користувацькі_дані = рідна_дія_РМв1_створити_користувацькі_дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.записати_користувацькі_дані_предмету = рідна_дія_РМв1_записати_користувацькі_дані_предмету;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_число = рідна_дія_РМв1_створити_число;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_текст = рідна_дія_РМв1_створити_текст;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_текст_без_копіювання = рідна_дія_РМв1_створити_текст_без_копіювання;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_дію = рідна_дія_РМв1_створити_дію;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_клас = рідна_дія_РМв1_створити_клас;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_модуль = рідна_дія_РМв1_створити_модуль;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_список = рідна_дія_РМв1_створити_список;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_словник = рідна_дія_РМв1_створити_словник;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_дані = рідна_дія_РМв1_створити_дані;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.створити_дані_без_копіювання = рідна_дія_РМв1_створити_дані_без_копіювання;</span></span>
+<span class="line"><span style="color:#E6EDF3">    Р.здійснити = рідна_дія_РМв1_здійснити;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> Р;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  дія</span><span style="color:#E6EDF3"> завантажити_РМв1(М: *Машина, шлях: *ПредметТексту, назва_символа: *ПредметТексту) -> ЗначенняАбоСтанПадіння {</span></span>
+<span class="line"><span style="color:#FF7B72">    змінна</span><span style="color:#E6EDF3"> Р = створити_РМв1(М);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">    М.налаштування.завантажити_РМв1(М, Р, шлях, назва_символа);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    вернути</span><span style="color:#E6EDF3"> НЕДІЙСНЕ;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+</body>
+</html>
