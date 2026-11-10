@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.h644M68kbm/мавка-1.1.0/пристрій_мавки/external/include/mavka/prystriy.h</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> PRYSTRIY_H</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> PRYSTRIY_H</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "./numbertypes.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> MAVKA_VERSION</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> MAVKA_VERSION</span><span style="color:#A5D6FF"> "0.0.0"</span></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">typedef</span><span style="color:#FF7B72"> enum</span><span style="color:#E6EDF3"> PristriyMavkyWriteToStdoutColor {</span></span>
+<span class="line"><span style="color:#E6EDF3">  PristriyMavkyColorReset </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  PristriyMavkyColorRed </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  PristriyMavkyColorGreen </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 2</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  PristriyMavkyColorBlue </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 3</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">  PristriyMavkyColorYellow </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 4</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">} PristriyMavkyWriteToStdoutColor;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_get_version</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> pristriy_mavky_realloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> new_size</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#D2A8FF"> pristriy_mavky_free</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#D2A8FF"> pristriy_mavky_write_to_stdout</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> data</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#D2A8FF"> pristriy_mavky_write_utf8_to_stdout</span><span style="color:#E6EDF3">(PristriyMavkyWriteToStdoutColor </span><span style="color:#FFA657">color</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                         char*</span><span style="color:#FFA657"> data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                         size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_pow</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> exp</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_sin</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_cos</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_tan</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_asin</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_acos</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_atan</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_abs</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_exp</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_sqrt</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_ceil</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_floor</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_round</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_uint64_to_str</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_int64_to_str</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">ssize_t</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                 char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                 size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_double_to_str</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  ssize_t*</span><span style="color:#FFA657"> exp_size_out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_str_to_double</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> data</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">double*</span><span style="color:#FFA657"> out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_get_cwd</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_get_absolute_path</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path_data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                      size_t</span><span style="color:#FFA657"> path_size</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                      char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                      size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_check_if_file_exists</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path_data</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> path_size</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_read_file</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path_data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                              size_t</span><span style="color:#FFA657"> path_size</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                              char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                              size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_read_input_async</span><span style="color:#E6EDF3">(</span></span>
+<span class="line"><span style="color:#FF7B72">    char*</span><span style="color:#FFA657"> prefix_data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">    size_t</span><span style="color:#FFA657"> prefix_size</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">    void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">callback)(</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3"> data, </span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> data_size, </span><span style="color:#FF7B72">bool</span><span style="color:#E6EDF3"> eof, </span><span style="color:#FF7B72">void*</span><span style="color:#E6EDF3"> arg),</span></span>
+<span class="line"><span style="color:#FF7B72">    void*</span><span style="color:#FFA657"> arg</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">    bool</span><span style="color:#FFA657"> allow_history</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> pristriy_mavky_dlopen</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path_data</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> path_size</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">int*</span><span style="color:#FFA657"> err_out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> pristriy_mavky_dlsym</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> dl</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                           char*</span><span style="color:#FFA657"> name_data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                           size_t</span><span style="color:#FFA657"> name_size</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                           int*</span><span style="color:#FFA657"> err_out</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">int</span><span style="color:#D2A8FF"> pristriy_mavky_dlclose</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> dl</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#D2A8FF"> pristriy_mavky_exit</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">int</span><span style="color:#FFA657"> code</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#endif</span><span style="color:#8B949E"> // PRYSTRIY_H</span></span></code></pre>
+</body>
+</html>

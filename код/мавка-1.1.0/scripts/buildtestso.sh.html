@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.h644M68kbm/мавка-1.1.0/scripts/buildtestso.sh</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -e</span></span>
+<span class="line"><span style="color:#79C0FF">set</span><span style="color:#79C0FF"> -x</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">export</span><span style="color:#E6EDF3"> ANDROID_NDK_HOME</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"/home/</span><span style="color:#E6EDF3">$USER</span><span style="color:#A5D6FF">/Compilers/android-ndk-r27d"</span></span>
+<span class="line"><span style="color:#FF7B72">export</span><span style="color:#E6EDF3"> LLVM_MINGW_PATH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"/home/</span><span style="color:#E6EDF3">$USER</span><span style="color:#A5D6FF">/Compilers/llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64"</span></span>
+<span class="line"><span style="color:#FF7B72">export</span><span style="color:#E6EDF3"> OSXCROSS_PATH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"/home/</span><span style="color:#E6EDF3">$USER</span><span style="color:#A5D6FF">/Compilers/osxcross/target"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">SYSTEM</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#79C0FF">$1</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#79C0FF"> -p</span><span style="color:#A5D6FF"> ./будування/р</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#A5D6FF"> "linux"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FFA657">  ціль</span><span style="color:#A5D6FF"> ./будування/р/р.ц.linux.c</span><span style="color:#79C0FF"> --формат=сіанг</span><span style="color:#79C0FF"> --платформа=ікс86_64-пк-лінукс-гну</span><span style="color:#A5D6FF"> перекласти</span><span style="color:#A5D6FF"> ./scripts/р.ц</span><span style="color:#79C0FF"> --визначення=./машина/РМв1/визначення</span></span>
+<span class="line"><span style="color:#FFA657">  clang</span><span style="color:#79C0FF"> -shared</span><span style="color:#79C0FF"> -fPIC</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> ./будування/р/р.so</span><span style="color:#A5D6FF"> ./будування/р/р.ц.linux.c</span></span>
+<span class="line"><span style="color:#FFA657">  bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> debug</span><span style="color:#A5D6FF"> linux-x86_64</span></span>
+<span class="line"><span style="color:#FFA657">  ./будування/1.1.0/лінукс-ікс86_64/відлагодження/готове/мавка</span><span style="color:#79C0FF"> -Б=./будування/р/р.so</span><span style="color:#A5D6FF"> тест.м</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#A5D6FF"> "macos"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">  export</span><span style="color:#E6EDF3"> PATH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$OSXCROSS_PATH</span><span style="color:#A5D6FF">/bin:</span><span style="color:#E6EDF3">$PATH</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  ціль</span><span style="color:#A5D6FF"> ./будування/р/р.ц.macos.c</span><span style="color:#79C0FF"> --формат=сіанг</span><span style="color:#79C0FF"> --платформа=ікс86_64-епл-дарвін</span><span style="color:#A5D6FF"> перекласти</span><span style="color:#A5D6FF"> ./scripts/р.ц</span><span style="color:#79C0FF"> --визначення=./машина/РМв1/визначення</span></span>
+<span class="line"><span style="color:#E6EDF3">  $OSXCROSS_PATH</span><span style="color:#A5D6FF">/bin/x86_64-apple-darwin23-clang</span><span style="color:#79C0FF"> -dynamiclib</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> ./будування/р/р.dynlib</span><span style="color:#A5D6FF"> ./будування/р/р.ц.macos.c</span></span>
+<span class="line"><span style="color:#FFA657">  bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> debug</span><span style="color:#A5D6FF"> macos-x86_64</span></span>
+<span class="line"><span style="color:#FFA657">  darling</span><span style="color:#A5D6FF"> "$(</span><span style="color:#FFA657">realpath</span><span style="color:#A5D6FF"> ./будування/1.1.0/макос-ікс86_64/відлагодження/готове/мавка)"</span><span style="color:#79C0FF"> -Б=./будування/р/р.dynlib</span><span style="color:#A5D6FF"> тест.м</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">if</span><span style="color:#E6EDF3"> [ </span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$SYSTEM</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72"> =</span><span style="color:#A5D6FF"> "windows"</span><span style="color:#E6EDF3"> ]; </span><span style="color:#FF7B72">then</span></span>
+<span class="line"><span style="color:#FF7B72">  export</span><span style="color:#E6EDF3"> PATH</span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">$LLVM_MINGW_PATH</span><span style="color:#A5D6FF">/bin:</span><span style="color:#E6EDF3">$PATH</span><span style="color:#A5D6FF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  ціль</span><span style="color:#A5D6FF"> ./будування/р/р.ц.windows.c</span><span style="color:#79C0FF"> --формат=сіанг</span><span style="color:#79C0FF"> --платформа=ікс86_64-пк-віндовс-гну</span><span style="color:#A5D6FF"> перекласти</span><span style="color:#A5D6FF"> ./scripts/р.ц</span><span style="color:#79C0FF"> --визначення=./машина/РМв1/визначення</span></span>
+<span class="line"><span style="color:#E6EDF3">  $LLVM_MINGW_PATH</span><span style="color:#A5D6FF">/bin/x86_64-w64-mingw32-clang</span><span style="color:#79C0FF"> -shared</span><span style="color:#79C0FF"> -o</span><span style="color:#A5D6FF"> ./будування/р/р.dll</span><span style="color:#A5D6FF"> ./будування/р/р.ц.windows.c</span></span>
+<span class="line"><span style="color:#FFA657">  bash</span><span style="color:#A5D6FF"> scripts/build.sh</span><span style="color:#A5D6FF"> debug</span><span style="color:#A5D6FF"> windows-x86_64</span></span>
+<span class="line"><span style="color:#FFA657">  ./будування/1.1.0/віндовс-ікс86_64/відлагодження/готове/мавка.exe</span><span style="color:#79C0FF"> -Б=./будування/р/р.dll</span><span style="color:#A5D6FF"> тест.м</span></span>
+<span class="line"><span style="color:#FF7B72">fi</span></span>
+<span class="line"></span></code></pre>
+</body>
+</html>

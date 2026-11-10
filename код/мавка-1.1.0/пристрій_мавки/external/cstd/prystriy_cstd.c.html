@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>/tmp/tmp.h644M68kbm/мавка-1.1.0/пристрій_мавки/external/cstd/prystriy_cstd.c</title>
+  <style>
+    html, body, pre {
+      margin: 0;
+      font-family: monospace;
+      background: #0d1117;
+    }
+
+    .shiki {
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <pre class="shiki github-dark-default" style="background-color:#0d1117;color:#e6edf3" tabindex="0"><code><span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;errno.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;math.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stdio.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;stdlib.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;string.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;sys/stat.h></span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;unistd.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> "../include/mavka/prystriy.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> MAVKA_MALLOC_FN</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> MAVKA_MALLOC_FN</span><span style="color:#E6EDF3"> malloc</span></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> MAVKA_REALLOC_FN</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> MAVKA_REALLOC_FN</span><span style="color:#E6EDF3"> realloc</span></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> MAVKA_FREE_FN</span></span>
+<span class="line"><span style="color:#FF7B72">#define</span><span style="color:#D2A8FF"> MAVKA_FREE_FN</span><span style="color:#E6EDF3"> free</span></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> print_color</span><span style="color:#E6EDF3">(PristriyMavkyWriteToStdoutColor </span><span style="color:#FFA657">color</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> char*</span><span style="color:#D2A8FF"> do_readline</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> prefix</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> prefix_size</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t*</span><span style="color:#FFA657"> out_len</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// ----------------------------</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> MAVKA_MALLOC_FN</span><span style="color:#E6EDF3">(size);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> pristriy_mavky_realloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> new_size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> MAVKA_REALLOC_FN</span><span style="color:#E6EDF3">(value, new_size);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#D2A8FF"> pristriy_mavky_free</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">  MAVKA_FREE_FN</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#D2A8FF"> pristriy_mavky_write_to_stdout</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> data</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">  fwrite</span><span style="color:#E6EDF3">(data, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, size, stdout);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#D2A8FF"> pristriy_mavky_write_utf8_to_stdout</span><span style="color:#E6EDF3">(PristriyMavkyWriteToStdoutColor </span><span style="color:#FFA657">color</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                         char*</span><span style="color:#FFA657"> data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                         size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">  print_color</span><span style="color:#E6EDF3">(color);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  fwrite</span><span style="color:#E6EDF3">(data, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, size, stdout);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  print_color</span><span style="color:#E6EDF3">(PristriyMavkyColorReset);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_pow</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> exp</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> pow</span><span style="color:#E6EDF3">(value, exp);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_sin</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> sin</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_cos</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> cos</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_tan</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> tan</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_asin</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> asin</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_acos</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> acos</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_atan</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> atan</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_abs</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> fabs</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_exp</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> exp</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_sqrt</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> sqrt</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_ceil</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> ceil</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_floor</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> floor</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">double</span><span style="color:#D2A8FF"> pristriy_mavky_double_round</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> round</span><span style="color:#E6EDF3">(value);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_uint64_to_str</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char</span><span style="color:#FFA657"> buf</span><span style="color:#E6EDF3">[</span><span style="color:#79C0FF">32</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> snprintf</span><span style="color:#E6EDF3">(buf, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(buf), </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">%llu</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">, (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> long</span><span style="color:#FF7B72"> long</span><span style="color:#E6EDF3">)value);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">size_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3">)len;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">data_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">data_out) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">size_out; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">data_out)[і] </span><span style="color:#FF7B72">=</span><span style="color:#FFA657"> buf</span><span style="color:#E6EDF3">[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_int64_to_str</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">ssize_t</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                 char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                 size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char</span><span style="color:#FFA657"> buf</span><span style="color:#E6EDF3">[</span><span style="color:#79C0FF">32</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> snprintf</span><span style="color:#E6EDF3">(buf, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(buf), </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">%lld</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">, (</span><span style="color:#FF7B72">long</span><span style="color:#FF7B72"> long</span><span style="color:#E6EDF3">)value);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">size_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3">)len;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">data_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">data_out) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">size_out; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">data_out)[і] </span><span style="color:#FF7B72">=</span><span style="color:#FFA657"> buf</span><span style="color:#E6EDF3">[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// 123.0 => "123"</span></span>
+<span class="line"><span style="color:#8B949E">// 123.456 => "123.456"</span></span>
+<span class="line"><span style="color:#8B949E">// -0.00123 => "-0.00123"</span></span>
+<span class="line"><span style="color:#8B949E">// 1.2e+30 => "1.2" 30</span></span>
+<span class="line"><span style="color:#8B949E">// 1.2e-30 => "1.2" -30</span></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_double_to_str</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">double</span><span style="color:#FFA657"> value</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                  ssize_t*</span><span style="color:#FFA657"> exp_size_out</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char</span><span style="color:#FFA657"> buf</span><span style="color:#E6EDF3">[</span><span style="color:#79C0FF">64</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> len;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">isnan</span><span style="color:#E6EDF3">(value)) {</span></span>
+<span class="line"><span style="color:#FF7B72">    char</span><span style="color:#E6EDF3"> nan_str</span><span style="color:#FF7B72">[]</span><span style="color:#FF7B72"> =</span><span style="color:#A5D6FF"> "невизначеність"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">size_out </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> sizeof</span><span style="color:#E6EDF3">(nan_str) </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">data_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">data_out)</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#D2A8FF">    memcpy</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">data_out, nan_str, </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">exp_size_out </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">isinf</span><span style="color:#E6EDF3">(value)) {</span></span>
+<span class="line"><span style="color:#FF7B72">    char*</span><span style="color:#E6EDF3"> inf_str </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> value </span><span style="color:#FF7B72">></span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> ?</span><span style="color:#A5D6FF"> "нескінченність"</span><span style="color:#FF7B72"> :</span><span style="color:#A5D6FF"> "-нескінченність"</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">size_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> value </span><span style="color:#FF7B72">></span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> ?</span><span style="color:#FF7B72"> sizeof</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">"нескінченність"</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span></span>
+<span class="line"><span style="color:#FF7B72">                          :</span><span style="color:#FF7B72"> sizeof</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">"-нескінченність"</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">-</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">data_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">data_out)</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#D2A8FF">    memcpy</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">data_out, inf_str, </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">exp_size_out </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // Знаходимо найкоротше представлення, яке round-trips</span></span>
+<span class="line"><span style="color:#8B949E">  // Пробуємо від 15 до 17 цифр точності</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3"> precision </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 15</span><span style="color:#E6EDF3">; precision </span><span style="color:#FF7B72">&#x3C;=</span><span style="color:#79C0FF"> 17</span><span style="color:#E6EDF3">; precision</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    len </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> snprintf</span><span style="color:#E6EDF3">(buf, </span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(buf), </span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">%.*g</span><span style="color:#A5D6FF">"</span><span style="color:#E6EDF3">, precision, value);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> ||</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">>=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(buf)) {</span></span>
+<span class="line"><span style="color:#FF7B72">      continue</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">    // Перевіряємо чи round-trip працює</span></span>
+<span class="line"><span style="color:#FF7B72">    double</span><span style="color:#E6EDF3"> parsed </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strtod</span><span style="color:#E6EDF3">(buf, </span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (parsed </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> value) {</span></span>
+<span class="line"><span style="color:#FF7B72">      break</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> ||</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">>=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">int</span><span style="color:#E6EDF3">)</span><span style="color:#FF7B72">sizeof</span><span style="color:#E6EDF3">(buf)) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> e_pos </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strchr</span><span style="color:#E6EDF3">(buf, </span><span style="color:#A5D6FF">'e'</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (e_pos </span><span style="color:#FF7B72">!=</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">exp_size_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">ssize_t</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">strtol</span><span style="color:#E6EDF3">(e_pos </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">10</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    size_t</span><span style="color:#E6EDF3"> mantissa_len </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3">)(e_pos </span><span style="color:#FF7B72">-</span><span style="color:#E6EDF3"> buf);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">size_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> mantissa_len;</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">data_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">data_out)</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> mantissa_len; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">data_out)[і] </span><span style="color:#FF7B72">=</span><span style="color:#FFA657"> buf</span><span style="color:#E6EDF3">[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">exp_size_out </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">size_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3">)len;</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">data_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">data_out)</span></span>
+<span class="line"><span style="color:#FF7B72">      return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#FF7B72"> *</span><span style="color:#E6EDF3">size_out; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">data_out)[і] </span><span style="color:#FF7B72">=</span><span style="color:#FFA657"> buf</span><span style="color:#E6EDF3">[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_str_to_double</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> data</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> size</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">double*</span><span style="color:#FFA657"> out</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> str </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(size </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> size; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    unsigned</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3"> c </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3">)</span><span style="color:#FFA657">data</span><span style="color:#E6EDF3">[і];</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (c </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> 0x</span><span style="color:#79C0FF">D0</span><span style="color:#FF7B72"> ||</span><span style="color:#E6EDF3"> c </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> 0x</span><span style="color:#79C0FF">D1</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (і </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#FF7B72"> &#x3C;</span><span style="color:#E6EDF3"> size) {</span></span>
+<span class="line"><span style="color:#FF7B72">        unsigned</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3"> c2 </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">unsigned</span><span style="color:#FF7B72"> char</span><span style="color:#E6EDF3">)</span><span style="color:#FFA657">data</span><span style="color:#E6EDF3">[і </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">];</span></span>
+<span class="line"><span style="color:#FF7B72">        if</span><span style="color:#E6EDF3"> (c </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> 0x</span><span style="color:#79C0FF">D0</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#E6EDF3"> c2 </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> 0x</span><span style="color:#79C0FF">B5</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">          str</span><span style="color:#E6EDF3">[len</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> 'e'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          continue</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#FF7B72">        if</span><span style="color:#E6EDF3"> (c </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> 0x</span><span style="color:#79C0FF">D0</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#E6EDF3"> c2 </span><span style="color:#FF7B72">==</span><span style="color:#FF7B72"> 0x</span><span style="color:#79C0FF">95</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">          str</span><span style="color:#E6EDF3">[len</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> 'E'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">          і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">          continue</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">        }</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    str</span><span style="color:#E6EDF3">[len</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char</span><span style="color:#E6EDF3">)c;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FFA657">  str</span><span style="color:#E6EDF3">[len] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> endptr;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">out </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strtod</span><span style="color:#E6EDF3">(str, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">endptr);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (str </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> endptr) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    pristriy_mavky_free</span><span style="color:#E6EDF3">(str);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (errno </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> ERANGE) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    pristriy_mavky_free</span><span style="color:#E6EDF3">(str);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  } </span><span style="color:#FF7B72">else</span><span style="color:#FF7B72"> if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">endptr </span><span style="color:#FF7B72">!=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    pristriy_mavky_free</span><span style="color:#E6EDF3">(str);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  pristriy_mavky_free</span><span style="color:#E6EDF3">(str);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_get_cwd</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> cwd </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> getcwd</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (cwd </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">size_out </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(cwd);</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">data_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">data_out) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    pristriy_mavky_free</span><span style="color:#E6EDF3">(cwd);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  memcpy</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">data_out, cwd, </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#D2A8FF">  pristriy_mavky_free</span><span style="color:#E6EDF3">(cwd);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_get_absolute_path</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path_data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                      size_t</span><span style="color:#FFA657"> path_size</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                      char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                                      size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> pathstr </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(path_size </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> path_size; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">    pathstr</span><span style="color:#E6EDF3">[і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char</span><span style="color:#E6EDF3">)</span><span style="color:#FFA657">path_data</span><span style="color:#E6EDF3">[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FFA657">  pathstr</span><span style="color:#E6EDF3">[path_size] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> abspath </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> realpath</span><span style="color:#E6EDF3">(pathstr, </span><span style="color:#79C0FF">NULL</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#D2A8FF">  pristriy_mavky_free</span><span style="color:#E6EDF3">(pathstr);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (abspath </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(abspath);</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">size_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> len;</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">data_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(len);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">data_out) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    pristriy_mavky_free</span><span style="color:#E6EDF3">(abspath);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> len; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">    (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">data_out)[і] </span><span style="color:#FF7B72">=</span><span style="color:#FFA657"> abspath</span><span style="color:#E6EDF3">[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  pristriy_mavky_free</span><span style="color:#E6EDF3">(abspath);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_check_if_file_exists</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path_data</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> path_size</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> pathstr </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(path_size </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> path_size; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">    pathstr</span><span style="color:#E6EDF3">[і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char</span><span style="color:#E6EDF3">)</span><span style="color:#FFA657">path_data</span><span style="color:#E6EDF3">[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FFA657">  pathstr</span><span style="color:#E6EDF3">[path_size] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  struct</span><span style="color:#E6EDF3"> stat statbuf;</span></span>
+<span class="line"><span style="color:#FF7B72">  bool</span><span style="color:#E6EDF3"> res </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">stat</span><span style="color:#E6EDF3">(pathstr, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">statbuf) </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#D2A8FF">S_ISREG</span><span style="color:#E6EDF3">(statbuf.st_mode)) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      res </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  pristriy_mavky_free</span><span style="color:#E6EDF3">(pathstr);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> res;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_read_file</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path_data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                              size_t</span><span style="color:#FFA657"> path_size</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                              char**</span><span style="color:#FFA657"> data_out</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                              size_t*</span><span style="color:#FFA657"> size_out</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> pathstr </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(path_size </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#FF7B72">  for</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> і </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">; і </span><span style="color:#FF7B72">&#x3C;</span><span style="color:#E6EDF3"> path_size; і</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FFA657">    pathstr</span><span style="color:#E6EDF3">[і] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char</span><span style="color:#E6EDF3">)</span><span style="color:#FFA657">path_data</span><span style="color:#E6EDF3">[і];</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FFA657">  pathstr</span><span style="color:#E6EDF3">[path_size] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E6EDF3">  FILE</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3"> f </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> fopen</span><span style="color:#E6EDF3">(pathstr, </span><span style="color:#A5D6FF">"rb"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#D2A8FF">  pristriy_mavky_free</span><span style="color:#E6EDF3">(pathstr);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">f) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  fseek</span><span style="color:#E6EDF3">(f, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, SEEK_END);</span></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">size_out </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> ftell</span><span style="color:#E6EDF3">(f);</span></span>
+<span class="line"><span style="color:#D2A8FF">  fseek</span><span style="color:#E6EDF3">(f, </span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, SEEK_SET);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">data_out </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!*</span><span style="color:#E6EDF3">data_out) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    fclose</span><span style="color:#E6EDF3">(f);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> false</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  fread</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">data_out, </span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">size_out, f);</span></span>
+<span class="line"><span style="color:#D2A8FF">  fclose</span><span style="color:#E6EDF3">(f);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">bool</span><span style="color:#D2A8FF"> pristriy_mavky_read_input_async</span><span style="color:#E6EDF3">(</span></span>
+<span class="line"><span style="color:#FF7B72">    char*</span><span style="color:#FFA657"> prefix_data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">    size_t</span><span style="color:#FFA657"> prefix_size</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">    void</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">*</span><span style="color:#E6EDF3">callback)(</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3"> data, </span><span style="color:#FF7B72">size_t</span><span style="color:#E6EDF3"> data_size, </span><span style="color:#FF7B72">bool</span><span style="color:#E6EDF3"> eof, </span><span style="color:#FF7B72">void*</span><span style="color:#E6EDF3"> arg),</span></span>
+<span class="line"><span style="color:#FF7B72">    void*</span><span style="color:#FFA657"> arg</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">    bool</span><span style="color:#FFA657"> allow_history</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> data </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> do_readline</span><span style="color:#E6EDF3">(prefix_data, prefix_size, </span><span style="color:#FF7B72">&#x26;</span><span style="color:#E6EDF3">len);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">data) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    callback</span><span style="color:#E6EDF3">(data, len, </span><span style="color:#79C0FF">true</span><span style="color:#E6EDF3">, arg);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  callback</span><span style="color:#E6EDF3">(data, len, </span><span style="color:#79C0FF">false</span><span style="color:#E6EDF3">, arg);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#79C0FF"> true</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#ifndef</span><span style="color:#D2A8FF"> MAVKA_NO_DLFCN</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;dlfcn.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> pristriy_mavky_dlopen</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> path_data</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> path_size</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">int*</span><span style="color:#FFA657"> err_out</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  (</span><span style="color:#FF7B72">void</span><span style="color:#E6EDF3">)path_size;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  dlerror</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  void*</span><span style="color:#E6EDF3"> dl </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> dlopen</span><span style="color:#E6EDF3">(path_data, RTLD_LAZY);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">dl) {</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">err_out </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> dl;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void*</span><span style="color:#D2A8FF"> pristriy_mavky_dlsym</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> dl</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                           char*</span><span style="color:#FFA657"> name_data</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                           size_t</span><span style="color:#FFA657"> name_size</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#FF7B72">                           int*</span><span style="color:#FFA657"> err_out</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#E6EDF3">  (</span><span style="color:#FF7B72">void</span><span style="color:#E6EDF3">)name_size;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D2A8FF">  dlerror</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  void*</span><span style="color:#E6EDF3"> dls </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> dlsym</span><span style="color:#E6EDF3">(dl, name_data);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  const</span><span style="color:#FF7B72"> char*</span><span style="color:#E6EDF3"> err </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> dlerror</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (err) {</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">err_out </span><span style="color:#FF7B72">=</span><span style="color:#FF7B72"> -</span><span style="color:#79C0FF">1</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> dls;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">int</span><span style="color:#D2A8FF"> pristriy_mavky_dlclose</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">void*</span><span style="color:#FFA657"> dl</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#D2A8FF"> dlclose</span><span style="color:#E6EDF3">(dl);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">void</span><span style="color:#D2A8FF"> pristriy_mavky_exit</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">int</span><span style="color:#FFA657"> code</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">  exit</span><span style="color:#E6EDF3">(code);</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">// ----------------------------</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> void</span><span style="color:#D2A8FF"> print_color</span><span style="color:#E6EDF3">(PristriyMavkyWriteToStdoutColor </span><span style="color:#FFA657">color</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (color </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> PristriyMavkyColorReset) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    printf</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\033</span><span style="color:#A5D6FF">[0m"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (color </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> PristriyMavkyColorRed) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    printf</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\033</span><span style="color:#A5D6FF">[0;31m"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (color </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> PristriyMavkyColorGreen) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    printf</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\033</span><span style="color:#A5D6FF">[0;32m"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (color </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> PristriyMavkyColorBlue) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    printf</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\033</span><span style="color:#A5D6FF">[0;34m"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (color </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> PristriyMavkyColorYellow) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    printf</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">"</span><span style="color:#FF7B72">\033</span><span style="color:#A5D6FF">[0;33m"</span><span style="color:#E6EDF3">);</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">#ifdef</span><span style="color:#D2A8FF"> PROGRAM_USE_READLINE</span></span>
+<span class="line"><span style="color:#FF7B72">#include</span><span style="color:#A5D6FF"> &#x3C;readline/readline.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> char*</span><span style="color:#D2A8FF"> do_readline</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> prefix</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> prefix_size</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t*</span><span style="color:#FFA657"> out_len</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> data </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> readline</span><span style="color:#E6EDF3">(prefix);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">data) {</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  *</span><span style="color:#E6EDF3">out_len </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> strlen</span><span style="color:#E6EDF3">(data);</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> data;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">#else</span></span>
+<span class="line"><span style="color:#FF7B72">static</span><span style="color:#FF7B72"> char*</span><span style="color:#D2A8FF"> do_readline</span><span style="color:#E6EDF3">(</span><span style="color:#FF7B72">char*</span><span style="color:#FFA657"> prefix</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t</span><span style="color:#FFA657"> prefix_size</span><span style="color:#E6EDF3">, </span><span style="color:#FF7B72">size_t*</span><span style="color:#FFA657"> out_len</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#D2A8FF">  pristriy_mavky_write_utf8_to_stdout</span><span style="color:#E6EDF3">(PristriyMavkyColorReset, prefix,</span></span>
+<span class="line"><span style="color:#E6EDF3">                                      prefix_size);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> cap </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 128</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  size_t</span><span style="color:#E6EDF3"> len </span><span style="color:#FF7B72">=</span><span style="color:#79C0FF"> 0</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">  char*</span><span style="color:#E6EDF3"> buf </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">char*</span><span style="color:#E6EDF3">)</span><span style="color:#D2A8FF">pristriy_mavky_malloc</span><span style="color:#E6EDF3">(cap);</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">buf)</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  int</span><span style="color:#E6EDF3"> c;</span></span>
+<span class="line"><span style="color:#FF7B72">  while</span><span style="color:#E6EDF3"> ((c </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> getchar</span><span style="color:#E6EDF3">()) </span><span style="color:#FF7B72">!=</span><span style="color:#E6EDF3"> EOF) {</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (c </span><span style="color:#FF7B72">==</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\n</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">)</span></span>
+<span class="line"><span style="color:#FF7B72">      break</span><span style="color:#E6EDF3">;</span><span style="color:#8B949E"> // stop, but DON'T store '\n'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">+</span><span style="color:#79C0FF"> 1</span><span style="color:#FF7B72"> >=</span><span style="color:#E6EDF3"> cap) {</span></span>
+<span class="line"><span style="color:#E6EDF3">      cap </span><span style="color:#FF7B72">*=</span><span style="color:#79C0FF"> 2</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FF7B72">      char*</span><span style="color:#E6EDF3"> tmp </span><span style="color:#FF7B72">=</span><span style="color:#D2A8FF"> pristriy_mavky_realloc</span><span style="color:#E6EDF3">(buf, cap);</span></span>
+<span class="line"><span style="color:#FF7B72">      if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">tmp) {</span></span>
+<span class="line"><span style="color:#D2A8FF">        pristriy_mavky_free</span><span style="color:#E6EDF3">(buf);</span></span>
+<span class="line"><span style="color:#FF7B72">        return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">      buf </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> tmp;</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">    buf</span><span style="color:#E6EDF3">[len</span><span style="color:#FF7B72">++</span><span style="color:#E6EDF3">] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> c;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E">  // If nothing read and EOF, return NULL</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (len </span><span style="color:#FF7B72">==</span><span style="color:#79C0FF"> 0</span><span style="color:#FF7B72"> &#x26;&#x26;</span><span style="color:#E6EDF3"> c </span><span style="color:#FF7B72">==</span><span style="color:#E6EDF3"> EOF) {</span></span>
+<span class="line"><span style="color:#D2A8FF">    pristriy_mavky_free</span><span style="color:#E6EDF3">(buf);</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#79C0FF"> NULL</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFA657">  buf</span><span style="color:#E6EDF3">[len] </span><span style="color:#FF7B72">=</span><span style="color:#A5D6FF"> '</span><span style="color:#FF7B72">\0</span><span style="color:#A5D6FF">'</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (out_len)</span></span>
+<span class="line"><span style="color:#FF7B72">    *</span><span style="color:#E6EDF3">out_len </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> len;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> buf;</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span>
+<span class="line"><span style="color:#FF7B72">#endif</span></span>
+<span class="line"></span></code></pre>
+</body>
+</html>
