@@ -469,13 +469,18 @@
 <span class="hljs-title function_">д</span><span class="hljs-title function_">рук</span>(земля.<span class="hljs-title function_">с</span><span class="hljs-title function_">ила_тяжіння</span>(<span class="hljs-number">65</span>))
 </code></pre>
 
-            <pre data-server-code="true" data-code-active="false"><code class="hljs мавка">організації = [
-  <span class="hljs-string">"ОМ"</span>,
-  <span class="hljs-string">"ОР"</span>,
-]
+            <pre data-server-code="true" data-code-active="false"><code class="hljs">запущено = <span class="hljs-literal">дійсне</span>
 
-<span class="hljs-keyword">перебрати</span> організації <span class="hljs-keyword">як</span> о
-  <span class="hljs-title function_">д</span><span class="hljs-title function_">рук</span>(о)
+<span class="hljs-keyword">поки</span> запущено
+  Полотно.<span class="hljs-title function_">з</span><span class="hljs-title function_">аповнити</span>(Колір.ЧОРНИЙ)
+  Полотно.<span class="hljs-title function_">к</span><span class="hljs-title function_">руг</span>(Полотно.Ш/<span class="hljs-number">2</span>, Полотно.В/<span class="hljs-number">2</span>, <span class="hljs-number">20</span>, Колір.БІЛИЙ)
+  Полотно.<span class="hljs-title function_">в</span><span class="hljs-title function_">ідмалювати</span>() <span class="hljs-comment">;; запланувати відмалювання</span>
+
+  Кнопки.<span class="hljs-title function_">о</span><span class="hljs-title function_">новити</span>() <span class="hljs-comment">;; оновити стан кнопок</span>
+
+  <span class="hljs-keyword">якщо</span> Кнопки.б_щойно_відпущено
+    запущено = <span class="hljs-literal">недійсне</span>
+  <span class="hljs-keyword">кінець</span>
 <span class="hljs-keyword">кінець</span>
 </code></pre>
 
@@ -498,10 +503,10 @@
               планета.м
             </button>
             <button data-button-show-server-code="true" class="MavkaHomeHeroCodeBlockTab">
-              організації.м
+              круг_лі.м
             </button>
             <button data-button-show-request-code="true" class="MavkaHomeHeroCodeBlockTab">
-              числа
+              розмова
             </button>
           </div>
         </div>
@@ -692,10 +697,13 @@
 
       document
         .querySelector(".MavkaHomeHeroCodeBlockButtons")
-        .classList.remove("hidden");
+        .classList.add("hidden");
       document
         .querySelector(".MavkaHomeHeroCodeBlockInfo")
-        .classList.add("hidden");
+        .classList.remove("hidden");
+
+      document
+        .querySelector(".MavkaHomeHeroCodeBlockInfo").innerHTML = `<span>Цей код працює лише в <a href="https://лі.мавка.укр">ЛіМавці</a> - прошивці для <a href="https://lilka.dev">Лілки</a> з підтримкою Мавки.</span>`
     }
 
     function showRequestCode() {

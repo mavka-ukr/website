@@ -1124,6 +1124,10 @@ html.mobile .MavkaHomeHeroCodeBlock {
   font-size: 0.9rem;
 }
 
+.MavkaHomeHeroCodeBlockInfo a {
+  color: #abb2bf;
+}
+
 .MavkaHomeHeroCodeBlockInfo.hidden {
   display: none;
 }
