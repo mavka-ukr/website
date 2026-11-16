@@ -469,18 +469,15 @@
 <span class="hljs-title function_">д</span><span class="hljs-title function_">рук</span>(земля.<span class="hljs-title function_">с</span><span class="hljs-title function_">ила_тяжіння</span>(<span class="hljs-number">65</span>))
 </code></pre>
 
-            <pre data-server-code="true" data-code-active="false"><code class="hljs">запущено = <span class="hljs-literal">дійсне</span>
+            <pre data-server-code="true" data-code-active="false"><code class="hljs"><span class="hljs-keyword">поки</span> <span class="hljs-literal">дійсне</span>
+  <span class="hljs-title function_">о</span><span class="hljs-title function_">новити_кнопки</span>() <span class="hljs-comment">;; оновити стан кнопок</span>
+  <span class="hljs-keyword">якщо</span> Кнопки.б.щойно_відпущено
+    <span class="hljs-keyword">перервати</span>
+  <span class="hljs-keyword">кінець</span>
 
-<span class="hljs-keyword">поки</span> запущено
   Полотно.<span class="hljs-title function_">з</span><span class="hljs-title function_">аповнити</span>(Колір.ЧОРНИЙ)
   Полотно.<span class="hljs-title function_">к</span><span class="hljs-title function_">руг</span>(Полотно.Ш/<span class="hljs-number">2</span>, Полотно.В/<span class="hljs-number">2</span>, <span class="hljs-number">20</span>, Колір.БІЛИЙ)
   Полотно.<span class="hljs-title function_">в</span><span class="hljs-title function_">ідмалювати</span>() <span class="hljs-comment">;; запланувати відмалювання</span>
-
-  <span class="hljs-title function_">о</span><span class="hljs-title function_">новити_кнопки</span>() <span class="hljs-comment">;; оновити стан кнопок</span>
-
-  <span class="hljs-keyword">якщо</span> Кнопки.б.щойно_відпущено
-    запущено = <span class="hljs-literal">недійсне</span>
-  <span class="hljs-keyword">кінець</span>
 <span class="hljs-keyword">кінець</span>
 </code></pre>
 
